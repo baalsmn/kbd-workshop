@@ -1,0 +1,148 @@
+(footprint "Gateron_KS-33_Hotswap_1.25U"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Gateron KS-33 low profile switch, KS-2P02B01-02 hot-swap socket (back), LED window, 1.25U keycap model")
+	(property "Reference" "REF**"
+		(at 0 -3.5 180)
+		(layer "B.SilkS")
+		(uuid "5fbb1b14-00cf-4283-aebf-7850110f58c1")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
+	(property "Value" "Gateron_KS-33_Hotswap_1.25U"
+		(at 0 0 180)
+		(layer "B.Fab")
+		(uuid "78bc6363-13b0-4e67-90b4-4bf9b55adf69")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify mirror)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 180)
+		(layer "B.Fab")
+		(hide yes)
+		(uuid "047c478e-f2aa-42e4-9118-a1a3e75f48d3")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify mirror)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 180)
+		(layer "B.Fab")
+		(hide yes)
+		(uuid "3ca6684b-1c6a-4796-87f1-00f70eb780fb")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify mirror)
+		)
+	)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_poly
+		(pts
+			(xy -11.90625 9.525) (xy 11.90625 9.525) (xy 11.90625 -9.525) (xy -11.90625 -9.525)
+		)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Dwgs.User")
+		(uuid "9ff97812-8df0-4cd2-a382-fc4b12ff14ce")
+	)
+	(fp_poly
+		(pts
+			(xy -7 7) (xy 7 7) (xy 7 -7) (xy -7 -7)
+		)
+		(stroke
+			(width 0.15)
+			(type solid)
+		)
+		(fill no)
+		(layer "Dwgs.User")
+		(uuid "8ea6c72a-dd67-4f35-8fc0-04c6eff62859")
+	)
+	(pad "" np_thru_hole circle
+		(at -4.4 -4.7)
+		(size 3 3)
+		(drill 3)
+		(layers "*.Cu" "*.Mask")
+		(uuid "d52f40d1-649f-45b1-9212-b50aa09be62d")
+	)
+	(pad "" np_thru_hole circle
+		(at 0 0)
+		(size 5.25 5.25)
+		(drill 5.25)
+		(layers "*.Cu" "*.Mask")
+		(uuid "43dd0a79-2b4c-4fca-8d07-ac937406a4e1")
+	)
+	(pad "" np_thru_hole circle
+		(at 2.6 -5.75)
+		(size 3 3)
+		(drill 3)
+		(layers "*.Cu" "*.Mask")
+		(uuid "aea3d145-63f2-404f-a42d-c8a4833f4a93")
+	)
+	(pad "1" smd roundrect
+		(at -8.2 -4.7)
+		(size 2.45 2.55)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.07843137255)
+		(uuid "d64e9373-36c1-4f43-83dc-e629a39f9695")
+	)
+	(pad "2" smd roundrect
+		(at 6.349999 -5.75)
+		(size 2.45 2.55)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.07843137255)
+		(uuid "8d357b3a-b800-4446-b7df-df1f4f2af025")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/../../3dmodels/Gateron_ks33_hotswap_socket.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+	(model "${KIPRJMOD}/../../3dmodels/KS-33 Low Profile 2.0  KS33-20230109（KS-33-Y31  3D图）.stp"
+		(offset
+			(xyz -60 0 1.65)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 180 0 0)
+		)
+	)
+	(model "${KIPRJMOD}/../../3dmodels/keycap_lowprofile_1.25u.wrl"
+		(offset
+			(xyz 0 0 -1.6)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 180 0 0)
+		)
+	)
+)

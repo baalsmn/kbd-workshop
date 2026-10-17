@@ -16,12 +16,20 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
     `case/`. Details: **`hachigo74/CLAUDE.md`** (hardware otherwise as kugo).
 - A new keyboard = a new folder with `<name>.yaml` (+ `kle/`); the tools find it by
   name.
-- `kicad project/`: the final, self-contained KiCad project (user's plan). At the
-  end it holds everything KiCad needs in one place: project file, schematic, PCB,
-  footprint and symbol libraries, 3D models and the `.kicad_dru` rules. So far:
-  `Symbols/helios.kicad_sym` (the user's Helios symbol, 34 pins, GP names). The
-  schematic is to be generated from the PCB netlist later (see `kugo/CLAUDE.md`,
-  Open / next).
+- `kicad project/`: the final, self-contained KiCad project (user's plan): project
+  file, schematic, PCB, libraries, 3D models and `.kicad_dru` all in one folder,
+  everything `${KIPRJMOD}`-relative. Done so far (see its README):
+  - `Footprints/Keyboard.pretty` + `3dmodels/`: exported from the built boards by
+    `tools/lib/kicad_footprints.py` (KiCad python; run per design, `--force` to
+    overwrite), exactly as placed, unrotated, on the front side.
+  - `Symbols/Keyboard.kicad_sym`: KiCad built-in symbols with our pin names, prefixes
+    and footprints, made by `tools/lib/kicad_symbols.py`. `Symbols/helios.kicad_sym`
+    (the user's) renumbered to the footprint's 0xCB pad numbers (it was off by one).
+  - The KiCad SK6812MINI-E symbol uses 5050 SK6812 numbers; ours is renumbered to the
+    footprint (1 VDD 2 DOUT 3 VSS 4 DIN, same pad positions as KiCad's footprint).
+  - `keyboard.pretty/` (root) also holds the user's vendor footprints (reference only).
+  - The schematic is to be generated from the PCB netlist later (see
+    `kugo/CLAUDE.md`, Open / next).
 
 ## Working with the user
 

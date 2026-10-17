@@ -1,0 +1,137 @@
+(footprint "LED_SK6812MINI-E_Reverse"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "SK6812MINI-E, reverse mounted through a PCB cutout (0.2 mm pad-to-cutout)")
+	(property "Reference" "REF**"
+		(at 0 -2.4 180)
+		(layer "F.SilkS")
+		(uuid "a86dfff4-8e44-4332-817d-e2d43a3decbd")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "LED_SK6812MINI-E_Reverse"
+		(at 0 0 180)
+		(layer "B.Fab")
+		(uuid "2272d2a0-0722-479e-b7be-618fe8576395")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify mirror)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 180)
+		(layer "B.Fab")
+		(hide yes)
+		(uuid "335fc433-bc29-41b2-937b-7883838f6bf5")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify mirror)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 180)
+		(layer "B.Fab")
+		(hide yes)
+		(uuid "d6158a43-8237-424e-a32d-6eb6c80f2932")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify mirror)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start -3.65 1.9)
+		(end -2 1.9)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "53abb23c-5878-4ce4-82e0-3489567e2c6a")
+	)
+	(fp_poly
+		(pts
+			(xy -1.8 1.55) (xy 1.8 1.55) (xy 1.8 -1.55) (xy -1.8 -1.55)
+		)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(fill no)
+		(layer "Edge.Cuts")
+		(uuid "ab504730-5951-447a-b501-6b94cbc3e10a")
+	)
+	(fp_poly
+		(pts
+			(xy -3.65 1.65) (xy 3.65 1.65) (xy 3.65 -1.65) (xy -3.65 -1.65)
+		)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "a343e99f-aaee-48f9-840e-1ad3bae99cc1")
+	)
+	(fp_poly
+		(pts
+			(xy -1.6 1.4) (xy 1.6 1.4) (xy 1.6 -1.4) (xy -1.6 -1.4)
+		)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "3946ace7-7bc4-4cb6-ae1b-b7b11cfa613b")
+	)
+	(pad "1" smd rect
+		(at 2.7 -0.700001)
+		(size 1.4 1)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "19234e1e-739b-449b-8e78-58229bf5a450")
+	)
+	(pad "2" smd rect
+		(at 2.7 0.7)
+		(size 1.4 1)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "e9d354e3-4d0a-407b-9dd5-54b72b383a60")
+	)
+	(pad "3" smd rect
+		(at -2.7 0.700001)
+		(size 1.4 1)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "d58ef13b-9d44-4c18-be2c-b7cbe0553b62")
+	)
+	(pad "4" smd rect
+		(at -2.7 -0.7)
+		(size 1.4 1)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(uuid "cd11995e-04ee-4606-a215-66bb51fdb218")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/../../3dmodels/LED_SK6812MINI-E.step"
+		(offset
+			(xyz 0 5.08 -1.75)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 180 0)
+		)
+	)
+)

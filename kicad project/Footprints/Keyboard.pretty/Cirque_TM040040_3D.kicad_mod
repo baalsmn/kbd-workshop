@@ -1,0 +1,75 @@
+(footprint "Cirque_TM040040_3D"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "Cirque TM040040 trackpad, 3D model only (cabled, board only)")
+	(property "Reference" "REF**"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(uuid "f10c4e10-df29-4eb1-92ce-2f85456056b4")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "Cirque_TM040040_3D"
+		(at 0 0 0)
+		(layer "F.Fab")
+		(uuid "00ced1b0-3a9d-4c85-b05a-34e02a80f795")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "44570a74-7cef-42fb-9546-0d2404f8063a")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "58434302-313f-4d27-877c-a16c19a56494")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(attr board_only exclude_from_pos_files exclude_from_bom)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_text user "TM040040"
+		(at 0 1.5 0)
+		(layer "F.Fab")
+		(uuid "dab46b3f-0f41-4b39-8a24-cdf7a182549c")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/../../3dmodels/TM040040-2024-303.stp"
+		(offset
+			(xyz 0 0 4.925)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "Keyboard")(type "KiCad")(uri "${KIPRJMOD}/Symbols/Keyboard.kicad_sym")(options "")(descr "keyboard-workshop symbols"))
+  (lib (name "Helios")(type "KiCad")(uri "${KIPRJMOD}/Symbols/helios.kicad_sym")(options "")(descr "0xCB Helios"))
+)
