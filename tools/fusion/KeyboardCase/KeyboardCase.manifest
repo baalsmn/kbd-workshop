@@ -1,0 +1,10 @@
+{
+	"autodeskProduct":	"Fusion",
+	"type":	"script",
+	"author":	"baal",
+	"description":	{
+		"":	"Rebuilds a keyboard case (case/fusion/<design>_case.json) as editable components with sketches and extrudes"
+	},
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true
+}

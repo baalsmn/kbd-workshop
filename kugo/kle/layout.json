@@ -1,0 +1,382 @@
+[
+  {
+    "name": "Ergogen input",
+    "notes": "\nmodded octo 80 with additional snap off plan."
+  },
+  [
+    {
+      "y": 1.75,
+      "x": 4.75,
+      "c": "#ccb18c",
+      "sm": "cherry",
+      "sb": "gateron",
+      "st": "KS-3-Black",
+      "f": 1
+    },
+    "\"\n\n\n\n2\n\n2\nF2",
+    "+\n\n\n\n3\n\n3\nF3",
+    {
+      "x": 8.5
+    },
+    "(\n\n\n\n8\n\n8\nF8",
+    ")\n\n\n\n9\n\n9\nF9"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 2.5,
+      "c": "#ad5f50",
+      "a": 6,
+      "w": 1.25
+    },
+    "Esc\n\n\n\nESC",
+    {
+      "c": "#ccb18c",
+      "a": 4
+    },
+    "'\n~\n\n\n1\n\n1\nF1",
+    {
+      "x": 2
+    },
+    "!\n\n\n\n4\n\n4\nF4",
+    "%\n\n\n\n5\n\n5\nF5",
+    {
+      "x": 4.5
+    },
+    "/\n\n\n\n6\n\n6\nF6",
+    "=\n\n\n\n7\n\n7\nF7",
+    {
+      "x": 2
+    },
+    "§\n\n\n\nGRV\n\n0\nF10",
+    {
+      "t": "#000000\n\n#ff0000",
+      "a": 6,
+      "w": 1.25
+    },
+    "BckSp\n\nDel\n\nBSPC"
+  ],
+  [
+    {
+      "y": -0.25,
+      "x": 4.75,
+      "c": "#cccccc",
+      "t": "#000000",
+      "a": 4
+    },
+    "W\n\n\n|\nW\n\nw",
+    "E\n\n€\n\nE\n\ne",
+    {
+      "x": 8.5
+    },
+    "I\n\n\n\nI\n\ni",
+    "O\n\n\n\nO\n\no"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 0.25,
+      "c": "#ccb18c",
+      "a": 6
+    },
+    "Tab\n\n\n\nTAB",
+    {
+      "w": 1.5
+    },
+    "Layer\n\nTG(0)\n\nF18",
+    {
+      "c": "#cccccc",
+      "a": 4
+    },
+    "Ú\n\n\n\nRBRC\n\nú",
+    "Q\n\n\n\\\nQ\n\nq",
+    {
+      "x": 2
+    },
+    "R\n\n\n\nR\n\nr",
+    "T\n\n\n\nT\n\nt",
+    {
+      "x": 4.5
+    },
+    "Y\n\n\n\nZ\n\ny",
+    "U\n\n\n\nU\n\nu",
+    {
+      "x": 2,
+      "a": 6
+    },
+    "P\n\nPrtSc\n\nP",
+    {
+      "a": 4
+    },
+    "Ó\n\n\n\nEQL\n\nó",
+    {
+      "c": "#ccb18c",
+      "t": "#000000\n\n#ff0000",
+      "a": 6,
+      "w": 1.5
+    },
+    "Undo\n\nRedo\n\nUNDO",
+    "Home\n\nEnd\n\nHOME"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 8.75,
+      "c": "#cccccc",
+      "t": "#000000",
+      "a": 4
+    },
+    "Ő\n\n\n\nLBRC\n\nő",
+    {
+      "x": 2.5
+    },
+    "Ű\n\n\n\nNUHS\n\nű"
+  ],
+  [
+    {
+      "y": -0.5,
+      "x": 4.75,
+      "c": "#96938e"
+    },
+    "S\n\n$\n\nS\n\ns",
+    "D\n\n\n\nD\n\nd",
+    {
+      "x": 8.5
+    },
+    "K\n\n\n\nK\n\nk",
+    "L\n\n\n\nL\n\nl"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 0.25,
+      "c": "#ccb18c",
+      "a": 6
+    },
+    "Caps\n\n\n\nLCAP",
+    {
+      "c": "#cb892c",
+      "w": 1.5
+    },
+    "Shift\n\n\n\nLSFT",
+    {
+      "c": "#cccccc",
+      "a": 4
+    },
+    "Í\n\n\n\nNUBS\n\ní",
+    {
+      "c": "#96938e"
+    },
+    "A\n\n\n\nA\n\na",
+    {
+      "x": 2,
+      "n": true
+    },
+    "F\n\n\n\nF\n\nf",
+    {
+      "c": "#cccccc"
+    },
+    "G\n\n\n\nG\n\ng",
+    {
+      "x": 4.5
+    },
+    "H\n\n\n\nH\n\nh",
+    {
+      "c": "#96938e",
+      "n": true
+    },
+    "J\n\n\n\nJ\n\nj",
+    {
+      "x": 2
+    },
+    "É\n\n\n\nSCLN\n\né",
+    {
+      "c": "#cccccc"
+    },
+    "Á\n\n\n\nQUOT\n\ná",
+    {
+      "c": "#cb892c",
+      "a": 6,
+      "w": 1.5
+    },
+    "Enter\n\n\n\nENT",
+    {
+      "c": "#ccb18c",
+      "t": "#000000\n\n\n#ff0000",
+      "a": 4
+    },
+    "\n\n\nIns\nPGUP\n\nPgUp"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 8.75,
+      "c": "#cccccc"
+    },
+    "Ö\n\n\n\n0\n\nö\n<",
+    {
+      "x": 2.5
+    },
+    "Ü\n\n\n\nMINS\n\nü\n>"
+  ],
+  [
+    {
+      "y": -0.5,
+      "x": 4.75,
+      "t": "#000000"
+    },
+    "X\n\n#\n\nX\n\nx",
+    "C\n\n&\n\nC\n\nc",
+    {
+      "x": 8.5
+    },
+    "?\n\n\n\nCOMM\n\n,",
+    ":\n\n\n\nDOT\n\n."
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 0.25,
+      "c": "#ccb18c",
+      "a": 7
+    },
+    "\n\n\n\nF13",
+    {
+      "c": "#ad5f50",
+      "t": "#ffffff"
+    },
+    "↑\n\n\n\nUP",
+    {
+      "c": "#cccccc",
+      "t": "#000000\n\n\n#ff0000",
+      "a": 4,
+      "w": 1.5
+    },
+    "|\n\n\n\\\nF14",
+    {
+      "t": "#000000"
+    },
+    "Y\n\n\n\nZ\n\ny",
+    {
+      "x": 2
+    },
+    "\n\n@\n\nV\n\n\n\n\nV",
+    {
+      "a": 7
+    },
+    "B\n\n\n\nB",
+    {
+      "x": 4.5,
+      "a": 4
+    },
+    "N\n\n\n\nN\n\nn",
+    "M\n\n\n\nM\n\nm",
+    {
+      "x": 2
+    },
+    "_\n\n\n\nSLSH\n\n-\n~",
+    {
+      "t": "#000000\n\n\n#ff0000",
+      "w": 1.5
+    },
+    "\n*\n\n\nF17\n\n@",
+    {
+      "c": "#cb892c",
+      "t": "#000000",
+      "a": 6
+    },
+    "Shift\n\n\n\nRSFT",
+    {
+      "c": "#ccb18c"
+    },
+    "PgDn\n\n\n\nPGDN"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 8.75,
+      "c": "#cccccc",
+      "t": "#000000\n\n\n#ff0000",
+      "a": 4
+    },
+    "\n{\n\n\nF15\n\n(\n[",
+    {
+      "x": 2.5
+    },
+    "\n}\n\n\nF16\n\n)\n]"
+  ],
+  [
+    {
+      "y": -0.5,
+      "x": 4.75,
+      "c": "#cb892c",
+      "t": "#000000",
+      "a": 6,
+      "w": 2
+    },
+    "Alt\n\n\n\nLALT",
+    {
+      "x": 8.5,
+      "w": 2
+    },
+    "Enter\n\n\n\nENT"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 0.25,
+      "c": "#ad5f50",
+      "t": "#ffffff",
+      "a": 7
+    },
+    "←\n\n\n\nLEFT",
+    "↓\n\n\n\nDOWN",
+    "→\n\n\n\nRIGHT",
+    {
+      "c": "#cb892c",
+      "t": "#000000",
+      "a": 6,
+      "w": 1.5
+    },
+    "Ctrl\n\n\n\nLCTL",
+    {
+      "x": 2,
+      "w": 2
+    },
+    "Space\n\n\n\nSPC",
+    {
+      "x": 4.5,
+      "w": 2
+    },
+    "Space\n\n\n\nSPC",
+    {
+      "x": 2,
+      "w": 1.5
+    },
+    "Ctrl\n\n\n\nRCTL",
+    {
+      "t": "#191918"
+    },
+    "AltGr\n\n\n\nALGR",
+    {
+      "c": "#ccb18c",
+      "t": "#000000"
+    },
+    "Vol-\n\nF11\n\nKB_VOLUME_DOWN",
+    "Vol+\n\nF12\n\nKB_VOLUME_UP"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 8.75,
+      "c": "#cb892c",
+      "w": 1.25
+    },
+    "Layer\n\nMO(1)\n\nF19",
+    {
+      "x": 2,
+      "w": 1.25
+    },
+    "Layer\n\nMO(1)\n\nF20"
+  ]
+]

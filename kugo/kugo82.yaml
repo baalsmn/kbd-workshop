@@ -1,0 +1,2166 @@
+units:
+  sp: 19
+  kc: 18.2
+  sw: 14.1
+
+
+
+points:
+  # horizontal spacing between centerpoints:
+  key.spread: sp 
+  key.height: kc
+  key.width: kc
+  # vertical spacing between centerpoints:
+  key.padding: sp #
+  key.stagger: 0
+  key.splay: 0
+  # keycap width in U and stabilizer flag, read by the ks33_hotswap footprint
+  key.keycap_u: 1
+  key.stab: false
+  zones:
+    hand-zone:
+      # Moves the whole keyboard (both halves) on the KiCad sheet.
+      # x: right, y: negative = down on the KiCad sheet. Tune after the first run.
+      anchor:
+        shift: [50, -100]
+      rotate: -15
+      columns:
+        c1:
+          key.column_net: C1   # shared by the left and the mirrored key
+          rows.r5.skip: true
+          # kugo82 KLE: all 1U at 0.25 (left edges at -0.25); the shift on r1
+          # carries over to r2..r4
+          rows.r1.shift: [0.25sp, 0]
+          rows.r1.led_l_in: LED_DATA
+          rows.r1.led_l_out: LED_1
+          rows.r1.led_r_in: LED_79
+          rows.r1.led_r_out: LED_END
+          rows.r2.led_l_in: LED_1
+          rows.r2.led_l_out: LED_2
+          rows.r2.led_r_in: LED_78
+          rows.r2.led_r_out: LED_79
+          rows.r3.led_l_in: LED_2
+          rows.r3.led_l_out: LED_3
+          rows.r3.led_r_in: LED_77
+          rows.r3.led_r_out: LED_78
+          rows.r4.led_l_in: LED_3
+          rows.r4.led_l_out: LED_4
+          rows.r4.led_r_in: LED_76
+          rows.r4.led_r_out: LED_77
+        c2:
+          key.column_net: C2   # shared by the left and the mirrored key
+          rows.r5.skip: true
+          # kugo82 KLE: r1/r2 1U at 1.25, r3 Shift / r4 Tab 1.25U at 1.375
+          # (shifts carry over to the rows above)
+          rows.r1.shift: [0.25sp, 0]
+          rows.r3.shift: [0.125sp, 0]
+          rows.r3.keycap_u: 1.25
+          rows.r4.keycap_u: 1.25
+          rows.r1.led_l_in: LED_7
+          rows.r1.led_l_out: LED_8
+          rows.r1.led_r_in: LED_72
+          rows.r1.led_r_out: LED_73
+          rows.r2.led_l_in: LED_6
+          rows.r2.led_l_out: LED_7
+          rows.r2.led_r_in: LED_73
+          rows.r2.led_r_out: LED_74
+          rows.r3.led_l_in: LED_5
+          rows.r3.led_l_out: LED_6
+          rows.r3.led_r_in: LED_74
+          rows.r3.led_r_out: LED_75
+          rows.r4.led_l_in: LED_4
+          rows.r4.led_l_out: LED_5
+          rows.r4.led_r_in: LED_75
+          rows.r4.led_r_out: LED_76
+        c3:
+          key.column_net: C3   # shared by the left and the mirrored key
+          key.spread: 1.25sp
+          # kugo82 KLE (relative to c1): r1 1U at 2.25, r2 1.25U at 2.375,
+          # r3/r4 1U at 2.5, r5 (Esc) 1.25U at 2.375 [U]; shifts carry over
+          rows.r2.shift: [0.125sp,0]
+          rows.r3.shift: [0.125sp,0]
+          rows.r5.shift: [-0.125sp,0]
+          rows.r2.keycap_u: 1.25
+          rows.r5.keycap_u: 1.25
+          rows.r1.led_l_in: LED_8
+          rows.r1.led_l_out: LED_9
+          rows.r1.led_r_in: LED_71
+          rows.r1.led_r_out: LED_72
+          rows.r2.led_l_in: LED_9
+          rows.r2.led_l_out: LED_10
+          rows.r2.led_r_in: LED_70
+          rows.r2.led_r_out: LED_71
+          rows.r3.led_l_in: LED_10
+          rows.r3.led_l_out: LED_11
+          rows.r3.led_r_in: LED_69
+          rows.r3.led_r_out: LED_70
+          rows.r4.led_l_in: LED_11
+          rows.r4.led_l_out: LED_12
+          rows.r4.led_r_in: LED_68
+          rows.r4.led_r_out: LED_69
+          rows.r5.led_l_in: LED_12
+          rows.r5.led_l_out: LED_13
+          rows.r5.led_r_in: LED_67
+          rows.r5.led_r_out: LED_68
+        c4:
+          key.column_net: C4   # shared by the left and the mirrored key
+          # KLE: column 1.25U from c3 (moves c4..c9 0.25U towards the centre),
+          # kugo82: r1 (Ctrl) 1.25U at 3.375, extended towards c3; r2 shifts back
+          key.spread: 1.25sp
+          rows.r1.shift: [-0.125sp, 0]
+          rows.r1.keycap_u: 1.25
+          rows.r2.shift: [0.125sp, 0]
+          rows.r1.led_l_in: LED_17
+          rows.r1.led_l_out: LED_18
+          rows.r1.led_r_in: LED_62
+          rows.r1.led_r_out: LED_63
+          rows.r2.led_l_in: LED_16
+          rows.r2.led_l_out: LED_17
+          rows.r2.led_r_in: LED_63
+          rows.r2.led_r_out: LED_64
+          rows.r3.led_l_in: LED_15
+          rows.r3.led_l_out: LED_16
+          rows.r3.led_r_in: LED_64
+          rows.r3.led_r_out: LED_65
+          rows.r4.led_l_in: LED_14
+          rows.r4.led_l_out: LED_15
+          rows.r4.led_r_in: LED_65
+          rows.r4.led_r_out: LED_66
+          rows.r5.led_l_in: LED_13
+          rows.r5.led_l_out: LED_14
+          rows.r5.led_r_in: LED_66
+          rows.r5.led_r_out: LED_67
+        c5:
+          rows.r1.keycap_u: 2   # 2U bottom-row key with KS-57 stabilizer
+          rows.r1.stab: true
+          key.column_net: C5   # shared by the left and the mirrored key
+          key.stagger: 0.25sp
+          rows.r1.shift: [0.5sp,0]
+          rows.r2.shift: [-0.5sp,0]
+          rows.r1.led_l_in: LED_18
+          rows.r1.led_l_out: LED_19
+          rows.r1.led_r_in: LED_61
+          rows.r1.led_r_out: LED_62
+          rows.r2.led_l_in: LED_19
+          rows.r2.led_l_out: LED_20
+          rows.r2.led_r_in: LED_60
+          rows.r2.led_r_out: LED_61
+          rows.r3.led_l_in: LED_20
+          rows.r3.led_l_out: LED_21
+          rows.r3.led_r_in: LED_59
+          rows.r3.led_r_out: LED_60
+          rows.r4.led_l_in: LED_21
+          rows.r4.led_l_out: LED_22
+          rows.r4.led_r_in: LED_58
+          rows.r4.led_r_out: LED_59
+          rows.r5.led_l_in: LED_22
+          rows.r5.led_l_out: LED_23
+          rows.r5.led_r_in: LED_57
+          rows.r5.led_r_out: LED_58
+        c6:
+          key.column_net: C6   # shared by the left and the mirrored key
+          rows.r1.skip: true
+          rows.r2.shift: [0,0]
+          rows.r2.led_l_in: LED_26
+          rows.r2.led_l_out: LED_27
+          rows.r2.led_r_in: LED_53
+          rows.r2.led_r_out: LED_54
+          rows.r3.led_l_in: LED_25
+          rows.r3.led_l_out: LED_26
+          rows.r3.led_r_in: LED_54
+          rows.r3.led_r_out: LED_55
+          rows.r4.led_l_in: LED_24
+          rows.r4.led_l_out: LED_25
+          rows.r4.led_r_in: LED_55
+          rows.r4.led_r_out: LED_56
+          rows.r5.led_l_in: LED_23
+          rows.r5.led_l_out: LED_24
+          rows.r5.led_r_in: LED_56
+          rows.r5.led_r_out: LED_57
+        c7:
+          rows.r1.keycap_u: 2   # 2U bottom-row key with KS-57 stabilizer
+          rows.r1.stab: true
+          key.column_net: C7   # shared by the left and the mirrored key
+          key.stagger: -.25sp
+          rows.r1.shift: [0.5sp,0]
+          rows.r2.shift: [-0.5sp,0]
+          rows.r1.led_l_in: LED_27
+          rows.r1.led_l_out: LED_28
+          rows.r1.led_r_in: LED_52
+          rows.r1.led_r_out: LED_53
+          rows.r2.led_l_in: LED_28
+          rows.r2.led_l_out: LED_29
+          rows.r2.led_r_in: LED_51
+          rows.r2.led_r_out: LED_52
+          rows.r3.led_l_in: LED_29
+          rows.r3.led_l_out: LED_30
+          rows.r3.led_r_in: LED_50
+          rows.r3.led_r_out: LED_51
+          rows.r4.led_l_in: LED_30
+          rows.r4.led_l_out: LED_31
+          rows.r4.led_r_in: LED_49
+          rows.r4.led_r_out: LED_50
+          rows.r5.led_l_in: LED_31
+          rows.r5.led_l_out: LED_32
+          rows.r5.led_r_in: LED_48
+          rows.r5.led_r_out: LED_49
+        c8:
+          key.column_net: C8   # shared by the left and the mirrored key
+          rows.r1.skip: true
+          rows.r2.led_l_in: LED_35
+          rows.r2.led_l_out: LED_36
+          rows.r2.led_r_in: LED_44
+          rows.r2.led_r_out: LED_45
+          rows.r3.led_l_in: LED_34
+          rows.r3.led_l_out: LED_35
+          rows.r3.led_r_in: LED_45
+          rows.r3.led_r_out: LED_46
+          rows.r4.led_l_in: LED_33
+          rows.r4.led_l_out: LED_34
+          rows.r4.led_r_in: LED_46
+          rows.r4.led_r_out: LED_47
+          rows.r5.led_l_in: LED_32
+          rows.r5.led_l_out: LED_33
+          rows.r5.led_r_in: LED_47
+          rows.r5.led_r_out: LED_48
+        c9:
+          key.column_net: C9   # shared by the left and the mirrored key
+          key.stagger: -0.25sp   # KLE
+          # kugo82: new 1U r5 key (F11 / F12)
+          # KLE: r1 (Layer) 1.25U, extended towards the centre; r2 shifts back
+          rows.r1.shift: [0.125sp, 0]
+          rows.r1.keycap_u: 1.25
+          rows.r2.shift: [-0.125sp, 0]
+          rows.r1.led_l_in: LED_36
+          rows.r1.led_l_out: LED_37
+          rows.r1.led_r_in: LED_43
+          rows.r1.led_r_out: LED_44
+          rows.r2.led_l_in: LED_37
+          rows.r2.led_l_out: LED_38
+          rows.r2.led_r_in: LED_42
+          rows.r2.led_r_out: LED_43
+          rows.r3.led_l_in: LED_38
+          rows.r3.led_l_out: LED_39
+          rows.r3.led_r_in: LED_41
+          rows.r3.led_r_out: LED_42
+          rows.r4.led_l_in: LED_39
+          rows.r4.led_l_out: LED_40
+          rows.r4.led_r_in: LED_40b
+          rows.r4.led_r_out: LED_41
+          rows.r5.led_l_in: LED_40
+          rows.r5.led_l_out: LED_40a
+          rows.r5.led_r_in: LED_40a
+          rows.r5.led_r_out: LED_40b
+      rows:
+        r1:
+          row_net: R1        # left half
+          row_net_r: R6      # right half
+        r2:
+          row_net: R2        # left half
+          row_net_r: R7      # right half
+        r3:
+          row_net: R3        # left half
+          row_net_r: R8      # right half
+        r4:
+          row_net: R4        # left half
+          row_net_r: R9      # right half
+        r5:
+          row_net: R5        # left half
+          row_net_r: R10      # right half
+
+  mirror: &mirror
+    ref: hand-zone_c9_r3
+    shift: [.5sp, .5sp]
+    distance: sp+40
+
+outlines:
+
+
+  switches_outline:
+    - what: rectangle
+      where: true
+      size: [sw,sw]
+  # Gateron KS-57 low-profile plate-mounted 2U stabilizer, plate cutout as
+  # recommended in the KS-57B210T spec (stabs 24 mm apart, 6.0 x 12.5 each,
+  # 1.7 mm lever notch, 2.5 mm channels into the switch cutout).
+  # Notch side = south (towards the user), as drawn in the spec.
+  stab_cutouts:
+    - what: rectangle
+      where: /_c[57]_r1$/
+      size: [6, 12.5]
+      adjust.shift: [-12, -0.6]
+    - what: rectangle
+      where: /_c[57]_r1$/
+      size: [6, 12.5]
+      adjust.shift: [12, -0.6]
+    - what: rectangle
+      where: /_c[57]_r1$/
+      size: [1.7, 1.4]
+      adjust.shift: [-12, -7.35]
+    - what: rectangle
+      where: /_c[57]_r1$/
+      size: [1.7, 1.4]
+      adjust.shift: [12, -7.35]
+    - what: rectangle
+      where: /_c[57]_r1$/
+      size: [2.2, 2.5]
+      adjust.shift: [-8.0, -1.4]
+    - what: rectangle
+      where: /_c[57]_r1$/
+      size: [2.2, 2.5]
+      adjust.shift: [8.0, -1.4]
+  # 0.96" SSD1306 module, rotated 180 deg (header at the bottom, y 33.3,
+  # just below the Helios), soldered on bare header pins ~1.2 mm above the
+  # PCB (no plastic spacer), so it sits inside this plate cutout.
+  # Window = display area (in the centre cover).
+  oled:
+    - what: rectangle
+      size: [28.2, 28]
+      corner: 1
+      where:
+        aggregate.parts: 
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        shift: [0, 35.7]    # kugo82: 9.8 mm south, cutout bottom 21.7 (1.5 above the trackpad ring)
+  # visible screen: the 21.7 x 10.9 active area + ~0.6 mm margin
+  oled_window:
+    - what: rectangle
+      size: [23, 12]
+      corner: 1
+      where:
+        aggregate.parts: 
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        shift: [0, 36.35]
+  # 2 indicator LEDs next to the c9_r1 keys, on their inner side (19.5 mm
+  # from the key centre = 8 mm past the 1.25U keycap edge at 11.5): 3 mm light holes in
+  # the plate. left = layout layer colour, right = function/layer lock (green).
+  indicator_holes:
+    - what: circle
+      radius: 1.5
+      where:
+        ref: hand-zone_c9_r1
+        shift: [19.5, 0]
+    - what: circle
+      radius: 1.5
+      where:
+        ref: mirror_hand-zone_c9_r1
+        shift: [19.5, 0]
+  # trackpad opening in the centre cover: around the snap ring (r 22.2) + 0.3 mm
+  cirque_flush:
+    - what: circle
+      radius: 22.5
+      where:
+        aggregate.parts: 
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0,-2]
+  # Trackpad mounting: the TM040040 (5 mm thick without the connector, user
+  # measured) lies directly on the switch plate (underside z 12.6, top 17.6),
+  # level, no pocket in the plate. The plate has
+  # an opening under the parts zone (r 18.1, parts stay inside r 18.0), so the
+  # pad rests on its 2 mm parts-free rim. The connector sticks out 2.5 mm below
+  # the pad (user measured), down to the PCB top (z 10.1); the PCB cutout
+  # (tp_cable_slot, 12 x 5) gives it room and lets the FFC through to the Molex.
+  # Anti-rotation: a peg on the centre cover (tp_cover_peg) sits in the pad's
+  # south flat ("south notch"). Held from above by the snap ring
+  # (trackpad_ring): stands on the plate around the pad, lip over the pad edge;
+  # 3 claws flush with the ring wall hook under the cover bottom edge (plate
+  # cutouts give the hooks room).
+  # PCB cutout under the trackpad connector: the connector sticks out 2.5 mm
+  # below the pad (user measured), i.e. down to the PCB top exactly, so the
+  # cutout takes the whole connector body comfortably (12-pin 0.5 mm vertical,
+  # ~10 x 3 mm) and the FFC goes straight down, then bends into the Molex
+  tp_cable_slot:
+    - what: rectangle
+      size: [12, 5]
+      corner: 1
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0.000, -17.400]
+  # plate opening under the pad's parts zone (pad rests on its rim around it)
+  tp_plate_opening:
+    - what: circle
+      radius: 18.1
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0, -2]
+  # peg on the plate against the pad's south flat (flat at r 19.7 -> y -21.7)
+  # peg on the centre cover: from the cover opening edge (r 22.5 -> y -24.5)
+  # to the pad's south flat (r 19.7 -> y -21.7, 0.05 mm gap), up to the cover top
+  tp_cover_peg:
+    - what: rectangle
+      size: [5, 3.4]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0.000, -23.450]
+  # room for the peg in the ring wall (0.2 mm around it)
+  # room for the cover peg in the ring wall (0.2 mm around it, through the wall)
+  tp_key_notch:
+    - what: rectangle
+      size: [5.4, 2.8]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0.000, -23.000]
+  tp_pad_pocket:     # round pad pocket in the ring: 40 mm pad + 0.2 mm
+    - what: circle
+      radius: 20.2
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0, -2]
+  tp_outline:        # the pad itself: 40 mm round, cut flat top and bottom (39.40 across)
+    - what: circle
+      radius: 20
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0, -2]
+    - what: rectangle
+      size: [41, 39.4]
+      operation: intersect
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0, -2]
+  tp_ring_wall:
+    - what: circle
+      radius: 22.2
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0, -2]
+    - operation: subtract
+      name: tp_pad_pocket
+    - operation: subtract
+      name: tp_key_notch
+  # ring claws (2: east / west), 8 mm wide, flush with the ring wall (nothing
+  # sticks out): a 8 mm arc of the wall's outer 1 mm is cut free by two 0.5 mm
+  # slits (z 12.6-16.0) with the inner wall behind it relieved, so it flexes
+  # inward; below the ring it carries a hook reaching 0.5 mm past the cover
+  # opening edge (r 22.5 -> 23.0) that catches under the cover bottom (z 12.6).
+  # The plate has a cutout under each claw for the hook. Arc segments (ring
+  # shapes cut to the claw zone), so nothing bulges past the ring's round edge.
+  tp_claw_zone:     # 8 mm wide zones, radial r 15-25
+    - what: rectangle
+      size: [8, 10]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: -90
+        shift: [20.000, -2.000]
+    - what: rectangle
+      size: [8, 10]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 90
+        shift: [-20.000, -2.000]
+  tp_claw_zone_wide: # zones for the plate cutout (8 + 1.2 mm)
+    - what: rectangle
+      size: [9.2, 10]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: -90
+        shift: [20.000, -2.000]
+    - what: rectangle
+      size: [9.2, 10]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 90
+        shift: [-20.000, -2.000]
+  tp_claw_slit_zone: # 2 x 0.5 mm strips at the claw edges
+    - what: rectangle
+      size: [0.5, 10]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: -90
+        shift: [20.000, 2.250]
+    - what: rectangle
+      size: [0.5, 10]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: -90
+        shift: [20.000, -6.250]
+    - what: rectangle
+      size: [0.5, 10]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 90
+        shift: [-20.000, -6.250]
+    - what: rectangle
+      size: [0.5, 10]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 90
+        shift: [-20.000, 2.250]
+  tp_ann_arm: # r 21.2-22.2
+    - what: circle
+      radius: 22.2
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0.000, -2.000]
+    - operation: subtract
+      what: circle
+      radius: 21.2
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0.000, -2.000]
+  tp_ann_hook: # r 21.2-23.0
+    - what: circle
+      radius: 23
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0.000, -2.000]
+    - operation: subtract
+      what: circle
+      radius: 21.2
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0.000, -2.000]
+  tp_ann_relief: # r 20.0-21.2
+    - what: circle
+      radius: 21.2
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0.000, -2.000]
+    - operation: subtract
+      what: circle
+      radius: 20
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0.000, -2.000]
+  tp_ann_slit: # r 20.0-22.4
+    - what: circle
+      radius: 22.4
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0.000, -2.000]
+    - operation: subtract
+      what: circle
+      radius: 20
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0.000, -2.000]
+  tp_ann_plate: # r 20.8-23.6
+    - what: circle
+      radius: 23.6
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0.000, -2.000]
+    - operation: subtract
+      what: circle
+      radius: 20.8
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0.000, -2.000]
+  tp_claw_slit:      # slits through the wall
+    - name: tp_ann_slit
+    - operation: intersect
+      name: tp_claw_slit_zone
+  tp_claw_relief:    # inner wall behind the claw removed
+    - name: tp_ann_relief
+    - operation: intersect
+      name: tp_claw_zone
+  tp_claw_arm:       # claw below the ring, z 11.9-12.6
+    - name: tp_ann_arm
+    - operation: intersect
+      name: tp_claw_zone
+  tp_claw_hook:      # hook, z 11.9-12.55 (under the cover bottom)
+    - name: tp_ann_hook
+    - operation: intersect
+      name: tp_claw_zone
+  tp_claw_plate_cut: # plate cutout for the claw and hook
+    - name: tp_ann_plate
+    - operation: intersect
+      name: tp_claw_zone_wide
+  tp_ring_lip:
+    - what: circle
+      radius: 22.2
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0, -2]
+    - what: circle
+      radius: 19.3
+      operation: subtract
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0, -2]
+  # Centre cover outline (from the user's draft): a strip parallel to the
+  # OLED, 33 mm wide (OLED pocket +-14.1 + 2.4 mm wall),
+  # widening into a circle r 25 around the trackpad (concentric,
+  # 2.8 mm outside the snap ring), top and bottom edges straight: top 2.4 mm
+  # above the OLED cutout, bottom 2.4 mm past the south screws; corners r 3.
+  center_cover_raw:
+    - what: rectangle
+      size: [33, 85.2]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0, 9.5]      # y -33.1 .. 52.1: 2.4 mm past the south screw holes (-29.5, r 1.2) and above the OLED cutout top (49.7), same 2.4 mm as at the sides
+    - what: circle
+      radius: 25
+      operation: add
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0, -2]
+  cirque_cover:
+    - name: center_cover_raw
+      fillet: 3
+  # Key-area screws (kugo82, user's choice): one at c2_r2 and one at c5_r3 per
+  # half, at switch corner crossings. Everything else under the keys was removed
+  # (screws and studs): the case-wall screws hold the lid and tub together.
+  # Clearance (5.5 mm insert post): room on the back >= 3.55 mm, switch bodies
+  # >= 2.5 mm, cutouts >= 6.7 mm, on both halves.
+  c9r5_screw:
+    - what: circle
+      radius: 1.2
+      where:
+        ref: hand-zone_c2_r2
+        shift: [10.5, 8.5]   # c2/c3 at r2/r3 (NE corner, 1 mm into the c3 side)
+    - what: circle
+      radius: 1.2
+      where:
+        ref: mirror_hand-zone_c2_r2
+        shift: [10.5, 8.5]   # c2/c3 at r2/r3 (NE corner, 1 mm into the c3 side)
+    - what: circle
+      radius: 1.2
+      where:
+        ref: hand-zone_c5_r3
+        shift: [9.0, -10.5]   # c5/c6 at r2/r3 (SE corner; the west corners have only 1.1 mm room)
+    - what: circle
+      radius: 1.2
+      where:
+        ref: mirror_hand-zone_c5_r3
+        shift: [9.0, -10.5]   # c5/c6 at r2/r3 (SE corner; the west corners have only 1.1 mm room)
+  # Screws through the OLED module's 2 bottom corner holes (module footprint
+  # (+-11.176, 0.635) from the header row, rotated 180 deg). Below the PCB a
+  # 5.5 mm insert post (insert_post), above it a 1.2 mm spacer up to the module
+  # underside (separate printed part oled_spacers). They also hold the centre
+  # cover (holes through every layer, like pcb_mounting).
+  oled_screw:
+    - what: circle
+      radius: 1.2
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [11.176, 24.135]
+    - what: circle
+      radius: 1.2
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [-11.176, 24.135]
+  pcb_mounting_std: # standard mounting holes (7.4 mm posts): only the cover screws south of the trackpad
+    # key-area screws moved to the thin-post group (c9r5_screw), kugo82
+    # centre cover screws, south of the trackpad
+    # (the 2 north ones go through the OLED holes, see oled_screw)
+    - what: circle
+      radius: 1.2
+      where:
+        aggregate.parts: 
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [-11, -29.5]
+    - what: circle
+      radius: 1.2
+      where:
+        aggregate.parts: 
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [11, -29.5]
+  pcb_mounting: # all mounting holes, cut through every part
+    - name: pcb_mounting_std
+    - operation: add
+      name: c9r5_screw
+    - operation: add
+      name: oled_screw
+
+  edge_mounting: # mounting holes case elements only
+    # left bottom
+    - what: circle
+      radius: 1.2
+      where:
+        - ref: hand-zone_c1_r1
+          shift: [-0.5sp-5.5, -0.75sp-5.5]   # 3.5 mm diagonally off the PCB corner
+    - what: circle
+      radius: 1.2
+      where:
+        - ref: mirror_hand-zone_c1_r1
+          shift: [-0.5sp-5.5, -0.75sp-5.5]   # 3.5 mm diagonally off the PCB corner 
+    # left top corner
+    - what: circle
+      radius: 1.2
+      where:
+        - ref: hand-zone_c1_r4
+          shift: [-(0.5sp+5), (0.5sp + 5)]
+    - what: circle
+      radius: 1.2
+      where:
+        - ref: mirror_hand-zone_c1_r4
+          shift: [-(0.5sp+5), (0.5sp + 5)]
+    # top left second corner
+    - what: circle
+      radius: 1.2
+      where:
+        - ref: hand-zone_c3_r5
+          shift: [-(0.5sp+4), (0.5sp + 5)]
+    - what: circle
+      radius: 1.2
+      where:
+        - ref: mirror_hand-zone_c3_r5
+          shift: [-(0.5sp+4), (0.5sp + 5)]
+    #  center hole
+    - what: circle
+      radius: 1.2
+      where:
+        - ref: hand-zone_c5_r5
+          shift: [0.5sp, (0.5sp + 6)]   # 4 mm off the PCB edge, centred in the 8 mm wall
+    - what: circle
+      radius: 1.2
+      where:
+        - ref: mirror_hand-zone_c5_r5
+          shift: [0.5sp, (0.5sp + 6)]   # 4 mm off the PCB edge, centred in the 8 mm wall
+    # bottom center hole
+    - what: circle
+      radius: 1.2
+      where:
+        - ref: hand-zone_c5_r1
+          shift: [0, -sp-6]   # 4 mm below the PCB edge (c5_r1 sits 0.25sp up)
+    - what: circle
+      radius: 1.2
+      where:
+        - ref: mirror_hand-zone_c5_r1
+          shift: [0, -sp-6]   # 4 mm below the PCB edge (c5_r1 sits 0.25sp up)
+    # top right C9 corner
+    - what: circle
+      radius: 1.2
+      where:
+        - ref: hand-zone_c8_r5
+          shift: [(0.5sp), (0.5sp + 6)]   # 4 mm off the PCB edge
+    - what: circle
+      radius: 1.2
+      where:
+        - ref: mirror_hand-zone_c8_r5
+          shift: [(0.5sp), (0.5sp + 6)]   # 4 mm off the PCB edge
+
+    #   center two dots
+#    - what: circle
+#      radius: 1.2
+#      where:
+#        aggregate.parts: 
+#          - hand-zone_c8_r5
+#          - mirror_hand-zone_c8_r5
+#        shift: [-10, 12.5]
+#    - what: circle
+#      radius: 1.2
+#      where:
+#        aggregate.parts: 
+#          - hand-zone_c8_r5
+#          - mirror_hand-zone_c8_r5
+#        shift: [10, 12.5]
+    - what: circle
+      radius: 1.2
+      where:
+        - ref: hand-zone_c9_r1
+          shift: [(0.5sp+3), -(0.5sp + 6)]   # 4 mm below the PCB edge
+    - what: circle
+      radius: 1.2
+      where:
+        - ref: mirror_hand-zone_c9_r1
+          shift: [(0.5sp+3), -(0.5sp + 6)]   # 4 mm below the PCB edge
+  # PCB outline before its 2 mm rounding: the case is grown from this one so
+  # its outer corners can be sharp-then-filleted (r 3) instead of r 10 / r 12
+  pcb_core:
+    - what: polygon
+      operation: stack
+      points: 
+        # starting at the left bottom corner
+        # bottom long edges: 0.5sp below c9_r1 (same as the top edge above
+        # c6_r5), parallel to the key rows back to c1_r1 (c9 stagger -0.25sp)
+        - ref: hand-zone_c1_r1
+          shift: [-0.5sp,-0.75sp]    # c1 keycap left edge (all 1U)
+        - ref: hand-zone_c1_r4
+          shift: [-0.5sp, 0.5sp]     # 1U key: left edge 0.5U from its centre
+        - ref: hand-zone_c2_r4
+          shift: [0.5sp, 0.5sp]
+        - ref: hand-zone_c3_r5
+          shift: [-0.5sp, 0.5sp]
+        - ref: hand-zone_c4_r5
+          shift: [0.5sp, 0.5sp]
+        - ref: hand-zone_c5_r5
+          shift: [-0.5sp, 0.5sp]
+        - ref: hand-zone_c6_r5
+          shift: [0.5sp, 0.5sp]
+        - ref: hand-zone_c7_r5
+          shift: [-0.5sp, 0.5sp]
+        - ref: hand-zone_c8_r5
+          shift: [0.5sp, 0.5sp]
+        # going over to the mirrored half on top
+        - ref: mirror_hand-zone_c8_r5
+          shift: [0.5sp, 0.5sp]
+        - ref: mirror_hand-zone_c7_r5
+          shift: [-0.5sp, 0.5sp]
+        - ref: mirror_hand-zone_c6_r5
+          shift: [0.5sp, 0.5sp]
+        - ref: mirror_hand-zone_c5_r5
+          shift: [-0.5sp, 0.5sp]
+        - ref: mirror_hand-zone_c4_r5
+          shift: [0.5sp, 0.5sp]
+        - ref: mirror_hand-zone_c3_r5
+          shift: [-0.5sp, 0.5sp]
+        - ref: mirror_hand-zone_c2_r4
+          shift: [0.5sp, 0.5sp]
+        - ref: mirror_hand-zone_c1_r4
+          shift: [-0.5sp, 0.5sp]
+        - ref: mirror_hand-zone_c1_r1
+          shift: [-0.5sp,-0.75sp]
+        - ref: mirror_hand-zone_c9_r1
+          shift: [0.5sp, -0.5sp]
+        - ref: mirror_hand-zone_c9_r1
+          shift: [sp, -0.5sp]
+        # back to th eoriginal at the bottom
+        - ref: hand-zone_c9_r1
+          shift: [sp, -0.5sp]
+        - ref: hand-zone_c9_r1
+          shift: [0.5sp, -0.5sp]
+
+  pcb_outline: # pcb board outline
+    - name: pcb_core
+      expand: 2
+
+  # case outline: 8 mm wall around the PCB (pcb_core + 2 + 8), pointed joints,
+  # then every corner rounded r 3
+  case:
+    - what: outline
+      name: pcb_core
+      expand: 10
+      joints: pointy
+      fillet: 3
+  
+
+  # Hole in the case floor right under the Helios reset button (SW1, Panasonic
+  # EVP-AF on the Helios component side, which faces down: the Helios sits
+  # upside down on the back). Helios board: SW1 at (+4.885, +11.715) from the
+  # board centre (y down); mirrored on the back -> x -4.885; board centre is
+  # 1.115 north of the footprint origin (0, 54.7) -> (-4.885, 44.10).
+  # Press it with a pin/paperclip from below (double-tap = UF2 bootloader).
+  # Pin channel: 1.3 mm bore (prints ~1.1-1.2, takes a 0.8-1 mm SIM tool or
+  # paperclip) through the 3 mm floor and a 1.8 mm boss on top of it, so the
+  # pin is guided 4.8 mm straight up at the button (boss top z 4.8, ~2 mm
+  # under the Helios' component side at z 6.9).
+  mcu_reset_hole:
+    - what: circle
+      radius: 0.65
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [-4.885, 44.10]
+
+  mcu_reset_disc:
+    - what: circle
+      radius: 1.6
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [-4.885, 44.10]
+  mcu_reset_boss:
+    - name: mcu_reset_disc
+    - operation: subtract
+      name: mcu_reset_hole
+
+  case_bottom:  # base plate w mounting cutouts
+    - name: case
+    - operation: subtract
+      name: pcb_mounting
+    - operation: subtract
+      name: edge_mounting
+    - operation: subtract
+      name: mcu_reset_hole
+
+  # Centre cover (follows cirque_cover):
+  #   low layer: plate top -> OLED glass top, pocket for the OLED module
+  #   top layer: OLED glass top -> z 15.5, with the screen window
+  center_cover_low:
+    - name: cirque_cover
+    - operation: subtract
+      name: cirque_flush
+    - operation: subtract
+      name: oled
+    - operation: subtract
+      name: indicator_holes
+  center_cover_top:
+    - name: cirque_cover
+    - operation: subtract
+      name: cirque_flush
+    - operation: subtract
+      name: oled_window
+    - operation: subtract
+      name: indicator_holes
+  pcb:
+    - name: pcb_outline
+    - operation: subtract
+      name: pcb_mounting
+    - operation: subtract
+      name: tp_cable_slot           # the trackpad FFC goes through the PCB
+
+  # ---- 3D case helper outlines ----
+  edge_insert:      # 3.0 mm insert holes in the case wall (screws through the plate)
+    - name: edge_mounting
+      expand: 0.3
+  case_wall:
+    - name: case
+    - operation: subtract
+      name: pcb_outline
+    - operation: subtract
+      name: edge_insert
+
+  # posts under the PCB, around each pcb_mounting hole (clipped to the PCB outline)
+  # Post shapes, each expanded in its own outline: inside a multi-part outline
+  # Ergogen applies a part's expand to the running result (expands compound).
+  # Key-area screws go in from the top (plate -> spacer -> PCB) into M2
+  # heat-set inserts in the posts under the PCB: post 5.5 mm, insert hole
+  # 3.0 mm (5 mm posts tested OK; every 5.5 mm post keeps >= 0.2 mm off the
+  # back-side parts on both halves - 0.07 mm tightest margin at c8_r2 right).
+  insert_post:      # 5.5 mm post under the PCB at every screw
+    - name: pcb_mounting
+      expand: 1.55
+  insert_hole:      # 3.0 mm hole for the M2 heat-set insert (key-area screws, top-down)
+    - name: c9r5_screw
+      expand: 0.3
+  # Centre-cover screws (OLED south holes + the 2 south of the trackpad) go
+  # bottom-up: floor counterbore -> 5.5 mm post (clearance hole) -> PCB ->
+  # spacer / boss -> M2 insert in a boss under the centre cover (blind hole,
+  # nothing visible on the cover top).
+  cover_screw:
+    - name: oled_screw
+    - operation: add
+      name: pcb_mounting_std
+  cover_counterbore: # 4.4 mm screw head counterbore in the floor (1.6 deep)
+    - name: cover_screw
+      expand: 1.0
+  cover_boss_south: # 5.5 mm boss under the cover, down through the plate to the PCB top
+    - name: pcb_mounting_std
+      expand: 1.55
+  cover_boss_south_hole: # plate hole for it (6.0 mm)
+    - name: pcb_mounting_std
+      expand: 1.8
+  cover_boss_oled:  # 5 mm boss under the cover, standing on the OLED board (5.5 would touch the glass edge)
+    - name: oled_screw
+      expand: 1.3
+  cover_insert_hole: # 3.0 mm blind insert hole in the cover bosses
+    - name: cover_screw
+      expand: 0.3
+  spacer_disc_key:  # 5.5 mm spacer between the PCB and the plate at the key-area screws
+    - name: c9r5_screw
+      expand: 1.55
+  oled_spacer_disc: # 5.5 mm spacer between the PCB and the OLED module (separate part)
+    - name: oled_screw
+      expand: 1.55
+  oled_spacer:
+    - name: oled_spacer_disc
+    - operation: subtract
+      name: oled_screw
+
+  standoffs_lower:   # posts, floor -> PCB bottom: inserts (key area) or clearance holes (cover screws)
+    - name: insert_post
+    - operation: subtract
+      name: insert_hole
+    - operation: subtract
+      name: pcb_mounting
+    - operation: intersect
+      name: pcb_outline
+
+  # spacers between PCB and switch plate (lids), screw clearance hole
+  standoffs_upper:
+    - name: spacer_disc_key
+    - operation: subtract
+      name: pcb_mounting
+    - operation: intersect
+      name: pcb_outline
+  # Support crosses (no PCB holes): 2 mm walls along the key gaps at a switch
+  # corner crossing (upper right corner; c7_r1: top middle), keys c1_r1 c1_r3
+  # c4_r1 c4_r3 c4_r4 c7_r1 c8_r3. Lower cross: floor -> PCB bottom
+  # (tubs), upper cross: plate -> PCB top (lids); together they back the PCB
+  # against pressure from above. Each arm runs up to 5 mm and stops 0.3 mm
+  # before the first obstacle (lower: back pads, socket bodies, diodes, LEDs,
+  # caps, cutouts; upper: switch bodies, stab housings, front pads), the same
+  # on both halves; arms under 2 mm are dropped (half crosses). Lower north arms
+  # are blocked by the next key's socket body, so the lower crosses are mostly
+  # T-shapes; c8_r3 has no lower cross (the corner itself is blocked).
+  # Generated with crosses.py (scratch) from the built board.
+  cross_lower:
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: hand-zone_c1_r1
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c1_r1
+        shift: [12.000, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c1_r1
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: hand-zone_c1_r1
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: mirror_hand-zone_c1_r1
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c1_r1
+        shift: [12.000, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c1_r1
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: mirror_hand-zone_c1_r1
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: hand-zone_c1_r3
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c1_r3
+        shift: [12.000, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c1_r3
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: hand-zone_c1_r3
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: mirror_hand-zone_c1_r3
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c1_r3
+        shift: [12.000, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c1_r3
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: mirror_hand-zone_c1_r3
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: hand-zone_c4_r1
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [4.75, 2]
+      where:
+        ref: hand-zone_c4_r1
+        shift: [11.875, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c4_r1
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: hand-zone_c4_r1
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: mirror_hand-zone_c4_r1
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [4.75, 2]
+      where:
+        ref: mirror_hand-zone_c4_r1
+        shift: [11.875, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c4_r1
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: mirror_hand-zone_c4_r1
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: hand-zone_c4_r3
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c4_r3
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: mirror_hand-zone_c4_r3
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c4_r3
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: hand-zone_c4_r4
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c4_r4
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: mirror_hand-zone_c4_r4
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c4_r4
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: hand-zone_c7_r1
+        shift: [0.000, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c7_r1
+        shift: [2.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c7_r1
+        shift: [-2.500, 9.500]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: mirror_hand-zone_c7_r1
+        shift: [0.000, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c7_r1
+        shift: [2.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c7_r1
+        shift: [-2.500, 9.500]
+  cross_upper:
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: hand-zone_c1_r1
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c1_r1
+        shift: [12.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: hand-zone_c1_r1
+        shift: [9.500, 12.000]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c1_r1
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: hand-zone_c1_r1
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: mirror_hand-zone_c1_r1
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c1_r1
+        shift: [12.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: mirror_hand-zone_c1_r1
+        shift: [9.500, 12.000]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c1_r1
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: mirror_hand-zone_c1_r1
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: hand-zone_c1_r3
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c1_r3
+        shift: [12.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: hand-zone_c1_r3
+        shift: [9.500, 12.000]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c1_r3
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: hand-zone_c1_r3
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: mirror_hand-zone_c1_r3
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c1_r3
+        shift: [12.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: mirror_hand-zone_c1_r3
+        shift: [9.500, 12.000]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c1_r3
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: mirror_hand-zone_c1_r3
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: hand-zone_c4_r1
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [4.75, 2]
+      where:
+        ref: hand-zone_c4_r1
+        shift: [11.875, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c4_r1
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: hand-zone_c4_r1
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: mirror_hand-zone_c4_r1
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [4.75, 2]
+      where:
+        ref: mirror_hand-zone_c4_r1
+        shift: [11.875, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c4_r1
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: mirror_hand-zone_c4_r1
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: hand-zone_c4_r3
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: hand-zone_c4_r3
+        shift: [9.500, 12.000]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c4_r3
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: hand-zone_c4_r3
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: mirror_hand-zone_c4_r3
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: mirror_hand-zone_c4_r3
+        shift: [9.500, 12.000]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c4_r3
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: mirror_hand-zone_c4_r3
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: hand-zone_c4_r4
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: hand-zone_c4_r4
+        shift: [9.500, 12.000]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c4_r4
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: hand-zone_c4_r4
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: mirror_hand-zone_c4_r4
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: mirror_hand-zone_c4_r4
+        shift: [9.500, 12.000]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c4_r4
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: mirror_hand-zone_c4_r4
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: hand-zone_c7_r1
+        shift: [0.000, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c7_r1
+        shift: [2.500, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: hand-zone_c7_r1
+        shift: [0.000, 12.000]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c7_r1
+        shift: [-2.500, 9.500]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: mirror_hand-zone_c7_r1
+        shift: [0.000, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c7_r1
+        shift: [2.500, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: mirror_hand-zone_c7_r1
+        shift: [0.000, 12.000]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c7_r1
+        shift: [-2.500, 9.500]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: hand-zone_c8_r3
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: hand-zone_c8_r3
+        shift: [9.500, 12.000]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c8_r3
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: hand-zone_c8_r3
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: mirror_hand-zone_c8_r3
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: mirror_hand-zone_c8_r3
+        shift: [9.500, 12.000]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c8_r3
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: mirror_hand-zone_c8_r3
+        shift: [9.500, 7.000]
+  # Silkscreen markers of every case support touching the PCB, so they show in
+  # KiCad: back = screw posts + lower crosses, front = OLED spacers + trackpad outline. Built from the
+  # same outlines the case uses, so they always match.
+  support_marks_back:
+    - name: insert_post
+    - operation: add
+      name: cross_lower
+  support_marks_front:
+    - name: oled_spacer_disc
+    - operation: add
+      name: cover_boss_south
+    - operation: add
+      name: cross_upper
+    - operation: add       # trackpad outline
+      name: tp_outline
+
+  # switch plate (lid) with all cutouts
+  plate_clean:
+    - name: case
+    - operation: subtract
+      name: switches_outline
+    - operation: subtract
+      name: stab_cutouts
+    - operation: subtract
+      name: edge_mounting
+    - operation: subtract
+      name: pcb_mounting
+    - operation: subtract
+      name: tp_plate_opening      # under the trackpad's parts zone
+    - operation: subtract
+      name: cover_boss_south_hole # the cover's south screw bosses reach through the plate
+    - operation: subtract
+      name: tp_claw_plate_cut      # room for the ring claws and hooks under the cover
+    - operation: subtract
+      name: oled
+    - operation: subtract
+      name: indicator_holes
+
+  # USB-C plug opening through the north case wall, in front of the Helios
+  # receptacle (receptacle face ~1 mm inside the PCB edge at y 73.28).
+  # 13 mm wide for the plug overmold; cut from y 72 to past the 10 mm wall.
+  usb_cutout:
+    - what: rectangle
+      size: [13, 12.5]
+      corner: 1
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0, 72 + 6.25]
+  # Big rectangles used to split the case into a left and a right half.
+  # They are centred on the mirror axis (the middle of the two c9_r2 keys).
+  cut_left:
+    - what: rectangle
+      size: [600, 600]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [-300, 0]
+  cut_right:
+    - what: rectangle
+      size: [600, 600]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [300, 0]
+
+
+cases:
+  # Z stack-up (mm): bottom 3.0 | under-PCB clearance 5.5 (Helios 1.6 board +
+  # ~3.3 USB-C receptacle hang below the PCB) | PCB 1.6 | gap to plate 1.3 |
+  # plate 1.2  -> plate top 12.6.  Z (case coords): floor top 3, PCB bottom
+  # 8.5, PCB top 10.1, plate 11.4-12.6, OLED glass top 13.95, cover top 15.5,
+  # trackpad 12.6-17.6 on the plate (5 mm, user measured; connector down to 10.1), ring lip 17.7-18.5.
+  # Every printed part is clipped to the "case" outline so nothing can stick out
+  # past the case edge, then cut in half on the mirror axis.
+  #
+  # Tub = bottom plate + walls + screw posts + the reset pin boss, with the USB-C plug opening in the north wall.
+  # The trackpad lies on the plate, the centre cover carries its anti-rotation
+  # peg, the separate trackpad_ring part snaps into the cover.
+  tub_left:
+    - name: case_bottom
+      extrude: 3
+    - name: case_wall
+      shift: [0, 0, 3]
+      extrude: 8.4
+    - name: standoffs_lower
+      shift: [0, 0, 3]
+      extrude: 5.5
+    - name: cross_lower
+      shift: [0, 0, 3]
+      extrude: 5.5     # floor top -> PCB bottom
+    - name: mcu_reset_boss
+      shift: [0, 0, 3]
+      extrude: 1.8
+    - name: usb_cutout
+      operation: subtract
+      shift: [0, 0, 1.5]   # plug axis ~3.2 below the PCB bottom, +-3.75
+      extrude: 7.5
+    - name: cover_counterbore
+      operation: subtract
+      shift: [0, 0, 0]
+      extrude: 1.6     # screw heads of the bottom-up cover screws
+    - name: case
+      operation: intersect
+      extrude: 30
+    - name: cut_left
+      operation: intersect
+      extrude: 30
+  tub_right:
+    - name: case_bottom
+      extrude: 3
+    - name: case_wall
+      shift: [0, 0, 3]
+      extrude: 8.4
+    - name: standoffs_lower
+      shift: [0, 0, 3]
+      extrude: 5.5
+    - name: cross_lower
+      shift: [0, 0, 3]
+      extrude: 5.5     # floor top -> PCB bottom
+    - name: mcu_reset_boss
+      shift: [0, 0, 3]
+      extrude: 1.8
+    - name: usb_cutout
+      operation: subtract
+      shift: [0, 0, 1.5]
+      extrude: 7.5
+    - name: cover_counterbore
+      operation: subtract
+      shift: [0, 0, 0]
+      extrude: 1.6
+    - name: case
+      operation: intersect
+      extrude: 30
+    - name: cut_right
+      operation: intersect
+      extrude: 30
+
+  lid_left:    # switch plate + upper spacers (print plate-side down)
+    - name: plate_clean
+      shift: [0, 0, 11.4]
+      extrude: 1.2
+    - name: standoffs_upper
+      shift: [0, 0, 10.1]
+      extrude: 1.3
+    - name: cross_upper
+      shift: [0, 0, 10.1]
+      extrude: 1.3     # PCB top -> plate underside
+    - name: case
+      operation: intersect
+      extrude: 30
+    - name: cut_left
+      operation: intersect
+      extrude: 30
+  lid_right:
+    - name: plate_clean
+      shift: [0, 0, 11.4]
+      extrude: 1.2
+    - name: standoffs_upper
+      shift: [0, 0, 10.1]
+      extrude: 1.3
+    - name: cross_upper
+      shift: [0, 0, 10.1]
+      extrude: 1.3     # PCB top -> plate underside
+    - name: case
+      operation: intersect
+      extrude: 30
+    - name: cut_right
+      operation: intersect
+      extrude: 30
+
+  # Centre cover (print separately, sits on the plate, screwed through the
+  # 4 holes around the trackpad): low layer plate top -> OLED glass top
+  # (pocket for the OLED module), top layer -> z 15.5; opening around the
+  # trackpad snap ring.
+  center_cover:
+    - name: center_cover_low
+      shift: [0, 0, 12.6]
+      extrude: 1.35
+    - name: center_cover_top
+      shift: [0, 0, 13.95]
+      extrude: 1.55
+    - name: tp_cover_peg     # trackpad anti-rotation peg, up to the cover top
+      shift: [0, 0, 12.6]
+      extrude: 2.9
+    - name: cover_boss_south # down through the plate to the PCB top
+      shift: [0, 0, 10.1]
+      extrude: 2.5
+    - name: cover_boss_oled  # down onto the OLED board top (z 12.5)
+      shift: [0, 0, 12.5]
+      extrude: 1.45
+    - name: cover_insert_hole
+      operation: subtract
+      shift: [0, 0, 10.1]
+      extrude: 3.5     # south bosses: insert 10.1-13.6, 1.9 mm solid cover above
+    - name: cover_insert_hole
+      operation: subtract
+      shift: [0, 0, 12.5]
+      extrude: 2.7     # OLED bosses: 2.7 mm deep, 0.3 mm skin at the top (short M2 insert)
+
+  # Trackpad snap ring (print separately, top down): wall on the plate around
+  # the 5 mm pad up to 0.1 mm above it, lip over the pad edge, 3 claws flush
+  # with the wall that hook under the centre cover's bottom edge.
+  trackpad_ring:
+    - name: tp_ring_wall
+      shift: [0, 0, 12.6]
+      extrude: 5.1     # up to 0.1 mm above the 5 mm pad (z 17.7)
+    - name: tp_ring_lip
+      shift: [0, 0, 17.7]
+      extrude: 0.8     # lip over the pad edge (z 17.7-18.5)
+    - name: tp_claw_arm
+      shift: [0, 0, 11.9]
+      extrude: 0.7
+    - name: tp_claw_hook
+      shift: [0, 0, 11.9]
+      extrude: 0.65
+    - name: tp_claw_slit
+      operation: subtract
+      shift: [0, 0, 12.6]
+      extrude: 3.4     # slits up to z 16.0, the claw hangs from the wall above
+    - name: tp_claw_relief
+      operation: subtract
+      shift: [0, 0, 12.6]
+      extrude: 3.4
+
+  # 2 spacers for the OLED screws (PCB top -> module underside, 1.2 mm, 5.5 mm dia)
+  oled_spacers:
+    - name: oled_spacer
+      shift: [0, 0, 10.1]
+      extrude: 1.2
+
+  assembly:    # whole case in one piece, for checking only
+    - name: case_bottom
+      extrude: 3
+    - name: case_wall
+      shift: [0, 0, 3]
+      extrude: 8.4
+    - name: standoffs_lower
+      shift: [0, 0, 3]
+      extrude: 5.5
+    - name: cross_lower
+      shift: [0, 0, 3]
+      extrude: 5.5     # floor top -> PCB bottom
+    - name: mcu_reset_boss
+      shift: [0, 0, 3]
+      extrude: 1.8
+    - name: standoffs_upper
+      shift: [0, 0, 10.1]
+      extrude: 1.3
+    - name: cross_upper
+      shift: [0, 0, 10.1]
+      extrude: 1.3     # PCB top -> plate underside
+    - name: plate_clean
+      shift: [0, 0, 11.4]
+      extrude: 1.2
+    - name: center_cover_low
+      shift: [0, 0, 12.6]
+      extrude: 1.35
+    - name: center_cover_top
+      shift: [0, 0, 13.95]
+      extrude: 1.55
+    - name: tp_cover_peg
+      shift: [0, 0, 12.6]
+      extrude: 2.9
+    - name: tp_ring_wall
+      shift: [0, 0, 12.6]
+      extrude: 5.1     # up to 0.1 mm above the 5 mm pad (z 17.7)
+    - name: tp_ring_lip
+      shift: [0, 0, 17.7]
+      extrude: 0.8
+    - name: tp_claw_arm
+      shift: [0, 0, 11.9]
+      extrude: 0.7
+    - name: usb_cutout
+      operation: subtract
+      shift: [0, 0, 1.5]
+      extrude: 7.5
+    - name: case
+      operation: intersect
+      extrude: 30
+
+pcbs:
+  kugo82:
+    template: kicad8
+
+    outlines:
+      main:
+        outline: pcb
+      support_marks_back:
+        outline: support_marks_back
+        layer: B.SilkS
+      support_marks_front:
+        outline: support_marks_front
+        layer: F.SilkS
+    footprints:
+      # Custom footprint "ks33_hotswap" is NOT defined in this file.
+      # It comes from ks33_hotswap.js (web UI: Injections -> footprint named
+      # ks33_hotswap; CLI: footprints/ks33_hotswap.js next to this config).
+
+      # One-sided socket, identical orientation on every key of the board.
+      # side B = socket on the underside of the PCB (use F for the top face).
+      # Pin/pad positions checked against the Gateron switch + socket STEP models.
+      keys:
+        what: ks33_hotswap
+        where: true
+        params:
+          side: B
+          width: "{{keycap_u}}"    # 2 on the stabilized keys
+          stab: "{{stab}}"         # PCB cutouts for the KS-57 stabilizer
+          from: "{{column_net}}"   # C1..C9, shared by left key and mirrored key
+          to: "{{colrow}}"         # unique per key (left and right differ)
+
+      # Diodes (SOD-123, pad 1 = cathode = row, COL2ROW): key -> row. Left half uses R1..R5, right half R6..R10.
+      diode_left:
+        what: sod123
+        where: /^hand-zone_/      # left half only
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [7.5, 0]   # right of the switch, above socket pad 2
+          rotate: 90  # key-side pad points down, towards pad 2
+      diode_right:
+        what: sod123
+        where: /^mirror_hand-zone_/   # right (mirrored) half only
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net_r}}"
+        adjust:
+          shift: [-7.5, 0]  # mirror negates x/rotation -> same spot as the left half
+          rotate: -90
+
+      # LEDs, one data chain through all 80 keys:
+      # LED_IND_IN -> 2 indicators -> LED_DATA -> left c1 ... left c9 -> right c9 ... right c1 -> LED_END
+      # SK6812MINI-E (footprints/sk6812mini_e.js), params by function; VDD/GND default to VCC/GND
+      leds_left:
+        what: sk6812mini_e
+        where: /^hand-zone_/      # left half only
+        adjust:
+          shift: [-0.69, 5.16]   # centre of the KS-33 light window (top view)
+          rotate: 180
+        params:
+          side: B               # back-mounted, light passes through a PCB cutout
+          DOUT: "{{led_l_out}}"
+          DIN: "{{led_l_in}}"
+      leds_right:
+        what: sk6812mini_e
+        where: /^mirror_hand-zone_/   # right (mirrored) half only
+        adjust:
+          shift: [0.69, 5.16]    # mirror negates x -> same window position (-0.69)
+          rotate: 180
+        params:
+          side: B               # back-mounted, light passes through a PCB cutout
+          DOUT: "{{led_r_out}}"
+          DIN: "{{led_r_in}}"
+
+      # LED decoupling caps (100 nF 0603), one per key, VCC -> GND,
+      # on the back next to each LED (left of it, between LED and diode).
+      # y follows the LED of the same half.
+      caps_left:
+        what: c_0603
+        where: /^hand-zone_/      # left half only
+        adjust:
+          shift: [-6, 5.16]
+          rotate: 90
+        params:
+          side: B
+          from: VCC
+          to: GND
+      caps_right:
+        what: c_0603
+        where: /^mirror_hand-zone_/   # right (mirrored) half only
+        adjust:
+          shift: [-6, 5.16]
+          rotate: 90
+        params:
+          side: B
+          from: VCC
+          to: GND
+
+      # Helios (RP2040) MCU on the back, component side facing down, USB-C at
+      # the top edge of the board (centre, under the OLED area). side B mirrors
+      # the pinout because the module is turned over. Pads -> GPIO: see
+      # footprints/helios.js. Spare: GP13, GP14, GP15 (P26-P28, under the OLED header).
+      mcu:
+        what: helios
+        where:
+          aggregate.parts:
+            - hand-zone_c9_r2
+            - mirror_hand-zone_c9_r2
+          rotate: 0
+          shift: [0, 54.7]       # module edge (USB end) 0.6 mm inside the PCB top edge
+        params:
+          side: B
+          # rows, left half -> pins on the left side once turned over
+          P17: R1              # GP29
+          P18: R2              # GP28
+          P19: R3              # GP27
+          P20: R4              # GP26
+          P21: R5              # GP22
+          # rows, right half -> pins on the right side
+          P7: R6               # GP4
+          P8: R7               # GP5
+          P9: R8               # GP6
+          P10: R9              # GP7
+          P11: R10             # GP8
+          # columns (shared by both halves)
+          # (bottom row kept free under the OLED header, except the outer pads)
+          P1: C1               # GP0
+          P2: C2               # GP1
+          P31: C3              # GP10
+          P30: C4              # GP11
+          P29: C5              # GP16
+          P25: CIRQUE_DR       # GP12, trackpad "data ready" (optional in QMK)
+          P12: C6              # GP9
+          P24: C7              # GP21
+          P23: C8              # GP23
+          P22: C9              # GP20
+          # RGB data (5 V level-shifted output), I2C for OLED + Cirque (shared bus)
+          P34: LED_DATA_MCU    # GP25 -> series resistor R1 -> LED_DATA
+          P5: SDA              # GP2
+          P6: SCL              # GP3
+
+      # LED data series resistor (330 R) right at the MCU: damps ringing on the
+      # long data line to the first LED and protects GP25. On the back, just
+      # below the Helios' bottom castellations.
+      led_data_res:
+        what: r_0603
+        where:
+          aggregate.parts:
+            - hand-zone_c9_r2
+            - mirror_hand-zone_c9_r2
+          rotate: 0
+          shift: [8.8, 37.36]
+        params:
+          side: B
+          value: 330
+          from: LED_DATA_MCU
+          to: LED_IND_IN       # -> 2 indicator LEDs -> LED_DATA -> key LEDs
+
+      # Indicator LEDs = first 2 LEDs of the RGB chain (QMK index 0, 1),
+      # back-mounted like the key LEDs, shining through the indicator_holes.
+      # Next to the c9_r1 keys (inner side, 19.5 mm from the key centre, 8 mm past the keycap). Caps Lock
+      # is shown on the Caps Lock key LED.
+      #   0 right: function/layer lock (green)
+      #   1 left:  active layout layer (any colour)
+      indicator_fn:   # QMK LED 0
+        what: sk6812mini_e
+        where:
+          ref: mirror_hand-zone_c9_r1
+          shift: [19.5, 0]
+        params:
+          side: B
+          DIN: LED_IND_IN
+          DOUT: LED_IND_1
+      indicator_layer:   # QMK LED 1
+        what: sk6812mini_e
+        where:
+          ref: hand-zone_c9_r1
+          shift: [19.5, 0]
+        params:
+          side: B
+          DIN: LED_IND_1
+          DOUT: LED_DATA
+      # 100 nF decoupling, 4 mm south of each LED
+      indicator_fn_cap:
+        what: c_0603
+        where:
+          ref: mirror_hand-zone_c9_r1
+          shift: [19.5, -4]
+          rotate: 0
+        params:
+          side: B
+          from: VCC
+          to: GND
+      indicator_layer_cap:
+        what: c_0603
+        where:
+          ref: hand-zone_c9_r1
+          shift: [19.5, -4]
+          rotate: 0
+        params:
+          side: B
+          from: VCC
+          to: GND
+
+      # Bulk capacitor (10 uF) on the LED supply where 5 V enters, next to the
+      # Helios' 5V and GND castellations (west side). The 80 per-LED 100 nF
+      # caps handle the fast spikes, this one the overall current steps.
+      led_bulk_cap:
+        what: c_0805
+        where:
+          aggregate.parts:
+            - hand-zone_c9_r2
+            - mirror_hand-zone_c9_r2
+          rotate: 90
+          shift: [-12.6, 68.66]
+        params:
+          side: B
+          value: 10uF
+          from: VCC
+          to: GND
+
+      # 0.96" OLED (SSD1306, I2C) on the top side, rotated 180 deg: header at the
+      # bottom edge, close to the trackpad ring; the module sits in the plate
+      # cutout (outline 'oled'), raised on its header. Display content is rotated
+      # in firmware. Its 2 bottom corner holes take screws (oled_screw); the 2 top
+      # ones are free (the Helios castellations are 0.7 mm away, no room for a stud).
+      oled:
+        what: oled_i2c
+        where:
+          aggregate.parts:
+            - hand-zone_c9_r2
+            - mirror_hand-zone_c9_r2
+          rotate: 180
+          shift: [0, 23.5]   # header row; module up to y 49.3 (9.8 mm south of the old spot)
+        params:
+          side: F
+          holes: false
+          GND: GND
+          VDD: 3V3
+          SCL: SCL
+          SDA: SDA
+
+      # Molex 505278 FFC connector for the Cirque TM040040 (I2C mode, R1 removed
+      # on the trackpad), on the back, NORTH of the FFC slot, opening facing
+      # south towards it. Cable route for a 30 mm FFC (pad raised 7.1 mm to
+      # keycap height, connector moved 7.1 mm south to keep 30 mm): down from the trackpad's
+      # vertical connector through the slot (y -17.4), 90 deg bend, then flat
+      # under the PCB ~11.9 mm north into this connector (no folds, no twist).
+      # Straight cable, so trackpad pin n lands on Molex pin n:
+      #   1 SCK 2 MISO 3 SS 4 DR 5 MOSI 6 BTN2 7 BTN3 8 BTN1
+      #   9 SCL 10 SDA 11 GND 12 VDD(3.3 V)
+      # Cable type: the face touching the contacts here (towards the PCB) is the
+      # face pointing at the trackpad centre at the other end -> "same side"
+      # FFC if the trackpad connector's contacts are on its inner wall,
+      # "opposite side" if on the outer wall (checked: outer wall -> opposite-
+      # side / Type D cable, 12 pin 0.5 mm, 30 mm). Verify pin 1 on the real part.
+      trackpad_conn:
+        what: molex_505278
+        where:
+          aggregate.parts:
+            - hand-zone_c9_r2
+            - mirror_hand-zone_c9_r2
+          rotate: 0
+          shift: [0, 5.5]    # 30 mm FFC: connector bottom z 10.1 -> drop 1.6 mm to the PCB bottom, flat run ~19.3 mm
+        params:
+          side: B
+          P1: TP_SCK           # trackpad 1 (SPI only)
+          P2: TP_MISO          # trackpad 2 (SPI only)
+          P3: TP_SS            # trackpad 3 (SPI only)
+          P4: CIRQUE_DR        # trackpad 4 DR -> GP12
+          P5: TP_MOSI          # trackpad 5 (SPI only)
+          P6: TP_BTN2          # trackpad 6 (unused)
+          P7: TP_BTN3          # trackpad 7 (unused)
+          P8: TP_BTN1          # trackpad 8 (unused)
+          P9: SCL              # trackpad 9 SCL
+          P10: SDA             # trackpad 10 SDA
+          P11: GND             # trackpad 11 GND
+          P12: 3V3             # trackpad 12 VDD
+          MP: GND
+
+      # Cirque TM040040 trackpad: 3D model only (it is cabled, not soldered).
+      # Its PCB sits 11.51 mm above the keyboard PCB on the 5 risers (pad top at
+      # keycap height, z 22.6 in the case), so the
+      # 4.1 mm of components underneath clear the board. Model is 5.15 mm
+      # thick with its origin mid-height: z offset = 11.51 - (2.6 - 0.99) = 9.9.
+      trackpad_model:
+        what: mech_model
+        where:
+          aggregate.parts:
+            - hand-zone_c9_r2
+            - mirror_hand-zone_c9_r2
+          rotate: 0
+          shift: [0, -2]
+        params:
+          label: TM040040
+          model: ${KIPRJMOD}/../../3dmodels/TM040040-2024-303.stp
+          model_offset: [0, 0, 4.925]   # pad top z 17.6 = PCB top + 7.5 (5 mm pad on the plate; model origin mid-height)
+
+      # Claude logo (8 mm, front silkscreen) south of the left c5_r1 2U key:
+      # keycap ends ~9.1 mm below the key centre, board edge 21 mm -> ~1 mm each side.
+      claude_logo:
+        what: claude_logo
+        where: /^hand-zone_c5_r1$/
+        adjust:
+          shift: [0, -15]
+        params:
+          side: F
+          size: 8
+

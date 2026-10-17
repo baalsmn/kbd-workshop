@@ -1,0 +1,8 @@
+{
+  "name": "kugo80-jscad",
+  "private": true,
+  "description": "OpenJSCAD v1 CLI used to turn Ergogen's case .jscad files into STL",
+  "dependencies": {
+    "@jscad/cli": "^1.10.0"
+  }
+}
