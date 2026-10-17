@@ -1,4 +1,4 @@
-# Usage (KiCad python, after tools/build.sh): python tools/lib/crosses.py out/pcbs/<name>.kicad_pcb out/points/points.yaml crosses_yaml.txt
+# Usage (KiCad python, after tools/build.sh): python tools/lib/crosses.py out/pcbs/<name>.kicad_pcb out/points/points.yaml crosses_yaml.txt [crosses]
 # Prints the arm lengths and writes the cross_lower / cross_upper rectangle lists to paste into the design yaml (the crosses list below is kugo82's).
 # Support crosses: 2 mm walls along the key gaps at a switch corner crossing.
 # lower = floor -> PCB bottom (avoid back parts, socket bodies, cutouts, posts)
@@ -105,6 +105,11 @@ def to_board(key, lx, ly):
 SP = 19.0
 crosses = [('c1_r1', 0.5, 0.5), ('c1_r3', 0.5, 0.5), ('c4_r1', 0.5, 0.5), ('c4_r3', 0.5, 0.5), ('c4_r4', 0.5, 0.5),
            ('c7_r1', 0.0, 0.5), ('c8_r3', 0.5, 0.5)]
+# optional 4th argument: this design's list, e.g. "c4_r1,c3_r4,c7_r1:0:0.5" (key[:fx:fy],
+# corner in key spacings, default 0.5:0.5 = upper right); the list above is kugo82's
+if len(sys.argv) > 4:
+    crosses = [(t[0], float(t[1]), float(t[2])) if len(t) == 3 else (t[0], 0.5, 0.5)
+               for t in (c.split(':') for c in sys.argv[4].split(','))]
 dirs = {'E': (1, 0), 'N': (0, 1), 'W': (-1, 0), 'S': (0, -1)}
 result = []
 for key, fx, fy in crosses:
