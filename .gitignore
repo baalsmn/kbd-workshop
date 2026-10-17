@@ -9,3 +9,5 @@ tools/jscad/package-lock.json
 *-backups/
 fp-info-cache
 __pycache__/
+# editor settings Fusion creates next to scripts
+.vscode/
