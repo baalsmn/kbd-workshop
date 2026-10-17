@@ -5,7 +5,7 @@ Self-contained KiCad 10 project library: everything refers to files in this fold
 
 | Folder / file | What |
 |---|---|
-| `Symbols/Keyboard.kicad_sym` | key switch (SW_Push_45deg), D, C, R, SK6812MINI-E, Molex 505278-1270, Cirque TM040040, OLED, power (GND, VCC, +3V3, +5V) |
+| `Symbols/Keyboard.kicad_sym` | key switch (SW_Push_45deg), D, C, R, SK6812MINI-E (drawn as on JLCPCB's C5149201 page, with an `LCSC` field), Molex 505278-1270, Cirque TM040040, OLED, power (GND, VCC, +3V3, +5V) |
 | `Symbols/helios.kicad_sym` | 0xCB Helios (pin numbers = footprint pads, 0xCB numbering) |
 | `Footprints/Keyboard.pretty` | footprints exactly as on the board (KS-33 hot-swap 1U / 1.25U / 2U + KS-57, SOD-123, SK6812MINI-E reverse, 0603/0805, Helios, Molex, OLED, trackpad 3D, logo) |
 | `3dmodels/` | every 3D model the footprints use |
@@ -20,8 +20,8 @@ Pinouts:
   3 SS, 4 DR, 5 SI, 6 B2, 7 B3, 8 B1, 9 SCL, 10 SDA, 11 GND, 12 VDD; Molex 13/14 =
   mounting tabs (GND). The trackpad symbol is not on the board (cabled module).
 - **OLED**: 1 GND, 2 VCC (3V3), 3 SCL, 4 SDA.
-- **SK6812MINI-E**: 1 VDD, 2 DOUT, 3 VSS, 4 DIN (datasheet numbering; KiCad's
-  built-in symbol uses the 5050 SK6812 numbers, so ours is renumbered).
+- **SK6812MINI-E** (LCSC/JLCPCB C5149201): 1 GND (VSS), 2 DIN, 3 VDD, 4 DOUT, as
+  in the datasheet and KiCad's built-in symbol; pin 1 = the chamfered corner.
 - **Helios**: D+ / D- on pads 32 / 33 are assigned by position and unverified (not
   used on this board).
 

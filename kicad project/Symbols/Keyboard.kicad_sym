@@ -697,204 +697,77 @@
 		(embedded_fonts no)
 	)
 	(symbol "SK6812MINI-E"
-		(duplicate_pin_numbers_are_jumpers no)
-		(in_pos_files yes)
-		(on_board yes)
-		(in_bom yes)
-		(exclude_from_sim no)
 		(pin_names
-			(offset 0.254)
+			(offset 1.016)
 		)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
 		(property "Reference" "LED"
-			(at 5.08 5.715 0)
-			(show_name no)
-			(do_not_autoplace no)
+			(at 0 5.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify right bottom)
 			)
 		)
 		(property "Value" "SK6812MINI-E"
-			(at 1.27 -5.715 0)
-			(show_name no)
-			(do_not_autoplace no)
+			(at 0 -5.08 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left top)
 			)
 		)
 		(property "Footprint" "Keyboard:LED_SK6812MINI-E_Reverse"
-			(at 1.27 -7.62 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(property "Datasheet" "https://www.lcsc.com/datasheet/C5149201.pdf"
-			(at 2.54 -9.525 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(property "Description" "RGB LED with integrated controller"
 			(at 0 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
+			(hide yes)
 		)
-		(property "ki_keywords" "RGB LED NeoPixel addressable"
+		(property "Datasheet" "https://jlcpcb.com/partdetail/OPSCOOptoelectronics-SK6812MINIE/C5149201"
 			(at 0 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
+			(hide yes)
+		)
+		(property "Description" "OPSCO SK6812MINI-E-012 addressable RGB LED, reverse mount (LCSC C5149201)"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+			(hide yes)
+		)
+		(property "LCSC" "C5149201"
+			(at 0 0 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+			(hide yes)
 		)
 		(property "ki_fp_filters" "LED_SK6812MINI-E*"
 			(at 0 0 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(hide yes)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 			)
-		)
-		(embedded_fonts no)
-		(symbol "SK6812MINI-E_0_0"
-			(text "RGB"
-				(at 2.286 -4.191 0)
-				(effects
-					(font
-						(size 0.762 0.762)
-					)
-				)
-			)
+			(hide yes)
 		)
 		(symbol "SK6812MINI-E_0_1"
-			(polyline
-				(pts
-					(xy 1.27 -2.54)
-					(xy 1.778 -2.54)
-				)
-				(stroke
-					(width 0)
-					(type default)
-				)
-				(fill
-					(type none)
-				)
-			)
-			(polyline
-				(pts
-					(xy 1.27 -3.556)
-					(xy 1.778 -3.556)
-				)
-				(stroke
-					(width 0)
-					(type default)
-				)
-				(fill
-					(type none)
-				)
-			)
-			(polyline
-				(pts
-					(xy 2.286 -1.524)
-					(xy 1.27 -2.54)
-					(xy 1.27 -2.032)
-				)
-				(stroke
-					(width 0)
-					(type default)
-				)
-				(fill
-					(type none)
-				)
-			)
-			(polyline
-				(pts
-					(xy 2.286 -2.54)
-					(xy 1.27 -3.556)
-					(xy 1.27 -3.048)
-				)
-				(stroke
-					(width 0)
-					(type default)
-				)
-				(fill
-					(type none)
-				)
-			)
-			(polyline
-				(pts
-					(xy 3.683 -1.016)
-					(xy 3.683 -3.556)
-					(xy 3.683 -4.064)
-				)
-				(stroke
-					(width 0)
-					(type default)
-				)
-				(fill
-					(type none)
-				)
-			)
-			(polyline
-				(pts
-					(xy 4.699 -1.524)
-					(xy 2.667 -1.524)
-					(xy 3.683 -3.556)
-					(xy 4.699 -1.524)
-				)
-				(stroke
-					(width 0)
-					(type default)
-				)
-				(fill
-					(type none)
-				)
-			)
-			(polyline
-				(pts
-					(xy 4.699 -3.556)
-					(xy 2.667 -3.556)
-				)
-				(stroke
-					(width 0)
-					(type default)
-				)
-				(fill
-					(type none)
-				)
-			)
 			(rectangle
-				(start 5.08 5.08)
-				(end -5.08 -5.08)
+				(start -6.35 3.81)
+				(end 6.35 -3.81)
 				(stroke
 					(width 0.254)
 					(type default)
@@ -906,16 +779,16 @@
 		)
 		(symbol "SK6812MINI-E_1_1"
 			(pin power_in line
-				(at 0 -7.62 90)
+				(at -8.89 1.27 0)
 				(length 2.54)
-				(name "VSS"
+				(name "GND"
 					(effects
 						(font
 							(size 1.27 1.27)
 						)
 					)
 				)
-				(number "3"
+				(number "1"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -924,9 +797,27 @@
 				)
 			)
 			(pin input line
-				(at -7.62 0 0)
+				(at -8.89 -1.27 0)
 				(length 2.54)
 				(name "DIN"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "2"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin output line
+				(at 8.89 1.27 180)
+				(length 2.54)
+				(name "DOUT"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -942,7 +833,7 @@
 				)
 			)
 			(pin power_in line
-				(at 0 7.62 270)
+				(at 8.89 -1.27 180)
 				(length 2.54)
 				(name "VDD"
 					(effects
@@ -951,25 +842,7 @@
 						)
 					)
 				)
-				(number "1"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin output line
-				(at 7.62 0 180)
-				(length 2.54)
-				(name "DOUT"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "2"
+				(number "3"
 					(effects
 						(font
 							(size 1.27 1.27)

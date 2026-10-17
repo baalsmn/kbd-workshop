@@ -17,8 +17,15 @@ Shared rules, build and tools: `../CLAUDE.md`.
   - The 2U keys (c5_r1, c7_r1) use KS-57 plate-mounted stabilizers. The PCB has
     stabilizer cutouts; the wire runs between plate and PCB.
 - **Diodes:** SOD-123, COL2ROW.
-- **Key LEDs:** SK6812MINI-E, reverse-mounted on the back through PCB cutouts, with a
-  100 nF 0603 cap per LED.
+- **Key LEDs:** SK6812MINI-E (OPSCO SK6812MINI-E-012, LCSC/JLCPCB **C5149201**,
+  datasheet `../datasheets/C5149201_SK6812MINI-E.pdf`), reverse-mounted on the back
+  through PCB cutouts, with a 100 nF 0603 cap per LED.
+  - **Pins (datasheet):** 1 GND, 2 DIN, 3 VDD, 4 DOUT; the chamfered corner is pin 1
+    (GND). The footprint pads follow this (renumbered; positions were already right,
+    checked against the datasheet's bottom view and KiCad's ReverseMount footprint).
+  - 12 mA per colour (≈ 37 mA per LED at full white), VDD 3.7–5.5 V, data
+    800 kbps, GRB order. Input high ≥ 0.65 × VDD = 3.25 V at 5 V, so a 3.3 V GPIO is
+    not enough: GP25's 5 V level-shifted output is the right choice.
   - Custom DRC rule `../keyboard.kicad_dru`: 0.2 mm LED pad-to-cutout clearance, which is
     JLCPCB's routed-edge minimum.
 - **MCU:** 0xCB Helios (RP2040), on the back, upside down (component side facing the
@@ -40,8 +47,9 @@ Shared rules, build and tools: `../CLAUDE.md`.
     run r1…r5 on the left, then r5…r1 on the right.
   - Caps Lock is shown on the Caps Lock key's own LED.
   - There's a 10 µF 0805 bulk cap at the Helios 5 V pin.
-  - Power: cap the firmware brightness at about 25–30%. 84 LEDs at full white draw
-    about 5 A; USB gives 0.5–0.9 A.
+  - Power: at full white 84 LEDs draw about 3.1 A (hachigo74's 76: 2.8 A), from the
+    datasheet's 12 mA per colour; USB gives 0.5–0.9 A. Cap the firmware brightness
+    at about 15–25% (0.5 A port: ~15%, 0.9 A: ~25%, leaving room for the rest).
 - **Indicators:** next to the c9_r1 keys, on their inner side: key-local
   [19.5, 0] from c9_r1, 8 mm past the 1.25U keycap edge at 11.5 (left = layer
   LED 1, right = fn LED 0). 0603 caps at [19.5, −4]. 3 mm light holes in the plate

@@ -2,8 +2,10 @@
 // cutout, light shines through to the other side).
 // Pad layout from ceoloide's led_sk6812mini-e (MIT, back / reverse-mount
 // variant): pads 1.4 x 1.0 at x = +-2.7, y = +-0.7.
-//   pins: 1 VDD, 2 DOUT, 3 GND, 4 DIN. The chamfered body corner marks the
-//   GND corner (same OPSCO package as the SK6803MINI-E).
+//   pins (OPSCO SK6812MINI-E datasheet, LCSC/JLCPCB C5149201): 1 GND, 2 DIN,
+//   3 VDD, 4 DOUT. The chamfered body corner marks pin 1 (GND). Pad positions
+//   checked against the datasheet's bottom view and KiCad's ReverseMount
+//   footprint (pads were numbered 1 VDD 2 DOUT 3 GND 4 DIN before; same places).
 // Pads start 0.2 mm outside the cutout (JLCPCB routed-edge minimum).
 //
 // Params are named by function: VDD, GND, DIN, DOUT.
@@ -61,10 +63,10 @@ module.exports = {
     (fp_line (start ${x(-3.65)} -1.9) (end ${x(-2.0)} -1.9)
       (stroke (width 0.12) (type solid)) (layer "${S}.SilkS"))
 
-    ${pad(1, 2.7, 0.7, p.VDD)}
-    ${pad(2, 2.7, -0.7, p.DOUT)}
-    ${pad(3, -2.7, -0.7, p.GND)}
-    ${pad(4, -2.7, 0.7, p.DIN)}
+    ${pad(1, -2.7, -0.7, p.GND)}
+    ${pad(2, -2.7, 0.7, p.DIN)}
+    ${pad(3, 2.7, 0.7, p.VDD)}
+    ${pad(4, 2.7, -0.7, p.DOUT)}
     ${model}
   )
   `

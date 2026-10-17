@@ -25,8 +25,9 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
   - `Symbols/Keyboard.kicad_sym`: KiCad built-in symbols with our pin names, prefixes
     and footprints, made by `tools/lib/kicad_symbols.py`. `Symbols/helios.kicad_sym`
     (the user's) renumbered to the footprint's 0xCB pad numbers (it was off by one).
-  - The KiCad SK6812MINI-E symbol uses 5050 SK6812 numbers; ours is renumbered to the
-    footprint (1 VDD 2 DOUT 3 VSS 4 DIN, same pad positions as KiCad's footprint).
+  - SK6812MINI-E: KiCad's symbol numbering (1 VSS 2 DIN 3 VDD 4 DOUT) is the
+    datasheet's (C5149201, `datasheets/`), and the footprint pads were renumbered
+    to it (positions unchanged).
   - `keyboard.pretty/` (root) also holds the user's vendor footprints (reference only).
   - The schematic is to be generated from the PCB netlist later (see
     `kugo/CLAUDE.md`, Open / next).

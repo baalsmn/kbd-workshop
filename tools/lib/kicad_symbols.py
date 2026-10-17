@@ -105,13 +105,39 @@ prop(s, 'Footprint', FP + 'D_SOD-123'); prop(s, 'ki_fp_filters', 'D_SOD-123*'); 
 s = builtin('Device', 'C'); prop(s, 'Value', '100nF'); prop(s, 'Footprint', FP + 'C_0603'); prop(s, 'ki_fp_filters', 'C_0603* C_0805*'); out.append(s)
 s = builtin('Device', 'R'); prop(s, 'Value', '330'); prop(s, 'Footprint', FP + 'R_0603'); prop(s, 'ki_fp_filters', 'R_0603*'); out.append(s)
 
-s = rename(builtin('LED', 'SK6812MINI-E'), 'SK6812MINI-E')
-# KiCad's MINI-E inherits the SK6812 (5050) numbers 1 VSS 2 DIN 3 VDD 4 DOUT; our
-# footprint uses the MINI-E datasheet numbers (same pad positions as KiCad's
-# ReverseMount footprint, checked), so renumber by pin name
-for p in pins(s):
-    find(p, 'number')[0][1] = Q({'VDD': '1', 'DOUT': '2', 'VSS': '3', 'DIN': '4'}[find(p, 'name')[0][1]])
-prop(s, 'Reference', 'LED'); prop(s, 'Footprint', FP + 'LED_SK6812MINI-E_Reverse'); prop(s, 'ki_fp_filters', 'LED_SK6812MINI-E*'); out.append(s)
+def box_symbol(name, ref, value, fp, descr, left, right, half_w=6.35, extra=()):
+    """Plain box symbol: left / right = [(number, name, type)] from the top, 2.54 pitch."""
+    n = max(len(left), len(right)); top = (n - 1) * 1.27; half_h = top + 2.54
+    def fl(v): return '%g' % v
+    def pin(num, nm, typ, x, y, ang):
+        return ['pin', typ, 'line', ['at', fl(x), fl(y), str(ang)], ['length', '2.54'],
+                ['name', Q(nm), ['effects', ['font', ['size', '1.27', '1.27']]]],
+                ['number', Q(num), ['effects', ['font', ['size', '1.27', '1.27']]]]]
+    def prop_(k, v, y, hide=False):
+        e = ['property', Q(k), Q(v), ['at', '0', fl(y), '0'], ['effects', ['font', ['size', '1.27', '1.27']]]]
+        if hide: e.append(['hide', 'yes'])
+        return e
+    sym = ['symbol', Q(name), ['pin_names', ['offset', '1.016']], ['exclude_from_sim', 'no'],
+           ['in_bom', 'yes'], ['on_board', 'yes'],
+           prop_('Reference', ref, half_h + 1.27), prop_('Value', value, -half_h - 1.27),
+           prop_('Footprint', fp, 0, True), prop_('Datasheet', '', 0, True), prop_('Description', descr, 0, True)]
+    sym += [prop_(k, v, 0, True) for k, v in extra]
+    sym.append(['symbol', Q(name + '_0_1'),
+                ['rectangle', ['start', fl(-half_w), fl(half_h)], ['end', fl(half_w), fl(-half_h)],
+                 ['stroke', ['width', '0.254'], ['type', 'default']], ['fill', ['type', 'background']]]])
+    pins_ = [pin(num, nm, t, -half_w - 2.54, top - 2.54 * k, 0) for k, (num, nm, t) in enumerate(left)]
+    pins_ += [pin(num, nm, t, half_w + 2.54, top - 2.54 * k, 180) for k, (num, nm, t) in enumerate(right)]
+    sym.append(['symbol', Q(name + '_1_1')] + pins_)
+    return sym
+
+# SK6812MINI-E as drawn on JLCPCB's part page (C5149201): GND / DIN left, DOUT / VDD
+# right; pin numbers = the OPSCO datasheet = our footprint (1 GND 2 DIN 3 VDD 4 DOUT)
+s = box_symbol('SK6812MINI-E', 'LED', 'SK6812MINI-E', FP + 'LED_SK6812MINI-E_Reverse',
+               'OPSCO SK6812MINI-E-012 addressable RGB LED, reverse mount (LCSC C5149201)',
+               [('1', 'GND', 'power_in'), ('2', 'DIN', 'input')], [('4', 'DOUT', 'output'), ('3', 'VDD', 'power_in')],
+               extra=[('LCSC', 'C5149201'), ('ki_fp_filters', 'LED_SK6812MINI-E*')])
+prop(s, 'Datasheet', 'https://jlcpcb.com/partdetail/OPSCOOptoelectronics-SK6812MINIE/C5149201')
+out.append(s)
 
 s = rename(builtin('Connector', 'Conn_01x12_Socket'), 'Molex_505278-1270')
 pin_names(s, TP_PINS); add_pin(s, '12', '13', 'MP', -2.54); add_pin(s, '12', '14', 'MP', -5.08)
@@ -147,10 +173,18 @@ HELIOS_PADS = {'GP0': '1', 'GP1': '2', 'GP2': '5', 'GP3': '6', 'GP4': '7', 'GP5'
                'D+': '32', 'D-': '33', 'GP25': '34'}
 hp = os.path.join(proj, 'Symbols', 'helios.kicad_sym')
 h = parse(open(hp, encoding='utf-8').read()); hs = find(h, 'symbol')[0]
-gnd = iter(['3', '4', '14'])
+gl = [p for p in pins(hs) if find(p, 'name')[0][1] == 'GND' and float(find(p, 'at')[0][1]) < 0]
+gl.sort(key=lambda p: -float(find(p, 'at')[0][2]))           # left edge, top first: pads 3, 4
 for p in pins(hs):
     nm = find(p, 'name')[0][1]
-    find(p, 'number')[0][1] = Q(next(gnd) if nm == 'GND' else HELIOS_PADS[nm])
+    find(p, 'number')[0][1] = Q(('3', '4')[gl.index(p)] if p in gl else '14' if nm == 'GND' else HELIOS_PADS[nm])
+move_prop(hs, 'Reference', 24.13); move_prop(hs, 'Value', -31.75)
+for k in ('Reference', 'Value'):
+    for pr in find(hs, 'property'):
+        if pr[1] == k:
+            find(pr, 'at')[0][1] = '0'
+            for e in find(pr, 'effects'):
+                for j in find(e, 'justify'): e.remove(j)
 prop(hs, 'Reference', 'MCU'); prop(hs, 'Value', '0xCB Helios'); prop(hs, 'Footprint', FP + '0xCB_Helios')
 prop(hs, 'Description', '0xCB Helios RP2040; pin numbers = footprint pads (0xCB numbering). GP25 = 5 V level-shifted RGB output')
 open(hp, 'w', encoding='utf-8', newline='\n').write(dump(h) + '\n')

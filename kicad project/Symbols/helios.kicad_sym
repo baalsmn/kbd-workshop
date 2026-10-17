@@ -5,21 +5,19 @@
 		(in_bom yes)
 		(on_board yes)
 		(property "Reference" "MCU"
-			(at -1.27 0 0)
+			(at 0 24.13 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "0xCB Helios"
-			(at -2.54 -2.54 0)
+			(at 0 -31.75 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "Keyboard:0xCB_Helios"
@@ -440,7 +438,7 @@
 						)
 					)
 				)
-				(number "3"
+				(number "14"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -566,7 +564,7 @@
 						)
 					)
 				)
-				(number "4"
+				(number "3"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -584,7 +582,7 @@
 						)
 					)
 				)
-				(number "14"
+				(number "4"
 					(effects
 						(font
 							(size 1.27 1.27)
