@@ -16,6 +16,12 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
     `case/`. Details: **`hachigo74/CLAUDE.md`** (hardware otherwise as kugo).
 - A new keyboard = a new folder with `<name>.yaml` (+ `kle/`); the tools find it by
   name.
+- `kicad project/`: the final, self-contained KiCad project (user's plan). At the
+  end it holds everything KiCad needs in one place: project file, schematic, PCB,
+  footprint and symbol libraries, 3D models and the `.kicad_dru` rules. So far:
+  `Symbols/helios.kicad_sym` (the user's Helios symbol, 34 pins, GP names). The
+  schematic is to be generated from the PCB netlist later (see `kugo/CLAUDE.md`,
+  Open / next).
 
 ## Working with the user
 

@@ -2110,7 +2110,9 @@ pcbs:
       # face pointing at the trackpad centre at the other end -> "same side"
       # FFC if the trackpad connector's contacts are on its inner wall,
       # "opposite side" if on the outer wall (checked: outer wall -> opposite-
-      # side / Type D cable, 12 pin 0.5 mm, 30 mm). Verify pin 1 on the real part.
+      # side / Type D cable, 12 pin 0.5 mm, 30 mm). Pin 1 checked on the real part
+      # (photo, back side): trackpad J1 pin 1 is at the east end (+x), and so is
+      # Molex pin 1 here; the straight cable keeps the order -> pin n = pin n.
       trackpad_conn:
         what: molex_505278
         where:
@@ -2136,10 +2138,8 @@ pcbs:
           MP: GND
 
       # Cirque TM040040 trackpad: 3D model only (it is cabled, not soldered).
-      # Its PCB sits 11.51 mm above the keyboard PCB on the 5 risers (pad top at
-      # keycap height, z 22.6 in the case), so the
-      # 4.1 mm of components underneath clear the board. Model is 5.15 mm
-      # thick with its origin mid-height: z offset = 11.51 - (2.6 - 0.99) = 9.9.
+      # It lies on the switch plate (5 mm pad, underside z 12.6, top z 17.6 in the
+      # case), held by the trackpad_ring; the connector reaches down to the PCB top.
       trackpad_model:
         what: mech_model
         where:

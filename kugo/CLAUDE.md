@@ -99,10 +99,15 @@ Shared rules, build and tools: `../CLAUDE.md`.
   - Molex 505278-1270 on the back at (0, 5.5), facing south. The cable drops 1.6 mm
     from the connector (z 10.1) to the PCB bottom, leaving a flat run of ~19.3 mm for
     the 30 mm cable.
-  - Trackpad pin n = Molex pin n.
+  - Trackpad pin n = Molex pin n. **Pin 1 verified** from the user's photos of the
+    real module (`drafts/cirque back.jpg`, `cirque connector close.jpg`): the
+    trackpad's J1 pin 1 is at the east end (+x, top view), and so is Molex J1 pin 1
+    (pad x +2.75 in the board); the cable runs straight north, so the order holds.
+    Module test pads match the pinout: 4 DR, 9 SCL, 10 SDA, 11 GND, 12 VDD.
   - Cable: **12-pin 0.5 mm, opposite-side (Type D), 30 mm**. The trackpad's
-    connector has its contacts on the outer wall. Pin 1 is not yet verified on the
-    real part.
+    connector has its contacts on the outer wall.
+  - **R1 on the module must be removed for I2C** (silkscreen table: SPI 470K,
+    I2C DNP). In the user's photo R1 still looked fitted.
 - **Reset:** there's no separate button. A 1.3 mm pin channel through the case floor
   plus a 1.8 mm boss (top z 4.8) sits under the Helios' own reset switch at
   (−4.885, 44.10); double-tap it with a SIM tool or paperclip for the UF2 bootloader.
