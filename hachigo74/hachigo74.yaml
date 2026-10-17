@@ -1046,8 +1046,8 @@ outlines:
   # caps, cutouts; upper: switch bodies, stab housings, front pads), the same
   # on both halves; arms under 2 mm are dropped (half crosses). Lower north arms
   # are blocked by the next key's socket body, so the lower crosses are mostly
-  # T-shapes; c6_r4 and c8_r3 have no lower cross (the corner itself is blocked).
-  # hachigo74 crosses (upper right corners): c4_r1, c3_r4, c6_r4, c8_r3, + c7_r1 top middle.
+  # T-shapes. Only spots with a lower cross are used.
+  # hachigo74 crosses (upper right corners): c4_r1, c3_r4, c7_r4, + c7_r1 top middle.
   # Generated with tools/lib/crosses.py from the built board.
   cross_lower:
     - what: rectangle
@@ -1129,6 +1129,46 @@ outlines:
       size: [2, 5.00]
       where:
         ref: mirror_hand-zone_c3_r4
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: hand-zone_c7_r4
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c7_r4
+        shift: [12.000, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c7_r4
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: hand-zone_c7_r4
+        shift: [9.500, 7.000]
+    - what: rectangle
+      size: [2, 2]
+      where:
+        ref: mirror_hand-zone_c7_r4
+        shift: [9.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c7_r4
+        shift: [12.000, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c7_r4
+        shift: [7.000, 9.500]
+    - what: rectangle
+      size: [2, 5.00]
+      where:
+        ref: mirror_hand-zone_c7_r4
         shift: [9.500, 7.000]
     - what: rectangle
       size: [2, 2]
@@ -1264,42 +1304,52 @@ outlines:
     - what: rectangle
       size: [2, 2]
       where:
-        ref: hand-zone_c6_r4
+        ref: hand-zone_c7_r4
         shift: [9.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: hand-zone_c7_r4
+        shift: [12.000, 9.500]
     - what: rectangle
       size: [2, 5.00]
       where:
-        ref: hand-zone_c6_r4
+        ref: hand-zone_c7_r4
         shift: [9.500, 12.000]
     - what: rectangle
       size: [5.00, 2]
       where:
-        ref: hand-zone_c6_r4
+        ref: hand-zone_c7_r4
         shift: [7.000, 9.500]
     - what: rectangle
       size: [2, 5.00]
       where:
-        ref: hand-zone_c6_r4
+        ref: hand-zone_c7_r4
         shift: [9.500, 7.000]
     - what: rectangle
       size: [2, 2]
       where:
-        ref: mirror_hand-zone_c6_r4
+        ref: mirror_hand-zone_c7_r4
         shift: [9.500, 9.500]
+    - what: rectangle
+      size: [5.00, 2]
+      where:
+        ref: mirror_hand-zone_c7_r4
+        shift: [12.000, 9.500]
     - what: rectangle
       size: [2, 5.00]
       where:
-        ref: mirror_hand-zone_c6_r4
+        ref: mirror_hand-zone_c7_r4
         shift: [9.500, 12.000]
     - what: rectangle
       size: [5.00, 2]
       where:
-        ref: mirror_hand-zone_c6_r4
+        ref: mirror_hand-zone_c7_r4
         shift: [7.000, 9.500]
     - what: rectangle
       size: [2, 5.00]
       where:
-        ref: mirror_hand-zone_c6_r4
+        ref: mirror_hand-zone_c7_r4
         shift: [9.500, 7.000]
     - what: rectangle
       size: [2, 2]
@@ -1341,46 +1391,6 @@ outlines:
       where:
         ref: mirror_hand-zone_c7_r1
         shift: [-2.500, 9.500]
-    - what: rectangle
-      size: [2, 2]
-      where:
-        ref: hand-zone_c8_r3
-        shift: [9.500, 9.500]
-    - what: rectangle
-      size: [2, 5.00]
-      where:
-        ref: hand-zone_c8_r3
-        shift: [9.500, 12.000]
-    - what: rectangle
-      size: [5.00, 2]
-      where:
-        ref: hand-zone_c8_r3
-        shift: [7.000, 9.500]
-    - what: rectangle
-      size: [2, 5.00]
-      where:
-        ref: hand-zone_c8_r3
-        shift: [9.500, 7.000]
-    - what: rectangle
-      size: [2, 2]
-      where:
-        ref: mirror_hand-zone_c8_r3
-        shift: [9.500, 9.500]
-    - what: rectangle
-      size: [2, 5.00]
-      where:
-        ref: mirror_hand-zone_c8_r3
-        shift: [9.500, 12.000]
-    - what: rectangle
-      size: [5.00, 2]
-      where:
-        ref: mirror_hand-zone_c8_r3
-        shift: [7.000, 9.500]
-    - what: rectangle
-      size: [2, 5.00]
-      where:
-        ref: mirror_hand-zone_c8_r3
-        shift: [9.500, 7.000]
   # Silkscreen markers of every case support touching the PCB, so they show in
   # KiCad: back = screw posts + lower crosses, front = OLED spacers + trackpad outline. Built from the
   # same outlines the case uses, so they always match.
