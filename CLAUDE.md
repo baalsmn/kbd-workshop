@@ -83,8 +83,9 @@ bash tools/render.sh [name]    # 3D renders -> <keyboard>/renders/ (only when as
   and Add-Ins, run, pick a `_case.json`): a new parametric design, one component per
   case part, one sketch per outline, extrudes (start offset = z, distance = height)
   combined join / cut / intersect in recipe order, a timeline group per part.
-  Filled profiles = profiles whose box matches a loop of even depth. Untested in
-  Fusion so far: the data was checked against the STEP areas (0 mismatches).
+  Each outline gets one sketch per loop nesting depth (depth 0 = filled, extruded as
+  a new body; depth 1 = holes, cut from it), so no profile picking is needed.
+  (Matching profiles by bounding box failed: Fusion's boxes are loose on arcs.)
 - **`render.sh` workarounds:**
   - The user's KiCad 3D settings hide "virtual" footprints, so the render copy
     marks every footprint `smd`, including those with no attr line at all, like the

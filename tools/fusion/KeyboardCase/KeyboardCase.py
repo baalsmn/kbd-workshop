@@ -12,7 +12,6 @@
 import adsk.core, adsk.fusion, traceback, json, os
 
 MM = 0.1            # Fusion's internal unit is cm
-BBOX_TOL = 0.05     # mm, profile box vs. loop box
 
 
 def P(x, y):
@@ -55,22 +54,10 @@ def draw_outline(comp, name, loops, sx, sy):
     return sk
 
 
-def filled_profiles(sk, loops, sx, sy):
-    """Profiles of the even-odd fill: the profile's box is its outer loop's box;
-    the loop with that box has an even nesting depth for filled regions."""
-    boxes = [([l['bbox'][0] + sx, l['bbox'][1] + sy, l['bbox'][2] + sx, l['bbox'][3] + sy], l['depth']) for l in loops]
-    sel, missed = adsk.core.ObjectCollection.create(), 0
-    for i in range(sk.profiles.count):
-        pr = sk.profiles.item(i)
-        bb = pr.boundingBox
-        b = [bb.minPoint.x / MM, bb.minPoint.y / MM, bb.maxPoint.x / MM, bb.maxPoint.y / MM]
-        best = min(boxes, key=lambda t: max(abs(u - v) for u, v in zip(t[0], b)))
-        if max(abs(u - v) for u, v in zip(best[0], b)) > BBOX_TOL:
-            missed += 1
-            continue
-        if best[1] % 2 == 0:
-            sel.add(pr)
-    return sel, missed
+def all_profiles(sk):
+    c = adsk.core.ObjectCollection.create()
+    for i in range(sk.profiles.count): c.add(sk.profiles.item(i))
+    return c
 
 
 def build_part(comp, recipe, outlines, log):
@@ -82,22 +69,35 @@ def build_part(comp, recipe, outlines, log):
         if not loops:
             log.append('%s: outline %s is empty, skipped' % (comp.name, name)); continue
         sx, sy, sz = (list(item.get('shift') or []) + [0, 0, 0])[:3]
+        # one sketch per nesting depth: loops of the same depth never nest, so every
+        # profile of a sketch is the same kind (even depth = filled, odd = hole)
         key = (name, sx, sy)
         if key not in sketches:
-            sketches[key] = draw_outline(comp, name, loops, sx, sy)
-        sk = sketches[key]
-        prof, missed = filled_profiles(sk, loops, sx, sy)
-        if missed: log.append('%s / %s: %d profile(s) not matched' % (comp.name, name, missed))
-        if prof.count == 0:
-            log.append('%s / %s: no profile, skipped' % (comp.name, name)); continue
-        ei = feats.extrudeFeatures.createInput(prof, adsk.fusion.FeatureOperations.NewBodyFeatureOperation)
-        ei.setDistanceExtent(False, adsk.core.ValueInput.createByReal(item['extrude'] * MM))
-        if sz:
-            ei.startExtent = adsk.fusion.OffsetStartDefinition.create(adsk.core.ValueInput.createByReal(sz * MM))
-        ex = feats.extrudeFeatures.add(ei)
+            depths = sorted({l['depth'] for l in loops})
+            sketches[key] = [(d, draw_outline(comp, name if d == 0 else '%s (depth %d)' % (name, d),
+                                              [l for l in loops if l['depth'] == d], sx, sy)) for d in depths]
+        dist = adsk.core.ValueInput.createByReal(item['extrude'] * MM)
         op = item.get('operation', 'add') if bodies else 'base'
-        ex.name = '%02d %s %s' % (i, op, name)
-        new = [ex.bodies.item(k) for k in range(ex.bodies.count)]
+        new = []
+        for d, sk in sketches[key]:
+            prof = all_profiles(sk)
+            if prof.count == 0:
+                log.append('%s / %s: no profile at depth %d' % (comp.name, name, d)); continue
+            hole = d % 2 == 1
+            if hole and not new: continue
+            ei = feats.extrudeFeatures.createInput(prof, adsk.fusion.FeatureOperations.CutFeatureOperation if hole
+                                                   else adsk.fusion.FeatureOperations.NewBodyFeatureOperation)
+            ei.setDistanceExtent(False, dist)
+            if sz:
+                ei.startExtent = adsk.fusion.OffsetStartDefinition.create(adsk.core.ValueInput.createByReal(sz * MM))
+            if hole: ei.participantBodies = new
+            ex = feats.extrudeFeatures.add(ei)
+            ex.name = '%02d %s %s%s' % (i, op, name, ' holes' if hole else ('' if d == 0 else ' islands'))
+            if not hole:
+                new += [ex.bodies.item(k) for k in range(ex.bodies.count)]
+        new = [b for b in new if b.isValid]
+        if not new:
+            log.append('%s / %s: nothing extruded, skipped' % (comp.name, name)); continue
         if op == 'base':
             bodies = new; continue
         kind = {'add': adsk.fusion.FeatureOperations.JoinFeatureOperation,
@@ -142,7 +142,7 @@ def run(context):
         design.designType = adsk.fusion.DesignTypes.ParametricDesignType
         design.fusionUnitsManager.distanceDisplayUnits = adsk.fusion.DistanceUnits.MillimeterDistanceUnits
         root = design.rootComponent
-        root.name = data.get('design', 'keyboard') + ' case'
+        # (the root component can't be renamed; it takes the name the design is saved under)
         log, tl = [], design.timeline
         for part, recipe in data['cases'].items():
             start = tl.markerPosition
