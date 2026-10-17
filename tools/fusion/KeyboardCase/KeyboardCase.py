@@ -24,14 +24,15 @@ def draw_outline(comp, name, loops, sx, sy):
     sk.isComputeDeferred = True
     lines, arcs, circles = sk.sketchCurves.sketchLines, sk.sketchCurves.sketchArcs, sk.sketchCurves.sketchCircles
     for loop in loops:
-        pts = {}                                    # shared end points -> connected loops
+        pts = []                                    # shared end points -> connected loops
 
-        def sp(p):
-            k = (round(p[0], 4), round(p[1], 4))
-            return pts.get(k)
+        def sp(p):                                  # the sketch point already at p (1 um), if any
+            for (x, y), o in pts:
+                if abs(x - p[0]) < 1e-3 and abs(y - p[1]) < 1e-3: return o
+            return None
 
-        def keep(p, s):
-            pts[(round(p[0], 4), round(p[1], 4))] = s
+        def keep(p, o):
+            pts.append(((p[0], p[1]), o))
 
         for s in loop['segs']:
             if s['t'] == 'C':
@@ -44,7 +45,10 @@ def draw_outline(comp, name, loops, sx, sy):
                 keep(a, ln.startSketchPoint); keep(b, ln.endSketchPoint)
             else:
                 arc = arcs.addByThreePoints(P(*a), P(*q[1]), P(*b))
-                for p, e in ((a, arc.startSketchPoint), (b, arc.endSketchPoint)):
+                # Fusion keeps arcs counter-clockwise: for a clockwise (concave) arc its
+                # "start" point is our end point, so pair the points by position
+                for e in (arc.startSketchPoint, arc.endSketchPoint):
+                    p = (e.geometry.x / MM, e.geometry.y / MM)
                     o = sp(p)
                     if o is None: keep(p, e)
                     else:
