@@ -86,6 +86,17 @@ bash tools/render.sh [name]    # 3D renders -> <keyboard>/renders/ (only when as
   Each outline gets one sketch per loop nesting depth (depth 0 = filled, extruded as
   a new body; depth 1 = holes, cut from it), so no profile picking is needed.
   (Matching profiles by bounding box failed: Fusion's boxes are loose on arcs.)
+  - Arc end points are paired by position: Fusion keeps arcs counter-clockwise, so a
+    concave arc's "start" is our end point.
+  - **Optional plate ribs** (asked at start, default `1.0, 1.0, 1.5`): a rib frame
+    under the plate around every switch cutout. Relief gap (default 1 mm) around the
+    switch (on the 2U keys around switch + stabilizer housings + wire, 30 × 15.1) so
+    switches and stabs still snap in; frame width (default 1.5, > 1.45 merges the
+    neighbours into a web); depth = user parameter `plate_rib` (max 1.3 = to the PCB
+    top). Clipped 0.5 mm inside the PCB outline (clear of the tub wall), the plate's
+    holes cut through. Data: `rib` in the `_case.json` (key rectangles from
+    `switches_outline` + `stab_cutouts`, region from `pcb_outline`). Checked offline
+    with the defaults: nearest through-hole pad (Helios) 11.1 mm away.
 - **`render.sh` workarounds:**
   - The user's KiCad 3D settings hide "virtual" footprints, so the render copy
     marks every footprint `smd`, including those with no attr line at all, like the

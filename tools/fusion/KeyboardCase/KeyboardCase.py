@@ -9,7 +9,13 @@
 # base body, every next entry is an outline sketch extruded from z = shift[2] by
 # `extrude` mm and joined / cut / intersected. Sketches are plain lines, arcs and
 # circles in case coordinates (mm), so they can be edited and the timeline replays.
-import adsk.core, adsk.fusion, traceback, json, os
+#
+# Optional plate ribs (asked at start): a rib frame under the switch plate around
+# every switch cutout, leaving a relief gap so the switches and stabilizers still
+# snap in; neighbouring frames merge into a web. Clipped 0.5 mm inside the PCB
+# outline, with the plate's holes cut through. The depth is the user parameter
+# `plate_rib` (Modify > Change Parameters); gap and width are fixed per run.
+import adsk.core, adsk.fusion, traceback, json, os, math
 
 MM = 0.1            # Fusion's internal unit is cm
 
@@ -58,13 +64,75 @@ def draw_outline(comp, name, loops, sx, sy):
     return sk
 
 
+def draw_rects(comp, name, keys, grow):
+    """Each key rectangle [cx, cy, angle, x0, y0, x1, y1] grown by `grow` mm."""
+    sk = comp.sketches.add(comp.xYConstructionPlane)
+    sk.name = name
+    sk.isComputeDeferred = True
+    lines = sk.sketchCurves.sketchLines
+    for cx, cy, a, x0, y0, x1, y1 in keys:
+        ca, sa = math.cos(math.radians(a)), math.sin(math.radians(a))
+        q = [(x0 - grow, y0 - grow), (x1 + grow, y0 - grow), (x1 + grow, y1 + grow), (x0 - grow, y1 + grow)]
+        q = [P(cx + u * ca - v * sa, cy + u * sa + v * ca) for u, v in q]
+        first = prev = lines.addByTwoPoints(q[0], q[1])
+        for k in (2, 3):
+            prev = lines.addByTwoPoints(prev.endSketchPoint, q[k])
+        lines.addByTwoPoints(prev.endSketchPoint, first.startSketchPoint)
+    sk.isComputeDeferred = False
+    return sk
+
+
+def rib_extrude(comp, sk, op, top, depth, name, participants=None):
+    """Extrude all profiles of sk downward from z = top (mm) by the expression depth."""
+    ext = comp.features.extrudeFeatures
+    ei = ext.createInput(all_profiles(sk), op)
+    ei.startExtent = adsk.fusion.OffsetStartDefinition.create(adsk.core.ValueInput.createByReal(top * MM))
+    ei.setOneSideExtent(adsk.fusion.DistanceExtentDefinition.create(adsk.core.ValueInput.createByString(depth)),
+                        adsk.fusion.ExtentDirections.NegativeExtentDirection)
+    if participants is not None: ei.participantBodies = participants
+    f = ext.add(ei)
+    f.name = name
+    return [f.bodies.item(k) for k in range(f.bodies.count)]
+
+
+def add_ribs(comp, bodies, sketches, rib, opt, log):
+    """Rib frames under the plate around every switch cutout, joined to the lid."""
+    feats, NEW = comp.features, adsk.fusion.FeatureOperations.NewBodyFeatureOperation
+    CUT = adsk.fusion.FeatureOperations.CutFeatureOperation
+    z, gap, width = rib['plate_z'], opt['gap'], opt['width']
+    ribs = rib_extrude(comp, draw_rects(comp, 'plate rib frames', rib['keys'], gap + width), NEW, z, 'plate_rib', 'rib frames')
+    rib_extrude(comp, draw_rects(comp, 'plate rib relief', rib['keys'], gap), CUT, z + 0.1, 'plate_rib + 0.2 mm', 'rib relief', ribs)
+    for d, sk in sketches.get((rib['plate_holes'], 0, 0), []):          # the plate's own holes
+        if d % 2 == 1:
+            rib_extrude(comp, sk, CUT, z + 0.1, 'plate_rib + 0.2 mm', 'rib plate holes', ribs)
+    ribs = [b for b in ribs if b.isValid]
+    region = rib_extrude(comp, draw_outline(comp, 'plate rib region', [l for l in rib['region'] if l['depth'] == 0], 0, 0),
+                         NEW, z, 'plate_rib', 'rib region')
+    for t, target in enumerate(ribs):
+        tools = adsk.core.ObjectCollection.create()
+        for b in region: tools.add(b)
+        ci = feats.combineFeatures.createInput(target, tools)
+        ci.operation = adsk.fusion.FeatureOperations.IntersectFeatureOperation
+        ci.isKeepToolBodies = t < len(ribs) - 1
+        try: feats.combineFeatures.add(ci)
+        except Exception as e: log.append('%s: rib clip failed (%s)' % (comp.name, e))
+    tools = adsk.core.ObjectCollection.create()
+    for b in ribs:
+        if b.isValid: tools.add(b)
+    if tools.count:
+        ci = feats.combineFeatures.createInput(bodies[0], tools)
+        ci.operation = adsk.fusion.FeatureOperations.JoinFeatureOperation
+        try: feats.combineFeatures.add(ci)
+        except Exception as e: log.append('%s: rib join failed (%s)' % (comp.name, e))
+
+
 def all_profiles(sk):
     c = adsk.core.ObjectCollection.create()
     for i in range(sk.profiles.count): c.add(sk.profiles.item(i))
     return c
 
 
-def build_part(comp, recipe, outlines, log):
+def build_part(comp, recipe, outlines, log, rib=None, rib_opt=None):
     feats = comp.features
     bodies, sketches = [], {}
     for i, item in enumerate(recipe):
@@ -103,7 +171,10 @@ def build_part(comp, recipe, outlines, log):
         if not new:
             log.append('%s / %s: nothing extruded, skipped' % (comp.name, name)); continue
         if op == 'base':
-            bodies = new; continue
+            bodies = new
+            if rib and rib_opt and comp.name.startswith('lid'):
+                add_ribs(comp, bodies, sketches, rib, rib_opt, log)
+            continue
         kind = {'add': adsk.fusion.FeatureOperations.JoinFeatureOperation,
                 'subtract': adsk.fusion.FeatureOperations.CutFeatureOperation,
                 'intersect': adsk.fusion.FeatureOperations.IntersectFeatureOperation}[op]
@@ -146,6 +217,22 @@ def run(context):
         design.designType = adsk.fusion.DesignTypes.ParametricDesignType
         design.fusionUnitsManager.distanceDisplayUnits = adsk.fusion.DistanceUnits.MillimeterDistanceUnits
         root = design.rootComponent
+        rib, rib_opt = data.get('rib'), None
+        if rib:
+            room = rib['plate_z'] - rib['pcb_top']
+            txt, cancelled = ui.inputBox(
+                'Plate ribs under the switch plate (empty = none):\n'
+                'depth below the plate, relief gap around each switch, rib width  [mm]\n'
+                '(depth max %.2f = down to the PCB top; width > 1.45 merges neighbouring frames)' % room,
+                'Plate ribs', '1.0, 1.0, 1.5')
+            if cancelled: return
+            if txt.strip() and txt.strip() != '0':
+                depth, gap, width = [float(v) for v in txt.replace(';', ',').split(',')]
+                if not 0 < depth <= room + 1e-6:
+                    ui.messageBox('Rib depth must be > 0 and <= %.2f mm' % room); return
+                rib_opt = {'gap': gap, 'width': width}
+                design.userParameters.add('plate_rib', adsk.core.ValueInput.createByString('%g mm' % depth), 'mm',
+                                          'plate rib depth below the switch plate (max %.2f)' % room)
         # (the root component can't be renamed; it takes the name the design is saved under)
         log, tl = [], design.timeline
         for part, recipe in data['cases'].items():
@@ -153,7 +240,7 @@ def run(context):
             occ = root.occurrences.addNewComponent(adsk.core.Matrix3D.create())
             comp = occ.component
             comp.name = part
-            build_part(comp, recipe, data['outlines'], log)
+            build_part(comp, recipe, data['outlines'], log, rib, rib_opt)
             adsk.doEvents()
             try:
                 if tl.markerPosition - 1 > start:
