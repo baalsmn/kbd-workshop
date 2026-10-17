@@ -16,19 +16,28 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
     `case/`. Details: **`hachigo74/CLAUDE.md`** (hardware otherwise as kugo).
 - A new keyboard = a new folder with `<name>.yaml` (+ `kle/`); the tools find it by
   name.
-- `kicad project/`: the final, self-contained KiCad project (user's plan): project
-  file, schematic, PCB, libraries, 3D models and `.kicad_dru` all in one folder,
-  everything `${KIPRJMOD}`-relative. Done so far (see its README):
+- `kicad libraries/` (renamed by the user from `kicad project/`): the self-contained
+  KiCad libraries: symbols, footprints, 3D models and library tables, everything
+  `${KIPRJMOD}`-relative. Where the project file, schematic, PCB and `.kicad_dru` will
+  live is still open. Contents (see its README):
   - `Footprints/Keyboard.pretty` + `3dmodels/`: exported from the built boards by
     `tools/lib/kicad_footprints.py` (KiCad python; run per design, `--force` to
     overwrite), exactly as placed, unrotated, on the front side.
-  - `Symbols/Keyboard.kicad_sym`: KiCad built-in symbols with our pin names, prefixes
-    and footprints, made by `tools/lib/kicad_symbols.py`. `Symbols/helios.kicad_sym`
-    (the user's) renumbered to the footprint's 0xCB pad numbers (it was off by one).
+  - `Symbols/keyboard-workshop.kicad_sym`: the one symbol library (library name
+    `keyboard-workshop`): KiCad built-in symbols with our pin names, prefixes and
+    footprints, made by `tools/lib/kicad_symbols.py`, plus the user's Helios symbol,
+    renumbered to the footprint's 0xCB pad numbers (it was off by one). The script
+    rebuilds its own symbols and keeps every other symbol in the file (Helios, or
+    anything added by hand in KiCad).
   - SK6812MINI-E: KiCad's symbol numbering (1 VSS 2 DIN 3 VDD 4 DOUT) is the
     datasheet's (C5149201, `datasheets/`), and the footprint pads were renumbered
     to it (positions unchanged).
   - `keyboard.pretty/` (root) also holds the user's vendor footprints (reference only).
+  - `tools/lib/kicad_project.py` makes a portable per-design KiCad project from a built
+    board (`hachigo74/kicad/`, see `hachigo74/CLAUDE.md`). Shared helpers (S-expression
+    reader/writer, footprint names, model renames) live in `tools/lib/kicad_common.py`.
+  - pcbnew gotcha: edit 3D model paths by index (`fp.Models()[i].m_Filename = ...`);
+    `for m in fp.Models()` yields copies and the edit is silently lost.
   - The schematic is to be generated from the PCB netlist later (see
     `kugo/CLAUDE.md`, Open / next).
 

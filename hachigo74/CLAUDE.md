@@ -19,3 +19,14 @@ same as kugo82: see `../kugo/CLAUDE.md`.
 - Build: `bash tools/build.sh hachigo74`, then `tools/case.sh hachigo74` and
   `tools/step.sh hachigo74` → `case/`, `case/step/`, `case/fusion/` here.
 - Expected DRC: 2 `silk_overlap`, 499 unconnected pads; 74 switches, 76 LEDs.
+- **KiCad project `kicad/`** (portable, see its README): PCB + generated schematic +
+  `.kicad_dru` + a copy of `../kicad libraries` in `kicad/libraries/`, all paths
+  `${KIPRJMOD}/libraries/...`. Made by `tools/lib/kicad_project.py` (KiCad python)
+  from `out/pcbs/hachigo74.kicad_pcb`; it refuses to overwrite unless `--force`.
+  Verified: ERC 0, DRC schematic parity 0, netlist = Ergogen board (808 pads).
+  - Unused pins (C1/GP0, GP13-15, D+/D-, RST, LED_END) have no-connect flags; their
+    pads carry KiCad's `unconnected-(...)` net names, so parity holds.
+  - Footprints carry the same fields as their symbols (Description, LCSC, ...); the
+    Helios symbol is out of the BOM like its footprint (hand-soldered module).
+  - The project is the master from now on: an Ergogen rebuild + `--force` regenerate
+    would lose routing done in KiCad.

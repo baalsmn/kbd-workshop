@@ -1,38 +1,16 @@
-# Build the project symbol library (kicad project/Symbols/Keyboard.kicad_sym) from
+# Build the project symbol library (kicad libraries/Symbols/keyboard-workshop.kicad_sym) from
 # KiCad's built-in symbols, with this keyboard's pin names, reference prefixes
-# and footprints (Keyboard:... in kicad project/Footprints/Keyboard.pretty), and
-# fix the Helios symbol (Symbols/helios.kicad_sym) to the footprint's pad numbers.
+# and footprints (Keyboard:... in kicad libraries/Footprints/Keyboard.pretty), and
+# fix the Helios symbol (the user's, kept in the same library) to the pad numbers.
 # Also writes the project library tables (sym-lib-table, fp-lib-table).
 #
-# Usage: python tools/lib/kicad_symbols.py "kicad project" [kicad share/symbols dir]
+# Usage: python tools/lib/kicad_symbols.py "kicad libraries" [kicad share/symbols dir]
 import sys, os, re, copy
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from kicad_common import Q, parse, dump, find
 
 proj = sys.argv[1]
 SYMDIR = sys.argv[2] if len(sys.argv) > 2 else r'C:\Users\balin\AppData\Local\Programs\KiCad\10.0\share\kicad\symbols'
-
-# ---- minimal S-expression reader / writer (strings kept as Q) ----
-class Q(str): pass
-def parse(text):
-    tok = re.finditer(r'\(|\)|"(?:[^"\\]|\\.)*"|[^\s()"]+', text)
-    stack = [[]]
-    for m in tok:
-        t = m.group(0)
-        if t == '(': stack.append([])
-        elif t == ')': x = stack.pop(); stack[-1].append(x)
-        elif t[0] == '"': stack[-1].append(Q(t[1:-1].replace('\\"', '"').replace('\\\\', '\\')))
-        else: stack[-1].append(t)
-    return stack[0][0]
-def dump(x, ind=0):
-    if isinstance(x, list):
-        simple = all(not isinstance(e, list) for e in x)
-        if simple: return '(' + ' '.join(dump(e) for e in x) + ')'
-        head = [dump(e) for e in x if not isinstance(e, list)]
-        body = ['\n' + '\t' * (ind + 1) + dump(e, ind + 1) for e in x if isinstance(e, list)]
-        return '(' + ' '.join(head) + ''.join(body) + '\n' + '\t' * ind + ')'
-    if isinstance(x, Q): return '"' + x.replace('\\', '\\\\').replace('"', '\\"') + '"'
-    return str(x)
-def find(node, key):
-    return [e for e in node if isinstance(e, list) and e and e[0] == key]
 
 LIBS = {}
 def builtin(lib, name):
@@ -159,12 +137,19 @@ pin_names(s, {'1': 'GND', '2': 'VCC', '3': 'SCL', '4': 'SDA'})
 prop(s, 'Reference', 'DISP'); prop(s, 'Value', 'SSD1306 0.96in'); prop(s, 'Footprint', FP + 'OLED_0.96in_SSD1306_I2C')
 prop(s, 'Description', '0.96in SSD1306 128x64 OLED module, I2C address 0x3C, VCC = 3V3'); prop(s, 'ki_fp_filters', 'OLED*'); out.append(s)
 
-for n in ('GND', 'VCC', '+3V3', '+5V'):
+for n in ('GND', 'VCC', '+3V3', '+5V', 'PWR_FLAG'):
     out.append(builtin('power', n))
 
-lib = ['kicad_symbol_lib', ['version', '20251024'], ['generator', Q('keyboard-workshop')], ['generator_version', Q('10.0')]] + out
-os.makedirs(os.path.join(proj, 'Symbols'), exist_ok=True)
-open(os.path.join(proj, 'Symbols', 'Keyboard.kicad_sym'), 'w', encoding='utf-8', newline='\n').write(dump(lib) + '\n')
+# ---- one library: Symbols/keyboard-workshop.kicad_sym ----
+# The generated symbols above are rebuilt every run; any other symbol already in
+# the library (the user's Helios, symbols added by hand in KiCad) is kept. On the
+# first run the old Keyboard.kicad_sym + helios.kicad_sym are merged in and removed.
+SYM = os.path.join(proj, 'Symbols'); os.makedirs(SYM, exist_ok=True)
+LIBF = os.path.join(SYM, 'keyboard-workshop.kicad_sym')
+OLD = [os.path.join(SYM, f) for f in ('Keyboard.kicad_sym', 'helios.kicad_sym')]
+sources = [LIBF] if os.path.exists(LIBF) else [f for f in OLD if os.path.exists(f)]
+made = {x[1] for x in out}
+kept = [x for f in sources for x in find(parse(open(f, encoding='utf-8').read()), 'symbol') if x[1] not in made]
 
 # ---- Helios: renumber the pins to the footprint's (0xCB) pad numbers ----
 HELIOS_PADS = {'GP0': '1', 'GP1': '2', 'GP2': '5', 'GP3': '6', 'GP4': '7', 'GP5': '8', 'GP6': '9', 'GP7': '10',
@@ -172,8 +157,7 @@ HELIOS_PADS = {'GP0': '1', 'GP1': '2', 'GP2': '5', 'GP3': '6', 'GP4': '7', 'GP5'
                'GP27': '19', 'GP26': '20', 'GP22': '21', 'GP20': '22', 'GP23': '23', 'GP21': '24', 'GP12': '25',
                'GP13': '26', 'GP14': '27', 'GP15': '28', 'GP16': '29', 'GP11': '30', 'GP10': '31',
                'D+': '32', 'D-': '33', 'GP25': '34'}
-hp = os.path.join(proj, 'Symbols', 'helios.kicad_sym')
-h = parse(open(hp, encoding='utf-8').read()); hs = find(h, 'symbol')[0]
+hs = next(x for x in kept if x[1] == 'helios')
 gl = [p for p in pins(hs) if find(p, 'name')[0][1] == 'GND' and float(find(p, 'at')[0][1]) < 0]
 gl.sort(key=lambda p: -float(find(p, 'at')[0][2]))           # left edge, top first: pads 3, 4
 for p in pins(hs):
@@ -188,14 +172,16 @@ for k in ('Reference', 'Value'):
                 for j in find(e, 'justify'): e.remove(j)
 prop(hs, 'Reference', 'MCU'); prop(hs, 'Value', '0xCB Helios'); prop(hs, 'Footprint', FP + '0xCB_Helios')
 prop(hs, 'Description', '0xCB Helios RP2040; pin numbers = footprint pads (0xCB numbering). GP25 = 5 V level-shifted RGB output')
-open(hp, 'w', encoding='utf-8', newline='\n').write(dump(h) + '\n')
+lib = ['kicad_symbol_lib', ['version', '20251024'], ['generator', Q('keyboard-workshop')], ['generator_version', Q('10.0')]] + out + kept
+open(LIBF, 'w', encoding='utf-8', newline='\n').write(dump(lib) + '\n')
+for f in OLD:
+    if os.path.exists(f): os.remove(f)
 
 # ---- project library tables ----
 open(os.path.join(proj, 'sym-lib-table'), 'w', newline='\n').write(
     '(sym_lib_table\n  (version 7)\n'
-    '  (lib (name "Keyboard")(type "KiCad")(uri "${KIPRJMOD}/Symbols/Keyboard.kicad_sym")(options "")(descr "keyboard-workshop symbols"))\n'
-    '  (lib (name "Helios")(type "KiCad")(uri "${KIPRJMOD}/Symbols/helios.kicad_sym")(options "")(descr "0xCB Helios"))\n)\n')
+    '  (lib (name "keyboard-workshop")(type "KiCad")(uri "${KIPRJMOD}/Symbols/keyboard-workshop.kicad_sym")(options "")(descr "keyboard-workshop symbols"))\n)\n')
 open(os.path.join(proj, 'fp-lib-table'), 'w', newline='\n').write(
     '(fp_lib_table\n  (version 7)\n'
     '  (lib (name "Keyboard")(type "KiCad")(uri "${KIPRJMOD}/Footprints/Keyboard.pretty")(options "")(descr "keyboard-workshop footprints"))\n)\n')
-print('symbols:', ', '.join(s[1] for s in out), '+ Helios (renumbered)')
+print('symbols:', ', '.join(x[1] for x in out + kept), '->', os.path.relpath(LIBF, proj))

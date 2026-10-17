@@ -11,3 +11,6 @@ fp-info-cache
 __pycache__/
 # editor settings Fusion creates next to scripts
 .vscode/
+# KiCad lock and autosave files
+*.lck
+_autosave-*

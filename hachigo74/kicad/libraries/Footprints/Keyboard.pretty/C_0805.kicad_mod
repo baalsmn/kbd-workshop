@@ -1,0 +1,123 @@
+(footprint "C_0805"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "0805 capacitor")
+	(property "Reference" "REF**"
+		(at 0 1.68 180)
+		(layer "F.SilkS")
+		(uuid "3daa3fbd-ddb3-4126-840d-97750afae4c5")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "C_0805"
+		(at 0 -1.68 180)
+		(layer "F.Fab")
+		(uuid "dcd14e94-dfb6-40c5-be79-a710e44fed71")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 180)
+		(layer "B.Fab")
+		(hide yes)
+		(uuid "86b37f21-a497-4000-be70-834d4e7a21de")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify mirror)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 180)
+		(layer "B.Fab")
+		(hide yes)
+		(uuid "dce806e9-3f9d-4477-973e-6c756d659fa2")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify mirror)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start 0.2613 -0.735)
+		(end -0.2613 -0.735)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "681d7ba9-70fe-433b-a8bd-9e3d02fab51f")
+	)
+	(fp_line
+		(start 0.2613 0.735)
+		(end -0.2613 0.735)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "0e9f2c31-ff07-49a3-97d8-3309d42d479f")
+	)
+	(fp_rect
+		(start 1.7 0.98)
+		(end -1.7 -0.98)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "7280fe92-f2bd-4611-8e2f-64f4d996fd2d")
+	)
+	(fp_rect
+		(start 1 0.625)
+		(end -1 -0.625)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "57886875-2e2b-45e8-9f96-21fc7bd04f86")
+	)
+	(pad "1" smd roundrect
+		(at 0.95 0)
+		(size 1 1.45)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "554aa56a-e527-4b26-97a6-8b04abca95fb")
+	)
+	(pad "2" smd roundrect
+		(at -0.95 0)
+		(size 1 1.45)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "3825e76c-cdd0-4567-8331-dc50f78b4202")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/libraries/3dmodels/C_0805_2012Metric.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 180)
+		)
+	)
+)
