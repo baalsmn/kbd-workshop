@@ -1501,6 +1501,15 @@
 			)
 		)
 		(embedded_fonts no)
+		(property "LCSC" "C47149418"
+			(at 0 0 0)
+			(hide yes)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
 	)
 	(symbol "Cirque_TM040040"
 		(pin_names

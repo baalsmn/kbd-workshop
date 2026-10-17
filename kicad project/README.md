@@ -16,7 +16,7 @@ Each symbol's Footprint field points at `Keyboard:<footprint>`, and each footpri
 (checked: no missing or extra pins on any pair).
 
 Pinouts:
-- **Trackpad / Molex** (pin n = pin n, 12-pin 0.5 mm Type D cable): 1 SCK, 2 SO,
+- **Trackpad / Molex** (Molex = LCSC/JLCPCB C47149418; pin n = pin n, 12-pin 0.5 mm Type D cable): 1 SCK, 2 SO,
   3 SS, 4 DR, 5 SI, 6 B2, 7 B3, 8 B1, 9 SCL, 10 SDA, 11 GND, 12 VDD; Molex 13/14 =
   mounting tabs (GND). The trackpad symbol is not on the board (cabled module).
 - **OLED**: 1 GND, 2 VCC (3V3), 3 SCL, 4 SDA.

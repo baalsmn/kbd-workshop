@@ -112,6 +112,9 @@ Shared rules, build and tools: `../CLAUDE.md`.
     trackpad's J1 pin 1 is at the east end (+x, top view), and so is Molex J1 pin 1
     (pad x +2.75 in the board); the cable runs straight north, so the order holds.
     Module test pads match the pinout: 4 DR, 9 SCL, 10 SDA, 11 GND, 12 VDD.
+  - Molex 505278-1270 at JLCPCB: **C47149418** (Extended, ~$1.16; only 4 in stock
+    and listed as "Wave Soldering" when checked on 2026-10-17). Backup in the same
+    series: 505278-1233, C3169674 (pre-order, SMT); check the suffix difference first.
   - Cable: **12-pin 0.5 mm, opposite-side (Type D), 30 mm**. The trackpad's
     connector has its contacts on the outer wall.
   - **R1 on the module must be removed for I2C** (silkscreen table: SPI 470K,

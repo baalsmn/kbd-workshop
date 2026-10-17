@@ -146,7 +146,8 @@ for p in pins(s):
 move_prop(s, 'Value', -22.86)
 prop(s, 'Reference', 'J'); prop(s, 'Value', 'Molex_505278-1270'); prop(s, 'Footprint', FP + 'Molex_505278-1270_12p')
 prop(s, 'Description', 'Molex 505278-1270 FFC connector, 12 pin 0.5 mm, to the Cirque TM040040 (pin n = trackpad pin n; Type D cable). MP = mounting tabs (GND)')
-prop(s, 'ki_fp_filters', 'Molex_505278*'); out.append(s)
+prop(s, 'ki_fp_filters', 'Molex_505278*'); prop(s, 'LCSC', 'C47149418')   # JLCPCB part (Extended)
+out.append(s)
 
 s = rename(builtin('Connector', 'Conn_01x12_Pin'), 'Cirque_TM040040')
 pin_names(s, TP_PINS); prop(s, 'Reference', 'TP'); prop(s, 'Value', 'TM040040'); prop(s, 'Footprint', '')
