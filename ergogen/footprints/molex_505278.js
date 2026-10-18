@@ -16,7 +16,7 @@
 //
 // side: 'F' = front copper, 'B' = back copper (X flipped)
 
-const params = { designator: 'J', side: 'F' }
+const params = { designator: 'J', side: 'F', lcsc: 'C47149418' }   // LCSC / JLCPCB part: Molex 505278-1270 (JLC extended)
 for (let n = 1; n <= 12; n++) {
   params[`P${n}`] = {type: 'net', value: `FFC_${n}`}
 }
@@ -56,7 +56,13 @@ module.exports = {
     ${p.at}
     (attr smd)
 
-    (property "Reference" "${p.ref}"
+${p.lcsc ? `    (property "LCSC" "${p.lcsc}"
+      (at 0 0 ${p.r})
+      (layer "${L('F.Fab')}")
+      (hide yes)
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+` : ''}    (property "Reference" "${p.ref}"
       (at 0 -0.15 ${p.r})
       (layer "${L('F.SilkS')}")
       (effects (font (size 1.27 1.27) (thickness 0.254))${mirror})

@@ -15,6 +15,7 @@
 module.exports = {
   params: {
     designator: 'D',
+    lcsc: 'C81598',   // LCSC / JLCPCB part: 1N4148W SOD-123 (JLC basic) ('' = none)
     side: 'B',
     from: undefined,
     to: undefined,
@@ -35,7 +36,13 @@ module.exports = {
     ${p.at}
     (attr smd)
 
-    (property "Reference" "${p.ref}"
+${p.lcsc ? `    (property "LCSC" "${p.lcsc}"
+      (at 0 0 ${p.r})
+      (layer "${L('F.Fab')}")
+      (hide yes)
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+` : ''}    (property "Reference" "${p.ref}"
       (at 0 -2 ${p.r})
       (layer "${L('F.SilkS')}")
       (effects (font (size 0.8 0.8) (thickness 0.15))${mirror})

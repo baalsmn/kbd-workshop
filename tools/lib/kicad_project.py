@@ -76,13 +76,15 @@ for fp in sorted(b.GetFootprints(), key=lambda f: (re.sub(r'\d', '', f.GetRefere
     sym, value, extra = {
         'S':    ('SW_Push_45deg', 'KS-33', {}),
         'D':    ('D', '1N4148W', {}),
-        'LED':  ('SK6812MINI-E', 'SK6812MINI-E', {'LCSC': 'C5149201'}),
+        'LED':  ('SK6812MINI-E', 'SK6812MINI-E', {'LCSC': 'C5149201'}),   # LCSC also on the footprints (see below)
         'C':    ('C', CAPVAL.get(lname, fp.GetValue()), {}),
         'R':    ('R', fp.GetValue() or '330', {}),
         'MCU':  ('helios', '0xCB Helios', {}),
         'DISP': ('OLED_SSD1306_128x64_I2C', 'SSD1306 0.96in', {}),
         'J':    ('Molex_505278-1270', 'Molex_505278-1270', {'LCSC': 'C47149418'}),
     }[kind]
+    if fp.HasField('LCSC') and fp.GetField('LCSC').GetText():     # JLCPCB part from the Ergogen footprint
+        extra = dict(extra, LCSC=fp.GetField('LCSC').GetText())
     if kind == 'S': value = 'KS-33 ' + re.search(r'Hotswap_(.*)$', lname).group(1).replace('_Stab_KS-57', ' + KS-57')
     fp.SetValue(value)
     nets = {}

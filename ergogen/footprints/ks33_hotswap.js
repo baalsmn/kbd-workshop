@@ -29,6 +29,7 @@
 module.exports = {
   params: {
     designator: 'S',
+    lcsc: 'C18212911',   // LCSC / JLCPCB part: Gateron KS-2P02B01-02 hot-swap socket (JLC extended, pre-order) ('' = none)
     side: 'B',
     width: 1,
     stab: false,
@@ -85,8 +86,15 @@ module.exports = {
   (footprint "ks33_hotswap"
     (layer "${L}.Cu")
     ${p.at}
+    (attr smd)
 
-    (property "Reference" "${p.ref}"
+${p.lcsc ? `    (property "LCSC" "${p.lcsc}"
+      (at 0 0 ${p.r})
+      (layer "${L}.Fab")
+      (hide yes)
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+` : ''}    (property "Reference" "${p.ref}"
       (at 0 3.5 ${p.r})
       (layer "F.SilkS")
       (effects (font (size 0.8 0.8) (thickness 0.15)))

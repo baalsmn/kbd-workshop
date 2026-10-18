@@ -7,7 +7,7 @@
 	(property "Reference" "REF**"
 		(at 0 1.68 180)
 		(layer "F.SilkS")
-		(uuid "af9189ce-9750-402b-945b-56676fa9b039")
+		(uuid "48cd20b5-871f-4d88-8e81-39ce88b260c8")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -18,7 +18,7 @@
 	(property "Value" "C_0805"
 		(at 0 -1.68 180)
 		(layer "F.Fab")
-		(uuid "0a4aeb1d-00d6-4587-b929-72a4783e24bf")
+		(uuid "a176305c-db84-42d5-b2c3-03783e7e637f")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -30,7 +30,7 @@
 		(at 0 0 180)
 		(layer "B.Fab")
 		(hide yes)
-		(uuid "86a26847-0140-4b00-a911-adeb4c63415d")
+		(uuid "b5f8da73-c00b-4f39-aa5b-c1d429ebde3c")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -42,10 +42,23 @@
 		(at 0 0 180)
 		(layer "B.Fab")
 		(hide yes)
-		(uuid "f1c55f0f-8bcc-4713-9876-a45a17299c2d")
+		(uuid "89ba829a-17a6-4558-b4b4-340dee1d81bf")
 		(effects
 			(font
 				(size 1.27 1.27)
+			)
+			(justify mirror)
+		)
+	)
+	(property "LCSC" "C15850"
+		(at 0 0 180)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "e5dcc3ba-e72b-4abb-b3fc-21083cf2dab0")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
 			)
 			(justify mirror)
 		)
@@ -60,7 +73,7 @@
 			(type solid)
 		)
 		(layer "F.SilkS")
-		(uuid "f62b1ebc-7946-4c8e-8a0b-3da56d69878c")
+		(uuid "5d96aa85-3aa9-493f-8dfb-985887444847")
 	)
 	(fp_line
 		(start 0.2613 0.735)
@@ -70,7 +83,7 @@
 			(type solid)
 		)
 		(layer "F.SilkS")
-		(uuid "6e1d0b59-2809-44e6-9533-abe22e7b8637")
+		(uuid "be381726-1890-4a96-a952-2d1b79f1e67c")
 	)
 	(fp_rect
 		(start 1.7 0.98)
@@ -81,7 +94,7 @@
 		)
 		(fill no)
 		(layer "F.CrtYd")
-		(uuid "71055235-1914-484c-9b95-57871829c48b")
+		(uuid "3ca7b4ff-b276-417a-ac6f-8f40d7d62649")
 	)
 	(fp_rect
 		(start 1 0.625)
@@ -92,21 +105,21 @@
 		)
 		(fill no)
 		(layer "F.Fab")
-		(uuid "8bd327ee-0b09-487e-a7bd-1f4a9e7892ba")
+		(uuid "08cdcc3d-601e-45e8-be64-3c4bec1ca8c5")
 	)
 	(pad "1" smd roundrect
 		(at 0.95 0)
 		(size 1 1.45)
 		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.25)
-		(uuid "687503df-36ea-4bc8-b8be-5c86cfcdd165")
+		(uuid "f0f1b6e5-f7fb-4092-8e6c-4d7d52913312")
 	)
 	(pad "2" smd roundrect
 		(at -0.95 0)
 		(size 1 1.45)
 		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.25)
-		(uuid "d0352fc2-e705-403c-a6cf-c95b4b2b064e")
+		(uuid "a7c6ffc2-c2a2-4af0-a264-91eda78ba589")
 	)
 	(embedded_fonts no)
 	(model "${KIPRJMOD}/libraries/3dmodels/C_0805_2012Metric.step"

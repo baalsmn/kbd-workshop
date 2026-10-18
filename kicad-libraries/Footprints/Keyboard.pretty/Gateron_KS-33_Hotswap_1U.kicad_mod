@@ -7,7 +7,7 @@
 	(property "Reference" "REF**"
 		(at 0 -3.5 180)
 		(layer "B.SilkS")
-		(uuid "5419abd2-3bd1-40c7-8c6c-9fdc72c58408")
+		(uuid "b3659a6c-1bab-4cc3-a6ce-de09416060da")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -19,7 +19,7 @@
 	(property "Value" "Gateron_KS-33_Hotswap_1U"
 		(at 0 0 180)
 		(layer "B.Fab")
-		(uuid "283d5a92-5582-4631-9be8-c9c413b38320")
+		(uuid "101a6447-9f0c-41b1-a2fb-b1e162d3f6a4")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -31,7 +31,7 @@
 		(at 0 0 180)
 		(layer "B.Fab")
 		(hide yes)
-		(uuid "45fe0b69-d0ab-44c9-92c0-7a3b3a8cea0c")
+		(uuid "4b0cd404-a99c-416a-8f4e-318baf69c3fa")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -43,7 +43,7 @@
 		(at 0 0 180)
 		(layer "B.Fab")
 		(hide yes)
-		(uuid "07df5091-a3b3-409e-be50-c1069dc7a866")
+		(uuid "f5cc726d-3e75-4200-804b-daaf44bf2136")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -51,6 +51,20 @@
 			(justify mirror)
 		)
 	)
+	(property "LCSC" "C18212911"
+		(at 0 0 180)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "54e4acd8-9083-47ac-b96d-86d2d1881f44")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
+	(attr smd)
 	(duplicate_pad_numbers_are_jumpers no)
 	(fp_poly
 		(pts
@@ -62,7 +76,7 @@
 		)
 		(fill no)
 		(layer "Dwgs.User")
-		(uuid "e3d99979-fd74-483d-9eb7-3d91f9375500")
+		(uuid "209cffb1-d230-4bfe-a2b0-2e37a5ed29e4")
 	)
 	(fp_poly
 		(pts
@@ -74,42 +88,42 @@
 		)
 		(fill no)
 		(layer "Dwgs.User")
-		(uuid "befc73ac-ef9f-4f5e-9d86-69e23c31b091")
+		(uuid "4d3f7ddd-1b94-4a32-b038-9cbc2ed45b99")
 	)
 	(pad "" np_thru_hole circle
 		(at -4.4 -4.7)
 		(size 3 3)
 		(drill 3)
 		(layers "*.Cu" "*.Mask")
-		(uuid "71869138-b87d-45ce-8f32-5306469ac98c")
+		(uuid "06a02853-3ac9-4b2f-bf84-297e361ec7d6")
 	)
 	(pad "" np_thru_hole circle
 		(at 0 0)
 		(size 5.25 5.25)
 		(drill 5.25)
 		(layers "*.Cu" "*.Mask")
-		(uuid "4888fcd1-9510-49f1-a895-e8765465023f")
+		(uuid "9c009b4e-6974-4b12-992f-c350c18bb930")
 	)
 	(pad "" np_thru_hole circle
 		(at 2.6 -5.75)
 		(size 3 3)
 		(drill 3)
 		(layers "*.Cu" "*.Mask")
-		(uuid "208120f9-f5f5-4658-85b6-434ea068150a")
+		(uuid "66d029ae-af6b-4bf1-a7be-7aa7c966b930")
 	)
 	(pad "1" smd roundrect
 		(at -8.2 -4.7)
 		(size 2.45 2.55)
 		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.07843137255)
-		(uuid "a366969a-0c21-48ed-a8e7-25becda6626e")
+		(uuid "26450556-710b-4c12-94f2-63708af13280")
 	)
 	(pad "2" smd roundrect
 		(at 6.349999 -5.75)
 		(size 2.45 2.55)
 		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.07843137255)
-		(uuid "60e59ddb-e134-4ff2-a3a7-aaa18c7631ec")
+		(uuid "52cdbfb3-1be7-4d00-896d-d2771072097f")
 	)
 	(embedded_fonts no)
 	(model "${KIPRJMOD}/3dmodels/Gateron_KS-2P02B01-02_socket.step"

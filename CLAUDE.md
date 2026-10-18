@@ -60,6 +60,31 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
 - Footprints cite their datasheet numbers: KS-33 / KS-57 from the Gateron drawings,
   Molex 505278 from its sales drawing (pads matched it exactly, no change).
 
+## JLCPCB assembly
+
+- Every assembled part's Ergogen footprint carries a hidden `LCSC` field (param
+  `lcsc`, '' = none), checked on jlcpcb.com on 2026-10-18:
+
+  | Part | LCSC | JLC type |
+  |---|---|---|
+  | 100 nF 0603 (`c_0603`) | C14663 | basic |
+  | 10 µF 0805 (`c_0805`) | C15850 | basic |
+  | 330 Ω 0603 (`r_0603`) | C23138 | basic |
+  | 1N4148W SOD-123 (`sod123`) | C81598 | basic |
+  | SK6812MINI-E (`sk6812mini_e`) | C5149201 | extended |
+  | Molex 505278-1270 (`molex_505278`) | C47149418 | extended |
+  | Gateron KS-2P02B01-02 socket (`ks33_hotswap`, now `attr smd`) | C18212911 | extended, 0 stock: pre-order, min 441 |
+
+- Not assembled (excluded from BOM and position files): the Helios, the OLED module
+  (hand-mounted on header pins) and `mech_model` (trackpad). kugo80's TS-1187A reset
+  switch has no LCSC number.
+- All assembled parts sit on the back side, so it's a one-sided assembly job.
+- `tools/lib/kicad_project.py` copies the footprint's LCSC number into the schematic
+  symbol.
+- The user exports with the Fabrication Toolkit plugin (bennymeg) in KiCad. Check the
+  rotations in JLC's placement preview: everything is on the back at 15° steps. Fix
+  them with the plugin's `FT Rotation Offset` / `FT Position Offset` fields.
+
 ## Working with the user
 
 - **No 3D renders unless asked.** For a quick visual check, make the 2D top view:

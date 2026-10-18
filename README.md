@@ -1,9 +1,27 @@
 # keyboard-workshop
 
-Split-style ergonomic keyboards on one PCB, designed in [Ergogen](https://ergogen.xyz)
-4.2.1, finished in KiCad 10, with 3D-printed cases with the help of Anthropic Claude-Code.
+Split-style ergonomic keyboards on a single PCB, designed in [Ergogen](https://ergogen.xyz)
+4.2.1, finished in KiCad 10 and housed in 3D-printed cases. Developed with the help of
+Anthropic's Claude Code.
 
-The goal of the project is to create a custom keyboard that has more keys than most of the available online designs, as my language has more characters in use. It was designed primarily for Hungarian in mind, but I can see it being useful for other languages as well, Czech, Slovak, Icelandic, Turkish, Nordic languages and Japanese.
+## Why
+
+Most open-source ergonomic keyboards are built around the English alphabet and keep
+the key count low. Languages with a larger alphabet run out of keys quickly: Hungarian
+alone needs nine accented vowels (á é í ó ö ő ú ü ű) on top of the Latin letters, and
+these end up on layers or awkward key combinations.
+
+This project aims for a keyboard with enough dedicated keys for such languages, while
+keeping a split, angled, ergonomic layout. Each design is a mirrored two-half layout on
+one PCB, with a Cirque trackpad and an OLED in the centre, an RP2040 controller (0xCB
+Helios), low-profile Gateron KS-33 hot-swap switches and per-key RGB.
+
+The layouts are designed primarily for Hungarian. The extra keys suit many other
+languages too, for example Czech, Slovak, Polish, Turkish, Icelandic, the Nordic
+languages and Japanese (a JIS layout with the kana switching keys is included for
+hachigo74).
+
+## Contents
 
 | Folder | What |
 |---|---|

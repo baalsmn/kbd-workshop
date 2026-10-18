@@ -7,7 +7,7 @@
 	(property "Reference" "REF**"
 		(at 0 0 0)
 		(layer "F.Fab")
-		(uuid "1da43d67-25c2-49be-9613-9519328b6fe4")
+		(uuid "6c7c9fcf-e957-49dd-90c1-ea2d17b64926")
 		(effects
 			(font
 				(size 1 1)
@@ -18,7 +18,7 @@
 	(property "Value" "Cirque_TM040040_3D"
 		(at 0 0 0)
 		(layer "F.Fab")
-		(uuid "ec19f3f6-d75d-4cb7-ae9c-4cdbaab9723c")
+		(uuid "52d0c445-a79b-403c-8762-7de2a9e13678")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -29,7 +29,7 @@
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "6db39047-955b-4006-b6b3-7839456f8b01")
+		(uuid "8612429d-cdcd-460d-95da-4f60b4b42140")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -40,7 +40,7 @@
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "14ed2673-1bea-4b95-b637-7c219bc12923")
+		(uuid "72e7a03d-9bfa-4fe7-962a-8662df3d2491")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -52,7 +52,7 @@
 	(fp_text user "TM040040"
 		(at 0 1.5 0)
 		(layer "F.Fab")
-		(uuid "60919fe5-9f2b-4ae4-b99a-d8bef51ccd66")
+		(uuid "9e14dc73-7d4a-47ae-a192-8e39c1ecfb54")
 		(effects
 			(font
 				(size 1 1)

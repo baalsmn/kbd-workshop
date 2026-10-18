@@ -19,6 +19,7 @@
 module.exports = {
   params: {
     designator: 'LED',
+    lcsc: 'C5149201',   // LCSC / JLCPCB part: OPSCO SK6812MINI-E (JLC extended) ('' = none)
     side: 'B',
     VDD: {type: 'net', value: 'VCC'},
     GND: {type: 'net', value: 'GND'},
@@ -45,7 +46,13 @@ module.exports = {
     ${p.at}
     (attr smd)
 
-    (property "Reference" "${p.ref}"
+${p.lcsc ? `    (property "LCSC" "${p.lcsc}"
+      (at 0 0 ${p.r})
+      (layer "${S}.Fab")
+      (hide yes)
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+` : ''}    (property "Reference" "${p.ref}"
       (at 0 2.4 ${p.r})
       (layer "${S}.SilkS")
       (effects (font (size 0.8 0.8) (thickness 0.15))${mirror})

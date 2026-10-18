@@ -8,6 +8,8 @@
 // Pad 2 (x=-1.27) -> params.VDD
 // Pad 3 (x=+1.27) -> params.SCL
 // Pad 4 (x=+3.81) -> params.SDA
+// Excluded from the BOM and position files: the module is mounted by hand on
+// header pins, not assembled by JLCPCB.
 // Origin = header pin row. The module body extends ~26 mm towards +y.
 //
 // side: 'F' = silkscreen on front, 'B' = on back (X flipped). Pin holes
@@ -47,7 +49,7 @@ module.exports = {
   (footprint "oled_i2c"
     (layer "${L('F.Cu')}")
     ${p.at}
-    (attr through_hole)
+    (attr through_hole exclude_from_pos_files exclude_from_bom)
 
     (property "Reference" "${p.ref}"
       (at ${x(-0.2286)} 10.8712 ${p.r})

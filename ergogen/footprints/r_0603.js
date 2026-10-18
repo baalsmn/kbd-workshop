@@ -11,6 +11,7 @@
 module.exports = {
   params: {
     designator: 'R',
+    lcsc: 'C23138',   // LCSC / JLCPCB part: 330R 1% 0603, UNI-ROYAL 0603WAF3300T5E (JLC basic) ('' = none)
     side: 'F',
     value: '',
     from: undefined,
@@ -29,7 +30,13 @@ module.exports = {
     ${p.at}
     (attr smd)
 
-    (property "Reference" "${p.ref}"
+${p.lcsc ? `    (property "LCSC" "${p.lcsc}"
+      (at 0 0 ${p.r})
+      (layer "${L('F.Fab')}")
+      (hide yes)
+      (effects (font (size 1 1) (thickness 0.15)))
+    )
+` : ''}    (property "Reference" "${p.ref}"
       (at 0 -1.43 ${p.r})
       (layer "${L('F.SilkS')}")
       (effects (font (size 0.8 0.8) (thickness 0.15))${mirror})

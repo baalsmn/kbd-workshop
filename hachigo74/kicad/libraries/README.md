@@ -1,4 +1,4 @@
-# kicad libraries
+# kicad-libraries
 
 Self-contained KiCad 10 project library: everything refers to files in this folder
 (`${KIPRJMOD}`), so the folder can be copied or zipped as one package.
@@ -27,8 +27,8 @@ Pinouts:
 Regenerate (after `tools/build.sh <name>` for each design):
 
 ```bash
-"C:/Users/balin/AppData/Local/Programs/KiCad/10.0/bin/python.exe" tools/lib/kicad_footprints.py out/pcbs/<name>.kicad_pcb "kicad libraries" --force
-python tools/lib/kicad_symbols.py "kicad libraries"
+"C:/Users/balin/AppData/Local/Programs/KiCad/10.0/bin/python.exe" tools/lib/kicad_footprints.py out/pcbs/<name>.kicad_pcb kicad-libraries --force
+python tools/lib/kicad_symbols.py kicad-libraries
 ```
 
 The `${KIPRJMOD}` paths resolve when a KiCad project file sits in this folder; a
