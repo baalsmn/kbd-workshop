@@ -48,7 +48,7 @@ module.exports = {
       (layers "${L('F.Cu')}" "${L('F.Paste')}" "${L('F.Mask')}") (roundrect_rratio 0.25)
       ${p.to.str})
 
-    (model "\${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0603_1608Metric.step"
+    (model "\${KIPRJMOD}/../../kicad libraries/3dmodels/C_0603_1608Metric.step"
       (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 ${back ? 180 : 0})))
   )
   `

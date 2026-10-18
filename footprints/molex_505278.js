@@ -21,7 +21,7 @@ for (let n = 1; n <= 12; n++) {
   params[`P${n}`] = {type: 'net', value: `FFC_${n}`}
 }
 params.MP = {type: 'net', value: 'GND'}
-params.model = '${KIPRJMOD}/../../3dmodels/Molex_505278-1270.step'
+params.model = '${KIPRJMOD}/../../kicad libraries/3dmodels/Molex_505278-1270.step'
 params.model_offset = [0, -1.35, 0]   // aligns the model (tools/lib/make_models.py) with the pads
 params.model_rotation = [0, 0, 0]
 

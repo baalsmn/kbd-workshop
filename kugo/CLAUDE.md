@@ -30,7 +30,7 @@ Shared rules, build and tools: `../CLAUDE.md`.
     JLCPCB's routed-edge minimum.
 - **MCU:** 0xCB Helios (RP2040), on the back, upside down (component side facing the
   case floor), USB-C at the north edge.
-  - Footprint `footprints/helios.js` (castellated). Model `3dmodels/Helios_0xCB_rev1.0.step`.
+  - Footprint `footprints/helios.js` (castellated). Model `kicad libraries/3dmodels/Helios_0xCB_rev1.0.step`.
 - **Matrix:** 10 rows × 9 columns, COL2ROW. Left half R1–R5, right half R6–R10;
   columns are shared by both halves.
   - **Rows:** R1 GP29, R2 GP28, R3 GP27, R4 GP26, R5 GP22, R6 GP4, R7 GP5, R8 GP6,

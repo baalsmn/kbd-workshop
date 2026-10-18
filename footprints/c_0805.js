@@ -52,7 +52,7 @@ module.exports = {
     (pad "1" smd roundrect (at ${x(-0.95)} 0 ${p.r}) (size 1 1.45) ${layers} (roundrect_rratio 0.25) ${p.from.str})
     (pad "2" smd roundrect (at ${x(0.95)} 0 ${p.r}) (size 1 1.45) ${layers} (roundrect_rratio 0.25) ${p.to.str})
 
-    (model "\${KICAD10_3DMODEL_DIR}/Capacitor_SMD.3dshapes/C_0805_2012Metric.step"
+    (model "\${KIPRJMOD}/../../kicad libraries/3dmodels/C_0805_2012Metric.step"
       (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 ${back ? 180 : 0})))
   )
   `

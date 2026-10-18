@@ -5,9 +5,10 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
 
 ## Layout
 
-- Root = shared: `tools/`, `footprints/` (Ergogen), `3dmodels/`, `datasheets/`,
-  `keyboard.pretty/` (KiCad footprints), `keyboard.kicad_dru` (DRC rules for every
-  design), `drafts/` (the user's sketches).
+- Root = shared: `tools/`, `footprints/` (Ergogen), `datasheets/`,
+  `kicad libraries/` (KiCad symbols, footprints and **all 3D models**: the Ergogen
+  footprints point at `kicad libraries/3dmodels/` too), `keyboard.kicad_dru` (DRC
+  rules for every design), `drafts/` (the user's sketches and photos).
 - One folder per keyboard, holding only its own files:
   - `kugo/`: `kugo82.yaml` (**current**, 82 keys), `kugo80.yaml` (80-key backup,
     don't edit unless asked), `kle/`, `case/` (STL, `step/`, `fusion/`), `renders/`.
@@ -20,7 +21,7 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
   KiCad libraries: symbols, footprints, 3D models and library tables, everything
   `${KIPRJMOD}`-relative. Where the project file, schematic, PCB and `.kicad_dru` will
   live is still open. Contents (see its README):
-  - `Footprints/Keyboard.pretty` + `3dmodels/`: exported from the built boards by
+  - `Footprints/Keyboard.pretty`: exported from the built boards by
     `tools/lib/kicad_footprints.py` (KiCad python; run per design, `--force` to
     overwrite), exactly as placed, unrotated, on the front side.
   - `Symbols/keyboard-workshop.kicad_sym`: the one symbol library (library name
@@ -32,7 +33,6 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
   - SK6812MINI-E: KiCad's symbol numbering (1 VSS 2 DIN 3 VDD 4 DOUT) is the
     datasheet's (C5149201, `datasheets/`), and the footprint pads were renumbered
     to it (positions unchanged).
-  - `keyboard.pretty/` (root) also holds the user's vendor footprints (reference only).
   - `tools/lib/kicad_project.py` makes a portable per-design KiCad project from a built
     board (`hachigo74/kicad/`, see `hachigo74/CLAUDE.md`). Shared helpers (S-expression
     reader/writer, footprint names, model renames) live in `tools/lib/kicad_common.py`.
@@ -47,8 +47,8 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
   texts in `LICENSES/`; third-party files (KiCad libs CC-BY-SA-4.0, 0xCB Helios
   CERN-OHL-S-2.0, ceoloide MIT) listed in `THIRD_PARTY_NOTICES.md`. Keep both up to
   date when adding parts from elsewhere.
-- **Not in git** (gitignored, kept locally): vendor 3D models `3dmodels/vendor/`,
-  vendor footprints of unknown licence `footprints/vendor/`. `tools/build.sh` copies
+- **Not in git** (gitignored, kept locally): vendor 3D models and vendor
+  footprints of unknown licence in `vendor/`. `tools/build.sh` copies
   `footprints/local/*.js` (gitignored) over tracked footprints when present.
 - **No Claude / Anthropic logos** anywhere (trademarks, not usable here): removed
   from the designs, footprints and drafts, and left out of the public history copy.
@@ -102,7 +102,7 @@ bash tools/render.sh [name]    # 3D renders -> <keyboard>/renders/ (only when as
     - Any non-silkscreen violation is a real problem.
   - kugo80 gives 2 `silk_over_copper` instead (unchanged backup).
   - Output must go to `<root>/out`, because 3D model paths are
-    `${KIPRJMOD}/../../3dmodels/...`.
+    `${KIPRJMOD}/../../kicad libraries/3dmodels/...`.
 - **Tools:** `kicad-cli` is at
   `C:/Users/balin/AppData/Local/Programs/KiCad/10.0/bin/kicad-cli.exe`, and KiCad's
   Python (`pcbnew`) is in the same `bin/`. Ergogen is installed globally with npm.

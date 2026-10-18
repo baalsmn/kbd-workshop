@@ -42,12 +42,12 @@ module.exports = {
     // (rotate X 180, because the footprint is on the back) and shifted onto
     // the board (offset -60, 0, 3.25 - 1.6). The stabilizer model is only
     // added on keys with stab: true.
-    socket_model: '${KIPRJMOD}/../../3dmodels/Gateron_KS-2P02B01-02_socket.step',
-    switch_model: '${KIPRJMOD}/../../3dmodels/Gateron_KS-33_switch.step',
-    stab_model: '${KIPRJMOD}/../../3dmodels/Gateron_KS-57_stabilizer.step',
+    socket_model: '${KIPRJMOD}/../../kicad libraries/3dmodels/Gateron_KS-2P02B01-02_socket.step',
+    switch_model: '${KIPRJMOD}/../../kicad libraries/3dmodels/Gateron_KS-33_switch.step',
+    stab_model: '${KIPRJMOD}/../../kicad libraries/3dmodels/Gateron_KS-57_stabilizer.step',
     // low-profile keycap (VRML, generated), file chosen by width: {w} is
     // replaced with 1, 1.25 or 2 (keycap_lowprofile_1u/1.25u/2u.wrl); '' = none
-    keycap_model: '${KIPRJMOD}/../../3dmodels/keycap_lowprofile_{w}u.wrl',
+    keycap_model: '${KIPRJMOD}/../../kicad libraries/3dmodels/keycap_lowprofile_{w}u.wrl',
     socket_model_offset: [0, 0, 0],
     socket_model_rotation: [0, 0, 0],
     switch_model_offset: [-60, 0, 1.65],

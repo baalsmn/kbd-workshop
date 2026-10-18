@@ -21,8 +21,6 @@ footprints/local/
 drafts/claude*
 kicad libraries/Footprints/Keyboard.pretty/Logo.kicad_mod
 kicad libraries/Footprints/Keyboard.pretty/Claude_Logo_8mm.kicad_mod
-# vendor 3D models (download, not redistributable): kept locally, replaced by
-# the recreated models in 3dmodels/ (tools/lib/make_models.py)
-3dmodels/vendor/
-# vendor footprints of unknown licence (reference only, kept locally)
-footprints/vendor/
+# vendor 3D models and footprints (not redistributable / unknown licence): kept
+# locally for reference; the repo uses the recreated models (tools/lib/make_models.py)
+vendor/

@@ -9,8 +9,8 @@ Split-style ergonomic keyboards on one PCB, designed in [Ergogen](https://ergoge
 | `hachigo74/` | hachigo74, 74 keys (kugo82 without the outer column); `kicad/` = its KiCad project |
 | `tools/` | build, case (STL), STEP and render scripts; Fusion script; KiCad library / project scripts |
 | `footprints/` | Ergogen footprints |
-| `kicad libraries/` | KiCad libraries: symbols (`keyboard-workshop`), footprints (`Keyboard`), 3D models |
-| `3dmodels/`, `keyboard.pretty/`, `keyboard.kicad_dru` | source 3D models, vendor footprints, DRC rules |
+| `kicad libraries/` | KiCad libraries: symbols (`keyboard-workshop`), footprints (`Keyboard`), and the 3D models (the one place they live: Ergogen builds and renders use them too) |
+| `keyboard.kicad_dru` | DRC rules for every design |
 | `datasheets/`, `drafts/` | part datasheets, sketches |
 
 ```bash

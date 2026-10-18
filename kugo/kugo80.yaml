@@ -1447,7 +1447,7 @@ pcbs:
           shift: [0, -2]
         params:
           label: TM040040
-          model: ${KIPRJMOD}/../../3dmodels/Cirque_TM040040.step
+          model: ${KIPRJMOD}/../../kicad libraries/3dmodels/Cirque_TM040040.step
           model_offset: [0, 0, 2.79]
 
       # Reset button: RST -> GND (double-tap for the RP2040 bootloader in QMK).

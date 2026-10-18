@@ -6,7 +6,7 @@
 #   out/pcbs/         <name>.kicad_pcb (+ <name>.kicad_dru) -> open in KiCad
 #   out/cases/        *.jscad (turn into STL with tools/case.sh)
 #   out/outlines/     2D outlines (dxf/svg)
-# Model paths in the board are ${KIPRJMOD}/../../3dmodels, i.e. relative to
+# Model paths in the board are ${KIPRJMOD}/../../kicad libraries/3dmodels, i.e. relative to
 # the project root, which is why the output goes to <project>/out.
 set -euo pipefail
 P="$(cd "$(dirname "$0")/.." && pwd)"

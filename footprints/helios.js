@@ -14,7 +14,7 @@
 //   inner pads    P34 GP25 = 5 V level-shifted output for RGB LEDs
 //                 P32 USB D+, P33 USB D- (test pads)
 //
-// Geometry from Helios_ACH.kicad_mod (keyboard.pretty): every pin has a 1.0 mm
+// Geometry from 0xCB's Helios_ACH.kicad_mod (github.com/0xCB-dev/0xCB-Helios): every pin has a 1.0 mm
 // through-hole plus a 3.5 x 1.8 mm castellation pad on the outer edge, so the
 // Helios can be soldered flush by its castellated edges (pads 32-34 are
 // through-hole only). The silkscreen leaves the castellated edges open.
@@ -44,7 +44,7 @@ const params = {
   side: 'F',
   // 3D model: exact Helios rev1.0, exported with kicad-cli from 0xCB's own
   // KiCad design (github.com/0xCB-dev/0xCB-Helios), origin = pin grid centre.
-  model: '${KIPRJMOD}/../../3dmodels/Helios_0xCB_rev1.0.step',
+  model: '${KIPRJMOD}/../../kicad libraries/3dmodels/Helios_0xCB_rev1.0.step',
   model_offset: [0, 0, 0],
 }
 for (const [n] of pads) {

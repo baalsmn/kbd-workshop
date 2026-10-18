@@ -16,7 +16,7 @@ redistributed, as here, stay under CC-BY-SA-4.0 with this attribution.
 
 - `footprints/c_0603.js`, `c_0805.js`, `r_0603.js`, `sod123.js`, `ts1187a.js`
   (converted from Capacitor_SMD / Resistor_SMD / Diode_SMD / button footprints)
-- `3dmodels/Diode_SOD-123.step`; `kicad libraries/3dmodels/C_0603_1608Metric.step`,
+- `kicad libraries/3dmodels/C_0603_1608Metric.step`,
   `C_0805_2012Metric.step`, `R_0603_1608Metric.step`, `Diode_SOD-123.step`
 - `kicad libraries/Symbols/keyboard-workshop.kicad_sym`: the symbols derived from
   KiCad's Device (D, C, R), Switch (SW_Push_45deg), Connector (Conn_01x12_Socket,
@@ -28,9 +28,8 @@ Source: https://github.com/0xCB-dev/0xCB-Helios, © 0xCB. Hardware licence:
 CERN Open Hardware Licence Version 2 – Strongly Reciprocal (`LICENSES/CERN-OHL-S-2.0.txt`;
 OSHWA certification DE000131).
 
-- `keyboard.pretty/Helios_*.kicad_mod` (0xCB's Helios footprints)
 - `footprints/helios.js` (pad geometry from Helios_ACH.kicad_mod, 0xCB pinout)
-- `3dmodels/Helios_0xCB_rev1.0.step` and its copy in `kicad libraries/3dmodels/`
+- `kicad libraries/3dmodels/Helios_0xCB_rev1.0.step`
   (exported with kicad-cli from 0xCB's KiCad design)
 
 ## ceoloide / ergogen-footprints — MIT
@@ -46,6 +45,6 @@ Massarelli. Licence: MIT (`LICENSES/MIT-ergogen-footprints-ceoloide.txt`).
 - Vendor datasheets (`datasheets/*.pdf`) belong to their manufacturers; see
   `datasheets/LINKS.md`.
 - Vendor 3D models and vendor footprints of unknown licence are kept out of git
-  (`3dmodels/vendor/`, `footprints/vendor/`, gitignored); the repository uses
+  (`vendor/`, gitignored); the repository uses
   models recreated from datasheet dimensions (`tools/lib/make_models.py`) and
   footprints drawn from the datasheets instead.

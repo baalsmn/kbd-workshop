@@ -49,7 +49,8 @@ for fp in b.GetFootprints():
         src = model_src(m.m_Filename); base = RENAME.get(os.path.basename(src), os.path.basename(src))
         if not os.path.exists(src): print('  missing model', src); continue
         dst = os.path.join(MODELS, base)
-        if not os.path.exists(dst): shutil.copy2(src, dst); os.chmod(dst, 0o666)   # KiCad's models are read-only
+        if not os.path.exists(dst) and os.path.abspath(src) != os.path.abspath(dst):
+            shutil.copy2(src, dst); os.chmod(dst, 0o666)   # KiCad's own models (read-only in its install)
         m.m_Filename = '${KIPRJMOD}/3dmodels/' + base
     IO.FootprintSave(LIB, f)
     print('saved %-36s (from %s)' % (name, fp.GetReference()))

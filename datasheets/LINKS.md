@@ -15,5 +15,5 @@ for redistribution, link to the sources below instead.
 | Molex 505278-1270 FFC connector, 0.5 mm, 12 pin (JLCPCB C47149418) | sales drawing 5052781004 (5052781270_sd.pdf), `Molex_505278-1270_sales_drawing.pdf` | https://www.molex.com/en-us/products/part-detail/5052781270, JLCPCB https://jlcpcb.com/partdetail/MOLEX-505278_1270/C47149418 |
 | 0xCB Helios (RP2040 controller) | design files (CERN-OHL-S-2.0), `helios website.txt` | https://github.com/0xCB-dev/0xCB-Helios |
 
-The simplified 3D models in `3dmodels/` (switch, socket, stabilizer, LED, Molex
+The simplified 3D models in `kicad libraries/3dmodels/` (switch, socket, stabilizer, LED, Molex
 connector, trackpad) are drawn from these documents by `tools/lib/make_models.py`.

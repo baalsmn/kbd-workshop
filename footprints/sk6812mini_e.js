@@ -24,7 +24,7 @@ module.exports = {
     GND: {type: 'net', value: 'GND'},
     DIN: undefined,
     DOUT: undefined,
-    model: '${KIPRJMOD}/../../3dmodels/SK6812MINI-E.step',
+    model: '${KIPRJMOD}/../../kicad libraries/3dmodels/SK6812MINI-E.step',
     model_offset: [0, 5.08, -1.75],
     model_rotation: [0, 180, 0],
   },

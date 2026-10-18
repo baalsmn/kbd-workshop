@@ -2150,6 +2150,6 @@ pcbs:
           shift: [0, -2]
         params:
           label: TM040040
-          model: ${KIPRJMOD}/../../3dmodels/Cirque_TM040040.step
+          model: ${KIPRJMOD}/../../kicad libraries/3dmodels/Cirque_TM040040.step
           model_offset: [0, 0, 4.925]   # pad top z 17.6 = PCB top + 7.5 (5 mm pad on the plate; model origin mid-height)
 
