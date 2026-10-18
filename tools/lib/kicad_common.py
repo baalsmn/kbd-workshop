@@ -27,8 +27,7 @@ def find(node, key):
     return [e for e in node if isinstance(e, list) and e and e[0] == key]
 
 # clean names for model files with awkward ones
-RENAME = {'KS-33 Low Profile 2.0  KS33-20230109（KS-33-Y31  3D图）.stp': 'Gateron_KS-33_switch.stp',
-          'low profile stabilizer..stp': 'Gateron_KS-57_stabilizer.stp'}
+RENAME = {}   # model files are named as they should appear in the library (tools/lib/make_models.py)
 
 def footprint_name(fp):
     """Library name and description for a board footprint (Ergogen footprint + its 3D models)."""
@@ -50,5 +49,4 @@ def footprint_name(fp):
         'molex_505278': ('Molex_505278-1270_12p', 'Molex 505278-1270 Easy-On FFC, 12 pin 0.5 mm, right angle'),
         'oled_i2c': ('OLED_0.96in_SSD1306_I2C', '0.96in SSD1306 128x64 I2C module, 4 pin header (GND VCC SCL SDA)'),
         'mech_model': ('Cirque_TM040040_3D', 'Cirque TM040040 trackpad, 3D model only (cabled, board only)'),
-        'claude_logo': ('Claude_Logo_8mm', '8 mm Claude logo, front silkscreen (board only)'),
     }.get(kind, (kind, kind))

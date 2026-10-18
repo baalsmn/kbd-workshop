@@ -7,7 +7,7 @@
 	(property "Reference" "REF**"
 		(at 0 1.68 180)
 		(layer "F.SilkS")
-		(uuid "3daa3fbd-ddb3-4126-840d-97750afae4c5")
+		(uuid "af9189ce-9750-402b-945b-56676fa9b039")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -18,7 +18,7 @@
 	(property "Value" "C_0805"
 		(at 0 -1.68 180)
 		(layer "F.Fab")
-		(uuid "dcd14e94-dfb6-40c5-be79-a710e44fed71")
+		(uuid "0a4aeb1d-00d6-4587-b929-72a4783e24bf")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -30,7 +30,7 @@
 		(at 0 0 180)
 		(layer "B.Fab")
 		(hide yes)
-		(uuid "86b37f21-a497-4000-be70-834d4e7a21de")
+		(uuid "86a26847-0140-4b00-a911-adeb4c63415d")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -42,7 +42,7 @@
 		(at 0 0 180)
 		(layer "B.Fab")
 		(hide yes)
-		(uuid "dce806e9-3f9d-4477-973e-6c756d659fa2")
+		(uuid "f1c55f0f-8bcc-4713-9876-a45a17299c2d")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -60,7 +60,7 @@
 			(type solid)
 		)
 		(layer "F.SilkS")
-		(uuid "681d7ba9-70fe-433b-a8bd-9e3d02fab51f")
+		(uuid "f62b1ebc-7946-4c8e-8a0b-3da56d69878c")
 	)
 	(fp_line
 		(start 0.2613 0.735)
@@ -70,7 +70,7 @@
 			(type solid)
 		)
 		(layer "F.SilkS")
-		(uuid "0e9f2c31-ff07-49a3-97d8-3309d42d479f")
+		(uuid "6e1d0b59-2809-44e6-9533-abe22e7b8637")
 	)
 	(fp_rect
 		(start 1.7 0.98)
@@ -81,7 +81,7 @@
 		)
 		(fill no)
 		(layer "F.CrtYd")
-		(uuid "7280fe92-f2bd-4611-8e2f-64f4d996fd2d")
+		(uuid "71055235-1914-484c-9b95-57871829c48b")
 	)
 	(fp_rect
 		(start 1 0.625)
@@ -92,21 +92,21 @@
 		)
 		(fill no)
 		(layer "F.Fab")
-		(uuid "57886875-2e2b-45e8-9f96-21fc7bd04f86")
+		(uuid "8bd327ee-0b09-487e-a7bd-1f4a9e7892ba")
 	)
 	(pad "1" smd roundrect
 		(at 0.95 0)
 		(size 1 1.45)
 		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.25)
-		(uuid "554aa56a-e527-4b26-97a6-8b04abca95fb")
+		(uuid "687503df-36ea-4bc8-b8be-5c86cfcdd165")
 	)
 	(pad "2" smd roundrect
 		(at -0.95 0)
 		(size 1 1.45)
 		(layers "F.Cu" "F.Mask" "F.Paste")
 		(roundrect_rratio 0.25)
-		(uuid "3825e76c-cdd0-4567-8331-dc50f78b4202")
+		(uuid "d0352fc2-e705-403c-a6cf-c95b4b2b064e")
 	)
 	(embedded_fonts no)
 	(model "${KIPRJMOD}/3dmodels/C_0805_2012Metric.step"

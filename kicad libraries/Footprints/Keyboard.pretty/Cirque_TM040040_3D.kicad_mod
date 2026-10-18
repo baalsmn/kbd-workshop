@@ -7,7 +7,7 @@
 	(property "Reference" "REF**"
 		(at 0 0 0)
 		(layer "F.Fab")
-		(uuid "fe819555-6179-431b-be70-dcb24ed4f218")
+		(uuid "1da43d67-25c2-49be-9613-9519328b6fe4")
 		(effects
 			(font
 				(size 1 1)
@@ -18,7 +18,7 @@
 	(property "Value" "Cirque_TM040040_3D"
 		(at 0 0 0)
 		(layer "F.Fab")
-		(uuid "6034dc5f-349e-4cdc-a32b-93c3147c11e6")
+		(uuid "ec19f3f6-d75d-4cb7-ae9c-4cdbaab9723c")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -29,7 +29,7 @@
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "8dfa447c-600a-4b6a-bb5a-7ca89ae7b334")
+		(uuid "6db39047-955b-4006-b6b3-7839456f8b01")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -40,7 +40,7 @@
 		(at 0 0 0)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "23e9705b-5e85-433f-b852-cb9c2ee4c832")
+		(uuid "14ed2673-1bea-4b95-b637-7c219bc12923")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -52,7 +52,7 @@
 	(fp_text user "TM040040"
 		(at 0 1.5 0)
 		(layer "F.Fab")
-		(uuid "7c58313f-2915-453b-aac3-f8d99e91e545")
+		(uuid "60919fe5-9f2b-4ae4-b99a-d8bef51ccd66")
 		(effects
 			(font
 				(size 1 1)
@@ -61,7 +61,7 @@
 		)
 	)
 	(embedded_fonts no)
-	(model "${KIPRJMOD}/3dmodels/TM040040-2024-303.stp"
+	(model "${KIPRJMOD}/3dmodels/Cirque_TM040040.step"
 		(offset
 			(xyz 0 0 4.925)
 		)

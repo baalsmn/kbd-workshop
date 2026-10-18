@@ -41,6 +41,23 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
   - The schematic is to be generated from the PCB netlist later (see
     `kugo/CLAUDE.md`, Open / next).
 
+## Licensing and third-party files
+
+- Repo is **private**. LICENSE: hardware CERN-OHL-S-2.0, scripts GPL-3.0-or-later;
+  texts in `LICENSES/`; third-party files (KiCad libs CC-BY-SA-4.0, 0xCB Helios
+  CERN-OHL-S-2.0, ceoloide MIT) listed in `THIRD_PARTY_NOTICES.md`. Keep both up to
+  date when adding parts from elsewhere.
+- **Not in git** (gitignored, kept locally): vendor 3D models `3dmodels/vendor/`,
+  vendor footprints of unknown licence `footprints/vendor/`. `tools/build.sh` copies
+  `footprints/local/*.js` (gitignored) over tracked footprints when present.
+- **No Claude / Anthropic logos** anywhere (trademarks, not usable here): removed
+  from the designs, footprints and drafts, and left out of the public history copy.
+- 3D models of bought parts are recreated from datasheet dimensions by
+  `tools/lib/make_models.py` (build123d), in the vendor models' coordinate frames,
+  so footprint offsets stay valid. Datasheet sources: `datasheets/LINKS.md`.
+- Footprints cite their datasheet numbers; KS-33 / KS-57 from the Gateron
+  drawings. Molex 505278 still to be redrawn from the Molex sales drawing.
+
 ## Working with the user
 
 - **No 3D renders unless asked.** For a quick visual check, make the 2D top view:

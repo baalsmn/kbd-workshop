@@ -1,6 +1,6 @@
 # Outline of a single-path SVG (M/m L/l H/h V/v C/c Z/z) as a polygon, normalised so
 # the larger of width / height spans [-1, 1] (x right, y down). Used for the logo
-# footprint: python tools/lib/svg_outline.py drafts/claude.svg [samples per curve]
+# footprint: python tools/lib/svg_outline.py drafts/<logo>.svg [samples per curve]
 import sys, re, json, math
 
 def path_points(d, nc=12):

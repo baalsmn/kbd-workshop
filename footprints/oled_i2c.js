@@ -1,5 +1,8 @@
-// 0.96" OLED 128x64, SSD1306, I2C (4-pin header + 4 mounting holes).
-// Converted from "OLED Display_128x64_096_I2C.kicad_mod"
+// 0.96" OLED 128x64, SSD1306, I2C module (4-pin header + 4 mounting holes).
+// These generic modules have no vendor datasheet; the layout is the common
+// module geometry: 4-pin 2.54 mm header (standard 1.7 mm pads, 1.0 mm drills)
+// and the module's 4 corner holes, outline 27.4 x 27.2 mm (all measured on the
+// module).
 //
 // Pad 1 (x=-3.81) -> params.GND
 // Pad 2 (x=-1.27) -> params.VDD

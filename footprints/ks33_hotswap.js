@@ -1,15 +1,15 @@
-// Gateron KS-33 hotswap socket (KS-2P02B01-02), 1U or wider (2U with stabilizer).
-// Converted from Gateron-KS33-Hotswap-1U.kicad_mod.
+// Gateron KS-33 switch on a KS-2P02B01-02 hot-swap socket, 1U or wider (2U with
+// a KS-57 stabilizer). Drawn from the Gateron datasheets (datasheets/LINKS.md):
+//   KS-33E10B055NN-Y24 "PCB Layout": centre hole 5.25, pin holes 3.00 at
+//     (2.60, 5.75) and (4.40, 4.70) from the centre;
+//   KS-2P02B01-02 "PCB Layout": the same two 3.0 holes 7.00 apart, pads 2.55 tall
+//     on the hole rows, outer pad edges 9.40 / 7.61 from the centre (scaled from
+//     the drawing's 14 mm reference: pad widths 2.45, centres 8.2 / 6.35).
 //
-// Geometry is TOP VIEW (as KiCad shows the board), checked against the
-// Gateron STEP models: the KS-33 switch has its pins at (+2.6, 5.75) and
-// (-4.4, 4.70), and the socket's contact cups land on exactly those spots.
-// Gateron's "PCB Layout" drawings (switch and socket PDFs) are drawn as seen
-// from below, i.e. mirrored in X compared with this.
-//   centre hole 5.25 (switch drawing), switch pin holes 3.0
-//
-// Pads from the KS-2P02B01-02 socket drawing (measured from its vector data),
-// in top view; the socket terminals end at x = -8.39 and +6.59 (STEP model):
+// Geometry is TOP VIEW (as KiCad shows the board): the switch pins at (+2.6, 5.75)
+// and (-4.4, 4.70); Gateron's PCB layout drawings are drawn as seen from below,
+// i.e. mirrored in X compared with this. Socket terminals reach x = -8.44 / +6.65
+// (15.1 tip to tip, body 11.85 from 2.42 left of the left hole).
 // Pad 1 (x=-8.2,  y=4.7,  2.45 x 2.55) -> params.from
 // Pad 2 (x=+6.35, y=5.75, 2.45 x 2.55) -> params.to
 //
@@ -20,9 +20,10 @@
 //
 // width: keycap width in U, only widens the keycap outline (Dwgs.User).
 // stab:  true adds PCB clearance cutouts for a Gateron KS-57 low-profile
-//        plate-mounted 2U stabilizer (housings at x = +-12, from the KS-57B210T
-//        drawing; the housing reaches ~3.2 mm below the plate, deeper than the
-//        plate-to-PCB gap). Pad 1 is trimmed to stay 0.5 mm off the cutout.
+//        plate-mounted 2U stabilizer (KS-57B210T drawing: housings 6.00 wide at
+//        x = +-12 (24.00 apart), 4.45 below the plate top = 3.25 below a 1.2 mm
+//        plate, deeper than the plate-to-PCB gap). Pad 1 is trimmed to stay
+//        0.5 mm off the cutout.
 //        The matching plate cutout is an Ergogen outline (stab_cutouts).
 
 module.exports = {
@@ -33,16 +34,17 @@ module.exports = {
     stab: false,
     from: undefined,
     to: undefined,
-    // 3D models (STEP files next to the config; default paths assume the
-    // KiCad project is Ergogen's output/pcbs folder). '' = no model.
-    // The Gateron switch and stabilizer models share one origin (key centre at
+    // 3D models: simplified solids from the datasheet dimensions
+    // (tools/lib/make_models.py); default paths assume the KiCad project is
+    // Ergogen's output/pcbs folder. '' = no model.
+    // The switch and stabilizer models share one origin (key centre at
     // x = 60, PCB top at z = 3.25), so both get the same transform: turned over
     // (rotate X 180, because the footprint is on the back) and shifted onto
     // the board (offset -60, 0, 3.25 - 1.6). The stabilizer model is only
     // added on keys with stab: true.
-    socket_model: '${KIPRJMOD}/../../3dmodels/Gateron_ks33_hotswap_socket.step',
-    switch_model: '${KIPRJMOD}/../../3dmodels/KS-33 Low Profile 2.0  KS33-20230109（KS-33-Y31  3D图）.stp',
-    stab_model: '${KIPRJMOD}/../../3dmodels/low profile stabilizer..stp',
+    socket_model: '${KIPRJMOD}/../../3dmodels/Gateron_KS-2P02B01-02_socket.step',
+    switch_model: '${KIPRJMOD}/../../3dmodels/Gateron_KS-33_switch.step',
+    stab_model: '${KIPRJMOD}/../../3dmodels/Gateron_KS-57_stabilizer.step',
     // low-profile keycap (VRML, generated), file chosen by width: {w} is
     // replaced with 1, 1.25 or 2 (keycap_lowprofile_1u/1.25u/2u.wrl); '' = none
     keycap_model: '${KIPRJMOD}/../../3dmodels/keycap_lowprofile_{w}u.wrl',
@@ -57,10 +59,10 @@ module.exports = {
     const x = v => (m * v).toFixed(4)
     const half = 9.525 * p.width
 
-    // stabilizer housing clearance. Measured on the Gateron low-profile
-    // stabilizer STEP model: below the PCB top surface each housing spans
-    // x = cx-2.93 .. cx+2.93 and y = -5.03 .. +8.70 (lever end to the south).
-    // Cutout = that + ~0.17-0.25 mm clearance.
+    // stabilizer housing clearance (KS-57B210T drawing): the housing is 6.00
+    // wide; below the plate it is 12.40 long, plus the equalizing lever's end
+    // to the south (section A-A). Cutout = 6.0 + 0.1 per side, 14.75 long
+    // (12.40 + the lever end + clearance), y = -5.8 .. +8.95.
     const stab_cut = cx => {
       const pts = [
         [cx - 3.1, -5.8], [cx + 3.1, -5.8], [cx + 3.1, 8.95], [cx - 3.1, 8.95],

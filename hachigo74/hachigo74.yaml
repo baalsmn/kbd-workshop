@@ -2074,23 +2074,6 @@ pcbs:
           shift: [0, -2]
         params:
           label: TM040040
-          model: ${KIPRJMOD}/../../3dmodels/TM040040-2024-303.stp
+          model: ${KIPRJMOD}/../../3dmodels/Cirque_TM040040.step
           model_offset: [0, 0, 4.925]   # pad top z 17.6 = PCB top + 7.5 (5 mm pad on the plate; model origin mid-height)
-
-      # Claude Code logo (8 x 5 mm, front silkscreen) at the centre of the bottom
-      # edge, in the centre frame: PCB edge at y -35.1 -> 2.6 mm below the logo; the
-      # cover screws (+-11, -29.5) and their 5.5 mm bosses stay > 4 mm to the sides.
-      # logo: code (Claude Code) or spark (Claude)
-      claude_logo:
-        what: claude_logo
-        where:
-          aggregate.parts:
-            - hand-zone_c9_r2
-            - mirror_hand-zone_c9_r2
-          rotate: 0
-          shift: [0, -30]
-        params:
-          side: F
-          size: 8
-          logo: code
 

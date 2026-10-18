@@ -44,7 +44,6 @@ const params = {
   side: 'F',
   // 3D model: exact Helios rev1.0, exported with kicad-cli from 0xCB's own
   // KiCad design (github.com/0xCB-dev/0xCB-Helios), origin = pin grid centre.
-  // Stand-in alternative: sea-picro.step with model_offset [-126.18, 92.54, 0].
   model: '${KIPRJMOD}/../../3dmodels/Helios_0xCB_rev1.0.step',
   model_offset: [0, 0, 0],
 }

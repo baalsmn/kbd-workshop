@@ -16,3 +16,13 @@ __pycache__/
 _autosave-*
 # KiCad local history
 .history/
+# trademarked logo artwork: kept locally, not in the repo
+footprints/local/
+drafts/claude*
+kicad libraries/Footprints/Keyboard.pretty/Logo.kicad_mod
+kicad libraries/Footprints/Keyboard.pretty/Claude_Logo_8mm.kicad_mod
+# vendor 3D models (download, not redistributable): kept locally, replaced by
+# the recreated models in 3dmodels/ (tools/lib/make_models.py)
+3dmodels/vendor/
+# vendor footprints of unknown licence (reference only, kept locally)
+footprints/vendor/

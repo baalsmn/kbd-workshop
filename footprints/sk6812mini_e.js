@@ -11,7 +11,7 @@
 // Params are named by function: VDD, GND, DIN, DOUT.
 // side: 'B' = LED on the back, light through to the front (default)
 //       'F' = LED on the front, light through to the back (X flipped)
-// model: LED_SK6812MINI-E.step. Its origin is 5.08 mm south of the body and
+// model: SK6812MINI-E.step (tools/lib/make_models.py, datasheet dimensions). Its origin is 5.08 mm south of the body and
 //        it is drawn for a front-side switch footprint, so on side B it is
 //        turned over (rotate Y 180) and shifted: lens up in the cutout, legs on
 //        the back copper, chamfer on the GND pad (checked in a KiCad render).
@@ -24,7 +24,7 @@ module.exports = {
     GND: {type: 'net', value: 'GND'},
     DIN: undefined,
     DOUT: undefined,
-    model: '${KIPRJMOD}/../../3dmodels/LED_SK6812MINI-E.step',
+    model: '${KIPRJMOD}/../../3dmodels/SK6812MINI-E.step',
     model_offset: [0, 5.08, -1.75],
     model_rotation: [0, 180, 0],
   },

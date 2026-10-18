@@ -17,6 +17,8 @@ rm -rf "$P/build" "$P/out"
 mkdir -p "$P/build/footprints"
 cp "$YAML" "$P/build/config.yaml"
 cp "$P"/footprints/*.js "$P/build/footprints/"
+# local footprints (gitignored, e.g. the logo artwork) replace the placeholders
+[ -d "$P/footprints/local" ] && cp "$P"/footprints/local/*.js "$P/build/footprints/" 2>/dev/null || true
 
 cd "$P"
 ergogen build -o out --debug

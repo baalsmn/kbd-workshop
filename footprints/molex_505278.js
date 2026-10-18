@@ -3,7 +3,7 @@
 //
 // Pads 1..12 (x=-2.75 .. +2.75, y=-2.425) -> params.P1 .. params.P12
 // Pads 13, 14 = mounting tabs (x=-+5.05)   -> params.MP
-// 3D model: Molex/TraceParts 505278-1270.stp. The default path assumes the
+// 3D model: Molex_505278-1270.step (simplified, tools/lib/make_models.py). The default path assumes the
 // Ergogen output layout (output/pcbs/<board>.kicad_pcb, STEP file next to the
 // config); point model at another file/folder if your project lives elsewhere.
 //
@@ -14,8 +14,8 @@ for (let n = 1; n <= 12; n++) {
   params[`P${n}`] = {type: 'net', value: `FFC_${n}`}
 }
 params.MP = {type: 'net', value: 'GND'}
-params.model = '${KIPRJMOD}/../../3dmodels/505278-1270.stp'
-params.model_offset = [0, -1.35, 0]   // aligns the TraceParts model with the pads (checked in a KiCad 3D render)
+params.model = '${KIPRJMOD}/../../3dmodels/Molex_505278-1270.step'
+params.model_offset = [0, -1.35, 0]   // aligns the model (tools/lib/make_models.py) with the pads
 params.model_rotation = [0, 0, 0]
 
 module.exports = {

@@ -1447,19 +1447,8 @@ pcbs:
           shift: [0, -2]
         params:
           label: TM040040
-          model: ${KIPRJMOD}/../../3dmodels/TM040040-2024-303.stp
+          model: ${KIPRJMOD}/../../3dmodels/Cirque_TM040040.step
           model_offset: [0, 0, 2.79]
-
-      # Claude logo (8 mm, front silkscreen) south of the left c5_r1 2U key:
-      # keycap ends ~9.1 mm below the key centre, board edge 21 mm -> ~1 mm each side.
-      claude_logo:
-        what: claude_logo
-        where: /^hand-zone_c5_r1$/
-        adjust:
-          shift: [0, -15]
-        params:
-          side: F
-          size: 8
 
       # Reset button: RST -> GND (double-tap for the RP2040 bootloader in QMK).
       # Pressed through the reset_hole in the centre cover; plate has reset_cutout.

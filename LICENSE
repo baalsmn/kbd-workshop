@@ -1,0 +1,45 @@
+keyboard-workshop - licensing
+=============================
+
+Copyright (c) 2026 baal (github.com/baalsmn)
+
+This repository holds open hardware designs and the tools that make them.
+
+Hardware designs - CERN-OHL-S-2.0
+---------------------------------
+Everything that describes the physical keyboards is licensed under the
+CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S-2.0),
+full text in LICENSES/CERN-OHL-S-2.0.txt. This covers:
+
+  - the Ergogen designs (kugo/*.yaml, hachigo74/*.yaml) and keyboard layouts (*/kle/),
+  - the Ergogen footprints in footprints/ (see THIRD_PARTY_NOTICES.md for the
+    ones derived from other open sources),
+  - the case outputs (*/case/: STL, STEP, Fusion data), the PCBs and KiCad files
+    (*/kicad/, kicad libraries/, keyboard.pretty/ own parts, keyboard.kicad_dru),
+  - the 3D models made for this project in 3dmodels/ (recreated from public
+    datasheet dimensions by tools/lib/make_models.py, and the generated keycap
+    and OLED models),
+  - documentation, renders, printouts and drafts.
+
+Software - GPL-3.0-or-later
+---------------------------
+The scripts in tools/ (shell, Python, JavaScript, the Fusion script) are free
+software: you can redistribute and/or modify them under the terms of the GNU
+General Public License as published by the Free Software Foundation, either
+version 3 of the License, or (at your option) any later version. They are
+distributed WITHOUT ANY WARRANTY. Full text: LICENSES/GPL-3.0.txt.
+
+Third-party material
+--------------------
+Some files come from, or are derived from, other projects under their own
+licences (KiCad libraries: CC-BY-SA-4.0; 0xCB Helios: CERN-OHL-S-2.0;
+ceoloide's ergogen-footprints: MIT). They keep those licences; see
+THIRD_PARTY_NOTICES.md.
+
+Not covered / not included
+--------------------------
+Vendor datasheets (datasheets/*.pdf) remain the property of their
+manufacturers and are not covered by these licences; datasheets/LINKS.md lists
+where to get them. Vendor 3D models and logo artwork are kept out of the
+repository (3dmodels/vendor/, footprints/local/: gitignored). Product names and
+trademarks belong to their owners.

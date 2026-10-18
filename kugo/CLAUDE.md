@@ -196,8 +196,6 @@ Shared rules, build and tools: `../CLAUDE.md`.
     built from the same outlines as the case, so they always match. Add every new
     support to these.
   - Case-wall holes in `edge_mounting`.
-- **Logo:** an 8 mm Claude logo on the front silkscreen, south of the left c5_r1
-  (`footprints/claude_logo.js`, a hand-drawn approximation).
 
 ## Case stack-up (z in mm, case coordinates)
 

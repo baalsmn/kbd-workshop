@@ -7,7 +7,7 @@
 	(property "Reference" "REF**"
 		(at 0 -2.4 180)
 		(layer "F.SilkS")
-		(uuid "bf967ffe-cec1-4e2c-b09f-422edc61944c")
+		(uuid "ec0a5c4c-73bf-4302-819b-ea723928439e")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -18,7 +18,7 @@
 	(property "Value" "LED_SK6812MINI-E_Reverse"
 		(at 0 0 180)
 		(layer "B.Fab")
-		(uuid "63c7c411-3bde-43aa-b667-090fbed79d01")
+		(uuid "92a78999-cdee-4f09-92af-517ae2e78efb")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -30,7 +30,7 @@
 		(at 0 0 180)
 		(layer "B.Fab")
 		(hide yes)
-		(uuid "81430f6b-7e0d-4737-bbfc-08bc236e118e")
+		(uuid "d60874b7-0e6f-4eff-811e-be67e96f9ea7")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -42,7 +42,7 @@
 		(at 0 0 180)
 		(layer "B.Fab")
 		(hide yes)
-		(uuid "225c33c8-485f-44bd-98e0-2f86e070feb9")
+		(uuid "af69035b-2f0e-4fed-8514-984af7ee9045")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -60,7 +60,7 @@
 			(type solid)
 		)
 		(layer "F.SilkS")
-		(uuid "c4d1766d-bf98-4bd6-93bc-c004a18e9237")
+		(uuid "473bee30-9093-4123-913d-fb07bac3c757")
 	)
 	(fp_poly
 		(pts
@@ -72,7 +72,7 @@
 		)
 		(fill no)
 		(layer "Edge.Cuts")
-		(uuid "f3fc0ebd-f606-43dc-b7c8-a0e642435670")
+		(uuid "5b387174-f38f-4cac-8299-d660515ed23d")
 	)
 	(fp_poly
 		(pts
@@ -84,7 +84,7 @@
 		)
 		(fill no)
 		(layer "F.CrtYd")
-		(uuid "6b5c7766-8aa3-48fa-aa0b-35c315cde667")
+		(uuid "4ad0e475-c34d-4b6c-a98e-18551423adc2")
 	)
 	(fp_poly
 		(pts
@@ -96,34 +96,34 @@
 		)
 		(fill no)
 		(layer "F.Fab")
-		(uuid "c0834ad0-b7a5-4729-87ad-6096415a78c1")
+		(uuid "4fcbf912-66bb-48e2-b8a7-af6abccd3260")
 	)
 	(pad "1" smd rect
 		(at -2.7 0.700001)
 		(size 1.4 1)
 		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "22eda3d1-209b-489f-bc0e-8e50bbd55320")
+		(uuid "233e952d-db49-470a-adeb-e6b6d44cc43d")
 	)
 	(pad "2" smd rect
 		(at -2.7 -0.7)
 		(size 1.4 1)
 		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "295fa20a-4d01-4b8a-a608-38e6e60fe274")
+		(uuid "768e213e-43a0-473a-a0ad-c9578699cdf2")
 	)
 	(pad "3" smd rect
 		(at 2.7 -0.700001)
 		(size 1.4 1)
 		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "16835aa4-79b6-42cd-bbe1-392dfa146171")
+		(uuid "e2e9d699-bd97-4b78-864d-745b8aee1c63")
 	)
 	(pad "4" smd rect
 		(at 2.7 0.7)
 		(size 1.4 1)
 		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "47306aa2-4949-4857-a70c-c3528e995c60")
+		(uuid "2aa6f567-0dce-4dbe-966f-4f3b86e0e01c")
 	)
 	(embedded_fonts no)
-	(model "${KIPRJMOD}/3dmodels/LED_SK6812MINI-E.step"
+	(model "${KIPRJMOD}/3dmodels/SK6812MINI-E.step"
 		(offset
 			(xyz 0 5.08 -1.75)
 		)

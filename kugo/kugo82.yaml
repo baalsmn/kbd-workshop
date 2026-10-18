@@ -2150,17 +2150,6 @@ pcbs:
           shift: [0, -2]
         params:
           label: TM040040
-          model: ${KIPRJMOD}/../../3dmodels/TM040040-2024-303.stp
+          model: ${KIPRJMOD}/../../3dmodels/Cirque_TM040040.step
           model_offset: [0, 0, 4.925]   # pad top z 17.6 = PCB top + 7.5 (5 mm pad on the plate; model origin mid-height)
-
-      # Claude logo (8 mm, front silkscreen) south of the left c5_r1 2U key:
-      # keycap ends ~9.1 mm below the key centre, board edge 21 mm -> ~1 mm each side.
-      claude_logo:
-        what: claude_logo
-        where: /^hand-zone_c5_r1$/
-        adjust:
-          shift: [0, -15]
-        params:
-          side: F
-          size: 8
 

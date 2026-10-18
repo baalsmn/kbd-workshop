@@ -41,7 +41,7 @@ for fp in b.GetFootprints():
     f.SetLibDescription(descr)
     f.Reference().SetText('REF**'); f.Value().SetText(name)
     for p in f.Pads(): p.SetNetCode(0, True)
-    if name in ('Cirque_TM040040_3D', 'Claude_Logo_8mm'):
+    if name in ('Cirque_TM040040_3D',):
         f.SetBoardOnly(True); f.SetExcludedFromBOM(True); f.SetExcludedFromPosFiles(True)
     ms = f.Models()
     for i in range(len(ms)):                     # by index: iterating gives copies (edits would be lost)

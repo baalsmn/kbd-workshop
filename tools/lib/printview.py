@@ -90,18 +90,6 @@ def dxf(f):
             out.append([tuple(p) for p in pts] + ([tuple(pts[0])] if int(o_.get('70', 0)) & 1 else []))
     return out
 
-def logo():
-    t = open(os.path.join(OUT, 'pcbs', name + '.kicad_pcb'), encoding='utf-8').read()
-    i = t.find('(footprint "claude_logo"')
-    if i < 0: return []
-    blk = t[i:t.find('(footprint ', i + 10) if t.find('(footprint ', i + 10) > 0 else len(t)]
-    at = re.search(r'\(at ([-\d.]+) ([-\d.]+)', blk); ax, ay = float(at.group(1)), float(at.group(2))
-    out = []
-    for m in re.finditer(r'\(fp_poly\s*\(pts(.*?)\)\s*\(stroke', blk, re.S):
-        pts = [(ax + float(x), -(ay + float(y))) for x, y in re.findall(r'\(xy ([-\d.]+) ([-\d.]+)\)', m.group(1))]
-        out.append(pts + pts[:1])
-    return out
-LOGO = logo()
 
 if os.environ.get('DUMP_LEGENDS'):
     json.dump({n: legend(n) for n in sorted(K)}, open(os.environ['DUMP_LEGENDS'], 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
@@ -134,8 +122,6 @@ for side in ('left', 'right'):
     for f, col, w, dash in layers:
         for seg in dxf(f):
             if any(x0 - 2 <= x <= x1 + 2 for x, _ in seg): poly(seg, col, w, dash)
-    for seg in LOGO:
-        if any(x0 <= x <= x1 for x, _ in seg): poly(seg, (0.85, 0.47, 0.34), 0.1, fill=(0.85, 0.47, 0.34), close=True)
     # keycaps
     for n, k in K.items():
         if not (x0 - 12 < k['x'] < x1 + 12): continue
