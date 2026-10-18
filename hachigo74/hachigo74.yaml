@@ -759,12 +759,12 @@ outlines:
       radius: 1.2
       where:
         - ref: hand-zone_c3_r5
-          shift: [-(0.5sp+4), (0.5sp + 5)]
+          shift: [-(0.625sp+4), (0.5sp + 5)]   # follows the 1.25U Esc corner of the outline
     - what: circle
       radius: 1.2
       where:
         - ref: mirror_hand-zone_c3_r5
-          shift: [-(0.5sp+4), (0.5sp + 5)]
+          shift: [-(0.625sp+4), (0.5sp + 5)]
     #  center hole
     - what: circle
       radius: 1.2
@@ -838,9 +838,9 @@ outlines:
         - ref: hand-zone_c2_r4
           shift: [-0.5sp, 0.5sp]     # 1U key: left edge 0.5U from its centre
         - ref: hand-zone_c2_r4
-          shift: [0.375sp, 0.5sp]    # step lined up with the c3_r5 (Esc) left edge
+          shift: [0.25sp, 0.5sp]     # step = the 1.25U Esc keycap edge (-0.625sp in the c3_r5 frame)
         - ref: hand-zone_c3_r5
-          shift: [-0.5sp, 0.5sp]
+          shift: [-0.625sp, 0.5sp]   # 1.25U Esc: keycap edge 0.625U from its centre
         - ref: hand-zone_c4_r5
           shift: [0.5sp, 0.5sp]
         - ref: hand-zone_c5_r5
@@ -863,9 +863,9 @@ outlines:
         - ref: mirror_hand-zone_c4_r5
           shift: [0.5sp, 0.5sp]
         - ref: mirror_hand-zone_c3_r5
-          shift: [-0.5sp, 0.5sp]
+          shift: [-0.625sp, 0.5sp]
         - ref: mirror_hand-zone_c2_r4
-          shift: [0.375sp, 0.5sp]
+          shift: [0.25sp, 0.5sp]
         - ref: mirror_hand-zone_c2_r4
           shift: [-0.5sp, 0.5sp]
         - ref: mirror_hand-zone_c2_r1
