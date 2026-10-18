@@ -55,8 +55,8 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
 - 3D models of bought parts are recreated from datasheet dimensions by
   `tools/lib/make_models.py` (build123d), in the vendor models' coordinate frames,
   so footprint offsets stay valid. Datasheet sources: `datasheets/LINKS.md`.
-- Footprints cite their datasheet numbers; KS-33 / KS-57 from the Gateron
-  drawings. Molex 505278 still to be redrawn from the Molex sales drawing.
+- Footprints cite their datasheet numbers: KS-33 / KS-57 from the Gateron drawings,
+  Molex 505278 from its sales drawing (pads matched it exactly, no change).
 
 ## Working with the user
 

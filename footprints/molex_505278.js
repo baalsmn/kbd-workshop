@@ -1,8 +1,15 @@
 // Molex 505278-1270 Easy-On FFC/FPC connector, 12 pins, 0.5 mm pitch,
-// right angle, SMD. Converted from the official molex_5052781270_12p.kicad_mod
+// right angle, SMD. Drawn from the Molex sales drawing 5052781004 (sheet 3,
+// "recommended P.W.B. pattern layout"; datasheets/Molex_505278-1270_sales_drawing.pdf):
+//   signal pads 0.30 x 1.0 at 0.5 pitch over 0.5(N-1) = 5.5 (x = -2.75 .. +2.75),
+//   reaching 0.3 past the connector's front edge;
+//   fitting-nail pads 2.0 x 1.3, inner edge 1.3 beyond the outer signal pads
+//   (x = +-(2.75 + 1.3 + 1.0) = +-5.05), top edge 1.55 below the signal pads
+//   (y = -2.425 + 0.5 + 1.55 + 0.65 = +0.275);
+//   body outline from sheet 1: A = 10.7 wide (x +-5.35), 5.25 deep.
 //
 // Pads 1..12 (x=-2.75 .. +2.75, y=-2.425) -> params.P1 .. params.P12
-// Pads 13, 14 = mounting tabs (x=-+5.05)   -> params.MP
+// Pads 13, 14 = fitting nails (x=-+5.05)  -> params.MP
 // 3D model: Molex_505278-1270.step (simplified, tools/lib/make_models.py). The default path assumes the
 // Ergogen output layout (output/pcbs/<board>.kicad_pcb, STEP file next to the
 // config); point model at another file/folder if your project lives elsewhere.

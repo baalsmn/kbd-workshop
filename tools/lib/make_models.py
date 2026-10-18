@@ -19,8 +19,9 @@
 #                    plate top, wire 1.00.
 #   SK6812MINI-E     OPSCO datasheet (C5149201): body 3.2 x 2.8 x 1.78, leads 0.68
 #                    wide, 5.88 tip to tip, 1.5 lead pitch.
-#   Molex 505278     0.5 mm pitch 12-pin FFC connector: 12.1 x 5.6 x 1.9 envelope,
-#                    mounting tabs 10.16 apart (general dimensions, simplified).
+#   Molex 505278     sales drawing 5052781004: housing A = 10.7 wide, 1.9 high,
+#                    3.95 / 4.1 deep, 5.3 with the tails; contacts 0.3 at 0.5 pitch;
+#                    fitting nails at x = +-5.05 (simplified).
 #   Cirque TM040040  40 mm circle trackpad, flats 39.4 apart, 5.15 thick, FFC
 #                    connector 15.4 mm south of the centre, 2.5 mm below the pad.
 import sys, os, math
