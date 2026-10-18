@@ -3,7 +3,7 @@
 Split-style ergonomic keyboards on one PCB, designed in [Ergogen](https://ergogen.xyz)
 4.2.1, finished in KiCad 10, with 3D-printed cases with the help of Anthropic Claude-Code.
 
-The goal of the project is to create a custom keyboard that has more keys then most of the available online designs, as my language has more characters in use. It was designed primarily for Hungarian in mind, but I can see it being useful for other languages as well, Czech, Slovak, Icelandic, Turkish, Nordic languages and Japanese.
+The goal of the project is to create a custom keyboard that has more keys than most of the available online designs, as my language has more characters in use. It was designed primarily for Hungarian in mind, but I can see it being useful for other languages as well, Czech, Slovak, Icelandic, Turkish, Nordic languages and Japanese.
 
 | Folder | What |
 |---|---|
