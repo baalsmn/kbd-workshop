@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # Build a keyboard design with Ergogen and run KiCad DRC.
 # Usage: tools/build.sh [name]   (default kugo82; also kugo80, hachigo74)
-#   reads <keyboard>/<name>.yaml (kugo/kugo82.yaml, hachigo74/hachigo74.yaml, ...)
+#   reads ergogen/<name>.yaml and ergogen/footprints/
 #   build/            Ergogen input (config.yaml = <name>.yaml, footprints/)
 #   out/pcbs/         <name>.kicad_pcb (+ <name>.kicad_dru) -> open in KiCad
 #   out/cases/        *.jscad (turn into STL with tools/case.sh)
 #   out/outlines/     2D outlines (dxf/svg)
-# Model paths in the board are ${KIPRJMOD}/../../kicad libraries/3dmodels, i.e. relative to
+# Model paths in the board are ${KIPRJMOD}/../../kicad-libraries/3dmodels, i.e. relative to
 # the project root, which is why the output goes to <project>/out.
 set -euo pipefail
 P="$(cd "$(dirname "$0")/.." && pwd)"
@@ -16,9 +16,9 @@ KICAD_CLI="${KICAD_CLI:-/c/Users/balin/AppData/Local/Programs/KiCad/10.0/bin/kic
 rm -rf "$P/build" "$P/out"
 mkdir -p "$P/build/footprints"
 cp "$YAML" "$P/build/config.yaml"
-cp "$P"/footprints/*.js "$P/build/footprints/"
+cp "$P"/ergogen/footprints/*.js "$P/build/footprints/"
 # local footprints (gitignored, e.g. the logo artwork) replace the placeholders
-[ -d "$P/footprints/local" ] && cp "$P"/footprints/local/*.js "$P/build/footprints/" 2>/dev/null || true
+[ -d "$P/ergogen/footprints/local" ] && cp "$P"/ergogen/footprints/local/*.js "$P/build/footprints/" 2>/dev/null || true
 
 cd "$P"
 ergogen build -o out --debug

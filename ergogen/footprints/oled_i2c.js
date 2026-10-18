@@ -25,7 +25,7 @@ module.exports = {
     VDD: {type: 'net', value: '3V3'},
     holes: true,
     // 3D model (VRML): module on bare pins 1.2 mm above the PCB, display up
-    model: '${KIPRJMOD}/../../kicad libraries/3dmodels/OLED_0.96in_SSD1306_I2C_module.wrl',
+    model: '${KIPRJMOD}/../../kicad-libraries/3dmodels/OLED_0.96in_SSD1306_I2C_module.wrl',
     SCL: {type: 'net', value: 'SCL'},
     SDA: {type: 'net', value: 'SDA'},
   },

@@ -5,7 +5,7 @@
 # the footprints stay valid.
 #
 # Usage (build123d, e.g. B3D_DIR from tools/step.sh):
-#   python tools/lib/make_models.py "kicad libraries/3dmodels"
+#   python tools/lib/make_models.py "kicad-libraries/3dmodels"
 #
 # Sources (datasheets/, see datasheets/LINKS.md):
 #   KS-33 switch     KS-33E10B055NN-Y24 drawing: 15.00 top / 14.00 bottom housing,

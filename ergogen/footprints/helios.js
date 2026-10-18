@@ -44,7 +44,7 @@ const params = {
   side: 'F',
   // 3D model: exact Helios rev1.0, exported with kicad-cli from 0xCB's own
   // KiCad design (github.com/0xCB-dev/0xCB-Helios), origin = pin grid centre.
-  model: '${KIPRJMOD}/../../kicad libraries/3dmodels/Helios_0xCB_rev1.0.step',
+  model: '${KIPRJMOD}/../../kicad-libraries/3dmodels/Helios_0xCB_rev1.0.step',
   model_offset: [0, 0, 0],
 }
 for (const [n] of pads) {

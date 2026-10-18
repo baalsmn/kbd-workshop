@@ -1,10 +1,10 @@
 # Export the footprints of a built board into the project footprint library
-# (kicad libraries/Footprints/Keyboard.pretty), exactly as placed on the board
+# (kicad-libraries/Footprints/Keyboard.pretty), exactly as placed on the board
 # (unrotated, moved to the front side), and copy their 3D models into
-# kicad libraries/3dmodels/ with ${KIPRJMOD}-relative paths.
+# kicad-libraries/3dmodels/ with ${KIPRJMOD}-relative paths.
 #
 # Usage (KiCad python, after tools/build.sh <name>):
-#   python tools/lib/kicad_footprints.py out/pcbs/<name>.kicad_pcb "kicad libraries" [--force]
+#   python tools/lib/kicad_footprints.py out/pcbs/<name>.kicad_pcb kicad-libraries [--force]
 # Run it for every design: variants already in the library are kept (unless
 # --force), new ones (e.g. a 1.5U switch only kugo82 has) are added.
 import sys, os, re, shutil, collections, pcbnew

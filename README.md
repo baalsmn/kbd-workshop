@@ -8,8 +8,8 @@ Split-style ergonomic keyboards on one PCB, designed in [Ergogen](https://ergoge
 | `kugo/` | kugo82 (current, 82 keys) and kugo80 (backup) |
 | `hachigo74/` | hachigo74, 74 keys (kugo82 without the outer column); `kicad/` = its KiCad project |
 | `tools/` | build, case (STL), STEP and render scripts; Fusion script; KiCad library / project scripts |
-| `footprints/` | Ergogen footprints |
-| `kicad libraries/` | KiCad libraries: symbols (`keyboard-workshop`), footprints (`Keyboard`), and the 3D models (the one place they live: Ergogen builds and renders use them too) |
+| `ergogen/` | Ergogen inputs: the design yamls (`kugo82`, `kugo80`, `hachigo74`) and `footprints/` |
+| `kicad-libraries/` | KiCad libraries: symbols (`keyboard-workshop`), footprints (`Keyboard`), and the 3D models (the one place they live: Ergogen builds and renders use them too) |
 | `keyboard.kicad_dru` | DRC rules for every design |
 | `datasheets/`, `drafts/` | part datasheets, sketches |
 
@@ -30,9 +30,9 @@ schematic parity clean). It is the master for routing from now on. The scripts t
 made it, run with KiCad's Python after `tools/build.sh hachigo74`:
 
 ```bash
-python tools/lib/kicad_footprints.py out/pcbs/hachigo74.kicad_pcb "kicad libraries" --force   # footprints + 3D models
-python tools/lib/kicad_symbols.py "kicad libraries"                                           # symbol library (plain Python)
-python tools/lib/kicad_project.py out/pcbs/hachigo74.kicad_pcb "kicad libraries" hachigo74/kicad hachigo74   # project (--force to overwrite)
+python tools/lib/kicad_footprints.py out/pcbs/hachigo74.kicad_pcb kicad-libraries --force   # footprints + 3D models
+python tools/lib/kicad_symbols.py kicad-libraries                                           # symbol library (plain Python)
+python tools/lib/kicad_project.py out/pcbs/hachigo74.kicad_pcb kicad-libraries hachigo74/kicad hachigo74   # project (--force to overwrite)
 ```
 
 Needs: Node + `npm i -g ergogen@4.2.1`, KiCad 10, Python 3 (build123d installs itself

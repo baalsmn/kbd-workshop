@@ -17,10 +17,10 @@ _autosave-*
 # KiCad local history
 .history/
 # trademarked logo artwork: kept locally, not in the repo
-footprints/local/
+ergogen/footprints/local/
 drafts/claude*
-kicad libraries/Footprints/Keyboard.pretty/Logo.kicad_mod
-kicad libraries/Footprints/Keyboard.pretty/Claude_Logo_8mm.kicad_mod
+kicad-libraries/Footprints/Keyboard.pretty/Logo.kicad_mod
+kicad-libraries/Footprints/Keyboard.pretty/Claude_Logo_8mm.kicad_mod
 # vendor 3D models and footprints (not redistributable / unknown licence): kept
 # locally for reference; the repo uses the recreated models (tools/lib/make_models.py)
 vendor/

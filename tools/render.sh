@@ -32,12 +32,12 @@ done
 wait
 
 # keycap copies in the chosen colour
-for f in "$P/kicad libraries/3dmodels/"keycap_lowprofile_*u.wrl; do
+for f in "$P/kicad-libraries/3dmodels/"keycap_lowprofile_*u.wrl; do
   sed -E "s/diffuseColor 0\.8[0-9]* 0\.8[0-9]* 0\.[0-9]+/diffuseColor $CAP $CAP $CAP/g" "$f" > "$R/caps/$(basename "$f")"
 done
 
 # render board: absolute model paths, keycap copies, case models, no virtual footprints
-sed -e "s|\${KIPRJMOD}/../../kicad libraries/3dmodels/keycap_lowprofile_|$(m "$R/caps")/keycap_lowprofile_|g" \
+sed -e "s|\${KIPRJMOD}/../../kicad-libraries/3dmodels/keycap_lowprofile_|$(m "$R/caps")/keycap_lowprofile_|g" \
     -e "s|\${KIPRJMOD}/../../|$(m "$P")/|g" "$P/out/pcbs/$NAME.kicad_pcb" > "$R/base.kicad_pcb"
 node -e '
 const fs=require("fs");const [src,dst,w,z]=process.argv.slice(1);let c=fs.readFileSync(src,"utf8");

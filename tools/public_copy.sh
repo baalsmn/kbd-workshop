@@ -22,7 +22,7 @@ GFR=(python -m git_filter_repo); [ -n "${GFR_DIR:-}" ] && export PYTHONPATH="$(w
 RESTORE=(hachigo74/kicad/hachigo74.kicad_pcb hachigo74/hachigo74_layout_1to1.pdf)
 args=(--force --invert-paths
   --path-glob 'datasheets/*.pdf' --path-glob 'drafts/*.pdf' --path-glob 'drafts/claude*'
-  --path footprints/claude_logo.js --path-glob '*Claude_Logo_8mm.kicad_mod' --path-glob 'footprints/local/*'
+  --path footprints/claude_logo.js --path-glob '*Claude_Logo_8mm.kicad_mod' --path-glob 'footprints/local/*' --path-glob 'ergogen/footprints/local/*'
   --path-glob '*505278-1270.stp' --path-glob '*Gateron_KS-52B200T*' --path-glob '*Gateron_ks33_hotswap_socket.step'
   --path-glob '*Gateron_ks33_low_profile_swictch.step' --path-glob '*KS-33 Low Profile 2.0*' --path-glob '*LED_SK6812MINI-E.step'
   --path-glob '*TM040040-2024-303.stp' --path-glob '*low profile stabilizer..stp' --path-glob '*sea-picro.step'

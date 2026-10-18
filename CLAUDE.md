@@ -5,19 +5,21 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
 
 ## Layout
 
-- Root = shared: `tools/`, `footprints/` (Ergogen), `datasheets/`,
-  `kicad libraries/` (KiCad symbols, footprints and **all 3D models**: the Ergogen
-  footprints point at `kicad libraries/3dmodels/` too), `keyboard.kicad_dru` (DRC
+- Root = shared: `tools/`, `ergogen/` (every Ergogen input: the design yamls
+  `kugo82.yaml`, `kugo80.yaml`, `hachigo74.yaml` and `footprints/`), `datasheets/`,
+  `kicad-libraries/` (KiCad symbols, footprints and **all 3D models**: the Ergogen
+  footprints point at `kicad-libraries/3dmodels/` too), `keyboard.kicad_dru` (DRC
   rules for every design), `drafts/` (the user's sketches and photos).
 - One folder per keyboard, holding only its own files:
-  - `kugo/`: `kugo82.yaml` (**current**, 82 keys), `kugo80.yaml` (80-key backup,
-    don't edit unless asked), `kle/`, `case/` (STL, `step/`, `fusion/`), `renders/`.
+  - `kugo/`: kugo82 (**current**, 82 keys) and kugo80 (80-key backup,
+    don't edit `ergogen/kugo80.yaml` unless asked): `kle/`, `case/` (STL, `step/`, `fusion/`), `renders/`.
     Hardware, stack-up and open items: **`kugo/CLAUDE.md`**.
-  - `hachigo74/`: `hachigo74.yaml` (74 keys, kugo82 minus column c1), `kle/`,
+  - `hachigo74/`: hachigo74 (74 keys, kugo82 minus column c1): `kle/`,
     `case/`. Details: **`hachigo74/CLAUDE.md`** (hardware otherwise as kugo).
-- A new keyboard = a new folder with `<name>.yaml` (+ `kle/`); the tools find it by
-  name.
-- `kicad libraries/` (renamed by the user from `kicad project/`): the self-contained
+- A new keyboard = `ergogen/<name>.yaml` starting with the line
+  `# keyboard: <folder>` (where its outputs go; default a folder named `<name>`),
+  plus that folder (with `kle/`). The tools find the yaml by name.
+- `kicad-libraries/` (renamed by the user from `kicad project/`): the self-contained
   KiCad libraries: symbols, footprints, 3D models and library tables, everything
   `${KIPRJMOD}`-relative. Where the project file, schematic, PCB and `.kicad_dru` will
   live is still open. Contents (see its README):
@@ -49,7 +51,7 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
   date when adding parts from elsewhere.
 - **Not in git** (gitignored, kept locally): vendor 3D models and vendor
   footprints of unknown licence in `vendor/`. `tools/build.sh` copies
-  `footprints/local/*.js` (gitignored) over tracked footprints when present.
+  `ergogen/footprints/local/*.js` (gitignored) over tracked footprints when present.
 - **No Claude / Anthropic logos** anywhere (trademarks, not usable here): removed
   from the designs, footprints and drafts, and left out of the public history copy.
 - 3D models of bought parts are recreated from datasheet dimensions by
@@ -69,7 +71,7 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
   (left half); the right half is mirrored in the KLE file (x → 21.5 − x).
 - **KLE legends:** front-centre = QMK keycode (for the firmware); centre-left =
   the Hungarian character.
-- **Keep `kugo/kugo80.yaml` as a backup**, and make a new yaml for big layout changes.
+- **Keep `ergogen/kugo80.yaml` as a backup**, and make a new yaml for big layout changes.
 - **Always add a silkscreen marker circle for new case supports** (studs, posts,
   spacers) via `support_marks_back` / `support_marks_front`, so they show on the PCB.
 - **Verify before claiming.** After changes, build and check DRC, part counts and
@@ -88,11 +90,12 @@ bash tools/step.sh [name]      # STEP + Fusion data -> <keyboard>/case/step/, ca
 bash tools/render.sh [name]    # 3D renders -> <keyboard>/renders/ (only when asked)
 ```
 
-- `tools/lib/design.sh` finds `<keyboard>/<name>.yaml` for every tool. `build/` and
+- `tools/lib/design.sh` finds `ergogen/<name>.yaml` and its keyboard folder (from
+  the yaml's `# keyboard:` first line) for every tool. `build/` and
   `out/` are shared root scratch folders holding the last build only, so build a
   design before running case/step/render for it (they check).
   - kugo80 (the backup) writes its case files to `kugo/case/kugo80/`.
-- `build.sh` copies `<name>.yaml` → `build/config.yaml` plus `footprints/`, runs
+- `build.sh` copies `ergogen/<name>.yaml` → `build/config.yaml` plus `ergogen/footprints/`, runs
   `ergogen build -o out --debug`, copies `keyboard.kicad_dru` to
   `out/pcbs/<name>.kicad_dru` and runs `kicad-cli pcb drc`.
   - Expected result: 2 silkscreen warnings (overlapping labels of the indicator
@@ -102,7 +105,7 @@ bash tools/render.sh [name]    # 3D renders -> <keyboard>/renders/ (only when as
     - Any non-silkscreen violation is a real problem.
   - kugo80 gives 2 `silk_over_copper` instead (unchanged backup).
   - Output must go to `<root>/out`, because 3D model paths are
-    `${KIPRJMOD}/../../kicad libraries/3dmodels/...`.
+    `${KIPRJMOD}/../../kicad-libraries/3dmodels/...`.
 - **Tools:** `kicad-cli` is at
   `C:/Users/balin/AppData/Local/Programs/KiCad/10.0/bin/kicad-cli.exe`, and KiCad's
   Python (`pcbnew`) is in the same `bin/`. Ergogen is installed globally with npm.

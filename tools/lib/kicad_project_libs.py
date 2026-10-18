@@ -1,12 +1,12 @@
 # Refresh an existing KiCad project's library copy and 3D model links without
 # touching its design (placement, routing, schematic):
-#   - <project>/libraries/ is replaced by a fresh copy of "kicad libraries"
+#   - <project>/libraries/ is replaced by a fresh copy of kicad-libraries
 #     (3D paths rewritten to ${KIPRJMOD}/libraries/3dmodels/; local-only parts such
 #     as the logo are left out),
 #   - the board's footprints get their 3D model files renamed via MODEL_MAP,
 #   - footprints listed in --remove (references) are deleted from the board.
 # Usage (KiCad python, KiCad closed):
-#   python tools/lib/kicad_project_libs.py "kicad libraries" <project dir> <name> [--remove REF ...]
+#   python tools/lib/kicad_project_libs.py kicad-libraries <project dir> <name> [--remove REF ...]
 import sys, os, shutil, pcbnew
 
 libsrc, proj, name = sys.argv[1:4]

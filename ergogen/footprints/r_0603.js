@@ -52,7 +52,7 @@ module.exports = {
     (pad "1" smd roundrect (at ${x(-0.825)} 0 ${p.r}) (size 0.8 0.95) ${layers} (roundrect_rratio 0.25) ${p.from.str})
     (pad "2" smd roundrect (at ${x(0.825)} 0 ${p.r}) (size 0.8 0.95) ${layers} (roundrect_rratio 0.25) ${p.to.str})
 
-    (model "\${KIPRJMOD}/../../kicad libraries/3dmodels/R_0603_1608Metric.step"
+    (model "\${KIPRJMOD}/../../kicad-libraries/3dmodels/R_0603_1608Metric.step"
       (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 ${back ? 180 : 0})))
   )
   `

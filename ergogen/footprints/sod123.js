@@ -18,7 +18,7 @@ module.exports = {
     side: 'B',
     from: undefined,
     to: undefined,
-    model: '${KIPRJMOD}/../../kicad libraries/3dmodels/Diode_SOD-123.step',
+    model: '${KIPRJMOD}/../../kicad-libraries/3dmodels/Diode_SOD-123.step',
   },
   body: p => {
     const back = p.side === 'B'

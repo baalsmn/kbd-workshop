@@ -4,8 +4,8 @@ Mirrored two-half keyboard on a single PCB (each half rotated −15°), with a
 Cirque trackpad and an OLED in the centre and an RP2040 (0xCB Helios) MCU.
 Shared rules, build and tools: `../CLAUDE.md`.
 
-- **Current design: `kugo82.yaml`** (82 keys, from `kle/kugo82.json`).
-- `kugo80.yaml` is the 80-key backup (`kle/layout.json`, `kle/layout_jis.json`).
+- **Current design: `ergogen/kugo82.yaml`** (82 keys, from `kle/kugo82.json`).
+- `ergogen/kugo80.yaml` is the 80-key backup (`kle/layout.json`, `kle/layout_jis.json`).
   Don't edit it unless asked.
 - Outputs: `case/` (kugo82 STL), `case/step/`, `case/fusion/`, `renders/`;
   kugo80's case files go to `case/kugo80/`.
@@ -13,7 +13,7 @@ Shared rules, build and tools: `../CLAUDE.md`.
 ## Hardware (kugo82)
 
 - **Switches:** Gateron KS-33 low profile on KS-2P02B01-02 hot-swap sockets, back
-  side (`footprints/ks33_hotswap.js`).
+  side (`ergogen/footprints/ks33_hotswap.js`).
   - The 2U keys (c5_r1, c7_r1) use KS-57 plate-mounted stabilizers. The PCB has
     stabilizer cutouts; the wire runs between plate and PCB.
 - **Diodes:** SOD-123, COL2ROW.
@@ -30,7 +30,7 @@ Shared rules, build and tools: `../CLAUDE.md`.
     JLCPCB's routed-edge minimum.
 - **MCU:** 0xCB Helios (RP2040), on the back, upside down (component side facing the
   case floor), USB-C at the north edge.
-  - Footprint `footprints/helios.js` (castellated). Model `kicad libraries/3dmodels/Helios_0xCB_rev1.0.step`.
+  - Footprint `ergogen/footprints/helios.js` (castellated). Model `kicad-libraries/3dmodels/Helios_0xCB_rev1.0.step`.
 - **Matrix:** 10 rows × 9 columns, COL2ROW. Left half R1–R5, right half R6–R10;
   columns are shared by both halves.
   - **Rows:** R1 GP29, R2 GP28, R3 GP27, R4 GP26, R5 GP22, R6 GP4, R7 GP5, R8 GP6,

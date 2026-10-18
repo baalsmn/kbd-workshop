@@ -1,6 +1,6 @@
 # Create a portable KiCad project for a design from its built Ergogen board:
 #   <project dir>/<name>.kicad_pro / .kicad_pcb / .kicad_sch / .kicad_dru
-#   <project dir>/libraries/   copy of "kicad libraries" (symbols, footprints, 3D models)
+#   <project dir>/libraries/   copy of kicad-libraries (symbols, footprints, 3D models)
 #   <project dir>/sym-lib-table, fp-lib-table -> ${KIPRJMOD}/libraries/...
 # Every path is ${KIPRJMOD}-relative, so the folder can be moved or zipped whole.
 #
@@ -10,7 +10,7 @@
 # (same reference, value, footprint), a net label on every pin, laid out in blocks.
 #
 # Usage (KiCad python, after tools/build.sh <name>):
-#   python tools/lib/kicad_project.py out/pcbs/<name>.kicad_pcb "kicad libraries" <project dir> <name> [--force]
+#   python tools/lib/kicad_project.py out/pcbs/<name>.kicad_pcb kicad-libraries <project dir> <name> [--force]
 # It refuses to overwrite an existing project unless --force is given (the project
 # becomes the master once it is routed / edited in KiCad).
 import sys, os, re, uuid, shutil, json, collections, pcbnew

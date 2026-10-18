@@ -4,7 +4,7 @@ Shared rules, build and tools: `../CLAUDE.md`. Everything not listed here
 (switches, LEDs, MCU, matrix pins, OLED, trackpad, screws, case stack-up) is the
 same as kugo82: see `../kugo/CLAUDE.md`.
 
-- **`hachigo74.yaml`** (74 keys, 37 per half, from `kle/hachigo74.json`): a
+- **`ergogen/hachigo74.yaml`** (74 keys, 37 per half, from `kle/hachigo74.json`): a
   variant of kugo82 with the outer column c1 removed (column names c2–c9 kept,
   so every reference stays valid; the board sits 1 sp further left on the sheet).
   - c2 is all 1U at KLE 2.0; c3 r1–r4 are 1U at 3.0 with Esc 1.25U; c4 is all 1U.
@@ -20,7 +20,7 @@ same as kugo82: see `../kugo/CLAUDE.md`.
   `tools/step.sh hachigo74` → `case/`, `case/step/`, `case/fusion/` here.
 - Expected DRC: 2 `silk_overlap`, 499 unconnected pads; 74 switches, 76 LEDs.
 - **KiCad project `kicad/`** (portable, see its README): PCB + generated schematic +
-  `.kicad_dru` + a copy of `../kicad libraries` in `kicad/libraries/`, all paths
+  `.kicad_dru` + a copy of `../kicad-libraries` in `kicad/libraries/`, all paths
   `${KIPRJMOD}/libraries/...`. Made by `tools/lib/kicad_project.py` (KiCad python)
   from `out/pcbs/hachigo74.kicad_pcb`; it refuses to overwrite unless `--force`.
   Verified: ERC 0, DRC schematic parity 0, netlist = Ergogen board (808 pads).

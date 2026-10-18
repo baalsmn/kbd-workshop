@@ -1,10 +1,10 @@
-# Build the project symbol library (kicad libraries/Symbols/keyboard-workshop.kicad_sym) from
+# Build the project symbol library (kicad-libraries/Symbols/keyboard-workshop.kicad_sym) from
 # KiCad's built-in symbols, with this keyboard's pin names, reference prefixes
-# and footprints (Keyboard:... in kicad libraries/Footprints/Keyboard.pretty), and
+# and footprints (Keyboard:... in kicad-libraries/Footprints/Keyboard.pretty), and
 # fix the Helios symbol (the user's, kept in the same library) to the pad numbers.
 # Also writes the project library tables (sym-lib-table, fp-lib-table).
 #
-# Usage: python tools/lib/kicad_symbols.py "kicad libraries" [kicad share/symbols dir]
+# Usage: python tools/lib/kicad_symbols.py kicad-libraries [kicad share/symbols dir]
 import sys, os, re, copy
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from kicad_common import Q, parse, dump, find
