@@ -54,10 +54,9 @@ points:
         c3:
           key.column_net: C3   # shared by the left and the mirrored key
           key.spread: 1.25sp
-          # hachigo74 KLE: r1-r4 1U at 2.5, r5 (Esc) 1.25U at 2.375 [U]; shifts carry over
+          # hachigo74 KLE: r1-r4 1U at 2.5; shifts carry over. r5 (Esc) is 1U now (was
+          # 1.25U at 2.375), in line with the column
           rows.r1.shift: [0.25sp,0]
-          rows.r5.shift: [-0.125sp,0]
-          rows.r5.keycap_u: 1.25
           rows.r1.led_l_in: LED_8
           rows.r1.led_l_out: LED_9
           rows.r1.led_r_in: LED_71
@@ -151,12 +150,18 @@ points:
           rows.r5.led_r_in: LED_56
           rows.r5.led_r_out: LED_57
         c7:
-          rows.r1.keycap_u: 2   # 2U bottom-row key with KS-57 stabilizer
-          rows.r1.stab: true
+          # no stagger: level with c6 (c8 takes the -0.25sp, so c8 / c9 stay put)
+          # r1: 1.25U (was 2U + KS-57) between c5_r1 and the c9_r1 thumb key: its
+          # keycap bottom edge lies on the line from the c5_r1 keycap's bottom-right
+          # corner to the c9_r1 keycap's bottom-left corner (27.29 mm at -25.6 deg),
+          # centred on it: 2.17 mm keycap gap to both neighbours.
+          # adjust from the r1 base position (no carry-over to r2..r5):
+          rows.r1.keycap_u: 1.25
+          rows.r1.adjust:
+            shift: [6.335, -6.787]
+            rotate: -25.597
           key.column_net: C7   # shared by the left and the mirrored key
-          key.stagger: -.25sp
-          rows.r1.shift: [0.5sp,0]
-          rows.r2.shift: [-0.5sp,0]
+          key.stagger: 0
           rows.r1.led_l_in: LED_27
           rows.r1.led_l_out: LED_28
           rows.r1.led_r_in: LED_52
@@ -179,6 +184,7 @@ points:
           rows.r5.led_r_out: LED_49
         c8:
           key.column_net: C8   # shared by the left and the mirrored key
+          key.stagger: -0.25sp   # was on c7: keeps c8 / c9 where they were
           rows.r1.skip: true
           rows.r2.led_l_in: LED_35
           rows.r2.led_l_out: LED_36
@@ -204,6 +210,14 @@ points:
           rows.r1.shift: [0.125sp, 0]
           rows.r1.keycap_u: 1.25
           rows.r2.shift: [-0.125sp, 0]
+          # thumb key: c9_r1 moved to the "thumb-zone one" key of the old interstate
+          # design (ergogen-26-10-07.yaml), placed relative to c9_r2: centre at
+          # [-8.805, -28.245] mm in the c9_r2 frame, turned a further -30 deg.
+          # adjust moves only this key (no carry-over to r2..r5); from the r1
+          # position above ([0.125sp, -sp] in the c9_r2 frame) that is:
+          rows.r1.adjust:
+            shift: [-11.18, -9.245]
+            rotate: -30
           rows.r1.led_l_in: LED_36
           rows.r1.led_l_out: LED_37
           rows.r1.led_r_in: LED_43
@@ -259,27 +273,27 @@ outlines:
   # Notch side = south (towards the user), as drawn in the spec.
   stab_cutouts:
     - what: rectangle
-      where: /_c[57]_r1$/
+      where: /_c5_r1$/
       size: [6, 12.5]
       adjust.shift: [-12, -0.6]
     - what: rectangle
-      where: /_c[57]_r1$/
+      where: /_c5_r1$/
       size: [6, 12.5]
       adjust.shift: [12, -0.6]
     - what: rectangle
-      where: /_c[57]_r1$/
+      where: /_c5_r1$/
       size: [1.7, 1.4]
       adjust.shift: [-12, -7.35]
     - what: rectangle
-      where: /_c[57]_r1$/
+      where: /_c5_r1$/
       size: [1.7, 1.4]
       adjust.shift: [12, -7.35]
     - what: rectangle
-      where: /_c[57]_r1$/
+      where: /_c5_r1$/
       size: [2.2, 2.5]
       adjust.shift: [-8.0, -1.4]
     - what: rectangle
-      where: /_c[57]_r1$/
+      where: /_c5_r1$/
       size: [2.2, 2.5]
       adjust.shift: [8.0, -1.4]
   # 0.96" SSD1306 module, rotated 180 deg (header at the bottom, y 33.3,
@@ -305,20 +319,21 @@ outlines:
           - hand-zone_c9_r2
           - mirror_hand-zone_c9_r2
         shift: [0, 36.35]
-  # 2 indicator LEDs next to the c9_r1 keys, on their inner side (19.5 mm
-  # from the key centre = 8 mm past the 1.25U keycap edge at 11.5): 3 mm light holes in
+  # 2 indicator LEDs where they were next to the c9_r1 keys before c9_r1 became the
+  # thumb key (anchored on c9_r2 now), on their inner side (19.5 mm
+  # from the old key centre = 8 mm past the 1.25U keycap edge at 11.5): 3 mm light holes in
   # the plate. left = layout layer colour, right = function/layer lock (green).
   indicator_holes:
     - what: circle
       radius: 1.5
       where:
-        ref: hand-zone_c9_r1
-        shift: [19.5, 0]
+        ref: hand-zone_c9_r2
+        shift: [0.125sp + 19.5, -sp]   # = the old c9_r1 [19.5, 0]
     - what: circle
       radius: 1.5
       where:
-        ref: mirror_hand-zone_c9_r1
-        shift: [19.5, 0]
+        ref: mirror_hand-zone_c9_r2
+        shift: [0.125sp + 19.5, -sp]   # = the old c9_r1 [19.5, 0]
   # trackpad opening in the centre cover: around the snap ring (r 22.2) + 0.3 mm
   cirque_flush:
     - what: circle
@@ -737,56 +752,56 @@ outlines:
       radius: 1.2
       where:
         - ref: hand-zone_c2_r1
-          shift: [-0.5sp-5.5, -0.75sp-5.5]   # 3.5 mm diagonally off the PCB corner
+          shift: [-0.5kc-5.5, -0.5kc-5.5]   # 3.5 mm diagonally off the PCB corner (keycap corner + 2)
     - what: circle
       radius: 1.2
       where:
         - ref: mirror_hand-zone_c2_r1
-          shift: [-0.5sp-5.5, -0.75sp-5.5]   # 3.5 mm diagonally off the PCB corner 
+          shift: [-0.5kc-5.5, -0.5kc-5.5]   # 3.5 mm diagonally off the PCB corner (keycap corner + 2)
     # left top corner
     - what: circle
       radius: 1.2
       where:
         - ref: hand-zone_c2_r4
-          shift: [-(0.5sp+5), (0.5sp + 5)]
+          shift: [-(0.5kc+5), (0.5kc + 5)]   # off the keycap corner (PCB corner - 2)
     - what: circle
       radius: 1.2
       where:
         - ref: mirror_hand-zone_c2_r4
-          shift: [-(0.5sp+5), (0.5sp + 5)]
+          shift: [-(0.5kc+5), (0.5kc + 5)]   # off the keycap corner (PCB corner - 2)
     # top left second corner
     - what: circle
       radius: 1.2
       where:
         - ref: hand-zone_c3_r5
-          shift: [-(0.625sp+4), (0.5sp + 5)]   # follows the 1.25U Esc corner of the outline
+          shift: [-(0.5kc+4), (0.5kc + 5)]   # follows the c3_r5 (Esc) corner of the outline
     - what: circle
       radius: 1.2
       where:
         - ref: mirror_hand-zone_c3_r5
-          shift: [-(0.625sp+4), (0.5sp + 5)]
+          shift: [-(0.5kc+4), (0.5kc + 5)]
     #  center hole
     - what: circle
       radius: 1.2
       where:
         - ref: hand-zone_c5_r5
-          shift: [0.5sp, (0.5sp + 6)]   # 4 mm off the PCB edge, centred in the 8 mm wall
+          shift: [0.5sp, (0.5kc + 6)]   # 4 mm off the PCB edge, centred in the 8 mm wall
     - what: circle
       radius: 1.2
       where:
         - ref: mirror_hand-zone_c5_r5
-          shift: [0.5sp, (0.5sp + 6)]   # 4 mm off the PCB edge, centred in the 8 mm wall
+          shift: [0.5sp, (0.5kc + 6)]   # 4 mm off the PCB edge, centred in the 8 mm wall
     # bottom center hole
     - what: circle
       radius: 1.2
       where:
         - ref: hand-zone_c5_r1
-          shift: [0, -sp-6]   # 4 mm below the PCB edge (c5_r1 sits 0.25sp up)
+          shift: [0, -(0.5kc + 6)]   # PCB edge = keycap + 2, then 4 mm: centred in the 8 mm wall
     - what: circle
       radius: 1.2
       where:
         - ref: mirror_hand-zone_c5_r1
-          shift: [0, -sp-6]   # 4 mm below the PCB edge (c5_r1 sits 0.25sp up)
+          shift: [0, -(0.5kc + 6)]   # PCB edge = keycap + 2, then 4 mm: centred in the 8 mm wall
     # top right C9 corner
     - what: circle
       radius: 1.2
@@ -818,67 +833,129 @@ outlines:
       radius: 1.2
       where:
         - ref: hand-zone_c9_r1
-          shift: [(0.5sp+3), -(0.5sp + 6)]   # 4 mm below the PCB edge
+          shift: [0, -(0.5kc + 6)]   # centred 4 mm below the thumb key's PCB edge
     - what: circle
       radius: 1.2
       where:
         - ref: mirror_hand-zone_c9_r1
-          shift: [(0.5sp+3), -(0.5sp + 6)]   # 4 mm below the PCB edge
+          shift: [0, -(0.5kc + 6)]   # centred 4 mm below the thumb key's PCB edge
   # PCB outline before its 2 mm rounding: the case is grown from this one so
   # its outer corners can be sharp-then-filleted (r 3) instead of r 10 / r 12
-  pcb_core:
+  pcb_core:   # keycap corners; pcb_outline (+2 mm) is then 2 mm from every keycap
     - what: polygon
       operation: stack
-      points: 
-        # starting at the left bottom corner
-        # bottom long edges: 0.5sp below c9_r1 (same as the top edge above
-        # c6_r5), parallel to the key rows back to c1_r1 (c9 stagger -0.25sp)
+      points:
+        # left half, from the bottom-left keycap corner of c2_r1, clockwise
         - ref: hand-zone_c2_r1
-          shift: [-0.5sp,-0.75sp]    # hachigo74: c2 is the outer column
+          shift: [-0.5kc, -0.5kc]   # outer column c2: straight left edge
         - ref: hand-zone_c2_r4
-          shift: [-0.5sp, 0.5sp]     # 1U key: left edge 0.5U from its centre
-        - ref: hand-zone_c2_r4
-          shift: [0.25sp, 0.5sp]     # step = the 1.25U Esc keycap edge (-0.625sp in the c3_r5 frame)
+          shift: [-0.5kc, 0.5kc]
         - ref: hand-zone_c3_r5
-          shift: [-0.625sp, 0.5sp]   # 1.25U Esc: keycap edge 0.625U from its centre
+          shift: [-0.5kc, -0.5kc]   # under c3_r5 (c2_r4 top-right is under it)
+        - ref: hand-zone_c3_r5
+          shift: [-0.5kc, 0.5kc]   # c3_r5 (Esc, 1U)
+        - ref: hand-zone_c3_r5
+          shift: [0.5kc, 0.5kc]
         - ref: hand-zone_c4_r5
-          shift: [0.5sp, 0.5sp]
+          shift: [-0.5kc, 0.5kc]
+        - ref: hand-zone_c4_r5
+          shift: [0.5kc, 0.5kc]
         - ref: hand-zone_c5_r5
-          shift: [-0.5sp, 0.5sp]
+          shift: [-0.5kc, 0.5kc]
+        - ref: hand-zone_c5_r5
+          shift: [0.5kc, 0.5kc]
         - ref: hand-zone_c6_r5
-          shift: [0.5sp, 0.5sp]
+          shift: [-0.5kc, 0.5kc]
+        - ref: hand-zone_c6_r5
+          shift: [0.5kc, 0.5kc]
         - ref: hand-zone_c7_r5
-          shift: [-0.5sp, 0.5sp]
+          shift: [-0.5kc, 0.5kc]
+        - ref: hand-zone_c7_r5
+          shift: [0.5kc, 0.5kc]
         - ref: hand-zone_c8_r5
-          shift: [0.5sp, 0.5sp]
-        # going over to the mirrored half on top
+          shift: [-0.5kc, 0.5kc]
+        - ref: hand-zone_c8_r5
+          shift: [0.5sp, 0.5sp]   # top bridge as before (MCU / USB-C stay put)
+        # over to the mirrored half on top, then down it (reverse order)
         - ref: mirror_hand-zone_c8_r5
           shift: [0.5sp, 0.5sp]
+        - ref: mirror_hand-zone_c8_r5
+          shift: [-0.5kc, 0.5kc]
         - ref: mirror_hand-zone_c7_r5
-          shift: [-0.5sp, 0.5sp]
+          shift: [0.5kc, 0.5kc]
+        - ref: mirror_hand-zone_c7_r5
+          shift: [-0.5kc, 0.5kc]
         - ref: mirror_hand-zone_c6_r5
-          shift: [0.5sp, 0.5sp]
+          shift: [0.5kc, 0.5kc]
+        - ref: mirror_hand-zone_c6_r5
+          shift: [-0.5kc, 0.5kc]
         - ref: mirror_hand-zone_c5_r5
-          shift: [-0.5sp, 0.5sp]
+          shift: [0.5kc, 0.5kc]
+        - ref: mirror_hand-zone_c5_r5
+          shift: [-0.5kc, 0.5kc]
         - ref: mirror_hand-zone_c4_r5
-          shift: [0.5sp, 0.5sp]
+          shift: [0.5kc, 0.5kc]
+        - ref: mirror_hand-zone_c4_r5
+          shift: [-0.5kc, 0.5kc]
         - ref: mirror_hand-zone_c3_r5
-          shift: [-0.625sp, 0.5sp]
+          shift: [0.5kc, 0.5kc]
+        - ref: mirror_hand-zone_c3_r5
+          shift: [-0.5kc, 0.5kc]
+        - ref: mirror_hand-zone_c3_r5
+          shift: [-0.5kc, -0.5kc]
         - ref: mirror_hand-zone_c2_r4
-          shift: [0.25sp, 0.5sp]
-        - ref: mirror_hand-zone_c2_r4
-          shift: [-0.5sp, 0.5sp]
+          shift: [-0.5kc, 0.5kc]
         - ref: mirror_hand-zone_c2_r1
-          shift: [-0.5sp,-0.75sp]
+          shift: [-0.5kc, -0.5kc]
+        - ref: mirror_hand-zone_c2_r1
+          shift: [0.5kc, -0.5kc]
+        - ref: mirror_hand-zone_c3_r1
+          shift: [-0.5kc, -0.5kc]
+        - ref: mirror_hand-zone_c3_r1
+          shift: [0.5kc, -0.5kc]
+        - ref: mirror_hand-zone_c4_r1
+          shift: [-0.5kc, -0.5kc]
+        - ref: mirror_hand-zone_c4_r1
+          shift: [0.5kc, -0.5kc]
+        - ref: mirror_hand-zone_c5_r1
+          shift: [-(0.5sp + 0.5kc), -0.5kc]
+        - ref: mirror_hand-zone_c5_r1
+          shift: [(0.5sp + 0.5kc), -0.5kc]
+        - ref: mirror_hand-zone_c7_r1
+          shift: [-(0.125sp + 0.5kc), -0.5kc]
+        - ref: mirror_hand-zone_c7_r1
+          shift: [(0.125sp + 0.5kc), -0.5kc]
         - ref: mirror_hand-zone_c9_r1
-          shift: [0.5sp, -0.5sp]
+          shift: [-(0.125sp + 0.5kc), -0.5kc]
         - ref: mirror_hand-zone_c9_r1
-          shift: [sp, -0.5sp]
-        # back to th eoriginal at the bottom
+          shift: [(0.125sp + 0.5kc), -0.5kc]
+        - ref: mirror_hand-zone_c9_r1
+          shift: [(0.125sp + 0.5kc), 0]
+        # bottom bridge back to the left half (middle of the thumb key inner edges)
         - ref: hand-zone_c9_r1
-          shift: [sp, -0.5sp]
+          shift: [(0.125sp + 0.5kc), 0]   # middle of the thumb key inner edge: bottom bridge
         - ref: hand-zone_c9_r1
-          shift: [0.5sp, -0.5sp]
+          shift: [(0.125sp + 0.5kc), -0.5kc]   # thumb key
+        - ref: hand-zone_c9_r1
+          shift: [-(0.125sp + 0.5kc), -0.5kc]   # c9_r1 / c7_r1 / c5_r1 bottom corners lie on one line
+        - ref: hand-zone_c7_r1
+          shift: [(0.125sp + 0.5kc), -0.5kc]
+        - ref: hand-zone_c7_r1
+          shift: [-(0.125sp + 0.5kc), -0.5kc]
+        - ref: hand-zone_c5_r1
+          shift: [(0.5sp + 0.5kc), -0.5kc]   # 2U
+        - ref: hand-zone_c5_r1
+          shift: [-(0.5sp + 0.5kc), -0.5kc]
+        - ref: hand-zone_c4_r1
+          shift: [0.5kc, -0.5kc]
+        - ref: hand-zone_c4_r1
+          shift: [-0.5kc, -0.5kc]
+        - ref: hand-zone_c3_r1
+          shift: [0.5kc, -0.5kc]
+        - ref: hand-zone_c3_r1
+          shift: [-0.5kc, -0.5kc]
+        - ref: hand-zone_c2_r1
+          shift: [0.5kc, -0.5kc]
 
   pcb_outline: # pcb board outline
     - name: pcb_core
@@ -1047,7 +1124,9 @@ outlines:
   # on both halves; arms under 2 mm are dropped (half crosses). Lower north arms
   # are blocked by the next key's socket body, so the lower crosses are mostly
   # T-shapes. Only spots with a lower cross are used.
-  # hachigo74 crosses (upper right corners): c4_r1, c3_r4, c7_r4, + c7_r1 top middle.
+  # hachigo74 crosses: upper right of c4_r1 and c3_r4; upper left of c7_r4 (c6/c7,
+  # level since c7 lost its stagger); lower left of c8_r2 (c7/c8 at the r1/r2 gap).
+  # crosses.py ... "c4_r1,c3_r4,c7_r4:-0.5:0.5,c8_r2:-0.5:-0.5"
   # Generated with tools/lib/crosses.py from the built board.
   cross_lower:
     - what: rectangle
@@ -1134,72 +1213,82 @@ outlines:
       size: [2, 2]
       where:
         ref: hand-zone_c7_r4
-        shift: [9.500, 9.500]
+        shift: [-9.500, 9.500]
     - what: rectangle
       size: [5.00, 2]
       where:
         ref: hand-zone_c7_r4
-        shift: [12.000, 9.500]
+        shift: [-7.000, 9.500]
     - what: rectangle
       size: [5.00, 2]
       where:
         ref: hand-zone_c7_r4
-        shift: [7.000, 9.500]
+        shift: [-12.000, 9.500]
     - what: rectangle
       size: [2, 5.00]
       where:
         ref: hand-zone_c7_r4
-        shift: [9.500, 7.000]
+        shift: [-9.500, 7.000]
     - what: rectangle
       size: [2, 2]
       where:
         ref: mirror_hand-zone_c7_r4
-        shift: [9.500, 9.500]
+        shift: [-9.500, 9.500]
     - what: rectangle
       size: [5.00, 2]
       where:
         ref: mirror_hand-zone_c7_r4
-        shift: [12.000, 9.500]
+        shift: [-7.000, 9.500]
     - what: rectangle
       size: [5.00, 2]
       where:
         ref: mirror_hand-zone_c7_r4
-        shift: [7.000, 9.500]
+        shift: [-12.000, 9.500]
     - what: rectangle
       size: [2, 5.00]
       where:
         ref: mirror_hand-zone_c7_r4
-        shift: [9.500, 7.000]
+        shift: [-9.500, 7.000]
     - what: rectangle
       size: [2, 2]
       where:
-        ref: hand-zone_c7_r1
-        shift: [0.000, 9.500]
+        ref: hand-zone_c8_r2
+        shift: [-9.500, -9.500]
     - what: rectangle
       size: [5.00, 2]
       where:
-        ref: hand-zone_c7_r1
-        shift: [2.500, 9.500]
+        ref: hand-zone_c8_r2
+        shift: [-7.000, -9.500]
     - what: rectangle
       size: [5.00, 2]
       where:
-        ref: hand-zone_c7_r1
-        shift: [-2.500, 9.500]
+        ref: hand-zone_c8_r2
+        shift: [-12.000, -9.500]
+    - what: rectangle
+      size: [2, 4.00]
+      where:
+        ref: hand-zone_c8_r2
+        shift: [-9.500, -11.500]
     - what: rectangle
       size: [2, 2]
       where:
-        ref: mirror_hand-zone_c7_r1
-        shift: [0.000, 9.500]
+        ref: mirror_hand-zone_c8_r2
+        shift: [-9.500, -9.500]
     - what: rectangle
       size: [5.00, 2]
       where:
-        ref: mirror_hand-zone_c7_r1
-        shift: [2.500, 9.500]
+        ref: mirror_hand-zone_c8_r2
+        shift: [-7.000, -9.500]
     - what: rectangle
       size: [5.00, 2]
       where:
-        ref: mirror_hand-zone_c7_r1
-        shift: [-2.500, 9.500]
+        ref: mirror_hand-zone_c8_r2
+        shift: [-12.000, -9.500]
+    - what: rectangle
+      size: [2, 4.00]
+      where:
+        ref: mirror_hand-zone_c8_r2
+        shift: [-9.500, -11.500]
   cross_upper:
     - what: rectangle
       size: [2, 2]
@@ -1305,92 +1394,102 @@ outlines:
       size: [2, 2]
       where:
         ref: hand-zone_c7_r4
-        shift: [9.500, 9.500]
+        shift: [-9.500, 9.500]
     - what: rectangle
       size: [5.00, 2]
       where:
         ref: hand-zone_c7_r4
-        shift: [12.000, 9.500]
+        shift: [-7.000, 9.500]
     - what: rectangle
       size: [2, 5.00]
       where:
         ref: hand-zone_c7_r4
-        shift: [9.500, 12.000]
+        shift: [-9.500, 12.000]
     - what: rectangle
       size: [5.00, 2]
       where:
         ref: hand-zone_c7_r4
-        shift: [7.000, 9.500]
+        shift: [-12.000, 9.500]
     - what: rectangle
       size: [2, 5.00]
       where:
         ref: hand-zone_c7_r4
-        shift: [9.500, 7.000]
+        shift: [-9.500, 7.000]
     - what: rectangle
       size: [2, 2]
       where:
         ref: mirror_hand-zone_c7_r4
-        shift: [9.500, 9.500]
+        shift: [-9.500, 9.500]
     - what: rectangle
       size: [5.00, 2]
       where:
         ref: mirror_hand-zone_c7_r4
-        shift: [12.000, 9.500]
+        shift: [-7.000, 9.500]
     - what: rectangle
       size: [2, 5.00]
       where:
         ref: mirror_hand-zone_c7_r4
-        shift: [9.500, 12.000]
+        shift: [-9.500, 12.000]
     - what: rectangle
       size: [5.00, 2]
       where:
         ref: mirror_hand-zone_c7_r4
-        shift: [7.000, 9.500]
+        shift: [-12.000, 9.500]
     - what: rectangle
       size: [2, 5.00]
       where:
         ref: mirror_hand-zone_c7_r4
-        shift: [9.500, 7.000]
+        shift: [-9.500, 7.000]
     - what: rectangle
       size: [2, 2]
       where:
-        ref: hand-zone_c7_r1
-        shift: [0.000, 9.500]
+        ref: hand-zone_c8_r2
+        shift: [-9.500, -9.500]
     - what: rectangle
       size: [5.00, 2]
       where:
-        ref: hand-zone_c7_r1
-        shift: [2.500, 9.500]
+        ref: hand-zone_c8_r2
+        shift: [-7.000, -9.500]
     - what: rectangle
       size: [2, 5.00]
       where:
-        ref: hand-zone_c7_r1
-        shift: [0.000, 12.000]
+        ref: hand-zone_c8_r2
+        shift: [-9.500, -7.000]
     - what: rectangle
       size: [5.00, 2]
       where:
-        ref: hand-zone_c7_r1
-        shift: [-2.500, 9.500]
+        ref: hand-zone_c8_r2
+        shift: [-12.000, -9.500]
+    - what: rectangle
+      size: [2, 3.75]
+      where:
+        ref: hand-zone_c8_r2
+        shift: [-9.500, -11.375]
     - what: rectangle
       size: [2, 2]
       where:
-        ref: mirror_hand-zone_c7_r1
-        shift: [0.000, 9.500]
+        ref: mirror_hand-zone_c8_r2
+        shift: [-9.500, -9.500]
     - what: rectangle
       size: [5.00, 2]
       where:
-        ref: mirror_hand-zone_c7_r1
-        shift: [2.500, 9.500]
+        ref: mirror_hand-zone_c8_r2
+        shift: [-7.000, -9.500]
     - what: rectangle
       size: [2, 5.00]
       where:
-        ref: mirror_hand-zone_c7_r1
-        shift: [0.000, 12.000]
+        ref: mirror_hand-zone_c8_r2
+        shift: [-9.500, -7.000]
     - what: rectangle
       size: [5.00, 2]
       where:
-        ref: mirror_hand-zone_c7_r1
-        shift: [-2.500, 9.500]
+        ref: mirror_hand-zone_c8_r2
+        shift: [-12.000, -9.500]
+    - what: rectangle
+      size: [2, 3.75]
+      where:
+        ref: mirror_hand-zone_c8_r2
+        shift: [-9.500, -11.375]
   # Silkscreen markers of every case support touching the PCB, so they show in
   # KiCad: back = screw posts + lower crosses, front = OLED spacers + trackpad outline. Built from the
   # same outlines the case uses, so they always match.
@@ -1839,15 +1938,16 @@ pcbs:
 
       # Indicator LEDs = first 2 LEDs of the RGB chain (QMK index 0, 1),
       # back-mounted like the key LEDs, shining through the indicator_holes.
-      # Next to the c9_r1 keys (inner side, 19.5 mm from the key centre, 8 mm past the keycap). Caps Lock
+      # Where they were next to the c9_r1 keys before the thumb move (anchored on c9_r2;
+      # 19.5 mm from the old key centre, 8 mm past the keycap). Caps Lock
       # is shown on the Caps Lock key LED.
       #   0 right: function/layer lock (green)
       #   1 left:  active layout layer (any colour)
       indicator_fn:   # QMK LED 0
         what: sk6812mini_e
         where:
-          ref: mirror_hand-zone_c9_r1
-          shift: [19.5, 0]
+          ref: mirror_hand-zone_c9_r2
+          shift: [0.125sp + 19.5, -sp]   # = the old c9_r1 [19.5, 0]
         params:
           side: B
           DIN: LED_IND_IN
@@ -1855,8 +1955,8 @@ pcbs:
       indicator_layer:   # QMK LED 1
         what: sk6812mini_e
         where:
-          ref: hand-zone_c9_r1
-          shift: [19.5, 0]
+          ref: hand-zone_c9_r2
+          shift: [0.125sp + 19.5, -sp]   # = the old c9_r1 [19.5, 0]
         params:
           side: B
           DIN: LED_IND_1
@@ -1865,8 +1965,8 @@ pcbs:
       indicator_fn_cap:
         what: c_0603
         where:
-          ref: mirror_hand-zone_c9_r1
-          shift: [19.5, -4]
+          ref: mirror_hand-zone_c9_r2
+          shift: [0.125sp + 19.5, -sp - 4]   # = the old c9_r1 [19.5, -4]
           rotate: 0
         params:
           side: B
@@ -1875,8 +1975,8 @@ pcbs:
       indicator_layer_cap:
         what: c_0603
         where:
-          ref: hand-zone_c9_r1
-          shift: [19.5, -4]
+          ref: hand-zone_c9_r2
+          shift: [0.125sp + 19.5, -sp - 4]   # = the old c9_r1 [19.5, -4]
           rotate: 0
         params:
           side: B
@@ -1977,14 +2077,20 @@ pcbs:
           model: ${KIPRJMOD}/../../3dmodels/TM040040-2024-303.stp
           model_offset: [0, 0, 4.925]   # pad top z 17.6 = PCB top + 7.5 (5 mm pad on the plate; model origin mid-height)
 
-      # Claude logo (8 mm, front silkscreen) south of the left c5_r1 2U key:
-      # keycap ends ~9.1 mm below the key centre, board edge 21 mm -> ~1 mm each side.
+      # Claude Code logo (8 x 5 mm, front silkscreen) at the centre of the bottom
+      # edge, in the centre frame: PCB edge at y -35.1 -> 2.6 mm below the logo; the
+      # cover screws (+-11, -29.5) and their 5.5 mm bosses stay > 4 mm to the sides.
+      # logo: code (Claude Code) or spark (Claude)
       claude_logo:
         what: claude_logo
-        where: /^hand-zone_c5_r1$/
-        adjust:
-          shift: [0, -15]
+        where:
+          aggregate.parts:
+            - hand-zone_c9_r2
+            - mirror_hand-zone_c9_r2
+          rotate: 0
+          shift: [0, -30]
         params:
           side: F
           size: 8
+          logo: code
 

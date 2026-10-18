@@ -4,18 +4,26 @@
 # on each page checks the print scale (print at 100 % / "actual size").
 #
 # Usage (after tools/build.sh <name>; needs PyMuPDF and node):
-#   python tools/lib/printview.py <name> <kle json> <out.pdf>
+#   python tools/lib/printview.py <name> <kle json> <out.pdf> [scale]
+# Legends: matched by key position against the KLE file. Once keys have moved away
+# from the KLE layout, use a name -> legend map instead: <kle json> may be such a map
+# (e.g. hachigo74/kle/hachigo74_legends.json); DUMP_LEGENDS=<file> writes the map
+# from the current build (run it on a build that still matches the KLE file).
+# scale: printer compensation. If the 100 mm ruler prints as M mm, use 100/M
+# (e.g. 96 mm measured -> 1.0417); everything, ruler included, is drawn that much larger.
 # Reads out/points/points.yaml and out/outlines/*.dxf. Legend: centre-left (Hungarian
 # character), else front-centre (QMK keycode), as in topview.js.
 import sys, os, re, math, json, subprocess
 import pymupdf
 
 name, kle_file, out_pdf = sys.argv[1:4]
+SCALE = float(sys.argv[4]) if len(sys.argv) > 4 else 1.0
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-OUT = os.path.join(ROOT, 'out')
+OUT = os.environ.get('POINTS_OUT') or os.path.join(ROOT, 'out')   # build output to read
 SP, CAP, OVERLAP = 19.0, 18.2, 10.0               # key spacing, 1U keycap size, past the centre line
-MM = 72 / 25.4
-A4W, A4H = 297.0, 210.0
+PT = 72 / 25.4                                   # PDF points per real mm
+MM = PT * SCALE                                  # points per drawn (model) mm
+A4W, A4H = 297.0 / SCALE, 210.0 / SCALE          # the A4 page in drawn mm
 FONT = r'C:\Windows\Fonts\arial.ttf'
 FONTB = r'C:\Windows\Fonts\arialbd.ttf'
 
@@ -33,10 +41,11 @@ for l in open(os.path.join(OUT, 'points', 'points.yaml'), encoding='utf-8'):
 left = [n for n in K if not n.startswith('mirror_')]
 
 # ---- legends from the KLE file (kle_parse.js), matched by position within a half
-kle = json.loads(subprocess.run(['node', '-e', 'console.log(JSON.stringify(require(process.argv[1])))',
+MAP = json.load(open(kle_file, encoding='utf-8')) if kle_file.endswith('_legends.json') else None
+kle = [] if MAP is not None else json.loads(subprocess.run(['node', '-e', 'console.log(JSON.stringify(require(process.argv[1])))',
                                  os.path.join(ROOT, 'tools', 'lib', 'kle_parse.js')],
                                 env=dict(os.environ, KLE_FILE=kle_file), capture_output=True, encoding='utf-8', check=True).stdout)
-MIRROR = min(k['x'] for k in kle) + max(k['x'] for k in kle)     # right half = mirrored left (x -> MIRROR - x)
+MIRROR = (min(k['x'] for k in kle) + max(k['x'] for k in kle)) if kle else 0     # right half = mirrored left (x -> MIRROR - x)
 a = math.radians(15)
 def local(n, o):                                   # key position in the left half's own frame, in U
     dx, dy = K[n]['x'] - K[o]['x'], K[n]['y'] - K[o]['y']
@@ -44,8 +53,9 @@ def local(n, o):                                   # key position in the left ha
 ref = left[0]
 o = min(left, key=lambda n: (round(local(n, ref)[1], 1), local(n, ref)[0]))   # bottom-left key
 kleft = [k for k in kle if k['x'] < MIRROR / 2]
-ko = max(kleft, key=lambda k: (round(k['y'], 1), -k['x']))                    # its KLE key
+ko = max(kleft, key=lambda k: (round(k['y'], 1), -k['x'])) if kle else None   # its KLE key
 def legend(n):
+    if MAP is not None: return MAP.get(n, '?')
     src = n.replace('mirror_', '')
     lx, ly = local(src, o)
     tx, ty = ko['x'] + lx, ko['y'] - ly
@@ -80,6 +90,23 @@ def dxf(f):
             out.append([tuple(p) for p in pts] + ([tuple(pts[0])] if int(o_.get('70', 0)) & 1 else []))
     return out
 
+def logo():
+    t = open(os.path.join(OUT, 'pcbs', name + '.kicad_pcb'), encoding='utf-8').read()
+    i = t.find('(footprint "claude_logo"')
+    if i < 0: return []
+    blk = t[i:t.find('(footprint ', i + 10) if t.find('(footprint ', i + 10) > 0 else len(t)]
+    at = re.search(r'\(at ([-\d.]+) ([-\d.]+)', blk); ax, ay = float(at.group(1)), float(at.group(2))
+    out = []
+    for m in re.finditer(r'\(fp_poly\s*\(pts(.*?)\)\s*\(stroke', blk, re.S):
+        pts = [(ax + float(x), -(ay + float(y))) for x, y in re.findall(r'\(xy ([-\d.]+) ([-\d.]+)\)', m.group(1))]
+        out.append(pts + pts[:1])
+    return out
+LOGO = logo()
+
+if os.environ.get('DUMP_LEGENDS'):
+    json.dump({n: legend(n) for n in sorted(K)}, open(os.environ['DUMP_LEGENDS'], 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
+    sys.exit('wrote legend map %s (%d keys, %d unmatched)' % (os.environ['DUMP_LEGENDS'], len(K), sum(1 for n in K if legend(n) == '?')))
+
 case = dxf('case')
 xs = [p[0] for s in case for p in s]; ys = [p[1] for s in case for p in s]
 CX = (K['hand-zone_c9_r2']['x'] + K['mirror_hand-zone_c9_r2']['x']) / 2      # centre line
@@ -91,7 +118,7 @@ layers = [('case', (0.15, 0.15, 0.17), 0.5, None), ('pcb', (0.25, 0.6, 0.25), 0.
 BOLD = pymupdf.Font(fontfile=FONTB)
 doc = pymupdf.open()
 for side in ('left', 'right'):
-    page = doc.new_page(width=A4W * MM, height=A4H * MM)
+    page = doc.new_page(width=297.0 * PT, height=210.0 * PT)
     page.insert_font(fontname='ar', fontfile=FONT); page.insert_font(fontname='arb', fontfile=FONTB)
     if side == 'left': x0, x1 = min(xs) - 1, CX + OVERLAP
     else: x0, x1 = CX - OVERLAP, max(xs) + 1
@@ -107,6 +134,8 @@ for side in ('left', 'right'):
     for f, col, w, dash in layers:
         for seg in dxf(f):
             if any(x0 - 2 <= x <= x1 + 2 for x, _ in seg): poly(seg, col, w, dash)
+    for seg in LOGO:
+        if any(x0 <= x <= x1 for x, _ in seg): poly(seg, (0.85, 0.47, 0.34), 0.1, fill=(0.85, 0.47, 0.34), close=True)
     # keycaps
     for n, k in K.items():
         if not (x0 - 12 < k['x'] < x1 + 12): continue
@@ -138,6 +167,10 @@ for side in ('left', 'right'):
     page.insert_text(pymupdf.Point(12 * MM, 17 * MM), 'Print at 100 %% ("actual size", no fit-to-page). Check the 100 mm ruler. '
                      'Keycaps %.1f mm per 1U at %g mm spacing. Red dashed line = keyboard centre: overlap the sheets there.' % (CAP, SP),
                      fontname='ar', fontsize=7.5, color=(0.3, 0.3, 0.3))
+    if SCALE != 1.0:
+        page.insert_text(pymupdf.Point(12 * MM, 21 * MM), 'Drawn x%.4f to compensate a printer that prints %.1f mm for 100 mm '
+                         '(on an exact printer the ruler would show %.1f mm).' % (SCALE, 100 / SCALE, 100 * SCALE),
+                         fontname='ar', fontsize=7.5, color=(0.7, 0.2, 0.2))
     rs = page.new_shape(); rx, ry = (12 if side == 'left' else A4W - 130), A4H - 12   # ruler away from the centre line
     rs.draw_line(pymupdf.Point(rx * MM, ry * MM), pymupdf.Point((rx + 100) * MM, ry * MM))
     for i in range(0, 101, 10):
