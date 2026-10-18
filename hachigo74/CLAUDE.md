@@ -16,6 +16,15 @@ same as kugo82: see `../kugo/CLAUDE.md`.
     their lower corner is blocked). c4_r1 east arms are 2.5 mm (c5_r1 stabilizer).
     Regenerate with `crosses.py ... "c4_r1,c3_r4,c7_r4,c7_r1:0:0.5"`.
   - The c2_r2 screw is at [9.5, 9.0] (room 3.62).
+- **KLE files (`kle/`):** `hachigo74_keys.json` (Hungarian) and `hachigo74_jis_keys.json`
+  (Japanese JIS) map key name → label; `hachigo74_exact.json` / `hachigo74_jis.json` are
+  exact exports (Ergogen positions and angles) made from them with
+  `kle_export.py <name> <keys map> <out>` after building hachigo74.
+  - JIS: kana bottom-right (blue), small kana top-right, QMK keycode front-left.
+    半角/全角 = left c9_r5 (GRV), 英数 = left c9_r3 (CAPS), 無変換 = left c9_r2 (INT5),
+    変換 = right c9_r2 (INT4), かな = right c9_r5 (INT2); ¥/ー = right c3_r2 (INT3),
+    \/ろ = left c3_r3 (INT1), 0/わ on right c4_r5. F11/F12 moved to the Fn layer of
+    半角 / かな.
 - Build: `bash tools/build.sh hachigo74`, then `tools/case.sh hachigo74` and
   `tools/step.sh hachigo74` → `case/`, `case/step/`, `case/fusion/` here.
 - Expected DRC: 2 `silk_overlap`, 499 unconnected pads; 74 switches, 76 LEDs.
