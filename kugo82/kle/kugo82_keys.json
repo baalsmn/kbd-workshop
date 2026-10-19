@@ -1,0 +1,745 @@
+{
+ "meta": {
+  "name": "kugo82"
+ },
+ "keys": {
+  "hand-zone_c1_r1": {
+   "label": "←\n\n\n\nLEFT",
+   "props": {
+    "a": 7,
+    "c": "#ad5f50",
+    "t": "#ffffff",
+    "f": 1
+   }
+  },
+  "hand-zone_c1_r2": {
+   "label": "PgDn\n\n\n\nPGDN",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c1_r3": {
+   "label": "PgUp\n\n\n\nPGUP",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c1_r4": {
+   "label": "Home\n\nEnd\n\nHOME",
+   "props": {
+    "a": 6,
+    "c": "#cb892c",
+    "t": "#000000\n\n#ff0000",
+    "f": 1
+   }
+  },
+  "hand-zone_c2_r1": {
+   "label": "↓\n\n\n\nDOWN",
+   "props": {
+    "a": 7,
+    "c": "#ad5f50",
+    "t": "#ffffff",
+    "f": 1
+   }
+  },
+  "hand-zone_c2_r2": {
+   "label": "↑\n\n\n\nUP",
+   "props": {
+    "a": 7,
+    "c": "#ad5f50",
+    "t": "#ffffff",
+    "f": 1
+   }
+  },
+  "hand-zone_c2_r3": {
+   "label": "Shift\n\n\n\nLSFT",
+   "props": {
+    "a": 6,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c2_r4": {
+   "label": "Tab\n\nCtrlTab\n\nTAB",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c3_r1": {
+   "label": "→\n\n\n\nRIGHT",
+   "props": {
+    "a": 7,
+    "c": "#ad5f50",
+    "t": "#ffffff",
+    "f": 1
+   }
+  },
+  "hand-zone_c3_r2": {
+   "label": "|\n\n\n\\\nF14",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n\n#ff0000",
+    "f": 1
+   }
+  },
+  "hand-zone_c3_r3": {
+   "label": "Í\n\n\n\nNUBS\n\ní",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c3_r4": {
+   "label": "Ú\n\n\n\nRBRC\n\nú",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c3_r5": {
+   "label": "Esc\n\n\n\nESC",
+   "props": {
+    "a": 6,
+    "c": "#ad5f50",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c4_r1": {
+   "label": "Ctrl\n\n\n\nLCTL",
+   "props": {
+    "a": 6,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c4_r2": {
+   "label": "Y\n\n\n\nZ\n\ny",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c4_r3": {
+   "label": "A\n\n\n\nA\n\na",
+   "props": {
+    "a": 4,
+    "c": "#96938e",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c4_r4": {
+   "label": "Q\n\n\n\\\nQ\n\nq",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c4_r5": {
+   "label": "'\n~\n\n\n1\n\n1\nF1",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c5_r1": {
+   "label": "Hold:LCtrl\n\n\n\nTAB\n\nTap:TAB",
+   "props": {
+    "a": 4,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c5_r2": {
+   "label": "X\n#\n\n\nX\n\nx",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c5_r3": {
+   "label": "S\n\n$\n\nS\n\ns",
+   "props": {
+    "a": 4,
+    "c": "#96938e",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c5_r4": {
+   "label": "W\n\n\n|\nW\n\nw",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c5_r5": {
+   "label": "\"\n\n\n\n2\n\n2\nF2",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c6_r2": {
+   "label": "C\n&\n\n\nC\n\nc",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c6_r3": {
+   "label": "D\n\n\n\nD\n\nd",
+   "props": {
+    "a": 4,
+    "c": "#96938e",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c6_r4": {
+   "label": "E\n\n€\n\nE\n\ne",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c6_r5": {
+   "label": "+\n\n\n\n3\n\n3\nF3",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c7_r1": {
+   "label": "Space\n\n\n\nSPC",
+   "props": {
+    "a": 6,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c7_r2": {
+   "label": "V\n@\n\n\nV\n\nv",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c7_r3": {
+   "label": "F\n\n\n\nF\n\nf",
+   "props": {
+    "a": 4,
+    "c": "#96938e",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c7_r4": {
+   "label": "R\n\n\n\nR\n\nr",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c7_r5": {
+   "label": "!\n\n\n\n4\n\n4\nF4",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c8_r2": {
+   "label": "B\n\n\n\nB\n\nb",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c8_r3": {
+   "label": "G\n\n\n\nG\n\ng",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c8_r4": {
+   "label": "T\n\n\n\nT\n\nt",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c8_r5": {
+   "label": "%\n\n\n\n5\n\n5\nF5",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c9_r1": {
+   "label": "Hold:Shift\n\n\n\nF18\n\nTap:Layer",
+   "props": {
+    "a": 4,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c9_r2": {
+   "label": "\n{\n\n\nF15\n\n(\n[",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c9_r3": {
+   "label": "Ö\n\n\n\n0\n\nö\n<",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c9_r4": {
+   "label": "Ő\n\n\n\nLBRC\n\nő",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c9_r5": {
+   "label": "\n\nF11\n\nF11",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c1_r1": {
+   "label": "\n\nF22\n\nF22",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c1_r2": {
+   "label": "Fn\n\n\n\nLGUI",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c1_r3": {
+   "label": "Vol-\n\n\n\nVOLD",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c1_r4": {
+   "label": "Vol+\n\n\n\nVOLU",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c2_r1": {
+   "label": "\n\nF21\n\nF21",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c2_r2": {
+   "label": "HU/EN\n\n\n\nF20",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c2_r3": {
+   "label": "Shift\n\n\n\nRSFT",
+   "props": {
+    "a": 6,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c2_r4": {
+   "label": "Undo\n\nRedo\n\nUNDO",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000\n\n#ff0000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c3_r1": {
+   "label": "AltGr\n\n\n\nALGR",
+   "props": {
+    "a": 6,
+    "c": "#cb892c",
+    "t": "#191918",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c3_r2": {
+   "label": "\n*\n\n\nF17\n\n@",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c3_r3": {
+   "label": "Á\n\n\n\nQUOT\n\ná",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c3_r4": {
+   "label": "Ó\n\n\n\nEQL\n\nó",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c3_r5": {
+   "label": "BckSp\n\nDel\n\nBSPC",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000\n\n#ff0000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c4_r1": {
+   "label": "Ctrl\n\n\n\nRCTL",
+   "props": {
+    "a": 6,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c4_r2": {
+   "label": "_\n\n\n\nSLSH\n\n-\n~",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c4_r3": {
+   "label": "É\n\n\n\nSCLN\n\né",
+   "props": {
+    "a": 4,
+    "c": "#96938e",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c4_r4": {
+   "label": "P\n\nPrtSc\n\nP",
+   "props": {
+    "a": 6,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c4_r5": {
+   "label": "§\n\n\n\nGRV\n\n0\nF10",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c5_r1": {
+   "label": "Enter\n\n\n\nENT",
+   "props": {
+    "a": 6,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c5_r2": {
+   "label": ":\n\n\n\nDOT\n\n.",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c5_r3": {
+   "label": "L\n\n\n\nL\n\nl",
+   "props": {
+    "a": 4,
+    "c": "#96938e",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c5_r4": {
+   "label": "O\n\n\n\nO\n\no",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c5_r5": {
+   "label": ")\n\n\n\n9\n\n9\nF9",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c6_r2": {
+   "label": "?\n\n\n\nCOMM\n\n,",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c6_r3": {
+   "label": "K\n\n\n\nK\n\nk",
+   "props": {
+    "a": 4,
+    "c": "#96938e",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c6_r4": {
+   "label": "I\n\n\n\nI\n\ni",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c6_r5": {
+   "label": "(\n\n\n\n8\n\n8\nF8",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c7_r1": {
+   "label": "Hold:Enter\n\n\n\nSPC\n\nTap:Space",
+   "props": {
+    "a": 4,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c7_r2": {
+   "label": "M\n\n\n\nM\n\nm",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c7_r3": {
+   "label": "J\n\n\n\nJ\n\nj",
+   "props": {
+    "a": 4,
+    "c": "#96938e",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c7_r4": {
+   "label": "U\n\n\n\nU\n\nu",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c7_r5": {
+   "label": "=\n\n\n\n7\n\n7\nF7",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c8_r2": {
+   "label": "N\n\n\n\nN\n\nn",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c8_r3": {
+   "label": "H\n\n\n\nH\n\nh",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c8_r4": {
+   "label": "Z\n\n\n\nY\n\nz",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c8_r5": {
+   "label": "/\n\n\n\n6\n\n6\nF6",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c9_r1": {
+   "label": "Hold:Shift\n\n\n\nF19\n\nTap:Layer",
+   "props": {
+    "a": 4,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c9_r2": {
+   "label": "\n}\n\n\nF16\n\n)\n]",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c9_r3": {
+   "label": "Ü\n\n\n\nMINS\n\nü\n>",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c9_r4": {
+   "label": "Ű\n\n\n\nNUHS\n\nű",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c9_r5": {
+   "label": "\n\nF12\n\nF12",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  }
+ }
+}

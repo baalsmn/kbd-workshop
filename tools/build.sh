@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Build a keyboard design with Ergogen and run KiCad DRC.
-# Usage: tools/build.sh [name]   (default kugo82; also kugo80, hachigo74)
+# Usage: tools/build.sh [name]   (default kugo82; also hachigo74)
 #   reads ergogen/<name>.yaml and ergogen/footprints/
 #   build/            Ergogen input (config.yaml = <name>.yaml, footprints/)
 #   out/pcbs/         <name>.kicad_pcb (+ <name>.kicad_dru) -> open in KiCad

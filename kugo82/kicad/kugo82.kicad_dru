@@ -1,0 +1,7 @@
+(version 1)
+# SK6812MINI-E reverse-mount LEDs: the ceoloide footprint puts its pads
+# 0.2-0.4 mm from the light cutout. Allow 0.2 mm (JLCPCB routed-edge minimum) inside LED footprints only;
+# the normal 0.5 mm edge clearance still applies everywhere else.
+(rule "LED cutout clearance"
+  (constraint edge_clearance (min 0.2mm))
+  (condition "A.memberOfFootprint('LED*') && B.memberOfFootprint('LED*')"))

@@ -1,7 +1,7 @@
 # Sourced by the tools: resolves a design name to its yaml and keyboard folder.
-#   NAME  design name (default kugo82), e.g. kugo80, hachigo74
+#   NAME  design name (default kugo82), e.g. hachigo74
 #   YAML  ergogen/<NAME>.yaml (all Ergogen inputs live in ergogen/, with ergogen/footprints/)
-#   KB    the keyboard folder for its outputs (kugo/, hachigo74/), from the yaml's first-line
+#   KB    the keyboard folder for its outputs (kugo82/, hachigo74/), from the yaml's first-line
 #         tag "# keyboard: <folder>" (default: a folder named <NAME>)
 # Shared files (tools/, ergogen/, kicad-libraries/, keyboard.kicad_dru) stay in the
 # root; build/ and out/ are root-level scratch folders holding the last build

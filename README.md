@@ -25,18 +25,18 @@ hachigo74).
 
 | Folder | What |
 |---|---|
-| `kugo/` | kugo82 (current, 82 keys) and kugo80 (backup) |
+| `kugo82/` | kugo82, 82 keys: hachigo74 plus an outer column and 1.25U modifiers |
 | `hachigo74/` | hachigo74, 74 keys (kugo82 without the outer column); `kicad/` = its KiCad project |
 | `tools/` | build, case (STL), STEP and render scripts; Fusion script; KiCad library / project scripts |
-| `ergogen/` | Ergogen inputs: the design yamls (`kugo82`, `kugo80`, `hachigo74`) and `footprints/` |
+| `ergogen/` | Ergogen inputs: the design yamls (`kugo82`, `hachigo74`) and `footprints/` |
 | `kicad-libraries/` | KiCad libraries: symbols (`keyboard-workshop`), footprints (`Keyboard`), and the 3D models (the one place they live: Ergogen builds and renders use them too) |
 | `keyboard.kicad_dru` | DRC rules for every design |
 | `datasheets/`, `drafts/` | part datasheets, sketches |
 
 ```bash
 bash tools/build.sh kugo82     # Ergogen -> out/pcbs/kugo82.kicad_pcb + DRC
-bash tools/case.sh kugo82      # -> kugo/case/*.stl
-bash tools/step.sh kugo82      # -> kugo/case/step/*.step + case/fusion/kugo82_case.json
+bash tools/case.sh kugo82      # -> kugo82/case/*.stl
+bash tools/step.sh kugo82      # -> kugo82/case/step/*.step + case/fusion/kugo82_case.json
 ```
 
 **Autodesk Fusion:** open the STEP files directly, or add `tools/fusion/KeyboardCase`

@@ -11,7 +11,7 @@ Everything that describes the physical keyboards is licensed under the
 CERN Open Hardware Licence Version 2 - Strongly Reciprocal (CERN-OHL-S-2.0),
 full text in LICENSES/CERN-OHL-S-2.0.txt. This covers:
 
-  - the Ergogen designs (kugo/*.yaml, hachigo74/*.yaml) and keyboard layouts (*/kle/),
+  - the Ergogen designs (ergogen/*.yaml) and keyboard layouts (*/kle/),
   - the Ergogen footprints in footprints/ (see THIRD_PARTY_NOTICES.md for the
     ones derived from other open sources),
   - the case outputs (*/case/: STL, STEP, Fusion data), the PCBs and KiCad files

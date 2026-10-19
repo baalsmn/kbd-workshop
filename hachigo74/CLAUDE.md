@@ -2,7 +2,7 @@
 
 Shared rules, build and tools: `../CLAUDE.md`. Everything not listed here
 (switches, LEDs, MCU, matrix pins, OLED, trackpad, screws, case stack-up) is the
-same as kugo82: see `../kugo/CLAUDE.md`.
+same as kugo82: see `../kugo82/CLAUDE.md`.
 
 - **`ergogen/hachigo74.yaml`** (74 keys, 37 per half, from `kle/hachigo74.json`): a
   variant of kugo82 with the outer column c1 removed (column names c2–c9 kept,

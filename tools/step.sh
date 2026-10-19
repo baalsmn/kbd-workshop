@@ -10,7 +10,7 @@
 set -euo pipefail
 P="$(cd "$(dirname "$0")/.." && pwd)"
 . "$P/tools/lib/design.sh"
-C="$KB/case"; [ "$NAME" = "$(basename "$KB")" ] || [ "$NAME" = kugo82 ] || C="$KB/case/$NAME"
+C="$KB/case"; [ "$NAME" = "$(basename "$KB")" ] || C="$KB/case/$NAME"
 OUT="$C/step"
 B3D="${B3D_DIR:-$(cygpath -u "${LOCALAPPDATA:-$HOME/AppData/Local}" 2>/dev/null || echo "$HOME/AppData/Local")/kugo-build123d}"
 if [ ! -d "$B3D/build123d" ]; then

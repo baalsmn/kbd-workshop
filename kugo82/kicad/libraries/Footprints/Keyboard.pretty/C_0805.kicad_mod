@@ -1,0 +1,136 @@
+(footprint "C_0805"
+	(version 20260206)
+	(generator "pcbnew")
+	(generator_version "10.0")
+	(layer "F.Cu")
+	(descr "0805 capacitor")
+	(property "Reference" "REF**"
+		(at 0 1.68 180)
+		(layer "F.SilkS")
+		(uuid "48cd20b5-871f-4d88-8e81-39ce88b260c8")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "C_0805"
+		(at 0 -1.68 180)
+		(layer "F.Fab")
+		(uuid "a176305c-db84-42d5-b2c3-03783e7e637f")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 180)
+		(layer "B.Fab")
+		(hide yes)
+		(uuid "b5f8da73-c00b-4f39-aa5b-c1d429ebde3c")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify mirror)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 180)
+		(layer "B.Fab")
+		(hide yes)
+		(uuid "89ba829a-17a6-4558-b4b4-340dee1d81bf")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify mirror)
+		)
+	)
+	(property "LCSC" "C15850"
+		(at 0 0 180)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "e5dcc3ba-e72b-4abb-b3fc-21083cf2dab0")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+			(justify mirror)
+		)
+	)
+	(attr smd)
+	(duplicate_pad_numbers_are_jumpers no)
+	(fp_line
+		(start 0.2613 -0.735)
+		(end -0.2613 -0.735)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "5d96aa85-3aa9-493f-8dfb-985887444847")
+	)
+	(fp_line
+		(start 0.2613 0.735)
+		(end -0.2613 0.735)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(layer "F.SilkS")
+		(uuid "be381726-1890-4a96-a952-2d1b79f1e67c")
+	)
+	(fp_rect
+		(start 1.7 0.98)
+		(end -1.7 -0.98)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+		(uuid "3ca7b4ff-b276-417a-ac6f-8f40d7d62649")
+	)
+	(fp_rect
+		(start 1 0.625)
+		(end -1 -0.625)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.Fab")
+		(uuid "08cdcc3d-601e-45e8-be64-3c4bec1ca8c5")
+	)
+	(pad "1" smd roundrect
+		(at 0.95 0)
+		(size 1 1.45)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "f0f1b6e5-f7fb-4092-8e6c-4d7d52913312")
+	)
+	(pad "2" smd roundrect
+		(at -0.95 0)
+		(size 1 1.45)
+		(layers "F.Cu" "F.Mask" "F.Paste")
+		(roundrect_rratio 0.25)
+		(uuid "a7c6ffc2-c2a2-4af0-a264-91eda78ba589")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/libraries/3dmodels/C_0805_2012Metric.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 180)
+		)
+	)
+)

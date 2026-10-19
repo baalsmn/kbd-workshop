@@ -6,14 +6,14 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
 ## Layout
 
 - Root = shared: `tools/`, `ergogen/` (every Ergogen input: the design yamls
-  `kugo82.yaml`, `kugo80.yaml`, `hachigo74.yaml` and `footprints/`), `datasheets/`,
+  `kugo82.yaml`, `hachigo74.yaml` and `footprints/`), `datasheets/`,
   `kicad-libraries/` (KiCad symbols, footprints and **all 3D models**: the Ergogen
   footprints point at `kicad-libraries/3dmodels/` too), `keyboard.kicad_dru` (DRC
   rules for every design), `drafts/` (the user's sketches and photos).
 - One folder per keyboard, holding only its own files:
-  - `kugo/`: kugo82 (**current**, 82 keys) and kugo80 (80-key backup,
-    don't edit `ergogen/kugo80.yaml` unless asked): `kle/`, `case/` (STL, `step/`, `fusion/`), `renders/`.
-    Hardware, stack-up and open items: **`kugo/CLAUDE.md`**.
+  - `kugo82/`: kugo82 (82 keys), the larger version of hachigo74 (an extra outer
+    column c1 and 1.25U modifiers in c2–c4): `kle/`, `case/`, later `kicad/`.
+    Shared hardware, stack-up and open items: **`kugo82/CLAUDE.md`**.
   - `hachigo74/`: hachigo74 (74 keys, kugo82 minus column c1): `kle/`,
     `case/`. Details: **`hachigo74/CLAUDE.md`** (hardware otherwise as kugo).
 - A new keyboard = `ergogen/<name>.yaml` starting with the line
@@ -41,7 +41,7 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
   - pcbnew gotcha: edit 3D model paths by index (`fp.Models()[i].m_Filename = ...`);
     `for m in fp.Models()` yields copies and the edit is silently lost.
   - The schematic is to be generated from the PCB netlist later (see
-    `kugo/CLAUDE.md`, Open / next).
+    `kugo82/CLAUDE.md`, Open / next).
 
 ## Licensing and third-party files
 
@@ -76,8 +76,7 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
   | Gateron KS-2P02B01-02 socket (`ks33_hotswap`, now `attr smd`) | C18212911 | extended, 0 stock: pre-order, min 441 |
 
 - Not assembled (excluded from BOM and position files): the Helios, the OLED module
-  (hand-mounted on header pins) and `mech_model` (trackpad). kugo80's TS-1187A reset
-  switch has no LCSC number.
+  (hand-mounted on header pins) and `mech_model` (trackpad).
 - All assembled parts sit on the back side, so it's a one-sided assembly job.
 - `tools/lib/kicad_project.py` copies the footprint's LCSC number into the schematic
   symbol.
@@ -96,29 +95,32 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
     (mm from the board bbox's left edge) where the outline actually reaches the
     rail. hachigo74 uses top 51.6 73.6 309.2 331.2 (the top edges of the halves) and
     bottom 126.6 161.4 221.4 256.2 (the thumb-key corners and the straight centre
-    edge).
+    edge). kugo82 (`kugo82/panel.json`) uses the same spots on its wider outline:
+    top 70.6 92.6 336.0 358.0, bottom 149.6 184.3 244.3 279.0 (panel 428.7 × 159.2 mm).
   - `tools/lib/snap_outline.py` closes Ergogen's ~0.0001 mm outline gaps in a temp
     copy first; KiKit rejects them, KiCad doesn't.
   - KiKit moves footprint cutouts (LED windows, stabilizer cutouts) into the board
     outline and leaves the panel's `.kicad_dru` empty, so `panel.sh` writes a panel
     rule: 0.2 mm edge clearance for LED pads against Edge.Cuts inside the LED
     courtyard.
-  - Expected panel DRC: 5 silk_overlap, plus 78 `lib_footprint_mismatch` (LED and 2U
-    footprints without their cutouts; harmless), plus the unrouted pads.
+  - Expected panel DRC: 5 silk_overlap, plus `lib_footprint_mismatch` for every LED
+    and 2U footprint (78 on hachigo74, 86 on kugo82; they lost their cutouts to the
+    outline, harmless), plus the unrouted pads.
   - Re-run it after routing, then run the Fabrication Toolkit on the panel board.
 
 ## Working with the user
 
 - **No 3D renders unless asked.** For a quick visual check, make the 2D top view:
-  `node tools/lib/topview.js . kugo/kle/kugo82.json kugo/renders/kugo82_top.svg`
-  (after building that design).
+  `python tools/lib/printview.py <name> <keyboard>/kle/<name>_legends.json <out.pdf>`
+  (after building that design; needs PyMuPDF). `topview.js` only works while the
+  keys still match an in-half KLE file.
 - **The KLE file sets keycap widths and key positions within a half only.**
   Angles, the −15° rotation and the distance between the halves stay as they are
   in Ergogen. Mapping (kugo82): our x = KLE x − 0.5, our row y = 4.75 − KLE y
   (left half); the right half is mirrored in the KLE file (x → 21.5 − x).
 - **KLE legends:** front-centre = QMK keycode (for the firmware); centre-left =
   the Hungarian character.
-- **Keep `ergogen/kugo80.yaml` as a backup**, and make a new yaml for big layout changes.
+- Make a new yaml for big layout changes (the old kugo82 / kugo80 live in git history).
 - **Always add a silkscreen marker circle for new case supports** (studs, posts,
   spacers) via `support_marks_back` / `support_marks_front`, so they show on the PCB.
 - **Verify before claiming.** After changes, build and check DRC, part counts and
@@ -131,7 +133,7 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
 ## Build
 
 ```bash
-bash tools/build.sh [name]     # default kugo82; also kugo80, hachigo74
+bash tools/build.sh [name]     # default kugo82; also hachigo74
 bash tools/case.sh [name]      # out/cases/*.jscad -> <keyboard>/case/*.stl
 bash tools/step.sh [name]      # STEP + Fusion data -> <keyboard>/case/step/, case/fusion/
 bash tools/render.sh [name]    # 3D renders -> <keyboard>/renders/ (only when asked)
@@ -142,16 +144,14 @@ bash tools/panel.sh [name]     # JLC assembly panel (rails + tabs) -> <keyboard>
   the yaml's `# keyboard:` first line) for every tool. `build/` and
   `out/` are shared root scratch folders holding the last build only, so build a
   design before running case/step/render for it (they check).
-  - kugo80 (the backup) writes its case files to `kugo/case/kugo80/`.
 - `build.sh` copies `ergogen/<name>.yaml` → `build/config.yaml` plus `ergogen/footprints/`, runs
   `ergogen build -o out --debug`, copies `keyboard.kicad_dru` to
   `out/pcbs/<name>.kicad_dru` and runs `kicad-cli pcb drc`.
-  - Expected result: 2 silkscreen warnings (overlapping labels of the indicator
-    LEDs and caps) and 499 unconnected pads. The board is not routed yet.
+  - Expected result (kugo82 and hachigo74): 5 `silk_overlap` warnings (labels of
+    the indicator LEDs and caps, and of the thumb-area LEDs) and 499 unconnected pads. The board is not routed yet.
     - A `silk_over_copper` on a support marker means a post or stud base presses on
       a part: fix it.
     - Any non-silkscreen violation is a real problem.
-  - kugo80 gives 2 `silk_over_copper` instead (unchanged backup).
   - Output must go to `<root>/out`, because 3D model paths are
     `${KIPRJMOD}/../../kicad-libraries/3dmodels/...`.
 - **Tools:** `kicad-cli` is at
@@ -215,7 +215,7 @@ bash tools/panel.sh [name]     # JLC assembly panel (rails + tabs) -> <keyboard>
   (stray full circle, open outline → empty tub or shrunken lid in the STL).
   kugo82 now grows the case (and plate) from `pcb_core` (the PCB polygon before its
   2 mm rounding) with `expand: 10, joints: pointy, fillet: 3`: 8 mm wall, r3 corners
-  (concave corners r3 too, were r2). kugo80 uses round `expand: 9.99`. After any outline change:
+  (concave corners r3 too, were r2). After any outline change:
   - check `out/outlines/case.svg` and `plate_clean.svg` are closed (one `M`, ends in `Z`);
   - check that all 5 STLs have a sensible size and triangle count.
 - **Gateron KS-33 / KS-2P02B01-02 drawings are bottom views.** Use the STEP models
