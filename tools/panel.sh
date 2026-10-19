@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 # Make a JLCPCB assembly panel of a design's KiCad project board with KiKit:
-# 5 mm rails top and bottom, joined by mouse-bite tabs at the spots listed in
-# <keyboard>/panel.json, with fiducials, tooling holes and the JLCJLCJLCJLC order
-# number placeholder on the rails. The design board itself is not changed.
+# a frame (9 mm rails top and bottom per JLC's edge rail / fiducial guideline, 5 mm
+# side rails), joined by mouse-bite tabs at the spots listed in <keyboard>/panel.json, with fiducials,
+# tooling holes and the JLCJLCJLCJLC order number placeholder on the rails. The design board itself is not changed.
 # Usage: tools/panel.sh [name]   (default kugo82; needs <keyboard>/panel.json)
 #   reads  <keyboard>/kicad/<name>.kicad_pcb
 #   writes <keyboard>/kicad/<name>_panel.kicad_pcb (same folder, so the
@@ -43,6 +43,9 @@ cat > "${OUT%.kicad_pcb}.kicad_dru" <<'EOF'
   (constraint edge_clearance (min 0.2mm))
   (condition "A.memberOfFootprint('LED*') && B.Layer == 'Edge.Cuts' && B.intersectsCourtyard('LED*')"))
 EOF
+# plus the design's track width rules (they match net names by their end, so the
+# panel's "Board_0-<name>" nets are covered)
+sed -n '/^# Track widths/,$p' "$KB/kicad/$NAME.kicad_dru" | sed '1s/^/\n/' >> "${OUT%.kicad_pcb}.kicad_dru"
 "$KBIN/kicad-cli.exe" pcb drc "$OUT" -o "$P/out/panel_drc.rpt" >/dev/null || true
 grep -E "^\*\* Found" "$P/out/panel_drc.rpt"
 echo "wrote ${OUT#$P/}"

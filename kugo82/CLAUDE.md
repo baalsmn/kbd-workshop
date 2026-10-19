@@ -257,4 +257,4 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
   back-side pad shapes at 15°, and v1.9 crashed. Route by hand, starting with the
   Helios fan-out and the centre area.
 - **Assembly panel:** `kicad/kugo82_panel.kicad_pcb` (`tools/panel.sh kugo82`,
-  recipe `panel.json`, 428.7 × 159.2 mm). Re-run it after routing.
+  recipe `panel.json`, 442.7 × 167.2 mm). Re-run it after routing.

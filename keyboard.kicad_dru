@@ -5,3 +5,23 @@
 (rule "LED cutout clearance"
   (constraint edge_clearance (min 0.2mm))
   (condition "A.memberOfFootprint('LED*') && B.memberOfFootprint('LED*')"))
+
+# Track widths (JLCPCB 1 oz copper). min = enforced by DRC, opt = the router's
+# default width. Later rules take precedence, so the general signal rule comes first.
+# Net names are matched by their end so the KiKit panels (nets "Board_0-<name>") match too.
+(rule "Signal track width"
+  (constraint track_width (min 0.2mm) (opt 0.25mm))
+  (condition "A.Type == 'Track' || A.Type == 'Arc'"))
+# 5 V for the LED chain: up to ~0.9 A with the brightness cap (~3 A at full white);
+# 1.0 mm stub at the Helios, 0.5-0.6 mm trunks, down to 0.3 mm for the last hop to a
+# LED pad where space is tight (a branch carries <= 0.2 A, one LED 37 mA).
+(rule "VCC 5V track width"
+  (constraint track_width (min 0.3mm) (opt 1.0mm))
+  (condition "A.NetName == '*VCC'"))
+(rule "GND track width"
+  (constraint track_width (min 0.5mm) (opt 1.0mm))
+  (condition "A.NetName == '*GND'"))
+# 3.3 V: OLED + Cirque, tens of mA
+(rule "3V3 track width"
+  (constraint track_width (min 0.3mm) (opt 0.4mm))
+  (condition "A.NetName == '*3V3'"))

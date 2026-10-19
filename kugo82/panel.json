@@ -1,17 +1,67 @@
 {
-    "layout": {"type": "grid", "rows": 1, "cols": 1},
-    "source": {"type": "auto", "tolerance": "5mm"},
+    "layout": {
+        "type": "grid",
+        "rows": 1,
+        "cols": 1
+    },
+    "source": {
+        "type": "auto",
+        "tolerance": "5mm"
+    },
     "tabs": {
         "type": "plugin",
         "code": "tools/lib/panel_tabs.py.FixedTabs",
-        "arg": "width 5; top 70.6 92.6 336.0 358.0; bottom 149.6 184.3 244.3 279.0",
+        "arg": "width 5; top 70.6 92.6 189.3:8 239.3:8 336.0 358.0; bottom 149.6 184.3 244.3 279.0; left 82; right 82",
         "fillet": "1mm"
     },
-    "cuts": {"type": "mousebites", "drill": "0.5mm", "spacing": "0.8mm", "offset": "0.25mm", "prolong": "0.5mm"},
-    "framing": {"type": "railstb", "width": "5mm", "vspace": "2mm"},
-    "tooling": {"type": "3hole", "hoffset": "5mm", "voffset": "2.5mm", "size": "1.152mm", "paste": false, "soldermaskmargin": "1.3mm"},
-    "fiducials": {"type": "3fid", "hoffset": "12mm", "voffset": "2.5mm", "coppersize": "1mm", "opening": "2mm"},
-    "text": {"type": "simple", "text": "JLCJLCJLCJLC", "anchor": "mt", "voffset": "2.5mm", "hoffset": "-40mm", "layer": "F.SilkS", "width": "1.5mm", "height": "1.5mm"},
-    "text2": {"type": "simple", "text": "kugo82 panel - break off rails, file tab nubs flush", "anchor": "mb", "voffset": "-2.5mm", "layer": "F.SilkS", "width": "1.5mm", "height": "1.5mm"},
-    "post": {"millradius": "0.5mm", "origin": "tl"}
+    "cuts": {
+        "type": "mousebites",
+        "drill": "0.5mm",
+        "spacing": "0.8mm",
+        "offset": "0.25mm",
+        "prolong": "0.5mm"
+    },
+    "framing": {
+        "type": "plugin",
+        "code": "tools/lib/panel_tabs.py.RailsFrame",
+        "arg": "rails 9; sides 5; space 2"
+    },
+    "tooling": {
+        "type": "3hole",
+        "hoffset": "5mm",
+        "voffset": "4.5mm",
+        "size": "1.152mm",
+        "paste": false,
+        "soldermaskmargin": "1.3mm"
+    },
+    "fiducials": {
+        "type": "3fid",
+        "hoffset": "12mm",
+        "voffset": "4.5mm",
+        "coppersize": "1mm",
+        "opening": "2mm"
+    },
+    "text": {
+        "type": "simple",
+        "text": "JLCJLCJLCJLC",
+        "anchor": "mt",
+        "voffset": "4.5mm",
+        "hoffset": "-40mm",
+        "layer": "F.SilkS",
+        "width": "1.5mm",
+        "height": "1.5mm"
+    },
+    "text2": {
+        "type": "simple",
+        "text": "kugo82 panel - break off rails, file tab nubs flush",
+        "anchor": "mb",
+        "voffset": "-4.5mm",
+        "layer": "F.SilkS",
+        "width": "1.5mm",
+        "height": "1.5mm"
+    },
+    "post": {
+        "millradius": "0.5mm",
+        "origin": "tl"
+    }
 }
