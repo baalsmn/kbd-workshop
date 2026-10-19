@@ -1,0 +1,746 @@
+{
+ "meta": {
+  "name": "kugo82 JIS",
+  "notes": "JIS legends: shifted top-left, base centre-left, kana bottom-right (blue), small kana top-right, QMK keycode front-left, Fn layer centre-right. Host OS layout: Japanese (JIS)."
+ },
+ "keys": {
+  "hand-zone_c1_r1": {
+   "label": "←\n\n\n\nLEFT",
+   "props": {
+    "a": 7,
+    "c": "#ad5f50",
+    "t": "#ffffff",
+    "f": 1
+   }
+  },
+  "hand-zone_c1_r2": {
+   "label": "PgDn\n\n\n\nPGDN",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c1_r3": {
+   "label": "PgUp\n\n\n\nPGUP",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c1_r4": {
+   "label": "Home\n\nEnd\n\nHOME",
+   "props": {
+    "a": 6,
+    "c": "#cb892c",
+    "t": "#000000\n\n#ff0000",
+    "f": 1
+   }
+  },
+  "hand-zone_c2_r1": {
+   "label": "↓\n\n\n\nDOWN",
+   "props": {
+    "a": 7,
+    "c": "#ad5f50",
+    "t": "#ffffff",
+    "f": 1
+   }
+  },
+  "hand-zone_c2_r2": {
+   "label": "↑\n\n\n\nUP",
+   "props": {
+    "a": 7,
+    "c": "#ad5f50",
+    "t": "#ffffff",
+    "f": 1
+   }
+  },
+  "hand-zone_c2_r3": {
+   "label": "Shift\n\n\n\nLSFT",
+   "props": {
+    "a": 6,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c2_r4": {
+   "label": "Tab\n\nCtrlTab\n\nTAB",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c3_r1": {
+   "label": "→\n\n\n\nRIGHT",
+   "props": {
+    "a": 7,
+    "c": "#ad5f50",
+    "t": "#ffffff",
+    "f": 1
+   }
+  },
+  "hand-zone_c3_r2": {
+   "label": "|\n\n\n\\\nF14",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n\n#ff0000",
+    "f": 1
+   }
+  },
+  "hand-zone_c3_r3": {
+   "label": "_\n\n\nろ\nINT1\n\n\\",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c3_r4": {
+   "label": "{\n\n「\n゜\nRBRC\n\n[",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c3_r5": {
+   "label": "Esc\n\n\n\nESC",
+   "props": {
+    "a": 6,
+    "c": "#ad5f50",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c4_r1": {
+   "label": "Ctrl\n\n\n\nLCTL",
+   "props": {
+    "a": 6,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c4_r2": {
+   "label": "Z\n\nっ\nつ\nZ\n\nz",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c4_r3": {
+   "label": "A\n\n\nち\nA\n\na",
+   "props": {
+    "a": 4,
+    "c": "#96938e",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c4_r4": {
+   "label": "Q\n\n\nた\nQ\n\nq",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c4_r5": {
+   "label": "!\n\n\nぬ\n1\n\n1\nF1",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c5_r1": {
+   "label": "Hold:LCtrl\n\n\n\nTAB\n\nTap:TAB",
+   "props": {
+    "a": 4,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c5_r2": {
+   "label": "X\n\n\nさ\nX\n\nx",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c5_r3": {
+   "label": "S\n\n\nと\nS\n\ns",
+   "props": {
+    "a": 4,
+    "c": "#96938e",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c5_r4": {
+   "label": "W\n\n\nて\nW\n\nw",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c5_r5": {
+   "label": "\"\n\n\nふ\n2\n\n2\nF2",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c6_r2": {
+   "label": "C\n\n\nそ\nC\n\nc",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c6_r3": {
+   "label": "D\n\n\nし\nD\n\nd",
+   "props": {
+    "a": 4,
+    "c": "#96938e",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c6_r4": {
+   "label": "E\n\nぃ\nい\nE\n\ne",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c6_r5": {
+   "label": "#\n\nぁ\nあ\n3\n\n3\nF3",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c7_r1": {
+   "label": "Space\n\n\n\nSPC",
+   "props": {
+    "a": 6,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c7_r2": {
+   "label": "V\n\n\nひ\nV\n\nv",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c7_r3": {
+   "label": "F\n\n\nは\nF\n\nf",
+   "props": {
+    "a": 4,
+    "c": "#96938e",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c7_r4": {
+   "label": "R\n\n\nす\nR\n\nr",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c7_r5": {
+   "label": "$\n\nぅ\nう\n4\n\n4\nF4",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c8_r2": {
+   "label": "B\n\n\nこ\nB\n\nb",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c8_r3": {
+   "label": "G\n\n\nき\nG\n\ng",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c8_r4": {
+   "label": "T\n\n\nか\nT\n\nt",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c8_r5": {
+   "label": "%\n\nぇ\nえ\n5\n\n5\nF5",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c9_r1": {
+   "label": "Hold:Shift\n\n\n\nF18\n\nTap:Layer",
+   "props": {
+    "a": 4,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c9_r2": {
+   "label": "無変換\n\n\n\nINT5",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c9_r3": {
+   "label": "英数\n\n\n\nCAPS\n\nCaps",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "hand-zone_c9_r4": {
+   "label": "`\n\n\n゛\nLBRC\n\n@",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "hand-zone_c9_r5": {
+   "label": "半角\n\n\n\nGRV\n\n全角\nF11",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c1_r1": {
+   "label": "\n\nF22\n\nF22",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c1_r2": {
+   "label": "Fn\n\n\n\nLGUI",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c1_r3": {
+   "label": "Vol-\n\n\n\nVOLD",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c1_r4": {
+   "label": "Vol+\n\n\n\nVOLU",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c2_r1": {
+   "label": "\n\nF21\n\nF21",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c2_r2": {
+   "label": "JP/EN\n\n\n\nF20",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c2_r3": {
+   "label": "Shift\n\n\n\nRSFT",
+   "props": {
+    "a": 6,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c2_r4": {
+   "label": "Undo\n\nRedo\n\nUNDO",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000\n\n#ff0000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c3_r1": {
+   "label": "Alt\n\n\n\nRALT",
+   "props": {
+    "a": 6,
+    "c": "#cb892c",
+    "t": "#191918",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c3_r2": {
+   "label": "|\n\n\nー\nINT3\n\n¥",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c3_r3": {
+   "label": "*\n\n\nけ\nQUOT\n\n:",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c3_r4": {
+   "label": "~\n\n\nへ\nEQL\n\n^",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c3_r5": {
+   "label": "BckSp\n\nDel\n\nBSPC",
+   "props": {
+    "a": 6,
+    "c": "#ccb18c",
+    "t": "#000000\n\n#ff0000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c4_r1": {
+   "label": "Ctrl\n\n\n\nRCTL",
+   "props": {
+    "a": 6,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c4_r2": {
+   "label": "?\n\n・\nめ\nSLSH\n\n/",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c4_r3": {
+   "label": "+\n\n\nれ\nSCLN\n\n;",
+   "props": {
+    "a": 4,
+    "c": "#96938e",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c4_r4": {
+   "label": "P\n\nPrtSc\nせ\nP\n\np",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c4_r5": {
+   "label": "\n\nを\nわ\n0\n\n0\nF10",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c5_r1": {
+   "label": "Enter\n\n\n\nENT",
+   "props": {
+    "a": 6,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c5_r2": {
+   "label": ">\n\n。\nる\nDOT\n\n.",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c5_r3": {
+   "label": "L\n\n\nり\nL\n\nl",
+   "props": {
+    "a": 4,
+    "c": "#96938e",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c5_r4": {
+   "label": "O\n\n\nら\nO\n\no",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c5_r5": {
+   "label": ")\n\nょ\nよ\n9\n\n9\nF9",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c6_r2": {
+   "label": "<\n\n、\nね\nCOMM\n\n,",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c6_r3": {
+   "label": "K\n\n\nの\nK\n\nk",
+   "props": {
+    "a": 4,
+    "c": "#96938e",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c6_r4": {
+   "label": "I\n\n\nに\nI\n\ni",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c6_r5": {
+   "label": "(\n\nゅ\nゆ\n8\n\n8\nF8",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c7_r1": {
+   "label": "Hold:Enter\n\n\n\nSPC\n\nTap:Space",
+   "props": {
+    "a": 4,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c7_r2": {
+   "label": "M\n\n\nも\nM\n\nm",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c7_r3": {
+   "label": "J\n\n\nま\nJ\n\nj",
+   "props": {
+    "a": 4,
+    "c": "#96938e",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c7_r4": {
+   "label": "U\n\n\nな\nU\n\nu",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c7_r5": {
+   "label": "'\n\nゃ\nや\n7\n\n7\nF7",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c8_r2": {
+   "label": "N\n\n\nみ\nN\n\nn",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c8_r3": {
+   "label": "H\n\n\nく\nH\n\nh",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c8_r4": {
+   "label": "Y\n\n\nん\nY\n\ny",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c8_r5": {
+   "label": "&\n\nぉ\nお\n6\n\n6\nF6",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c9_r1": {
+   "label": "Hold:Shift\n\n\n\nF19\n\nTap:Layer",
+   "props": {
+    "a": 4,
+    "c": "#cb892c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c9_r2": {
+   "label": "変換\n\n\n\nINT4",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c9_r3": {
+   "label": "=\n\n\nほ\nMINS\n\n-",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c9_r4": {
+   "label": "}\n\n」\nむ\nNUHS\n\n]",
+   "props": {
+    "a": 4,
+    "c": "#cccccc",
+    "t": "#000000\n\n#2a5db0\n#2a5db0",
+    "f": 1
+   }
+  },
+  "mirror_hand-zone_c9_r5": {
+   "label": "かな\n\n\n\nINT2\n\nカナ\nF12",
+   "props": {
+    "a": 4,
+    "c": "#ccb18c",
+    "t": "#000000",
+    "f": 1
+   }
+  }
+ }
+}

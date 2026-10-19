@@ -21,6 +21,10 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
 - **KLE (`kle/`):** `kugo82_keys.json` (key name → label; c1–c4 from the original
   kugo82 layout, c5–c9 from hachigo74), `kugo82_exact.json` (exact export with
   angles), `kugo82_legends.json` (for `printview.py`).
+  - JIS: `kugo82_jis_keys.json` → `kugo82_jis.json` (exact). Same scheme and key
+    spots as hachigo74's JIS layout (see `../hachigo74/CLAUDE.md`) on every key the
+    two share; kugo82's own keys keep their legends, except right c2_r2 HU/EN →
+    JP/EN (F20) and right c3_r1 AltGr → Alt (RALT).
 - Outputs: `case/` (STL), `case/step/`, `case/fusion/kugo82_case.json`, `kicad/`
   (portable KiCad project, see its README). Checked 2026-10-19: DRC 5 silk_overlap
   only; every keycap 2.0 mm from the PCB edge; case-wall screws as on hachigo74;
