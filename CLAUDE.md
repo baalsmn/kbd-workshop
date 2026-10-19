@@ -81,7 +81,7 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
 - **Track widths** are DRC rules in `keyboard.kicad_dru` (copied into each project's
   `.kicad_dru` and, by `panel.sh`, into the panel's): min (DRC error below it) / opt
   (the router's default width): signals 0.2 / 0.25 mm, `VCC` (5 V, LED chain) 0.3 /
-  1.0 mm, `GND` 0.5 / 1.0 mm, `3V3` 0.3 / 0.4 mm. 5 V plan (user's): 1 mm stub from the
+  1.0 mm, `GND` 0.5 / 1.0 mm, `3V3` 0.3 / 0.3 mm. 5 V plan (user's): 1 mm stub from the
   Helios pad to C85, then 0.5–0.6 mm trunks (two per half, joined at the outer column),
   0.3 mm allowed for the last hop to an LED pad; 2 vias per power layer change. Net names match by their end (`*VCC`), so
   the panels' `Board_0-` nets match too. GND is best a pour on both layers.

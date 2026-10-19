@@ -23,5 +23,5 @@
   (condition "A.NetName == '*GND'"))
 # 3.3 V: OLED + Cirque, tens of mA
 (rule "3V3 track width"
-  (constraint track_width (min 0.3mm) (opt 0.4mm))
+  (constraint track_width (min 0.3mm) (opt 0.3mm))
   (condition "A.NetName == '*3V3'"))

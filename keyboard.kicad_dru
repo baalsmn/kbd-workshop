@@ -23,5 +23,12 @@
   (condition "A.NetName == '*GND'"))
 # 3.3 V: OLED + Cirque, tens of mA
 (rule "3V3 track width"
-  (constraint track_width (min 0.3mm) (opt 0.4mm))
+  (constraint track_width (min 0.3mm) (opt 0.3mm))
   (condition "A.NetName == '*3V3'"))
+# Fine-pitch exception: the Molex 505278 trackpad connector (J1) has 0.3 mm pins at
+# 0.5 mm pitch, so only a 0.2 mm track fits between its pins with 0.2 mm clearance.
+# Inside its courtyard every net (3V3, GND, I2C, ...) may and by default does use
+# 0.2 mm; it comes last so it overrides the net width rules above.
+(rule "J1 fine pitch"
+  (constraint track_width (min 0.2mm) (opt 0.2mm))
+  (condition "A.intersectsCourtyard('J1')"))
