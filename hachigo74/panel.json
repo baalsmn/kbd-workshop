@@ -1,0 +1,17 @@
+{
+    "layout": {"type": "grid", "rows": 1, "cols": 1},
+    "source": {"type": "auto", "tolerance": "5mm"},
+    "tabs": {
+        "type": "plugin",
+        "code": "tools/lib/panel_tabs.py.FixedTabs",
+        "arg": "width 5; top 51.6 73.6 309.2 331.2; bottom 126.6 161.4 221.4 256.2",
+        "fillet": "1mm"
+    },
+    "cuts": {"type": "mousebites", "drill": "0.5mm", "spacing": "0.8mm", "offset": "0.25mm", "prolong": "0.5mm"},
+    "framing": {"type": "railstb", "width": "5mm", "vspace": "2mm"},
+    "tooling": {"type": "3hole", "hoffset": "5mm", "voffset": "2.5mm", "size": "1.152mm", "paste": false, "soldermaskmargin": "1.3mm"},
+    "fiducials": {"type": "3fid", "hoffset": "12mm", "voffset": "2.5mm", "coppersize": "1mm", "opening": "2mm"},
+    "text": {"type": "simple", "text": "JLCJLCJLCJLC", "anchor": "mt", "voffset": "2.5mm", "hoffset": "-40mm", "layer": "F.SilkS", "width": "1.5mm", "height": "1.5mm"},
+    "text2": {"type": "simple", "text": "hachigo74 panel - break off rails, file tab nubs flush", "anchor": "mb", "voffset": "-2.5mm", "layer": "F.SilkS", "width": "1.5mm", "height": "1.5mm"},
+    "post": {"millradius": "0.5mm", "origin": "tl"}
+}

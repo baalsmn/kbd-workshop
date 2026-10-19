@@ -84,6 +84,28 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
 - The user exports with the Fabrication Toolkit plugin (bennymeg) in KiCad. Check the
   rotations in JLC's placement preview: everything is on the back at 15° steps. Fix
   them with the plugin's `FT Rotation Offset` / `FT Position Offset` fields.
+- **Assembly panel:** `bash tools/panel.sh <name>` makes `<keyboard>/kicad/<name>_panel.kicad_pcb`
+  from the project board with KiKit (installed on first use into
+  `%LOCALAPPDATA%/kugo-kikit`, a venv on KiCad's Python; KiCad itself is untouched).
+  - The recipe is `<keyboard>/panel.json`: 5 mm rails top and bottom, 2 mm gap, 5 mm
+    mouse-bite tabs (0.5 mm holes, 0.8 mm pitch, offset 0.25 mm into the board so
+    the nubs don't stick out), 3 tooling holes (1.152 mm), 3 fiducials, and
+    `JLCJLCJLCJLC` on the rail (JLC prints the order number there, not on the board).
+  - V-cut can't be used: no straight edge of the outline is the outermost one.
+  - Tabs come from `tools/lib/panel_tabs.py` (a KiKit tabs plugin): fixed x positions
+    (mm from the board bbox's left edge) where the outline actually reaches the
+    rail. hachigo74 uses top 51.6 73.6 309.2 331.2 (the top edges of the halves) and
+    bottom 126.6 161.4 221.4 256.2 (the thumb-key corners and the straight centre
+    edge).
+  - `tools/lib/snap_outline.py` closes Ergogen's ~0.0001 mm outline gaps in a temp
+    copy first; KiKit rejects them, KiCad doesn't.
+  - KiKit moves footprint cutouts (LED windows, stabilizer cutouts) into the board
+    outline and leaves the panel's `.kicad_dru` empty, so `panel.sh` writes a panel
+    rule: 0.2 mm edge clearance for LED pads against Edge.Cuts inside the LED
+    courtyard.
+  - Expected panel DRC: 5 silk_overlap, plus 78 `lib_footprint_mismatch` (LED and 2U
+    footprints without their cutouts; harmless), plus the unrouted pads.
+  - Re-run it after routing, then run the Fabrication Toolkit on the panel board.
 
 ## Working with the user
 
@@ -113,6 +135,7 @@ bash tools/build.sh [name]     # default kugo82; also kugo80, hachigo74
 bash tools/case.sh [name]      # out/cases/*.jscad -> <keyboard>/case/*.stl
 bash tools/step.sh [name]      # STEP + Fusion data -> <keyboard>/case/step/, case/fusion/
 bash tools/render.sh [name]    # 3D renders -> <keyboard>/renders/ (only when asked)
+bash tools/panel.sh [name]     # JLC assembly panel (rails + tabs) -> <keyboard>/kicad/<name>_panel.kicad_pcb
 ```
 
 - `tools/lib/design.sh` finds `ergogen/<name>.yaml` and its keyboard folder (from
