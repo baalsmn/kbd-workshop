@@ -76,7 +76,12 @@
           "width": 0.0
         }
       ],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        [
+          "silk_edge_clearance|27441769|114972327|de90a450-4382-460b-96c5-888488057c18|b4e09e38-e428-4d8e-adf5-e17c7d74a378",
+          ""
+        ]
+      ],
       "meta": {
         "version": 2
       },
@@ -213,7 +218,10 @@
         }
       ],
       "track_widths": [
-        0.0
+        0.0,
+        0.2,
+        0.3,
+        0.5
       ],
       "tuning_pattern_settings": {
         "diff_pair_defaults": {

@@ -224,6 +224,14 @@ bash tools/panel.sh [name]     # JLC assembly panel (rails + tabs) -> <keyboard>
   - `vrml.js`, `keycap.js`, `oled.js`: VRML model generators.
   - `stl2wrl.js`: STL → VRML conversion.
   - `kle_parse.js`: KLE parser that decodes legend positions.
+- **Routing tools** (KiCad python + shapely: the KiKit venv `%LOCALAPPDATA%/kugo-kikit`):
+  - `route_grid.py`: angle-keeping grid router (key frame per half, 0 deg centre).
+  - `led_rechain.py`: re-orders / renumbers the LED data chain on a routed board.
+  - `remap_pins.py`: moves nets to other pins of a footprint (the Helios), removing only
+    the segments at the changed pins.
+  - `gnd_stitch.py`: GND stitching vias, one or more per back-side pour piece.
+  - After any of them on a project board, rebuild its schematic with `kicad_project.py`
+    (keep a copy of the `.kicad_pro`, `.kicad_dru` and README and restore them).
 
 ## Ergogen gotchas (learned the hard way)
 

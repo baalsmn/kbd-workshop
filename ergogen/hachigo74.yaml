@@ -1888,29 +1888,29 @@ pcbs:
         params:
           side: B
           # rows, left half -> pins on the left side once turned over
-          P17: R1              # GP29
-          P18: R2              # GP28
+          # (pin map changed 2026-10-20 by the user, for cleaner routing)
+          P21: R1              # GP22
+          P20: R2              # GP26
           P19: R3              # GP27
-          P20: R4              # GP26
-          P21: R5              # GP22
+          P18: R4              # GP28
+          P17: R5              # GP29
           # rows, right half -> pins on the right side
-          P7: R6               # GP4
+          P9: R6               # GP6
           P8: R7               # GP5
-          P9: R8               # GP6
-          P10: R9              # GP7
-          P11: R10             # GP8
+          P7: R8               # GP4
+          P2: R9               # GP1
+          P1: R10              # GP0
           # columns (shared by both halves)
-          # (bottom row kept free under the OLED header, except the outer pads)
-          P1: C1               # GP0
-          P2: C2               # GP1
-          P31: C3              # GP10
-          P30: C4              # GP11
-          P29: C5              # GP16
-          P25: CIRQUE_DR       # GP12, trackpad "data ready" (optional in QMK)
-          P12: C6              # GP9
-          P24: C7              # GP21
-          P23: C8              # GP23
-          P22: C9              # GP20
+          P12: C2              # GP9
+          P25: C3              # GP12
+          P26: C4              # GP13
+          P27: C5              # GP14
+          P28: C6              # GP15
+          P29: C7              # GP16
+          P24: C8              # GP21
+          P23: C9              # GP23
+          P10: CIRQUE_DR       # GP7, trackpad "data ready" (optional in QMK)
+          # free: P11 GP8, P22 GP20, P30 GP11, P31 GP10
           # RGB data (5 V level-shifted output), I2C for OLED + Cirque (shared bus)
           P34: LED_DATA_MCU    # GP25 -> series resistor R1 -> LED_DATA
           P5: SDA              # GP2

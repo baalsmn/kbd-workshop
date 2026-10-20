@@ -59,12 +59,16 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
   - Footprint `ergogen/footprints/helios.js` (castellated). Model `kicad-libraries/3dmodels/Helios_0xCB_rev1.0.step`.
 - **Matrix:** 10 rows × 9 columns, COL2ROW. Left half R1–R5, right half R6–R10;
   columns are shared by both halves.
-  - **Rows:** R1 GP29, R2 GP28, R3 GP27, R4 GP26, R5 GP22, R6 GP4, R7 GP5, R8 GP6,
-    R9 GP7, R10 GP8.
-  - **Columns:** C1 GP0, C2 GP1, C3 GP10, C4 GP11, C5 GP16, C6 GP9, C7 GP21, C8 GP23,
-    C9 GP20.
-  - **Other pins:** I2C SDA GP2, SCL GP3 (OLED 0x3C + Cirque 0x2A share the bus);
-    CIRQUE_DR GP12. Spare: GP13, GP14, GP15.
+  - Pin map changed by the user on 2026-10-20 for cleaner routing (Helios pad number in
+    brackets); same on hachigo74, which has no C1.
+  - **Rows:** R1 GP22 (21), R2 GP26 (20), R3 GP27 (19), R4 GP28 (18), R5 GP29 (17),
+    R6 GP6 (9), R7 GP5 (8), R8 GP4 (7), R9 GP1 (2), R10 GP0 (1).
+  - **Columns:** C1 GP8 (11, kugo82 only), C2 GP9 (12), C3 GP12 (25), C4 GP13 (26),
+    C5 GP14 (27), C6 GP15 (28), C7 GP16 (29), C8 GP21 (24), C9 GP23 (23).
+  - **Other pins:** I2C SDA GP2 (5), SCL GP3 (6) (OLED 0x3C + Cirque 0x2A share the
+    bus); CIRQUE_DR GP7 (10); RGB data GP25 (34, the 5 V level-shifted output).
+    Spare: GP20 (22), GP11 (30), GP10 (31), and GP8 (11) on hachigo74. Pad 15 is RST,
+    not a GPIO.
 - **RGB:** GP25 (the Helios' 5 V level-shifted output) → 330 Ω (R1, back) → chain of
   **84 LEDs**.
   - **Chain order (re-chained in the KiCad project on 2026-10-20, user's order,
