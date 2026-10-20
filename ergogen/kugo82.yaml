@@ -828,13 +828,13 @@ outlines:
     - what: circle
       radius: 1.2
       where:
-        - ref: hand-zone_c5_r1
-          shift: [0, -(0.5kc + 6)]   # PCB edge = keycap + 2, then 4 mm: centred in the 8 mm wall
+        - ref: hand-zone_c4_r1
+          shift: [30.875, -(0.5kc + 6)]   # under c5_r1's centre, 4 mm off the straight bottom edge: centred in the 8 mm wall
     - what: circle
       radius: 1.2
       where:
-        - ref: mirror_hand-zone_c5_r1
-          shift: [0, -(0.5kc + 6)]   # PCB edge = keycap + 2, then 4 mm: centred in the 8 mm wall
+        - ref: mirror_hand-zone_c4_r1
+          shift: [30.875, -(0.5kc + 6)]   # under c5_r1's centre, 4 mm off the straight bottom edge: centred in the 8 mm wall
     # top right C9 corner
     - what: circle
       radius: 1.2
@@ -954,12 +954,8 @@ outlines:
           shift: [-(0.125sp + 0.5kc), -0.5kc]   # Ctrl 1.25U
         - ref: mirror_hand-zone_c4_r1
           shift: [(0.125sp + 0.5kc), -0.5kc]
-        - ref: mirror_hand-zone_c5_r1
-          shift: [-(0.5sp + 0.5kc), -0.5kc]
-        - ref: mirror_hand-zone_c5_r1
-          shift: [(0.5sp + 0.5kc), -0.5kc]
-        - ref: mirror_hand-zone_c7_r1
-          shift: [-(0.125sp + 0.5kc), -0.5kc]
+        - ref: mirror_hand-zone_c4_r1
+          shift: [59.391, -0.5kc]   # straight c1-c4 bottom line on to c7_r1 (see the left half)
         - ref: mirror_hand-zone_c7_r1
           shift: [(0.125sp + 0.5kc), -0.5kc]
         - ref: mirror_hand-zone_c9_r1
@@ -977,12 +973,12 @@ outlines:
           shift: [-(0.125sp + 0.5kc), -0.5kc]   # c9_r1 / c7_r1 / c5_r1 bottom corners lie on one line
         - ref: hand-zone_c7_r1
           shift: [(0.125sp + 0.5kc), -0.5kc]
-        - ref: hand-zone_c7_r1
-          shift: [-(0.125sp + 0.5kc), -0.5kc]
-        - ref: hand-zone_c5_r1
-          shift: [(0.5sp + 0.5kc), -0.5kc]   # 2U
-        - ref: hand-zone_c5_r1
-          shift: [-(0.5sp + 0.5kc), -0.5kc]
+        # the c1-c4 keycap bottom line, straight on to where it meets the c7_r1 keycap's
+        # bottom edge (38 % along it): no step under the 2U c5_r1, more room for routing.
+        # 59.391 = that intersection in c4_r1's frame (c4_r1 is the shifted 1.25U Ctrl;
+        # from the built points, re-derive it if c4 / c5 / c7 r1 move)
+        - ref: hand-zone_c4_r1
+          shift: [59.391, -0.5kc]
         - ref: hand-zone_c4_r1
           shift: [(0.125sp + 0.5kc), -0.5kc]   # Ctrl 1.25U
         - ref: hand-zone_c4_r1

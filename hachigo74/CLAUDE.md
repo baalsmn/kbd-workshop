@@ -9,13 +9,26 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
   so every reference stays valid; the board sits 1 sp further left on the sheet).
   - c2 is all 1U at KLE 2.0; c3 r1–r4 are 1U at 3.0 with Esc 1.25U; c4 is all 1U.
   - The PCB outline and the outer case-wall screws follow c2.
-  - LED chain: 2 indicators + 74 keys = 76. Left c2_r4 takes LED_DATA, right c2_r4
-    gives LED_END.
+  - LED chain: 2 indicators + 74 keys = 76. **Re-chained in the KiCad project on
+    2026-10-20** (user's order, `tools/lib/led_rechain.py`): MCU -> R1 -> LED1 (right
+    c9_r5, next to the Helios) -> the right half in its old snake order -> LED37 (right
+    c2, outer top) -> LED38 (right indicator) -> LED39 (left indicator) -> LED40 (left
+    c2_r4) -> the left half -> LED76 (left c9_r5, end). Nets: R1 -> LED1 = LED_DATA,
+    LEDk -> LEDk+1 = LED_k; each LED's cap is Ck. For the firmware (0-based): keys of the
+    right half 0-36, right indicator 37, left indicator 38, left half 39-75.
+    Only the KiCad project has this: `ergogen/hachigo74.yaml` still describes the old
+    chain (indicators first), so don't regenerate the project from Ergogen without
+    re-running led_rechain.py.
   - Crosses (user's choice, upper right corners): c4_r1, c3_r4, c7_r4, plus c7_r1
     top middle. Only spots with a lower cross are used (c6_r4 and c8_r3 were dropped:
     their lower corner is blocked). c4_r1 east arms are 2.5 mm (c5_r1 stabilizer).
     Regenerate with `crosses.py ... "c4_r1,c3_r4,c7_r4,c7_r1:0:0.5"`.
   - The c2_r2 screw is at [9.5, 9.0] (room 3.62).
+  - Bottom edge (2026-10-20, user's request, more room for routing): the c2–c4 keycap
+    bottom line runs straight on until it meets the c7_r1 keycap's bottom edge (38 %
+    along it), point `c4_r1 [57.016, -0.5kc]`; the step under the 2U c5_r1 is gone.
+    The case-wall screw under c5_r1 moved with it (`c4_r1 [28.5, -(0.5kc + 6)]`).
+    Carried into the routed KiCad board with `tools/lib/kicad_outline_sync.py`.
 - **KLE files (`kle/`):** `hachigo74_keys.json` (Hungarian) and `hachigo74_jis_keys.json`
   (Japanese JIS) map key name → label; `hachigo74_exact.json` / `hachigo74_jis.json` are
   exact exports (Ergogen positions and angles) made from them with

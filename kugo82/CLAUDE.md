@@ -17,6 +17,12 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
   - LED chain: 2 indicators + 82 keys = 84; left c1_r1 takes LED_DATA, right c1_r1
     gives LED_END. Matrix column C1 (GP0) is used again.
   - Key-area screw c2_r2 back at [10.5, 8.5] (the c2 / c3 keys are the original ones).
+  - Bottom edge (2026-10-20, as on hachigo74): the c1–c4 keycap bottom line runs straight
+    on until it meets the c7_r1 keycap's bottom edge (38 % along it), point
+    `c4_r1 [59.391, -0.5kc]` (c4_r1 is the shifted 1.25U Ctrl); no step under the 2U
+    c5_r1. The case-wall screw under c5_r1 moved with it (`c4_r1 [30.875, -(0.5kc + 6)]`).
+    Carried into `kicad/kugo82.kicad_pcb` with `tools/lib/kicad_outline_sync.py`; case
+    files and the panel regenerated.
   - Support crosses: hachigo74's set plus the original c1 ones (see Support).
 - **KLE (`kle/`):** `kugo82_keys.json` (key name → label; c1–c4 from the original
   kugo82 layout, c5–c9 from hachigo74), `kugo82_exact.json` (exact export with
@@ -61,10 +67,17 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
     CIRQUE_DR GP12. Spare: GP13, GP14, GP15.
 - **RGB:** GP25 (the Helios' 5 V level-shifted output) → 330 Ω (R1, back) → chain of
   **84 LEDs**.
-  - LED 0 = function-lock indicator (right, green).
-  - LED 1 = layout-layer indicator (left).
-  - LEDs 2–83 = keys, snake order: left c1…c9, then right c9…c1. The C9 columns
-    run r1…r5 on the left, then r5…r1 on the right.
+  - **Chain order (re-chained in the KiCad project on 2026-10-20, user's order,
+    `tools/lib/led_rechain.py`; same scheme as hachigo74):** MCU -> R1 -> LED1 (right
+    c9_r5, next to the Helios) -> the right half (snake c9 ... c1) -> LED41 (right c1)
+    -> LED42 (right indicator, function lock, green) -> LED43 (left indicator, layout
+    layer) -> LED44 (left c1_r1) -> the left half (snake c1 ... c9) -> LED84 (left
+    c9_r5, end). Nets: R1 -> LED1 = LED_DATA, LEDk -> LEDk+1 = LED_k; each LED's cap is Ck.
+  - Firmware indices (0-based): right-half keys 0–40, fn indicator 41, layout
+    indicator 42, left-half keys 43–83.
+  - Only the KiCad project has this order: `ergogen/kugo82.yaml` still describes the
+    old chain (indicators first, left half, then right), so re-run led_rechain.py
+    after regenerating the project from Ergogen.
   - Caps Lock is shown on the Caps Lock key's own LED.
   - There's a 10 µF 0805 bulk cap at the Helios 5 V pin.
   - Power: at full white 84 LEDs draw about 3.1 A (hachigo74's 76: 2.8 A), from the
