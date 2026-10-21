@@ -53,6 +53,12 @@ Don't use the "Same Side" (A-type) cables listed next to them. Order a few spare
   `<keyboard>_panel.kicad_pcb`.
 - At JLC choose "Panel by Customer", 1 board per panel, no extra edge rails. Use
   Standard PCBA, assembly on the bottom side.
+- Or skip our panel and let JLC add the rails (hachigo74): run the Fabrication Toolkit on
+  the design board, choose "Edge Rails: Added by JLCPCB" (or "Panel by JLCPCB") and
+  "Confirm Production file" to check their tabs. The board carries `JLCJLCJLCJLC` on the
+  back silkscreen at the centre (209.9, 96.5), so pick "Mark on PCB: Order Number (Specify
+  Position)"; otherwise JLC prints the number where it likes, maybe on the front.
+  File any tab nubs flush (the case has no clearance around the board edge).
 - Upload the Gerbers, BOM and position file from the same (panel) board. Check the
   part rotations in JLC's placement preview: everything is on the back at 15° steps.
 
