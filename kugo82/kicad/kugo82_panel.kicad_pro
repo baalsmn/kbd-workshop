@@ -319,551 +319,7 @@
     "netclass_patterns": [
       {
         "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_27"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-R8"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_69"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_46"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c7_r3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c6_r3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c2_r2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c7_r2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-TP_SS"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-TP_SCK"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_7"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_5"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_52"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c5_r4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_62"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_51"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_9"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c1_r4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_8"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c1_r3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_80"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c1_r4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_17"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_40"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_6"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c6_r5"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c5_r2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_55"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_73"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c9_r3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c9_r5"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-TP_BTN3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-R2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c3_r1"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_59"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_37"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c8_r2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-unconnected-(MCU1-GP10-Pad31)"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-C5"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-TP_MISO"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c5_r5"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c7_r5"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-SDA"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-C6"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_22"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c5_r5"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-R7"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c7_r1"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_77"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_18"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c1_r1"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c6_r2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c5_r1"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c6_r3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c9_r4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c4_r5"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_1"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_74"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_78"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_28"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c4_r1"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-R9"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c4_r3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c7_r1"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c8_r3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-R3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_31"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_47"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_11"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-C7"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-GND"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-C8"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_56"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c2_r3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c3_r4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c2_r4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c9_r1"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c3_r5"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_58"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_70"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_21"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_26"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c5_r4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_DATA"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c3_r3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_38"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_82"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-R1"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_23"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c2_r2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c2_r3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c3_r3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_75"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c8_r5"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-R10"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c6_r5"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-TP_MOSI"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-C9"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_13"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_41"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c8_r2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c8_r3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c4_r2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-R6"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_65"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c9_r2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c4_r3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_72"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c3_r2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-C4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-SCL"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_19"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c4_r1"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c9_r3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_66"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_34"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-unconnected-(MCU1-D--Pad33)"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-R4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_33"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_79"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c9_r1"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c3_r5"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c2_r1"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c6_r2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_24"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_20"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_35"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_29"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-3V3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_76"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_14"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c6_r4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-unconnected-(MCU1-D+-Pad32)"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c6_r4"
+        "pattern": "Board_0-c3_r4"
       },
       {
         "netclass": "Board_0-Default",
@@ -871,199 +327,19 @@
       },
       {
         "netclass": "Board_0-Default",
-        "pattern": "Board_0-C3"
+        "pattern": "Board_0-c1_r3"
       },
       {
         "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_63"
+        "pattern": "Board_0-R4"
       },
       {
         "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c8_r4"
+        "pattern": "Board_0-TP_SS"
       },
       {
         "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_83"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c5_r3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-unconnected-(MCU1-GP11-Pad30)"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c9_r4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_68"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c5_r2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_67"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-CIRQUE_DR"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c7_r4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_32"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c3_r2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c8_r5"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-unconnected-(MCU1-GP20-Pad22)"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_60"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-TP_BTN1"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_57"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c7_r3"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_71"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_81"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_36"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c3_r1"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c4_r4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_43"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c7_r5"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c7_r4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-unconnected-(MCU1-RST-Pad15)"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_44"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c4_r2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c1_r2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_15"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_48"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_64"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c4_r4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c8_r4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_45"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_25"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_49"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c2_r4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c9_r5"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c7_r2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_10"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-C1"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c3_r4"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_16"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_12"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c4_r5"
+        "pattern": "Board_0-mirror_c7_r3"
       },
       {
         "netclass": "Board_0-Default",
@@ -1071,11 +347,11 @@
       },
       {
         "netclass": "Board_0-Default",
-        "pattern": "Board_0-c1_r3"
+        "pattern": "Board_0-c9_r4"
       },
       {
         "netclass": "Board_0-Default",
-        "pattern": "Board_0-unconnected-(LED84-DOUT-Pad4)"
+        "pattern": "Board_0-mirror_c5_r2"
       },
       {
         "netclass": "Board_0-Default",
@@ -1083,55 +359,19 @@
       },
       {
         "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_39"
+        "pattern": "Board_0-mirror_c7_r4"
       },
       {
         "netclass": "Board_0-Default",
-        "pattern": "Board_0-C2"
+        "pattern": "Board_0-LED_24"
       },
       {
         "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_DATA_MCU"
+        "pattern": "Board_0-SCL"
       },
       {
         "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_53"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_50"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_54"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-R5"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c1_r1"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_61"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-LED_42"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c9_r2"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-c5_r1"
-      },
-      {
-        "netclass": "Board_0-Default",
-        "pattern": "Board_0-mirror_c5_r3"
+        "pattern": "Board_0-R10"
       },
       {
         "netclass": "Board_0-Default",
@@ -1139,7 +379,767 @@
       },
       {
         "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_56"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_41"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_8"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_44"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_DATA_MCU"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_35"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-unconnected-(MCU1-GP10-Pad31)"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_69"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c2_r4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c6_r3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c1_r3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_7"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c9_r5"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_9"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c7_r1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c9_r5"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_37"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-TP_SCK"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c2_r2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_73"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c2_r1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c8_r3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c6_r2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c3_r1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-C1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_54"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c5_r5"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-unconnected-(MCU1-D--Pad33)"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c4_r1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_10"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c8_r2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_63"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c3_r2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c4_r3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-C6"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_34"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_59"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_DATA"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c3_r4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-C8"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-R9"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_14"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-R5"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-C3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c9_r1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-C4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_66"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c5_r5"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_65"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c4_r3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-R7"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c6_r2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_36"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c8_r3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_32"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-GND"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c6_r3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c3_r3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c9_r3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_13"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_25"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_15"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_27"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-C7"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_74"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-unconnected-(MCU1-GP11-Pad30)"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_39"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-TP_MISO"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c6_r4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c9_r4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-R1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_78"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_6"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_62"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_46"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c5_r2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-R8"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_31"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c8_r4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_53"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_55"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_42"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_16"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c7_r1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c8_r5"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c1_r4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c9_r1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-C9"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_79"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c4_r1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c4_r4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_29"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c9_r2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_75"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c2_r3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c3_r5"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_40"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c3_r2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-unconnected-(MCU1-GP20-Pad22)"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_61"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_71"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_83"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c5_r4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_48"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-R6"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_19"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c1_r2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_76"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c4_r5"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c7_r4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_64"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_67"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_51"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_33"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_58"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c3_r5"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c5_r1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_38"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_49"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c4_r2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c5_r3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c5_r3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c7_r2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c8_r2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-unconnected-(MCU1-D+-Pad32)"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c7_r5"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c1_r1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c4_r2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c1_r4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-CIRQUE_DR"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-C5"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_52"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_81"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-TP_BTN3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c1_r1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_5"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_11"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_80"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_22"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c2_r4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_72"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c6_r4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_70"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c8_r5"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c5_r4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c6_r5"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c8_r4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-C2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-TP_BTN1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c2_r3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_12"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c3_r3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-SDA"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_26"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-3V3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c9_r2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c4_r5"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-unconnected-(MCU1-RST-Pad15)"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_28"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_43"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c9_r3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_57"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c2_r2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c7_r2"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_23"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_82"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_45"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-R3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_20"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c4_r4"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-R2"
+      },
+      {
+        "netclass": "Board_0-Default",
         "pattern": "Board_0-c2_r1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c7_r3"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_60"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_47"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c6_r5"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_21"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_17"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c7_r5"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-c3_r1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_68"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_18"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_50"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-mirror_c5_r1"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-TP_MOSI"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-LED_77"
+      },
+      {
+        "netclass": "Board_0-Default",
+        "pattern": "Board_0-unconnected-(LED84-DOUT-Pad4)"
       }
     ]
   },
