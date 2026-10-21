@@ -58,10 +58,25 @@ ${p.lcsc ? `    (property "LCSC" "${p.lcsc}"
       (effects (font (size 0.8 0.8) (thickness 0.15))${mirror})
     )
 
-    (fp_rect (start -1.8 -1.55) (end 1.8 1.55)
-      (stroke (width 0.12) (type solid)) (fill none) (layer "Edge.Cuts"))
+    ${'' /* LED window 3.6 x 3.1 with corner reliefs: JLC mills inner corners with a
+      1 mm cutter (R0.5), which would leave the body (3.2 x 2.8) only 0.04 mm, and
+      a +0.1 mm body would not fit. Each corner is an r0.5 arc (centre 1.3, 1.2),
+      tangent to the side edge, bulging 0.11 mm past the end edge: millable as
+      drawn, body corner margin 0.14 mm (0.07 at +0.1 mm), pads stay 0.2 mm off,
+      and the bump is small enough to keep tracks 0.5 mm away. */}
+    ${(() => {
+      const e = '(stroke (width 0.12) (type solid)) (layer "Edge.Cuts")'
+      const line = (a, b) => `(fp_line (start ${a}) (end ${b}) ${e})`
+      const arc = (a, m, b) => `(fp_arc (start ${a}) (mid ${m}) (end ${b}) ${e})`
+      return [
+        line('-0.9429 -1.55', '0.9429 -1.55'), arc('0.9429 -1.55', '1.489 -1.6629', '1.8 -1.2'),
+        line('1.8 -1.2', '1.8 1.2'), arc('1.8 1.2', '1.489 1.6629', '0.9429 1.55'),
+        line('0.9429 1.55', '-0.9429 1.55'), arc('-0.9429 1.55', '-1.489 1.6629', '-1.8 1.2'),
+        line('-1.8 1.2', '-1.8 -1.2'), arc('-1.8 -1.2', '-1.489 -1.6629', '-0.9429 -1.55'),
+      ].join('\n    ')
+    })()}
 
-    (fp_rect (start ${x(-3.65)} -1.65) (end ${x(3.65)} 1.65)
+    (fp_rect (start ${x(-3.65)} -1.75) (end ${x(3.65)} 1.75)
       (stroke (width 0.05) (type solid)) (fill none) (layer "${S}.CrtYd"))
     (fp_rect (start ${x(-1.6)} -1.4) (end ${x(1.6)} 1.4)
       (stroke (width 0.1) (type solid)) (fill none) (layer "${S}.Fab"))

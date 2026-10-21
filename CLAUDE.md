@@ -78,6 +78,12 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
 - Not assembled (excluded from BOM and position files): the Helios, the OLED module
   (hand-mounted on header pins) and `mech_model` (trackpad).
 - All assembled parts sit on the back side, so it's a one-sided assembly job.
+- **LED windows** (SK6812MINI-E, 3.6 × 3.1 mm): JLC mills inner corners at R0.5, which
+  left the body (3.2 × 2.8) 0.04 mm, and a +0.1 mm body would not fit (others hit this,
+  see Deskthority; ebastler's footprint uses reliefs too). Each corner is an r0.5 relief
+  arc (centre ±1.3, ±1.2) tangent to the side edge, 0.11 mm past the end edges; the
+  courtyard (y ±1.75) encloses it. Copper may come to 0.4 mm of the window (DRC rule
+  "LED window relief clearance", panel copy by courtyard in `panel.sh`).
 - **Track widths** are DRC rules in `keyboard.kicad_dru` (copied into each project's
   `.kicad_dru` and, by `panel.sh`, into the panel's): min (DRC error below it) / opt
   (the router's default width): signals 0.2 / 0.25 mm, `VCC` (5 V, LED chain) 0.3 /

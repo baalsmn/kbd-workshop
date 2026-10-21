@@ -2,6 +2,11 @@
 # SK6812MINI-E reverse-mount LEDs: the ceoloide footprint puts its pads
 # 0.2-0.4 mm from the light cutout. Allow 0.2 mm (JLCPCB routed-edge minimum) inside LED footprints only;
 # the normal 0.5 mm edge clearance still applies everywhere else.
+# LED window corner reliefs (r0.5 arcs for JLC's 1 mm cutter, 0.11 mm past the window
+# ends): copper near them may come to 0.4 mm. Before the pad rule, which wins for LED pads.
+(rule "LED window relief clearance"
+  (constraint edge_clearance (min 0.4mm))
+  (condition "B.memberOfFootprint('LED*') && B.Layer == 'Edge.Cuts'"))
 (rule "LED cutout clearance"
   (constraint edge_clearance (min 0.2mm))
   (condition "A.memberOfFootprint('LED*') && B.memberOfFootprint('LED*')"))

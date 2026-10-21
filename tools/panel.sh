@@ -39,6 +39,10 @@ cat > "${OUT%.kicad_pcb}.kicad_dru" <<'EOF'
 # Panel copy of the design rule: 0.2 mm (JLCPCB routed-edge minimum) between the
 # SK6812MINI-E pads and their light cutout. KiKit moves footprint cutouts into the
 # board outline, so the cutout is matched as an Edge.Cuts item inside the LED courtyard.
+# Any copper near the window's corner reliefs: 0.4 mm (the design's relief rule).
+(rule "LED window relief clearance (panel)"
+  (constraint edge_clearance (min 0.4mm))
+  (condition "B.Layer == 'Edge.Cuts' && B.intersectsCourtyard('LED*')"))
 (rule "LED cutout clearance (panel)"
   (constraint edge_clearance (min 0.2mm))
   (condition "A.memberOfFootprint('LED*') && B.Layer == 'Edge.Cuts' && B.intersectsCourtyard('LED*')"))

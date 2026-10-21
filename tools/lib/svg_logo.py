@@ -8,6 +8,9 @@
 # Usage:
 #   python tools/lib/svg_logo.py <art.svg> <height mm> <out.kicad_mod> [--layer F.SilkS]
 #   [--samples 16] (points per curve)
+#   [--thicken 0.03 --small 0.15 --below 0.8]: grow the small shapes (height under --small of
+#   the logo, centre in its lowest 1 - --below part, e.g. a line of fine text) by --thicken mm
+#   on every side, so their strokes stay above the silkscreen minimum
 import sys, argparse, re, math, uuid
 from shapely.geometry import Polygon
 sys.path.insert(0, __import__('os').path.dirname(__file__))
@@ -16,6 +19,8 @@ from svg_outline import path_points
 ap = argparse.ArgumentParser()
 ap.add_argument('svg'); ap.add_argument('height', type=float); ap.add_argument('out')
 ap.add_argument('--layer', default='F.SilkS'); ap.add_argument('--samples', type=int, default=16)
+ap.add_argument('--thicken', type=float, default=0.0); ap.add_argument('--small', type=float, default=0.15)
+ap.add_argument('--below', type=float, default=0.8)
 A = ap.parse_args()
 svg = open(A.svg, encoding='utf-8').read()
 ds = re.findall(r'\sd="([^"]+)"', svg)
@@ -35,6 +40,23 @@ for i, p in enumerate(polys):
 x0 = min(s.bounds[0] for s in shapes); x1 = max(s.bounds[2] for s in shapes)
 y0 = min(s.bounds[1] for s in shapes); y1 = max(s.bounds[3] for s in shapes)
 k = A.height / (y1 - y0); cx = (x0 + x1) / 2
+if A.thicken:
+    from shapely.ops import unary_union
+    from shapely.geometry import Polygon as _P
+    grown = [i for i, sh in enumerate(shapes)
+             if (sh.bounds[3] - sh.bounds[1]) < A.small * (y1 - y0) and (sh.bounds[1] + sh.bounds[3]) / 2 > y0 + A.below * (y1 - y0)]
+    orig = {i: shapes[i] for i in grown}
+    gap = 0.1 / k                                   # keep 0.1 mm between neighbouring letters
+    for i in grown:
+        g = orig[i].buffer(A.thicken / k, join_style=2, mitre_limit=2.0)
+        for part in getattr(orig[i], 'geoms', [orig[i]]):     # counters keep their original size
+            for h in part.interiors: g = g.difference(_P(h))
+        others = unary_union([orig[j] for j in grown if j != i])
+        # trim against the neighbours' grown size so the final gap is >= 0.1 mm wherever the
+        # artwork had that much; the letter's own original outline is always kept
+        if not others.is_empty: g = g.difference(others.buffer(gap + A.thicken / k, join_style=2, mitre_limit=2.0)).union(orig[i])
+        shapes[i] = g
+    print('thickened %d small shape(s) by %.3f mm per side' % (len(grown), A.thicken))
 T = lambda x, y: (round((x - cx) * k, 4), round((y - y0) * k, 4))     # origin: top centre, mm
 def keyhole(poly):
     """outline with its holes joined by zero-width slits, as one point list."""

@@ -62,6 +62,7 @@
     },
     "post": {
         "millradius": "0.5mm",
-        "origin": "tl"
+        "origin": "tl",
+        "refillzones": true
     }
 }
