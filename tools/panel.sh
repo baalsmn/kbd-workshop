@@ -50,6 +50,19 @@ EOF
 # plus the design's track width rules (they match net names by their end, so the
 # panel's "Board_0-<name>" nets are covered)
 sed -n '/^# Track widths/,$p' "$KB/kicad/$NAME.kicad_dru" | sed '1s/^/\n/' >> "${OUT%.kicad_pcb}.kicad_dru"
-"$KBIN/kicad-cli.exe" pcb drc "$OUT" -o "$P/out/panel_drc.rpt" >/dev/null || true
+# KiKit's fiducials (KIKIT_FID_*) are footprints with no BOM / position exclusion, so the
+# Fabrication Toolkit lists them in the position file and JLC warns that they are missing
+# from the BOM: mark them excluded (bare copper, nothing to place)
+"$KBIN/python.exe" - "$OUT" <<'PYEOF' 2>&1 | grep -v "image handler"
+import sys, pcbnew
+b = pcbnew.LoadBoard(sys.argv[1]); n = 0
+for fp in b.Footprints():
+    if fp.GetReference().upper().startswith('KIKIT_'):
+        fp.SetExcludedFromPosFiles(True); fp.SetExcludedFromBOM(True); n += 1
+pcbnew.SaveBoard(sys.argv[1], b); print('excluded %d KiKit footprint(s) from BOM / position files' % n)
+PYEOF
+# refill and save: KiKit fills the pours before it reconstructs the outline arcs
+# (reconstructarcs), so its fill can sit a few µm too close to the new arcs
+"$KBIN/kicad-cli.exe" pcb drc --refill-zones --save-board "$OUT" -o "$P/out/panel_drc.rpt" >/dev/null || true
 grep -E "^\*\* Found" "$P/out/panel_drc.rpt"
 echo "wrote ${OUT#$P/}"

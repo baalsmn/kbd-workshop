@@ -63,6 +63,7 @@
     "post": {
         "millradius": "0.5mm",
         "origin": "tl",
-        "refillzones": true
+        "refillzones": true,
+        "reconstructarcs": true
     }
 }
