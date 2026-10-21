@@ -15,7 +15,24 @@ Stocked on 2026-10-19, no pre-order needed: SK6812MINI-E LED (C5149201, ~155k in
 (C81598), all basic parts.
 
 Not assembled by JLC: the 0xCB Helios, the OLED module (hand-mounted on header pins) and
-the Cirque trackpad.
+the Cirque trackpad. On hachigo74 also the hot-swap sockets (user's decision, 2026-10-21:
+JLC could not supply them): the switch footprints are excluded from the BOM and position
+files in the KiCad project, so solder the 74 sockets by hand. kugo82 still lists them
+for assembly.
+
+## Hot-swap sockets, bought separately (hachigo74: 74, plus spares)
+
+**Gateron part no. KS-2P02B01-02**: the low-profile hot-swap socket for KS-27 / KS-33
+switches (3-pin, the two 3.0 mm pin holes 7.00 mm apart, as in our footprint).
+
+- From Gateron directly: [gateron.com](https://www.gateron.com/products/gateron-hot-swap-pcb-socket)
+  lists "GATERON Low Profile switch Hot-swap" and "GATERON Upgrade Low Profile Switch
+  Hot-swap PCB 2.0 Socket". The store pages don't show part numbers (checked
+  2026-10-21), so confirm with Gateron that the one you order is KS-2P02B01-02, not the
+  MX-style "Hot-swap PCB 2.0 Socket".
+- Other sources: LCSC C18212911 (same part, pre-order), or resellers such as
+  [beekeeb](https://shop.beekeeb.com/products/gateron-low-profile-hotswap-socket-compatible-with-gateron-ks-27-switches-5pcs)
+  (packs of 5).
 
 ## Trackpad flat cable (FFC), from LCSC
 

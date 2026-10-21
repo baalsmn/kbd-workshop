@@ -100,6 +100,11 @@ ${p.lcsc ? `    (property "LCSC" "${p.lcsc}"
       (effects (font (size 0.8 0.8) (thickness 0.15)))
     )
 
+    ${'' /* socket body outline (KS-2P02B01-02 drawing, as in make_models.py): 11.85 x 5.39;
+      the north edge (y 2.53) crosses the 5.25 centre hole, so it has a gap there (x +-1.3) */}
+    ${[[-6.82, 2.53, -1.3, 2.53], [1.3, 2.53, 5.03, 2.53], [5.03, 2.53, 5.03, 7.92],
+       [5.03, 7.92, -6.82, 7.92], [-6.82, 7.92, -6.82, 2.53]].map(([a, b, c, d]) =>
+      `(fp_line (start ${x(a)} ${b}) (end ${x(c)} ${d}) (stroke (width 0.12) (type solid)) (layer "${L}.SilkS"))`).join('\n    ')}
     (fp_rect (start -7 -7) (end 7 7)
       (stroke (width 0.15) (type solid)) (fill none) (layer "Dwgs.User"))
     (fp_rect (start ${-half} -9.525) (end ${half} 9.525)

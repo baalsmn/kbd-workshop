@@ -2035,6 +2035,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "a13b7b94-b8b2-4721-beb3-fc0a5886fcb3")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "6e0b8ad8-6134-4c2c-8f7b-6c1f254f4e56")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "b5e939b4-c209-46ec-aad3-5abb83506cd5")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "8ece8094-d364-4ced-803b-c9e963351fa1")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "eb081300-d8e4-468d-b76f-f48e0604bc7e")
+		)
 		(fp_poly
 			(pts
 				(xy -11.90625 -9.525) (xy 11.90625 -9.525) (xy 11.90625 9.525) (xy -11.90625 9.525)
@@ -2419,6 +2469,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "2f837bc4-a842-43a4-b62a-c8182419b222")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "b6f79f05-c618-47f3-9f37-2613a004aad3")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ef785139-0471-44f5-80a7-580f3969c1d1")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "2ed42a77-19f3-40b8-9bc4-f27f5e6080de")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "efd304f9-7a48-4ac0-8236-5b11b8a3ccb3")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -3079,6 +3179,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "0a0348aa-0ceb-4236-98eb-8b6f22ce45d7")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "bbaef61b-3b7e-4cd8-af09-538b6f32d32c")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "7efab5e1-2c90-487a-9e50-acb3ab957565")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "9a7a7de1-03d6-4120-88c5-b723915248c9")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "b7a026fd-1904-4d2c-84cc-bda8abe91cb2")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -3983,6 +4133,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "bafdb38c-c632-44ef-9980-ec3fa7cf7b9e")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "727c9a4a-4c1e-4dfc-a1b1-0c3376903868")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "4de22020-324d-46da-84b7-f91037e2fabf")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "e9ea30c0-ebaa-4782-8086-951299dca5ed")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "bfe6dd05-d497-471f-8bef-f46ce869f294")
+		)
 		(fp_poly
 			(pts
 				(xy -11.90625 -9.525) (xy 11.90625 -9.525) (xy 11.90625 9.525) (xy -11.90625 9.525)
@@ -4627,6 +4827,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ffd56341-cb9c-43a2-b660-0a8e96ff92b8")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ebea7c85-d3be-45c0-b090-3aeb6839048c")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "1542bf8e-48c0-4c88-9f71-e779a06eb5c9")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "41a07f36-fcb5-45c2-9e74-898a79a8e922")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "b6a2985e-bbe3-47b4-8e48-29effa0713a9")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -6413,6 +6663,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "0a44b64d-edff-414b-9a71-fa6f2dfb5c7f")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "0f534004-5e84-42d5-a13e-aea4089544b3")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "21bc661c-ab01-40b5-9ba1-592c1cf6bc86")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "20e35c53-14f1-40a4-9d30-0107265f6b34")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "7d153b8f-14cb-41d5-bdc1-414e677ecda8")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -6573,6 +6873,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "b50bbb60-dccb-4b52-ac17-940c3a9c6f34")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "041086c0-6f56-48c6-b0ee-5e1355724554")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "53c666d2-1dca-40d6-9b95-ce9fe277d583")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "b4272c55-87bf-45c2-89ed-84c9a4c5442e")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "d5d571ac-41e7-4d4e-a29c-35ce0c8a65f0")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -7595,6 +7945,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "91e54378-ddbe-4fde-ab6f-603f2b2bb1e4")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c8853a18-c750-478b-befc-4b3be2d00fc0")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "acdf8717-bacc-496b-86ed-d75bd34fce53")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "6a1efd26-d27a-45b0-a7ce-36a68e791c7a")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "52813a28-28f2-452b-98e3-8adad9df4b1d")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -7755,6 +8155,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "a9faeaab-aa4d-4c3b-b82d-f521eb26855c")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "a50d64b4-14a1-4bc2-bd09-ae2108717089")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "d801c260-9c7e-437a-bec7-f33ba3389dbd")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "5323443f-1f15-41a7-9c59-e911af02351d")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ea6e5f2a-3eb2-478b-a971-01a2b21bf20d")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -8537,6 +8987,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "9c082242-dbd9-478b-a494-913afab6df51")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ffd52687-e4f9-4015-8c7f-60727bfd4ce0")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "e20f5348-78be-442c-8ddf-e906d12c1ba7")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "92adb720-2a3f-4bb7-9640-e66bd2f00407")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "d28c7096-346a-4307-aea9-4df6db97c803")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -8697,6 +9197,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "39b69700-d924-4f1a-8c52-59f863cc4278")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "d5c664ac-5c91-448b-ad23-60329c9e75c9")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "d71df6b9-981f-4ded-8831-fd4c21d92ab4")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "7baeee28-562d-4919-86ca-8c55c724a568")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "f76d15e9-9fb4-4cf6-8753-5b98e9adb03a")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -9653,6 +10203,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ff9530b3-536f-464e-948e-3a75da12ba65")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "48230400-9a58-4214-8498-d6a2ba92e2cc")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "79fff9c4-ad93-47a2-8165-fecd23333268")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "7978ffc1-b8d7-434c-8a10-c6fd8330bf91")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ae39445b-3278-4b5d-84a8-78d6f50afeea")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -9813,6 +10413,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "0e9467fb-66f5-4b08-89db-53634e2d9b62")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "df713aec-48ca-4e4d-bbec-52e218bb60fc")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "6547628b-292c-409f-83a1-fa16d7b2dfc1")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "cda1e276-0d08-4b1b-8b4f-d41a1fa7f509")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "6fd8e90c-15a4-4f95-8ed1-35587a36290a")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -10753,6 +11403,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "25f6394d-dcad-4066-9cc8-f06d41ed73d7")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "73fcb441-5b8c-4f3b-b530-d3b2aae07661")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "baf6c3be-e36c-4b1c-9006-193f6914170c")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3e626fb7-b816-495f-add3-1730baa189b4")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "54d2374c-56f4-43ab-8bb8-63eb94bcb38f")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -11897,6 +12597,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "0aabeed9-fd3d-4a47-9055-3e7a20b2f583")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "dc55a082-5193-427e-9c67-eae8c1ce77b9")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "0b7cf2bc-16e4-4e67-b167-20e0659587b2")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "8cced2dd-720f-4be4-b95b-f0e2765a4710")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "793ab6a4-1080-4c60-b2c3-7299b1f2500b")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -12281,6 +13031,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3ae991f0-8497-416d-a545-8b2727d24cd0")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3f567028-4055-4662-ba44-e3025fb20413")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3ef762f6-db53-4988-a7a1-c063625b6181")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "51b7cc26-c278-4c22-9264-71ac0d8ca354")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "a2c56c07-2016-453f-a96a-f52c1a22733b")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -13287,6 +14087,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "b712363d-7fa1-48cb-8f14-78227bcd5926")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ab35c4b8-3205-4fdf-9b4b-304aa19cbc4a")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "6e35b96b-4908-4aa9-b24a-6caa8c1e1137")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "cefc4ca8-b447-4dd5-804e-3c1351e10450")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "9da0cb2e-d709-4d67-a009-32eee75989ae")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -15073,6 +15923,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "1680ab96-59a1-40f9-a099-a4b9f6d6d48f")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "2f3d2f9a-7fcd-457f-ae01-f750b5bcb558")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "a3ad2f6b-b9e1-42a9-bc4e-3c81c899c9d6")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "88dc385f-aaa0-44cd-b16c-1dec7c12b34c")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "b57e2f7b-59fd-4622-9dad-f4fd5d92426a")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -15993,6 +16893,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "f88c8703-27b3-4775-a08c-4d5f74a545b5")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "1011c3b2-89aa-49bc-9582-f15a1e6780d4")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "8aae83d0-1df1-4d4a-a507-ab6b9eb0a5cd")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "8f0bdc87-70f3-4556-ac1d-64670f7d9599")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "4c71aaf7-595e-442f-80e9-8d4a7221207c")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -16377,6 +17327,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c19a7927-1dd8-4e72-9405-121561cdd733")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "9da60476-67ba-4a7a-8f05-481619d8f96c")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "fc104a69-3d2c-4943-b674-eb8c219f0d43")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ba37b487-671d-4d5a-9b8e-17f6c5855500")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "2868a9a0-8b08-425a-a90f-da85a9c11075")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -16537,6 +17537,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "0d9e62e3-32d2-4cec-8569-4307cf7f8332")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "85060d03-f1cd-4b63-bf17-912a7ece348e")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "db4bc761-fb2e-44fe-adfe-16aba2c04a19")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "5607f163-fc52-4009-9367-b002b4e1d993")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "5601cafe-e815-46ba-bdc1-1a55418d575c")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -17819,6 +18869,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "b0a22146-af07-4d2d-b945-2ce968bfa15f")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "1242bbea-1418-4eec-8e6b-57f9f4bdb66d")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "415b28ec-c407-4c86-bffb-8f78337c3de5")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "07b8009b-5da8-46a9-b57a-ade6f8fc2803")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "419a8b66-2754-48d0-ae28-9843d0394828")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -18963,6 +20063,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "4c4043ed-53c1-4f28-9cba-3f18d5476981")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "92c58293-1f29-47ea-b6a5-c2fbb53897aa")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "8ffcff6d-d3c7-4ad1-bc13-610b9d9104ab")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "cf1fe58f-e4a0-4e0e-8b8b-59afbaa834ab")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "45c790d5-8857-468f-bb1d-1acb86eec949")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -19485,6 +20635,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "2403c7d5-db34-4bc4-87e1-bd8f52f594b5")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "021942ed-b146-47ae-ad49-1e78ecaaa66b")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "62c03d55-1b8b-4117-a7c0-2e5419b1bf5c")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "e72560c2-22cf-4957-b7f5-7c8f71aa8bd8")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "1769a912-0c6a-4593-b972-8239aa654b29")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -20283,6 +21483,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "f0240ec4-e2e2-4051-a6af-36eda8459d39")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "2f543de3-d987-41e1-8ff7-4e2dd1084236")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "43b56aaf-0db3-4e31-a546-7083d222fa39")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "b5a406b0-a7da-4b20-a72e-322c696aea23")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "a713d81b-2b4d-487a-ab33-0932b109f55b")
+		)
 		(fp_poly
 			(pts
 				(xy -11.90625 -9.525) (xy 11.90625 -9.525) (xy 11.90625 9.525) (xy -11.90625 9.525)
@@ -21305,6 +22555,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "24aa4410-bc54-414d-8ab7-9576b920dfff")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "f773a101-9877-4c2a-977b-61695ddca577")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "0795077d-57d5-4a5e-ba57-938ecb114067")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "a8c051ce-c6b8-4609-ae39-36661546fe33")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "41a311b2-b767-4bc2-af61-a8a8a00cde6c")
+		)
 		(fp_poly
 			(pts
 				(xy -11.90625 -9.525) (xy 11.90625 -9.525) (xy 11.90625 9.525) (xy -11.90625 9.525)
@@ -22051,6 +23351,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "54afea28-885f-470a-83f5-753292a884d8")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "284a19f4-1dba-4672-bffd-3e9bed82f026")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "d4e003e6-7209-4c1a-9023-e95998a3ae35")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "88a72367-fe43-4cab-bf96-504cea6ffcbf")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "97cf717d-4d3a-48e6-b843-0397689fedb8")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -22573,6 +23923,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "f3fea198-0ea8-435a-b23b-a1b4e1250d0e")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "645caea7-015d-4acc-aa31-81e9c55a6596")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "d7486baa-f280-4aa8-bbc8-74f58376ec7b")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "1c8f78a5-9107-4e55-aff2-9a781ead92c7")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "eb46b320-5535-45f1-8244-b38d1b763860")
+		)
 		(fp_poly
 			(pts
 				(xy -11.90625 -9.525) (xy 11.90625 -9.525) (xy 11.90625 9.525) (xy -11.90625 9.525)
@@ -24027,6 +25427,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "69b5507b-59e6-4268-9d75-37de2f37531e")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "7a0501ef-b349-42d8-bdcb-abb81f7600f2")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "a1523daf-9c6d-4408-9806-440a5757a4b0")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "69736b23-85a5-4bcd-94ea-60f1c3722a3f")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3be2c5b4-1687-46a8-acfc-f81d7a4cc788")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -24707,6 +26157,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "e2e5b604-4250-4290-bc4d-a40a83836038")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "704c5b22-b61f-4db1-bddc-8f239af3f10a")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "39594362-7163-4191-9d14-0090e8118ace")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "dd4d94ad-8061-4e3f-b18e-31cbcd9009b8")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "957be345-8878-4b44-a3af-b14c892c19ac")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -25127,6 +26627,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "56c96c11-4752-490c-b439-22524f3ccd43")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "bb806ab4-d36e-48b7-bddf-af519444fbf8")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "e184e54b-d67a-4a6e-a9a6-ad57f3202517")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "273f7e21-e816-4986-bee5-2ebd0edab971")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "4c94adc4-79ba-4b2a-a4e9-527d995146fc")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -25807,6 +27357,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "5e0c5158-2c42-4fb2-89e1-42db7fa01070")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "62772846-37e5-4f30-b6f8-9cd8b80c2015")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "fc832715-540d-4b98-a409-8876c056227a")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ddf23875-c016-4147-855d-a12f0322fa87")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "69dafecf-ff44-413e-851f-19a8382ab2c5")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -25967,6 +27567,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "94f4b72b-ecd6-4ce9-bfd4-e249f9f95e42")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "1890c043-6eb1-48ce-a061-9279bb4102dc")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "676a0d02-2172-47ce-9ecd-21a234df623b")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "af210dcc-8ecd-4a80-9aba-dc67e450e1bf")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "30f13888-1344-4736-9fb9-3e797090164d")
+		)
 		(fp_poly
 			(pts
 				(xy -19.05 -9.525) (xy 19.05 -9.525) (xy 19.05 9.525) (xy -19.05 9.525)
@@ -26524,6 +28174,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3675a142-372a-4714-82a3-36b474e736e9")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "958540c6-5f8a-48d1-a1b9-0342a0a4884c")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "9e9d90c2-7f4a-4179-b03a-42f486776a70")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3c666b6b-529b-4e91-b959-1341a28ce738")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "4820c050-b085-496c-a756-4f63e30ca90a")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -26684,6 +28384,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ae30b5cb-b73a-4791-90ea-cab139933fd1")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "13480365-b5df-45a6-a8c4-e115c2cf68b3")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "030cbf8e-7044-4972-ab95-3a2e0a76f410")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "72aeb862-f340-469f-a87c-f6737b80fcd1")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "53a7093b-f092-4240-afeb-f314bf6fdbe5")
+		)
 		(fp_poly
 			(pts
 				(xy -11.90625 -9.525) (xy 11.90625 -9.525) (xy 11.90625 9.525) (xy -11.90625 9.525)
@@ -27104,6 +28854,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.920001)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "554fc8b8-4f63-4c56-a975-490ac2762777")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "54d986aa-2d65-461a-bc46-479218c764e3")
+		)
+		(fp_line
+			(start 5.030001 7.920001)
+			(end -6.82 7.920001)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "cc8c5884-06ac-45c8-90f3-8c918ee37174")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "e260f8bd-8219-4c9b-9e8c-be242f092257")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.920001)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "b074b07e-7fa9-4999-9a1a-ebec93aa0aaa")
+		)
 		(fp_poly
 			(pts
 				(xy -11.90625 -9.525) (xy 11.906249 -9.525) (xy 11.90625 9.525) (xy -11.906249 9.525)
@@ -27662,6 +29462,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "9e782e52-57be-4621-a7c9-ef1f39785860")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "9cf5927f-ca6e-4274-b844-e189f15edcab")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "2250bf8b-2fa0-495f-943f-e6ca0c4e3cb0")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "947ad330-389a-46fd-84e3-a71540357ea2")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "111170f3-2e52-4d0e-9143-a486aa587590")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -31018,6 +32868,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "55f3d63d-0728-4890-9203-141e6c620981")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "a6ed813a-f9a2-48c1-9ffa-66967633c0ba")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "2accfee4-e420-460d-bb3b-7b4e4ff81153")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c05cacdd-ca49-4591-b05f-233cf82e2162")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ee00e446-9f73-4f77-9145-a1548b8dd0dd")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -31316,6 +33216,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "706f750f-e66c-4903-9904-6a5544c7aa37")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "00c66ad3-7e3c-4c0e-8477-ed1dd781e8a8")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "89023ae4-fb0a-4de2-82ed-666c8f17c94c")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "b3b62099-8441-4b4d-ae42-70058752a7ec")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "69d18e51-b4cb-4f54-aade-7dc2706a5527")
+		)
 		(fp_poly
 			(pts
 				(xy -11.90625 -9.525) (xy 11.90625 -9.525) (xy 11.90625 9.525) (xy -11.90625 9.525)
@@ -32272,6 +34222,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "520f1858-6c17-4f9a-a64f-5f7414b8dcaf")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "42ab176b-3d6b-40a5-8cb7-a7c5bb55a975")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ffcd1e0a-a779-4bdc-aaf6-5780470d1c1d")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "5d5d90fc-cc27-4109-9c82-3146b2ba248a")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "1fb9bca0-9c13-4340-9e2e-3bc737d99fbc")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -32692,6 +34692,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "f0c18a54-16a0-49a0-95f5-68ec1c979db7")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "6f2dbe37-56d9-4cd2-bd49-6a6af86467b7")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "2ef5fa32-709f-46bb-8080-899410771257")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "80ba16f1-85c9-4b7b-8b2e-56bcadde7dad")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c6041f57-6cd6-4317-abf2-3ec7c843181d")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -33784,6 +35834,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "42fb4f63-3ced-4031-9a0e-47f68870031d")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "51c69f54-659d-44a7-bcb3-f020d7185888")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "f22d7235-2f0f-495c-8bfa-a58a03946fa1")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3d8b9ddb-80a6-404f-8e8e-0c366b370f48")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "12ec7bef-c765-4605-8b94-affcd82ca5b6")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -33944,6 +36044,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "408137b2-de03-43f1-9ed0-9a5ad170bdaf")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "5680b594-5b9d-4585-97af-fe1c598c8446")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ac86cf7c-8c3b-4922-963c-99b92a51a0d1")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c729f146-da98-428b-833b-d356c56c94e9")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "484f2bdb-8fd0-4622-9d66-ea4bf63f0373")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -34466,6 +36616,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "716f3145-c8d8-494b-9f1d-ecf6440e4477")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "f44f262a-0a29-4e6d-a831-530972f9651d")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "1db9000e-8cad-4aa7-9733-9760e77e24a9")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3d2c5783-ad4f-4b67-a886-d59008b25c5a")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "dc6c6026-d1ae-425d-b428-29a33533c951")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -34626,6 +36826,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ced37bc3-f0c6-4d41-97b8-7c319207f286")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "f0b4cc3e-cfd1-4a7c-b84d-bdb62c74a37d")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "a7470f90-d0d8-41a7-9939-66ba57d6327f")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c627cec4-b558-45de-a21e-b447b1d4b8e0")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c87f34c1-8ad5-4f9f-8924-82274d906748")
+		)
 		(fp_poly
 			(pts
 				(xy -11.90625 -9.525) (xy 11.90625 -9.525) (xy 11.90625 9.525) (xy -11.90625 9.525)
@@ -35270,6 +37520,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ca3cf01a-8603-4c0d-ad2e-5ae41be4f5d5")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "382d9eb3-0957-4761-a4da-8ff591499668")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "396950d2-9a07-442c-9d90-e0bb6513b719")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "68c67846-f71e-44d5-af2a-8b6e0ef5d700")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "1af831a6-d3a5-4fdf-9658-b05808c147ec")
+		)
 		(fp_poly
 			(pts
 				(xy -19.05 -9.525) (xy 19.05 -9.525) (xy 19.05 9.525) (xy -19.05 9.525)
@@ -36347,6 +38647,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "54d0bec0-323d-40a8-b854-cad7ee9d88c2")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "645d652b-25e6-4c09-8cf0-df08af44b5eb")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "1c2c0753-707e-44bd-8b0f-bb0c5545ebbc")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "e053cc12-7e5a-40c6-be2d-8a8db2e95b52")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "0deacc25-41ba-4af0-87be-c81ca8392233")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -36869,6 +39219,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "cbd429c5-958b-4aae-9852-311fb3d2433f")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "7d15bd52-342d-4da9-a52c-487f376b1dd2")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "503a0d47-972a-4e12-a4e2-856be59dc018")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "eb53e405-9ee4-498a-bf8d-d0d07c2dbeda")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "28faf042-66dd-4196-913d-e609d8ec7fc4")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -38065,6 +40465,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "8f4737cc-1faa-4033-a7c9-fcaeee48bbcc")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "105bfc18-5f4d-4e94-bf7a-dfa0a52e3e80")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "27ac195c-1a60-4936-acb2-98dc2e44e9ee")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "a803f5ab-b156-413d-8393-bbaa3686dc33")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "50f5d952-5fe1-432e-91a6-0bb8475bb40f")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -38949,6 +41399,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3e5e806a-a176-43f6-a88d-5ab5753efcfc")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "8fe05287-16e2-4492-8394-66ae63e0c21b")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "7ca03784-fe85-41fb-ae16-cecc81b5e6f3")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "1500bdb4-ddef-4444-986c-35e88d3eda30")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "04cf6a4d-b326-4e68-b014-c6c3edb616a7")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -39471,6 +41971,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "0da02193-2c32-45fa-aa71-40daeb21d87b")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "61fabe14-2896-4d54-9045-a11722f851d8")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "00b7a24e-c644-4c47-832d-f53a6e70dee1")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "94170528-5d53-4b3e-bfed-7d68fd6c120c")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "545419f0-250a-42ac-b98c-1891bb4fa4d4")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -39631,6 +42181,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "f04e06a6-75a7-4482-a305-4a6059aebb91")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3e95d3a9-2043-400e-8186-946b921ad13b")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "d1d755ba-0bda-41a4-ada9-c3bd3addbdf3")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "d54b01ad-07d5-4645-882f-46e5f5fde7d9")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "84a26f69-76c7-4c30-b836-11ce6dd75ed5")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -40051,6 +42651,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "2a95f545-2107-4f67-a906-ae306176bedc")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "d769d664-9258-4eeb-ae58-f9c21d356766")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "60cff681-705d-4f96-ac4f-5f050d245c8b")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3f451d1c-8ee8-4506-89e5-db800dbc265d")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "6a460749-86c3-496b-8e0a-1a47c276fee0")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -41975,6 +44625,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3cdcfe44-b899-4484-b06a-506041057979")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "68efb9e4-470e-4800-9a1a-7fbcb11acc3b")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "bb6ffdcd-09e6-4efc-9277-519cf00ece91")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "f863bfec-a78b-409f-b272-b6c8582372a5")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "2ed9587c-5e05-475d-86c1-d8374ef85417")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -42135,6 +44835,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "f5ca5c60-09ec-490d-a70a-55cd63eaadd9")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "469f5275-e2db-4e32-bce5-53f9f5114949")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "d8c2faaf-53d2-4b23-a313-1827e1210ec8")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "f08aa62e-0e67-417d-a28d-978e7655947b")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3a142f82-d5f8-4a37-851f-d7fcfbe96590")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -42433,6 +45183,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c1e542e8-d32b-459a-a93f-4136d7ed88b0")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3c646976-e838-4530-be0f-a91eb22fda1e")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c568b795-7c89-407a-a23c-663a8ebd4856")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "e5358db3-d27a-4f9f-b01b-acc8d04436b3")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "4de6c5eb-046b-47d7-b9e6-23a8d83d9bdc")
+		)
 		(fp_poly
 			(pts
 				(xy -11.90625 -9.525) (xy 11.90625 -9.525) (xy 11.90625 9.525) (xy -11.90625 9.525)
@@ -42593,6 +45393,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "e44dbc84-41b4-4d1c-81da-d6ab96636993")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ac3d61bd-db95-44da-9627-cd56db42fae8")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "12a0d3d6-61a9-4423-af14-e39def1e697b")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "6af9c46d-8cbf-4409-8faa-ff33773cc488")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "8c1f7a06-28ee-4f10-a082-aa326fa5bb54")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -42753,6 +45603,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "4c38c661-f6ca-421e-a02b-f30276f5fb45")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "40298c4e-27a6-4f5f-9b4f-59794f099960")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "0d335f95-3146-4036-af63-6691bfb19ff4")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "eea1fee4-ae58-41fa-bf3e-0e34dc24a319")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "8e250595-2a02-4bd1-a346-18a6d149bbcd")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -43189,6 +46089,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "34137842-e849-4029-b235-adf3e48fde79")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c4062aaa-99b5-4135-bdc9-f361264ffcd5")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3bcfc417-4485-4c75-8fce-f3ed00609d17")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "21020873-5b60-4daf-9fd0-dfe5cc28d166")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "66389281-7750-4258-b5c4-abc528a34e79")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -44455,6 +47405,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "14ed472c-38c9-444d-bd3c-522e88081247")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "6be4cfd7-fa87-41d9-a427-8ab40aaa0bc2")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "9cbd80a3-2e58-40ed-b705-4f6cfa4cae86")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "b0fe05c0-d55e-45f9-b78e-acd52e575a74")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c7465fa6-e4f1-41bb-ad33-f649936dc1ad")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -49127,6 +52127,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "8018dbe7-af79-45e5-9509-0282038ce8cf")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "560d03aa-aac5-44b8-8a43-34f20fdffbc1")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "cf45db9e-2627-46a9-9109-2d5be24d86d2")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "6db13419-832d-420a-9d6e-8b961ed2c4d4")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "9ba6c29d-0f6b-488e-b137-79dc58017db0")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -49287,6 +52337,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "fd7c19d7-ecb3-404c-b788-0c952956ae83")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "a40ab772-8fb5-449a-bd9b-601940075052")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "19e78694-f636-4f5d-a58b-840f98886058")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "4d6d7388-f5b9-429c-a5a2-3245c057bdd1")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "4dad0750-a406-49b6-83f7-0e585e120e90")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -50069,6 +53169,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "61a7ac7f-d4d1-4733-a519-ac8c74131dc8")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "e72e3f80-0677-40d9-b361-208fb9330d5b")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "32e5a30f-c2f5-4e4d-b18c-ffeb2fa71039")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "02af38d2-a321-47df-b169-af0ab81afa9f")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c8d1bcab-b548-4751-a96c-7c02c2a75c84")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -53294,6 +56444,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "b08e8f98-57c5-4be8-8d9a-286bdf66a66b")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3e0e09b9-adf5-48dd-b66b-87e4a014ffe3")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "411330a5-0631-4329-9016-05bf1109d004")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "d8c62873-5989-4393-9b5f-8e3cd5a85ecb")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "38ab1b51-cd75-400e-b8f3-b33c7a5d74ed")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -53592,6 +56792,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "a87083f8-441b-4111-af96-3cae2a8c41c5")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "d94f9bee-f6ae-477a-a248-0bc5f9777414")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "7992479c-b11b-4915-8c36-5261843f4ff7")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "e2367435-4fab-4fc8-be17-e6b5f1b14ce9")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "971d65bb-8416-413c-85af-74c7310b3c15")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -53752,6 +57002,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "11b4fe10-faa3-4cdb-a60f-d7737cfb6b90")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "99825406-5236-410e-a044-251fddfbb378")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.030001 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3f107de0-cd83-4388-b1e8-db71296fb64f")
+		)
+		(fp_line
+			(start 5.030001 2.53)
+			(end 5.030001 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c14f4d05-a794-45e5-a135-768a9e81e7b5")
+		)
+		(fp_line
+			(start 5.030001 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "a04ac8e4-c3e4-4f36-be7a-c41d2aa9f19a")
+		)
 		(fp_poly
 			(pts
 				(xy -11.90625 -9.525) (xy 11.90625 -9.525) (xy 11.90625 9.525) (xy -11.90625 9.525)
@@ -54880,6 +58180,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "f64efc9a-64e8-414d-a225-72859d52a00b")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "2ac0442e-18c6-4ace-91e8-e6b4f8c282d2")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "d957fdd0-997e-40e8-a9d5-059aaad62de2")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ce11fa97-03f3-43e4-8427-66f9520728b3")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "02978371-52d5-4dd9-b1cf-3f96f4e26f2a")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -55784,6 +59134,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "17779aa9-22b3-49e0-bf9b-89da81869a93")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "7e53d420-17c4-44a8-8381-6ff1edfadad9")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "41737a86-17cc-4130-99cb-ed4d99c5d205")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "93915f6b-abcf-4919-b65b-b101a88857b4")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3bc342aa-4397-46e1-ac89-a02a70231a96")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -56464,6 +59864,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "aa1a7e2f-fa91-4a19-885f-0cf5c18d34f4")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "19739934-b634-42e6-af52-93322a5e38eb")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "337a41b9-26d9-4564-b9cf-2f7df21114b8")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "667b8f6e-1038-4cfa-802b-83830edbd1fa")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "4167238f-158d-4dec-a9e0-b69e1da56c6c")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -59176,6 +62626,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "45736a26-d062-488f-9af1-3f8574a10592")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "364ac4ca-c502-4276-b2aa-4aeb52417149")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "d33e34d0-61de-4349-9d62-8fffd6b24b5f")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c8e67029-4554-43fd-8432-2a4a739f1004")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "92cd8664-419c-4fd3-b9ab-254eee1ca59b")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -59474,6 +62974,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.820001 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "03ed33e5-0c66-4c2b-a518-ae96a5a832c8")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.820001 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3eba2095-72fe-4fb4-a816-36f243c4c39f")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "d9bcd3dd-961d-40ac-98c9-abf4ea126968")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ab9f3cde-3304-4302-85f5-01f158b5f292")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "617a0a86-1504-4312-8cb3-5587f113d615")
+		)
 		(fp_poly
 			(pts
 				(xy -11.906249 -9.525) (xy 11.90625 -9.525) (xy 11.906249 9.525) (xy -11.90625 9.525)
@@ -59634,6 +63184,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "db3a2af1-8b5c-4fe4-9daf-8f13481d2287")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c7fc34ee-9d88-45b2-a5a8-f8abdc2f376d")
+		)
+		(fp_line
+			(start 5.030001 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "9c6651f9-4814-438d-b0b6-f465f9ddc038")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.030001 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "38455e2d-aa41-4e6f-b882-a505ccf66f72")
+		)
+		(fp_line
+			(start 5.030001 2.53)
+			(end 5.030001 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "73e0ca59-30f2-481c-801b-489666545b2e")
+		)
 		(fp_poly
 			(pts
 				(xy -11.90625 -9.525) (xy 11.90625 -9.525) (xy 11.90625 9.525) (xy -11.90625 9.525)
@@ -60054,6 +63654,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ef0ba7e6-4100-44b6-addb-dba055b961b0")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "03f7421f-e6fe-413d-89c8-81d02720df3e")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "5821c27b-21c0-4707-a091-e68e2137ff63")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "f1f1895f-6aa2-4f7a-aadd-4911706ebada")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c1e5ca2b-a4d9-4667-9da3-b15086119f0a")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -61458,6 +65108,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "db80a769-4b36-4e8a-bcde-8fd4a4b7b379")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "64bfcf30-de97-4ee2-826d-0342e503a8c7")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "195a9091-f62e-4ea8-8272-f2db04380426")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "955b4937-8f5a-4c2a-a75e-5cac5ac88999")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "efcd4862-2f98-44dc-b757-95506c28dc4b")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -61618,6 +65318,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "7c01bbe8-c252-464c-ac3d-a29441378469")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "88686a7d-abe3-4256-91b4-4a1c92803613")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "245222fc-aa8e-4ce0-b62e-4226932a1f3d")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "e3f7a305-bb8e-44e9-9dfd-6d5ec6a1a643")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "69999ff6-db9f-424d-989b-c2c5c5a68ea8")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -62192,6 +65942,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "f6a50ae8-3b0a-43a8-bffc-6c0d1a539f4e")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c5237199-e5fd-4736-922a-3d94aadbf760")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c2127bfa-9934-4970-b5f2-d0458e65aa71")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "fef2d9b9-e0c3-4791-89ab-a4b35f4512cd")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "eddc60d2-4bbf-4409-a5b9-d375d3915b45")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -62352,6 +66152,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "ee2aeb98-dede-4240-a01d-689f964cfffe")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "22231f40-1fa5-4deb-adbc-9118cf1ca11d")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "8a3df625-29dd-4ddd-a527-302cc3e5edc9")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "628642cb-01da-4dd5-a872-a40a647e349a")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "eda09dc9-687e-44af-ac2b-38fa4f7bb72d")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -63460,6 +67310,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "cd9a1d3c-9339-4bdf-809e-7ed35d25ea8a")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c8d208aa-ffd3-42f0-95d2-e5e72409704e")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "b59757d4-a6dc-4fa9-8e27-4341e39dff28")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "90c4dc44-dbd0-4744-9d60-bbe4f76c8f7b")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "a08158f3-3276-4073-8ca2-ab363810dfb2")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -63880,6 +67780,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "0db50d76-191e-429f-bd4a-376e57cf7856")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "cf83b7c5-a4d1-4117-aabb-fe081ebaea41")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "7f698fef-49f4-477e-9002-7447614eab45")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "910cda93-399a-497c-9cda-b5386d7aec95")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "fadcc28a-d4c7-4f0f-b263-fcac0266aa2a")
+		)
 		(fp_poly
 			(pts
 				(xy -11.90625 -9.525) (xy 11.90625 -9.525) (xy 11.90625 9.525) (xy -11.90625 9.525)
@@ -64698,6 +68648,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "27161fb2-f13c-400e-ba48-7fb963c0303c")
+		)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "aea20de1-e4b4-4fcf-86d4-80ff3511e3f9")
+		)
+		(fp_line
+			(start 1.3 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "c447e7c6-2830-4612-adad-7f8286c7a731")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.03 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "1f18b37a-4171-4ff7-984c-fc9d09e464e4")
+		)
+		(fp_line
+			(start 5.03 7.92)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3f0cefa2-2ed7-434a-8925-ac7abc645952")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -66168,6 +70168,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "1e969978-5ae2-4654-834e-a608eed2c348")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "23862359-f04f-4104-9327-263d02dbc463")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "27944378-c936-44a4-8537-950aba0e5277")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "e1763d87-1cd1-408a-8768-5d3475b73a81")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "981cb063-2a6d-42bd-9da8-50d66422bb9f")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
@@ -66588,6 +70638,56 @@
 		(sheetfile "kugo82.kicad_sch")
 		(attr smd)
 		(duplicate_pad_numbers_are_jumpers no)
+		(fp_line
+			(start -6.82 7.92)
+			(end -6.82 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "865bd6af-04be-4a7b-9cb5-c6f4419131c7")
+		)
+		(fp_line
+			(start -6.82 2.53)
+			(end -1.3 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "3002ca71-a188-40ec-84b4-0fb272bc5d5f")
+		)
+		(fp_line
+			(start 1.300001 2.53)
+			(end 5.03 2.53)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "f77c2de3-9e2d-491d-8ef1-1d3489436de3")
+		)
+		(fp_line
+			(start 5.030001 7.919999)
+			(end -6.82 7.92)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "84929f6a-c568-4d3f-979b-49b4bacff949")
+		)
+		(fp_line
+			(start 5.03 2.53)
+			(end 5.030001 7.919999)
+			(stroke
+				(width 0.12)
+				(type default)
+			)
+			(layer "B.SilkS")
+			(uuid "6e31866d-7be8-49a7-9f7e-ccc7b4956903")
+		)
 		(fp_poly
 			(pts
 				(xy -9.525 -9.525) (xy 9.525 -9.525) (xy 9.525 9.525) (xy -9.525 9.525)
