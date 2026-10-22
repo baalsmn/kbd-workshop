@@ -83,6 +83,31 @@ Don't use the "Same Side" (A-type) cables listed next to them. Order a few spare
 - Upload the Gerbers, BOM and position file from the same (panel) board. Check the
   part rotations in JLC's placement preview: everything is on the back at 15° steps.
 
+## Orders
+
+### hachigo74, JLCPCB, invoice of 2026-10-23
+
+5 PCBs of `hachigo74_v1.0` (2 layers), 4 of them assembled by JLC (Standard PCBA,
+bottom side: SK6812MINI-E, 1N4148W, 100 nF / 10 µF, 330 Ω, Molex FFC connector). The
+hot-swap sockets, Helios, OLED and trackpad are not included (hand-soldered or bought
+separately). Shipped by DHL Express, DDP (duties paid at checkout).
+
+| Item | Qty | Unit (EUR) | Total (EUR) |
+|---|---|---|---|
+| 2-layer bare PCB (the 5th, unassembled board) | 1 | 5.95 | 5.95 |
+| Populated PCB (PCB + assembly + parts) | 4 | 24.72 | 98.89 |
+| **Merchandise total** | | | **104.84** |
+| Shipping (DHL Express, DDP) | | | 63.69 |
+| Discount (coupon) | | | −7.35 |
+| **Subtotal** | | | **161.18** |
+| Import taxes (VAT) | | | 51.11 |
+| Duty and tax disbursement fee | | | 7.35 |
+| Payment fee | | | 2.20 |
+| **Grand total** | | | **221.84** |
+
+About EUR 55 per assembled board, everything included. Shipping, import tax and fees
+came to EUR 124.35, more than the boards themselves (EUR 104.84).
+
 ## Sources
 
 - [LCSC FAQ: combine LCSC / JLCPCB orders](https://www.lcsc.com/zh-TW/faqs/ordering-quotation/combine-lcsc-jlcpcb-orders)

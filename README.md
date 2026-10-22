@@ -57,3 +57,11 @@ python tools/lib/kicad_project.py out/pcbs/hachigo74.kicad_pcb kicad-libraries h
 
 Needs: Node + `npm i -g ergogen@4.2.1`, KiCad 10, Python 3 (build123d installs itself
 on first `step.sh`).
+
+## Cost
+
+First hachigo74 order (JLCPCB, 2026-10-23): 5 PCBs, 4 of them assembled by JLC (LEDs,
+diodes, capacitors, resistor, FFC connector), delivered to Hungary by DHL Express with
+duties paid: **EUR 221.84 in total**, about EUR 55 per assembled board. Not included:
+the hand-soldered parts (hot-swap sockets, Helios, OLED), switches, keycaps, trackpad
+and case. Breakdown: [ordering/README.md](ordering/README.md#orders).
