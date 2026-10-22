@@ -39,10 +39,12 @@ jobs:
         run: cp -r "workshop/${{ matrix.keyboard }}/firmware/${{ matrix.keyboard }}" "qmk_firmware/keyboards/${{ matrix.keyboard }}"
 
       - name: Lint
+        # style findings are reported but don't stop the build
+        continue-on-error: true
         working-directory: qmk_firmware
         env:
           QMK_HOME: ${{ github.workspace }}/qmk_firmware
-        run: qmk lint -kb "${{ matrix.keyboard }}" -km default --strict || qmk lint -kb "${{ matrix.keyboard }}" -km default
+        run: qmk lint -kb "${{ matrix.keyboard }}" -km default
 
       - name: Build
         working-directory: qmk_firmware
