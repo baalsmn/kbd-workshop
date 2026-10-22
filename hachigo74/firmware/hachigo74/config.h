@@ -17,4 +17,7 @@
 // 76 LEDs at 37 mA full white = 2.8 A: brightness is capped in keyboard.json (40/255)
 // Indicator LEDs (chain index): off on layer 0, green on layer 1
 #define INDICATOR_LEDS {37, 38}
-#define INDICATOR_FN_RGB 0, 96, 0
+// (three separate values: the SET_COLOR macro counts its arguments before expanding them)
+#define INDICATOR_FN_R 0
+#define INDICATOR_FN_G 96
+#define INDICATOR_FN_B 0

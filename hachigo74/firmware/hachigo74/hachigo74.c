@@ -105,7 +105,7 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     bool fn = fn_active();
     for (uint8_t i = 0; i < sizeof(indicator_leds); i++) {
         if (fn) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(indicator_leds[i], INDICATOR_FN_RGB);
+            RGB_MATRIX_INDICATOR_SET_COLOR(indicator_leds[i], INDICATOR_FN_R, INDICATOR_FN_G, INDICATOR_FN_B);
         } else {
             RGB_MATRIX_INDICATOR_SET_COLOR(indicator_leds[i], 0, 0, 0);
         }
