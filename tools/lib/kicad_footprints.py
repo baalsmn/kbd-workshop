@@ -5,6 +5,7 @@
 #
 # Usage (KiCad python, after tools/build.sh <name>):
 #   python tools/lib/kicad_footprints.py out/pcbs/<name>.kicad_pcb kicad-libraries [--force]
+#          [--only <name>,<name>...]  (only these library footprints; with --force overwrites just them)
 # Run it for every design: variants already in the library are kept (unless
 # --force), new ones (e.g. a 1.5U switch only kugo82 has) are added.
 import sys, os, re, shutil, collections, pcbnew
@@ -13,6 +14,7 @@ from kicad_common import RENAME, footprint_name as name_of
 
 board_file, proj = sys.argv[1], sys.argv[2]
 force = '--force' in sys.argv
+only = sys.argv[sys.argv.index('--only') + 1].split(',') if '--only' in sys.argv else None
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 KICAD_3D = os.path.join(os.path.dirname(os.path.dirname(sys.executable)), 'share', 'kicad', '3dmodels')
 LIB = os.path.abspath(os.path.join(proj, "Footprints", "Keyboard.pretty"))
@@ -32,6 +34,7 @@ for fp in b.GetFootprints():
     name, descr = name_of(fp); counts[name] += 1
     if name in done: continue
     done[name] = fp.GetReference()
+    if only is not None and name not in only: continue
     if name in existing and not force: continue
     f = pcbnew.FOOTPRINT(fp)
     f.SetPosition(pcbnew.VECTOR2I(0, 0)); f.SetOrientationDegrees(0)

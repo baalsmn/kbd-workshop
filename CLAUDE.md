@@ -57,6 +57,38 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
 - 3D models of bought parts are recreated from datasheet dimensions by
   `tools/lib/make_models.py` (build123d), in the vendor models' coordinate frames,
   so footprint offsets stay valid. Datasheet sources: `datasheets/LINKS.md`.
+- **The switch and LED footprints use the manufacturers' STEP models** (user's choice,
+  2026-10-22): `vendor_Gateron_KS-2P02B01-02_socket.step`, `vendor_Gateron_KS-33_switch.step`,
+  `vendor_Gateron_KS-57B210T_stabilizer.step`, `vendor_SK6812MINI-E.step`,
+  `vendor_OLED_128x64.step` and the MBK keycaps `vendor_keycap_MBK_{1,1.25,2}u.wrl`.
+  **Committed once in `kicad-libraries/3dmodels/`** (user's request; licence not stated,
+  see `THIRD_PARTY_NOTICES.md`); the copies in `<keyboard>/kicad/libraries/3dmodels/` are
+  gitignored, so after a fresh clone run
+  `cp kicad-libraries/3dmodels/vendor_* <keyboard>/kicad/libraries/3dmodels/`.
+  Originals in `vendor/` and `drafts/`. Checked against the drawings: socket 15.08 × 5.39 × 3.0, in the
+  footprint frame; switch 15 × 15, origin at the key centre with z 0 = PCB top (offset
+  0, 0, −1.6), pins at (2.6, 5.75) / (−4.4, 4.7); stabilizer 30 × 16.97, housings 6.0 at
+  ±12, 4.45 below the plate top (offset −60, 0, 1.65); LED pin-1 lead (cut corner) and body
+  chamfer on the GND pad.
+  - OLED: the vendor STEP as is, offset (0, −12.2, 1.2) (header row at its y +12.2); it
+    still shows the plastic header spacer (the module really sits on bare pins). A cleaned
+    re-export lost the per-face colours (build123d keeps one colour per part), so it wasn't used.
+  - Keycaps: `drafts/MBK_*.stl` -> VRML by `tools/lib/stl2wrl.js` (binary STL now read),
+    stem bottom 6.3 / rim 9.6 / top 13.6 above the PCB top (switch stem top 8.55);
+    1.25u = the 1u cap stretched 1.25x in x (no MBK 1.25u model).
+- Switch footprint (`ks33_hotswap.js`): back silkscreen = the stepped socket body from the
+  courtyard of Gateron's KS33 hot-swap footprint (`drafts/Gateron_KS33_Hotswap.pretty`),
+  mirrored to the back, terminal tabs left out (on the pads); the 14 × 14 switch body is
+  drawn as corner marks (Dwgs.User). Pads kept (ours: 2.45 × 2.55, at the drawing's pad
+  centres; the uploaded footprint's 2.55 squares sit 0.5 mm further in). Centre hole kept
+  at Ø5.25 (switch drawing; the socket drawing's Ø5.1 leaves 0.05 mm round the Ø5.05 post).
+- KS-57 stabilizer PCB cutouts: y −5.2 … +9.8, 6.2 wide (Gateron's STEP: the part below the
+  PCB top spans −5.11 … +9.70, 5.85 wide; the old −5.8 … +8.95 hit the lever end).
+- Updating placed footprints on a project board: the pcbnew Python bindings lose their
+  types after a few footprint edits (`SwigPyObject` errors, crashes on `Flip` of an
+  unattached footprint), so the 2026-10-22 update swapped the shapes and model entries
+  as text from a fresh Ergogen build (same footprint-local frame as placed back-side
+  footprints).
 - Footprints cite their datasheet numbers: KS-33 / KS-57 from the Gateron drawings,
   Molex 505278 from its sales drawing (pads matched it exactly, no change).
 

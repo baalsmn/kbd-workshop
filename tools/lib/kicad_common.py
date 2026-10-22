@@ -34,7 +34,7 @@ def footprint_name(fp):
     kind = str(fp.GetFPID().GetLibItemName())
     models = [os.path.basename(m.m_Filename) for m in fp.Models()]
     if kind == 'ks33_hotswap':
-        u = next((re.search(r'keycap_lowprofile_([\d.]+)u', m).group(1) for m in models if 'keycap_lowprofile_' in m), '1')
+        u = next((re.search(r'keycap_(?:lowprofile|MBK)_([\d.]+)u', m).group(1) for m in models if re.search(r'keycap_(?:lowprofile|MBK)_', m)), '1')
         stab = any('stabilizer' in m for m in models)
         return 'Gateron_KS-33_Hotswap_%sU%s' % (u, '_Stab_KS-57' if stab else ''), \
                'Gateron KS-33 low profile switch, KS-2P02B01-02 hot-swap socket (back), LED window%s, %sU keycap model' % (

@@ -24,6 +24,9 @@ kicad-libraries/Footprints/Keyboard.pretty/Claude_Logo_8mm.kicad_mod
 # vendor 3D models and footprints (not redistributable / unknown licence): kept
 # locally for reference; the repo uses the recreated models (tools/lib/make_models.py)
 vendor/
+# vendor models are committed once, in kicad-libraries/3dmodels/; the project copies
+# (<keyboard>/kicad/libraries/3dmodels/vendor_*) are made locally (see CLAUDE.md)
+*/kicad/libraries/3dmodels/vendor_*
 
 # Fabrication Toolkit output (regenerated in KiCad)
 **/kicad/production/

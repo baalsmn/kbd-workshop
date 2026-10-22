@@ -40,11 +40,24 @@ Massarelli. Licence: MIT (`LICENSES/MIT-ergogen-footprints-ceoloide.txt`).
 - `ergogen/footprints/sk6812mini_e.js`: pad layout of the reverse-mount SK6812MINI-E
   (from `led_sk6812mini-e`)
 
+## Manufacturer 3D models — licence not stated
+
+Kept in this private repository at the owner's request (2026-10-22), for the 3D view;
+no licence was given with them, so they are not covered by the repository's
+licences and must not be redistributed without the makers' permission.
+
+- `kicad-libraries/3dmodels/vendor_Gateron_KS-2P02B01-02_socket.step`,
+  `vendor_Gateron_KS-33_switch.step`, `vendor_Gateron_KS-57B210T_stabilizer.step`:
+  Gateron's STEP models (https://www.gateron.com)
+- `kicad-libraries/3dmodels/vendor_SK6812MINI-E.step`: SK6812MINI-E model (OPSCO part)
+- `kicad-libraries/3dmodels/vendor_OLED_128x64.step`: 0.96" 128x64 OLED module model
+- `kicad-libraries/3dmodels/vendor_keycap_MBK_1u.wrl`, `_1.25u.wrl`, `_2u.wrl`: converted
+  (`tools/lib/stl2wrl.js`) from MBK keycap STL models supplied by the owner
+
 ## Not included
 
 - Vendor datasheets (`datasheets/*.pdf`) belong to their manufacturers; see
   `datasheets/LINKS.md`.
-- Vendor 3D models and vendor footprints of unknown licence are kept out of git
-  (`vendor/`, gitignored); the repository uses
-  models recreated from datasheet dimensions (`tools/lib/make_models.py`) and
-  footprints drawn from the datasheets instead.
+- The originals of the vendor 3D models and the vendor footprints (`vendor/`, `drafts/`)
+  are kept out of git; the footprints are drawn from the datasheets, and models
+  recreated from datasheet dimensions (`tools/lib/make_models.py`) remain available.

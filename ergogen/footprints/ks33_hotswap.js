@@ -35,24 +35,31 @@ module.exports = {
     stab: false,
     from: undefined,
     to: undefined,
-    // 3D models: simplified solids from the datasheet dimensions
-    // (tools/lib/make_models.py); default paths assume the KiCad project is
+    // 3D models: Gateron's own STEP models (vendor_*, kept out of git; checked
+    // against the drawings). The simplified datasheet models of
+    // tools/lib/make_models.py (Gateron_KS-*.step, same frames except the
+    // switch) can be used instead. Default paths assume the KiCad project is
     // Ergogen's output/pcbs folder. '' = no model.
-    // The switch and stabilizer models share one origin (key centre at
-    // x = 60, PCB top at z = 3.25), so both get the same transform: turned over
-    // (rotate X 180, because the footprint is on the back) and shifted onto
-    // the board (offset -60, 0, 3.25 - 1.6). The stabilizer model is only
-    // added on keys with stab: true.
-    socket_model: '${KIPRJMOD}/../../kicad-libraries/3dmodels/Gateron_KS-2P02B01-02_socket.step',
-    switch_model: '${KIPRJMOD}/../../kicad-libraries/3dmodels/Gateron_KS-33_switch.step',
-    stab_model: '${KIPRJMOD}/../../kicad-libraries/3dmodels/Gateron_KS-57_stabilizer.step',
-    // low-profile keycap (VRML, generated), file chosen by width: {w} is
-    // replaced with 1, 1.25 or 2 (keycap_lowprofile_1u/1.25u/2u.wrl); '' = none
-    keycap_model: '${KIPRJMOD}/../../kicad-libraries/3dmodels/keycap_lowprofile_{w}u.wrl',
+    // Every model is turned over (rotate X 180: the footprint is on the back)
+    // and shifted onto the board:
+    //   socket: drawn in this footprint's frame (no transform);
+    //   switch: key centre at the origin, PCB top at z = 0 -> offset (0, 0, -1.6);
+    //   stabilizer: key centre at x = 60, PCB top at z = 3.25
+    //     -> offset (-60, 0, 3.25 - 1.6). Only on keys with stab: true.
+    socket_model: '${KIPRJMOD}/../../kicad-libraries/3dmodels/vendor_Gateron_KS-2P02B01-02_socket.step',
+    switch_model: '${KIPRJMOD}/../../kicad-libraries/3dmodels/vendor_Gateron_KS-33_switch.step',
+    stab_model: '${KIPRJMOD}/../../kicad-libraries/3dmodels/vendor_Gateron_KS-57B210T_stabilizer.step',
+    // keycap (VRML), file chosen by width: {w} is replaced with 1, 1.25 or 2. The MBK
+    // caps (vendor_keycap_MBK_{w}u.wrl, from drafts/MBK_*.stl by tools/lib/stl2wrl.js:
+    // stem bottom 6.3 / rim 9.6 above the PCB top; 1.25u = the 1u cap stretched in x);
+    // the generated keycap_lowprofile_{w}u.wrl (tools/lib/keycap.js) also fit. '' = none
+    keycap_model: '${KIPRJMOD}/../../kicad-libraries/3dmodels/vendor_keycap_MBK_{w}u.wrl',
     socket_model_offset: [0, 0, 0],
     socket_model_rotation: [0, 0, 0],
-    switch_model_offset: [-60, 0, 1.65],
+    switch_model_offset: [0, 0, -1.6],
     switch_model_rotation: [180, 0, 0],
+    stab_model_offset: [-60, 0, 1.65],
+    stab_model_rotation: [180, 0, 0],
   },
   body: p => {
     const L = p.side === 'F' ? 'F' : 'B'
@@ -61,12 +68,13 @@ module.exports = {
     const half = 9.525 * p.width
 
     // stabilizer housing clearance (KS-57B210T drawing): the housing is 6.00
-    // wide; below the plate it is 12.40 long, plus the equalizing lever's end
-    // to the south (section A-A). Cutout = 6.0 + 0.1 per side, 14.75 long
-    // (12.40 + the lever end + clearance), y = -5.8 .. +8.95.
+    // wide, 5.85 below the plate; below the plate it is 12.40 long, plus the
+    // equalizing lever's end to the south (section A-A). Gateron's STEP model:
+    // the part below the PCB top spans y = -5.11 .. +9.70 (5.85 x 14.81).
+    // Cutout = 6.2 wide, y = -5.2 .. +9.8 (0.1 clearance at both ends).
     const stab_cut = cx => {
       const pts = [
-        [cx - 3.1, -5.8], [cx + 3.1, -5.8], [cx + 3.1, 8.95], [cx - 3.1, 8.95],
+        [cx - 3.1, -5.2], [cx + 3.1, -5.2], [cx + 3.1, 9.8], [cx - 3.1, 9.8],
       ]
       return `(fp_poly (pts ${pts.map(([a, b]) => `(xy ${a} ${b})`).join(' ')})
       (stroke (width 0.1) (type solid)) (fill none) (layer "Edge.Cuts"))`
@@ -100,13 +108,41 @@ ${p.lcsc ? `    (property "LCSC" "${p.lcsc}"
       (effects (font (size 0.8 0.8) (thickness 0.15)))
     )
 
-    ${'' /* socket body outline (KS-2P02B01-02 drawing, as in make_models.py): 11.85 x 5.39;
-      the north edge (y 2.53) crosses the 5.25 centre hole, so it has a gap there (x +-1.3) */}
-    ${[[-6.82, 2.53, -1.3, 2.53], [1.3, 2.53, 5.03, 2.53], [5.03, 2.53, 5.03, 7.92],
-       [5.03, 7.92, -6.82, 7.92], [-6.82, 7.92, -6.82, 2.53]].map(([a, b, c, d]) =>
-      `(fp_line (start ${x(a)} ${b}) (end ${x(c)} ${d}) (stroke (width 0.12) (type solid)) (layer "${L}.SilkS"))`).join('\n    ')}
-    (fp_rect (start -7 -7) (end 7 7)
-      (stroke (width 0.15) (type solid)) (fill none) (layer "Dwgs.User"))
+    ${'' /* socket body outline on the silkscreen: the stepped KS-2P02B01-02 body
+      (11.85 x 5.40, r0.15 corners), from the courtyard of Gateron's KS33 hot-swap
+      footprint, mirrored to this back-side frame; the terminal tabs are left out
+      (they lie on the pads). Clear of the centre and pin holes. */}
+    ${(() => {
+      const e = `(stroke (width 0.12) (type solid)) (layer "${L}.SilkS")`
+      const X = v => x(-v)       // Gateron's footprint is drawn from the socket side
+      const pt = ([a, b]) => `${X(a)} ${b}`
+      const line = (a, b) => `(fp_line (start ${pt(a)}) (end ${pt(b)}) ${e})`
+      const arc = (a, mid, b) => `(fp_arc (start ${pt(a)}) (mid ${pt(mid)}) (end ${pt(b)}) ${e})`
+      return [
+        arc([-5.025, 3.525], [-4.981066, 3.418934], [-4.875, 3.375]),
+        line([-4.875, 3.375], [1.184808, 3.375]),
+        arc([1.184808, 3.375], [1.443627, 3.340926], [1.684808, 3.241025]),
+        line([1.684808, 3.241025], [2.692949, 2.658975]),
+        arc([2.692949, 2.658975], [2.93413, 2.559074], [3.192949, 2.525]),
+        line([3.192949, 2.525], [6.675, 2.525]),
+        arc([6.675, 2.525], [6.781066, 2.568934], [6.825, 2.675]),
+        line([6.825, 2.675], [6.825, 6.725]),
+        arc([6.825, 6.725], [6.781066, 6.831066], [6.675, 6.875]),
+        line([6.675, 6.875], [3.492949, 6.875]),
+        arc([3.492949, 6.875], [3.23413, 6.909074], [2.992949, 7.008975]),
+        line([2.992949, 7.008975], [1.638397, 7.791025]),
+        arc([1.638397, 7.791025], [1.397216, 7.890926], [1.138397, 7.925]),
+        line([1.138397, 7.925], [0.975, 7.925]), line([0.975, 7.925], [0.975, 7.725]),
+        line([0.975, 7.725], [-0.525, 7.725]), line([-0.525, 7.725], [-0.525, 7.925]),
+        line([-0.525, 7.925], [-4.875, 7.925]),
+        arc([-4.875, 7.925], [-4.981066, 7.881066], [-5.025, 7.775]),
+        line([-5.025, 7.775], [-5.025, 3.525]),
+      ].join('\n    ')
+    })()}
+    ${'' /* switch body (14 x 14 below the plate): corner marks only, 2 mm legs */}
+    ${[[-7, -7, 1, 1], [7, -7, -1, 1], [7, 7, -1, -1], [-7, 7, 1, -1]].map(([cx, cy, dx, dy]) =>
+      `(fp_line (start ${cx + 2 * dx} ${cy}) (end ${cx} ${cy}) (stroke (width 0.15) (type solid)) (layer "Dwgs.User"))
+    (fp_line (start ${cx} ${cy}) (end ${cx} ${cy + 2 * dy}) (stroke (width 0.15) (type solid)) (layer "Dwgs.User"))`).join('\n    ')}
     (fp_rect (start ${-half} -9.525) (end ${half} 9.525)
       (stroke (width 0.15) (type solid)) (fill none) (layer "Dwgs.User"))
 
@@ -123,7 +159,7 @@ ${p.lcsc ? `    (property "LCSC" "${p.lcsc}"
     ${p.stab ? stab_cut(-12) + '\n    ' + stab_cut(12) : ''}
     ${model(p.socket_model, p.socket_model_offset, p.socket_model_rotation)}
     ${model(p.switch_model, p.switch_model_offset, p.switch_model_rotation)}
-    ${p.stab ? model(p.stab_model, p.switch_model_offset, p.switch_model_rotation) : ''}
+    ${p.stab ? model(p.stab_model, p.stab_model_offset, p.stab_model_rotation) : ''}
     ${model(p.keycap_model && p.keycap_model.replace('{w}', String(+p.width)), L === 'B' ? [0, 0, -1.6] : [0, 0, 0], L === 'B' ? [180, 0, 0] : [0, 0, 0])}
   )
   `

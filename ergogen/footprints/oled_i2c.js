@@ -26,8 +26,13 @@ module.exports = {
     GND: {type: 'net', value: 'GND'},
     VDD: {type: 'net', value: '3V3'},
     holes: true,
-    // 3D model (VRML): module on bare pins 1.2 mm above the PCB, display up
-    model: '${KIPRJMOD}/../../kicad-libraries/3dmodels/OLED_0.96in_SSD1306_I2C_module.wrl',
+    // 3D model: the vendor STEP (vendor_OLED_128x64.step): header row at y +12.2 of its
+    // frame, module PCB bottom at z 0 -> offset (0, -12.2, 1.2): module 1.2 mm above the
+    // PCB, display up. It still shows the plastic header spacer (the real module sits on
+    // bare pins). The generated OLED_0.96in_SSD1306_I2C_module.wrl (tools/lib/oled.js)
+    // is in the footprint frame (offset 0).
+    model: '${KIPRJMOD}/../../kicad-libraries/3dmodels/vendor_OLED_128x64.step',
+    model_offset: [0, -12.2, 1.2],
     SCL: {type: 'net', value: 'SCL'},
     SDA: {type: 'net', value: 'SDA'},
   },
@@ -91,7 +96,7 @@ module.exports = {
     ${pin(2, 'oval', -1.27, p.VDD)}
     ${pin(3, 'oval', 1.27, p.SCL)}
     ${pin(4, 'oval', 3.81, p.SDA)}
-    ${p.model && !back ? `(model "${p.model}" (offset (xyz 0 0 0)) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))` : ''}
+    ${p.model && !back ? `(model "${p.model}" (offset (xyz ${p.model_offset.join(' ')})) (scale (xyz 1 1 1)) (rotate (xyz 0 0 0)))` : ''}
   )
   `
   },
