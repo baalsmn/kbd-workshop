@@ -84,8 +84,8 @@ Decided (user, 2026-10-23); kugo82 is discussed separately.
   editing the KLE legends; don't edit the generated files by hand.
 - Checked offline (`qmk.info.info_json` on QMK 0.34.7 and on vial-qmk: no errors or
   warnings; 10 x 8 matrix, 74 keys, 76 RGB LEDs, indicators 37 / 38 flagged as indicators;
-  Vial's `vial_generate_definition.py` packs our vial.json). The QMK 0.34.7 / VIA build
-  compiled in GitHub Actions (commit 05e9791); not yet tested on the board.
+  Vial's `vial_generate_definition.py` packs our vial.json). **The Vial build
+  compiles** in GitHub Actions (commit 0e1cd06, 2026-10-23); not yet tested on the board.
 - RGB matrix: brightness capped at 40/255 (USB power), default solid white at 40.
   Cirque: absolute mode, tap to click, circular scroll; its DR pin (GP7) is unused (the
   driver polls). Its axes may need `POINTING_DEVICE_ROTATION_*` / `_INVERT_*` once tested.
