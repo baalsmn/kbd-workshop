@@ -52,3 +52,46 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
     Helios symbol is out of the BOM like its footprint (hand-soldered module).
   - The project is the master from now on: an Ergogen rebuild + `--force` regenerate
     would lose routing done in KiCad.
+
+## Firmware (QMK)
+
+Decided (user, 2026-10-23); kugo82 is discussed separately.
+- Host: Windows with the Hungarian layout, so `HU_*` keycodes (`keymap_hungarian.h`).
+  Linux behaves the same; a Mac would need Ctrl/Cmd swapped and LANG1/LANG2 for the JIS
+  keys (QMK OS detection, later if ever).
+- Two layers: 0 = base (the KLE legends), 1 = Fn: F1–F12 (number row, F11/F12 on c9_r5)
+  and the characters that need AltGr on Windows' Hungarian layout, each on its usual
+  AltGr key (Fn + Q = `\`, Fn + F = `[`, ...); AltGr keeps working. Exceptions, as drawn in
+  the KLE: `$` on S and `€` on E (not on É / U).
+- Fn key (right half c2_r1, `mirror_hand-zone_c2_r1`): hold = layer 1 (`MO(1)`); no
+  Windows key on the keyboard.
+- Outer thumb keys (c9_r1, both halves): hold = Shift, tap = one-shot layer 1 (custom
+  code: QMK's mod-tap can't send `OSL`).
+- Indicator LEDs: off on layer 0, green on layer 1 (also while the one-shot waits).
+- Build: GitHub Actions in this repo (no QMK fork): the workflow checks out QMK at a
+  pinned version, copies `hachigo74/firmware/` into its `keyboards/` and builds the
+  `.uf2` as a download. Flash: double-tap reset, copy the `.uf2` to the RP2040 drive.
+- Other dual keys, as the KLE legends say: left c5_r1 hold Ctrl / tap Tab; right c3_r1
+  hold AltGr / tap Alt; right c7_r1 tap Space / hold Enter; the `(` `)` `@` keys give `{`
+  `}` `*` with AltGr. Bootmagic (bootloader while plugging in): hold left c2_r1 (←).
+- **Files** (`firmware/`): `matrix.json` from the routed board by `tools/lib/qmk_matrix.py`
+  (KiCad python, after `tools/build.sh hachigo74`: switch -> diode -> row, LED by its key's
+  LED window, names from `out/points/points.yaml`); `hachigo74/` (keyboard.json, config.h,
+  rules.mk, hachigo74.c, keymaps/default) generated from it and `kle/hachigo74_keys.json`
+  by `python tools/lib/qmk_gen.py hachigo74`. Re-run both after rerouting the matrix or
+  editing the KLE legends; don't edit the generated files by hand.
+- Checked offline against QMK 0.34.7 (`qmk.info.info_json`: no errors or warnings; 10 x 8
+  matrix, 74 keys, 76 RGB LEDs, indicators 37 / 38 flagged as indicators). Not yet
+  compiled: the first build is the GitHub Actions run.
+- RGB matrix: brightness capped at 40/255 (USB power), default solid white at 40.
+  Cirque: absolute mode, tap to click, circular scroll; its DR pin (GP7) is unused (the
+  driver polls). Its axes may need `POINTING_DEVICE_ROTATION_*` / `_INVERT_*` once tested.
+- **VIA** (user, 2026-10-23): on in the default keymap (`VIA_ENABLE`), keymap kept in the
+  RP2040 flash (wear-levelling EEPROM). The custom keys live in the keyboard code
+  (`hachigo74.c`, keycodes `QK_KB_0..2` in `hachigo74.h`), so they work whatever VIA stores.
+  VIA doesn't know the board: load `firmware/hachigo74_via.json` once in the VIA app
+  (usevia.app in Chrome / Edge: Settings -> Show Design tab, Design -> Load). It has the
+  RGB matrix menu and the 3 custom keys.
+- **OLED:** name, layer (Base / Fn, also during a one-shot) and **KPM**: key presses in
+  ten 1 s slots, the last 10 s x 6 (every press counts, modifiers too).
+- Later: Cirque features, RGB defaults, home-row mods.

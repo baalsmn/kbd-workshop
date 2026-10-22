@@ -258,6 +258,10 @@ bash tools/panel.sh [name]     # JLC assembly panel (rails + tabs) -> <keyboard>
     marks every footprint `smd`, including those with no attr line at all, like the
     switches. Don't change the user's KiCad settings.
   - Run renders one at a time.
+- **Firmware (QMK):** `tools/lib/qmk_matrix.py` (KiCad python: matrix + LED chain from a
+  routed board) and `tools/lib/qmk_gen.py` (keyboard.json, config, keymap from that and the
+  KLE key map) -> `<keyboard>/firmware/`; `.github/workflows/firmware.yml` builds it with
+  QMK at a pinned release in GitHub Actions (no fork). See `hachigo74/CLAUDE.md`, Firmware.
 - **`tools/lib/` scripts:**
   - `vrml.js`, `keycap.js`, `oled.js`: VRML model generators.
   - `stl2wrl.js`: STL → VRML conversion.

@@ -263,13 +263,8 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
 
 ## Open / next
 
-- **QMK firmware.** Still needed from the user:
-  1. Layer list and purposes, which layer is function lock, and the layout-LED colour
-     per layout layer.
-  2. OS, and whether the host uses the Hungarian layout (`keymap_hungarian.h`,
-     `HU_*` keycodes).
-  3. Build path: a local QMK toolchain, or GitHub Actions.
-  4. Later: Cirque features, OLED content, RGB defaults, VIA/Vial, home-row mods.
+- **QMK firmware:** hachigo74 first (see `../hachigo74/CLAUDE.md`, Firmware); kugo82 to be
+  discussed separately.
 - **Routing in KiCad.** A Freerouting test was inconclusive: v2.5 mis-rotates
   back-side pad shapes at 15°, and v1.9 crashed. Route by hand, starting with the
   Helios fan-out and the centre area.
