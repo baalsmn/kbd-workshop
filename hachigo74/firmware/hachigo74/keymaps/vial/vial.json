@@ -2,16 +2,11 @@
  "name": "hachigo74",
  "vendorId": "0xFEED",
  "productId": "0x0074",
+ "lighting": "vialrgb",
  "matrix": {
   "rows": 10,
   "cols": 8
  },
- "menus": [
-  "qmk_rgb_matrix"
- ],
- "keycodes": [
-  "qmk_lighting"
- ],
  "customKeycodes": [
   {
    "name": "( {",

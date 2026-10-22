@@ -260,8 +260,9 @@ bash tools/panel.sh [name]     # JLC assembly panel (rails + tabs) -> <keyboard>
   - Run renders one at a time.
 - **Firmware (QMK):** `tools/lib/qmk_matrix.py` (KiCad python: matrix + LED chain from a
   routed board) and `tools/lib/qmk_gen.py` (keyboard.json, config, keymap from that and the
-  KLE key map) -> `<keyboard>/firmware/`; `.github/workflows/firmware.yml` builds it with
-  QMK at a pinned release in GitHub Actions (no fork). See `hachigo74/CLAUDE.md`, Firmware.
+  KLE key map) -> `<keyboard>/firmware/`, keymap `vial`; `.github/workflows/firmware.yml` builds
+  it with Vial's QMK fork at a pinned commit in GitHub Actions (no fork of our own). See
+  `hachigo74/CLAUDE.md`, Firmware.
 - **`tools/lib/` scripts:**
   - `vrml.js`, `keycap.js`, `oled.js`: VRML model generators.
   - `stl2wrl.js`: STL → VRML conversion.

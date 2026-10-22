@@ -68,30 +68,34 @@ Decided (user, 2026-10-23); kugo82 is discussed separately.
 - Outer thumb keys (c9_r1, both halves): hold = Shift, tap = one-shot layer 1 (custom
   code: QMK's mod-tap can't send `OSL`).
 - Indicator LEDs: off on layer 0, green on layer 1 (also while the one-shot waits).
-- Build: GitHub Actions in this repo (no QMK fork): the workflow checks out QMK at a
-  pinned version, copies `hachigo74/firmware/` into its `keyboards/` and builds the
-  `.uf2` as a download. Flash: double-tap reset, copy the `.uf2` to the RP2040 drive.
+- Build: GitHub Actions in this repo, with **Vial's QMK fork** (vial-kb/vial-qmk, pinned
+  commit dd43959, based on QMK 0.29; user's choice 2026-10-23 over VIA, for the tapping-term
+  settings), keymap `vial`. The workflow copies `hachigo74/firmware/hachigo74/` into its
+  `keyboards/` and builds the `.uf2` as a download. Flash: double-tap reset, copy the `.uf2`
+  to the RP2040 drive.
 - Other dual keys, as the KLE legends say: left c5_r1 hold Ctrl / tap Tab; right c3_r1
   hold AltGr / tap Alt; right c7_r1 tap Space / hold Enter; the `(` `)` `@` keys give `{`
   `}` `*` with AltGr. Bootmagic (bootloader while plugging in): hold left c2_r1 (←).
 - **Files** (`firmware/`): `matrix.json` from the routed board by `tools/lib/qmk_matrix.py`
   (KiCad python, after `tools/build.sh hachigo74`: switch -> diode -> row, LED by its key's
   LED window, names from `out/points/points.yaml`); `hachigo74/` (keyboard.json, config.h,
-  rules.mk, hachigo74.c, keymaps/default) generated from it and `kle/hachigo74_keys.json`
+  rules.mk, hachigo74.h / .c, keymaps/vial) generated from it and `kle/hachigo74_keys.json`
   by `python tools/lib/qmk_gen.py hachigo74`. Re-run both after rerouting the matrix or
   editing the KLE legends; don't edit the generated files by hand.
-- Checked offline against QMK 0.34.7 (`qmk.info.info_json`: no errors or warnings; 10 x 8
-  matrix, 74 keys, 76 RGB LEDs, indicators 37 / 38 flagged as indicators). Not yet
-  compiled: the first build is the GitHub Actions run.
+- Checked offline (`qmk.info.info_json` on QMK 0.34.7 and on vial-qmk: no errors or
+  warnings; 10 x 8 matrix, 74 keys, 76 RGB LEDs, indicators 37 / 38 flagged as indicators;
+  Vial's `vial_generate_definition.py` packs our vial.json). The QMK 0.34.7 / VIA build
+  compiled in GitHub Actions (commit 05e9791); not yet tested on the board.
 - RGB matrix: brightness capped at 40/255 (USB power), default solid white at 40.
   Cirque: absolute mode, tap to click, circular scroll; its DR pin (GP7) is unused (the
   driver polls). Its axes may need `POINTING_DEVICE_ROTATION_*` / `_INVERT_*` once tested.
-- **VIA** (user, 2026-10-23): on in the default keymap (`VIA_ENABLE`), keymap kept in the
-  RP2040 flash (wear-levelling EEPROM). The custom keys live in the keyboard code
-  (`hachigo74.c`, keycodes `QK_KB_0..2` in `hachigo74.h`), so they work whatever VIA stores.
-  VIA doesn't know the board: load `firmware/hachigo74_via.json` once in the VIA app
-  (usevia.app in Chrome / Edge: Settings -> Show Design tab, Design -> Load). It has the
-  RGB matrix menu and the 3 custom keys.
+- **Vial:** the layout is stored in the firmware (vial.json), so the Vial app (get.vial.today,
+  desktop or web) shows it with no file to load. Keymap in the RP2040 flash; 4 layers (0 base,
+  1 Fn, 2-3 spare). "QMK Settings" in the app: tapping term, permissive hold, etc., saved on
+  the keyboard. Tap dance, combos, key overrides available too. Unlock combo (Vial asks for
+  it before some changes): hold left Esc + right Backspace. RGB through VialRGB. The custom
+  keys live in the keyboard code (`hachigo74.c`, keycodes `QK_KB_0..2` in `hachigo74.h`), so
+  they work whatever Vial stores; the 3 AltGr keys show up as custom keys in the app.
 - **OLED:** name, layer (Base / Fn, also during a one-shot) and **KPM**: key presses in
   ten 1 s slots, the last 10 s x 6 (every press counts, modifiers too).
 - Later: Cirque features, RGB defaults, home-row mods.

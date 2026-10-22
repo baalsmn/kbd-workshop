@@ -9,7 +9,7 @@ trackpad, OLED) with a 0xCB Helios (RP2040). Design files: https://github.com/ba
 
 Make example for this keyboard (after setting up your build environment):
 
-    qmk compile -kb hachigo74 -km default
+    qmk compile -kb hachigo74 -km vial      (in vial-qmk)
 
 Bootloader: double-tap the Helios reset, or hold the key at matrix [0, 0] (the left half's
 left arrow) while plugging in. Then copy the .uf2 onto the RPI-RP2 drive.
