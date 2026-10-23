@@ -277,3 +277,10 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
   Left for the user: **`LED_25`** (LED25 -> LED26, right; only a via-in-pad path, undone) and
   **`LED_70`** (LED70 -> LED71, left; no path), the centre (rows, columns, `LED_DATA`, the
   indicator links `LED_41`-`LED_43`), 5 V and GND.
+- **5 V in the halves (2026-10-23):** `tools/lib/power_chains.py` (one trunk per key row and
+  half, north of the row's LEDs), then `"^VCC$=BF:0.5" --chains vcc_<half>.json --chains-only`
+  and `"^VCC$=BF:0.5"` (branches) per half, all 0.5 mm, no via in a pad. The right r1 trunk
+  broke at two waypoints (stabilizer area); its keys are fed from the next trunk instead.
+  Left for the user: the VCC pads of **LED14, LED23, C23** (right) and **LED71** (left),
+  and the 5 V feed in the centre (Helios / C85 to the trunks' inner ends). DRC with parity:
+  no errors; track_dangling = the trunks' inner ends waiting for the feed.
