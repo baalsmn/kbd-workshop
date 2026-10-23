@@ -7,7 +7,7 @@
 	(property "Reference" "REF**"
 		(at 0 -2.4 180)
 		(layer "F.SilkS")
-		(uuid "50af1650-8655-4840-b985-23c8c16ca12b")
+		(uuid "5370c34a-9068-4607-aee8-fbe3b38ea9ce")
 		(effects
 			(font
 				(size 0.8 0.8)
@@ -18,7 +18,7 @@
 	(property "Value" "LED_SK6812MINI-E_Reverse"
 		(at 0 0 180)
 		(layer "B.Fab")
-		(uuid "3f343630-a69c-48b1-b3fd-2b00387d57ab")
+		(uuid "dd7d0c63-12da-41d4-bca5-779494e8ecc4")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -30,7 +30,7 @@
 		(at 0 0 180)
 		(layer "B.Fab")
 		(hide yes)
-		(uuid "6cb72a3c-1846-4435-9abc-ccacfc5864f7")
+		(uuid "0fe0647a-1b3f-4777-8062-6211b7ed214f")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -42,7 +42,7 @@
 		(at 0 0 180)
 		(layer "B.Fab")
 		(hide yes)
-		(uuid "bb54a597-6351-45ad-9651-35df19aa7a9f")
+		(uuid "dcd312c8-1456-4a30-abeb-d22dfc999fc3")
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -54,7 +54,7 @@
 		(at 0 0 180)
 		(layer "F.Fab")
 		(hide yes)
-		(uuid "d3a28a4f-2036-4da0-a54d-35411a5e298c")
+		(uuid "5c1822a6-ae81-46c6-92c4-ddfefc271764")
 		(effects
 			(font
 				(size 1 1)
@@ -73,7 +73,18 @@
 			(type solid)
 		)
 		(layer "F.SilkS")
-		(uuid "4ffe3d47-f534-4d48-b7b0-fad05f0c552c")
+		(uuid "8085546f-5b59-4753-bf58-9689bfea2803")
+	)
+	(fp_circle
+		(center -2.2 1.52)
+		(end -2.25 1.52)
+		(stroke
+			(width 0.2)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.SilkS")
+		(uuid "32e90df2-8842-422b-8e1f-b40b5b66645f")
 	)
 	(fp_line
 		(start -1.8 -1.2)
@@ -83,7 +94,7 @@
 			(type solid)
 		)
 		(layer "Edge.Cuts")
-		(uuid "04c1ee98-04e7-45e8-aa8b-cd034d7fdf41")
+		(uuid "5805a200-298d-48e4-9f0d-0061a322bfc4")
 	)
 	(fp_line
 		(start -0.9429 1.55)
@@ -93,7 +104,7 @@
 			(type solid)
 		)
 		(layer "Edge.Cuts")
-		(uuid "d98cab90-c5f8-49d2-b220-98c5e4501c5c")
+		(uuid "6742574f-9197-4382-b42f-dbd0de502157")
 	)
 	(fp_line
 		(start 0.9429 -1.55)
@@ -103,7 +114,7 @@
 			(type solid)
 		)
 		(layer "Edge.Cuts")
-		(uuid "d72448ea-14ec-4abf-a386-cb6055daeac9")
+		(uuid "54d11d46-f722-4daa-8492-b8af42957174")
 	)
 	(fp_line
 		(start 1.8 1.2)
@@ -113,7 +124,7 @@
 			(type solid)
 		)
 		(layer "Edge.Cuts")
-		(uuid "0a1aa45d-8803-4900-9bdf-57d9b6798637")
+		(uuid "4b8a9d2a-aec3-4cd3-857a-8ca4cd77fd62")
 	)
 	(fp_arc
 		(start -1.8 -1.2)
@@ -124,7 +135,7 @@
 			(type solid)
 		)
 		(layer "Edge.Cuts")
-		(uuid "55f5ac44-d0d1-42a4-b67d-817263c01529")
+		(uuid "4fe41b52-940b-451b-8a3d-9c31501e3dfc")
 	)
 	(fp_arc
 		(start -0.9429 1.55)
@@ -135,7 +146,7 @@
 			(type solid)
 		)
 		(layer "Edge.Cuts")
-		(uuid "8e992584-8a15-431b-b354-8db41ef8e600")
+		(uuid "005edb0c-6c8c-447b-8719-7df9179e2987")
 	)
 	(fp_arc
 		(start 0.9429 -1.55)
@@ -146,7 +157,7 @@
 			(type solid)
 		)
 		(layer "Edge.Cuts")
-		(uuid "65e45fa1-814e-419d-9af7-325a41ccbe8a")
+		(uuid "777492bd-62de-4a1e-9dd0-0168c67d03d7")
 	)
 	(fp_arc
 		(start 1.8 1.2)
@@ -157,7 +168,7 @@
 			(type solid)
 		)
 		(layer "Edge.Cuts")
-		(uuid "db1dfb8e-a742-4a0f-bacf-cc054a4a78a4")
+		(uuid "8a019367-c13a-45b4-b2c3-b5c942b972e7")
 	)
 	(fp_poly
 		(pts
@@ -169,7 +180,7 @@
 		)
 		(fill no)
 		(layer "F.CrtYd")
-		(uuid "cc983a2d-6bc4-408b-b0f5-37879e4c5fe1")
+		(uuid "9bd1be49-8771-4c2e-b43c-5fb31704161b")
 	)
 	(fp_poly
 		(pts
@@ -181,31 +192,42 @@
 		)
 		(fill no)
 		(layer "F.Fab")
-		(uuid "ea409b54-27b4-4d3c-a189-59b5e8bbe6b2")
+		(uuid "13cfcb9c-c1a9-4610-9737-22612d30c219")
+	)
+	(fp_text user "GND"
+		(at -5 1.9 180)
+		(layer "F.SilkS")
+		(uuid "4d04571d-bd43-4949-ade6-1cf550d53cce")
+		(effects
+			(font
+				(size 0.8 0.8)
+				(thickness 0.12)
+			)
+		)
 	)
 	(pad "1" smd rect
 		(at -2.7 0.700001)
 		(size 1.4 1)
 		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "2430f564-d47e-44c3-8c36-12695a40d64b")
+		(uuid "d4fc1a13-7017-45be-9369-7657ea018846")
 	)
 	(pad "2" smd rect
 		(at -2.7 -0.7)
 		(size 1.4 1)
 		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "840dd5c7-8b8c-456c-97e0-31afd3217d43")
+		(uuid "45361e6e-a49b-426e-8b1a-f340c40e99fb")
 	)
 	(pad "3" smd rect
 		(at 2.7 -0.700001)
 		(size 1.4 1)
 		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "0f42d4db-7bbe-4096-8f5b-f104d20259b5")
+		(uuid "eb905c51-592b-4b3d-987e-897af91f3f64")
 	)
 	(pad "4" smd rect
 		(at 2.7 0.7)
 		(size 1.4 1)
 		(layers "F.Cu" "F.Mask" "F.Paste")
-		(uuid "6bb759af-fe5a-4789-b6f3-2ad83f46636f")
+		(uuid "ca84a147-97c7-4fe1-b3e1-66bad9bcf93b")
 	)
 	(embedded_fonts no)
 	(model "${KIPRJMOD}/3dmodels/vendor_SK6812MINI-E.step"

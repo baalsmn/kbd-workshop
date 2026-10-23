@@ -82,9 +82,15 @@ ${p.lcsc ? `    (property "LCSC" "${p.lcsc}"
     (fp_rect (start ${x(-1.6)} -1.4) (end ${x(1.6)} 1.4)
       (stroke (width 0.1) (type solid)) (fill none) (layer "${S}.Fab"))
 
-    ${'' /* GND corner marker, outside the GND pad */}
+    ${'' /* GND corner marker, outside the GND pad, and its label in line with it beyond the
+      outer end (above / below the line is the switch's centre hole) */}
     (fp_line (start ${x(-3.65)} -1.9) (end ${x(-2.0)} -1.9)
       (stroke (width 0.12) (type solid)) (layer "${S}.SilkS"))
+    (fp_text user "GND" (at ${x(-5.0)} -1.9 ${p.r}) (layer "${S}.SilkS")
+      (effects (font (size 0.8 0.8) (thickness 0.12))${mirror}))
+    ${'' /* pin 1 dot: Ø0.3, between the marker line and the GND pad, above the line's inner end */}
+    (fp_circle (center ${x(-2.2)} -1.52) (end ${x(-2.25)} -1.52)
+      (stroke (width 0.2) (type solid)) (fill yes) (layer "${S}.SilkS"))
 
     ${pad(1, -2.7, -0.7, p.GND)}
     ${pad(2, -2.7, 0.7, p.DIN)}
