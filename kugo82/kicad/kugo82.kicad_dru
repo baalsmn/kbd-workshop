@@ -13,7 +13,7 @@
 
 # Track widths (JLCPCB 1 oz copper). min = enforced by DRC, opt = the router's
 # default width. Later rules take precedence, so the general signal rule comes first.
-# Net names are matched by their end so the KiKit panels (nets "Board_0-<name>") match too.
+# Net names are matched by their end (e.g. *VCC).
 (rule "Signal track width"
   (constraint track_width (min 0.2mm) (opt 0.25mm))
   (condition "A.Type == 'Track' || A.Type == 'Arc'"))

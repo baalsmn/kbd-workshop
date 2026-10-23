@@ -22,7 +22,7 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
     `c4_r1 [59.391, -0.5kc]` (c4_r1 is the shifted 1.25U Ctrl); no step under the 2U
     c5_r1. The case-wall screw under c5_r1 moved with it (`c4_r1 [30.875, -(0.5kc + 6)]`).
     Carried into `kicad/kugo82.kicad_pcb` with `tools/lib/kicad_outline_sync.py`; case
-    files and the panel regenerated.
+    files regenerated.
   - Support crosses: hachigo74's set plus the original c1 ones (see Support).
 - **KLE (`kle/`):** `kugo82_keys.json` (key name → label; c1–c4 from the original
   kugo82 layout, c5–c9 from hachigo74), `kugo82_exact.json` (exact export with
@@ -265,8 +265,15 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
 
 - **QMK firmware:** hachigo74 first (see `../hachigo74/CLAUDE.md`, Firmware); kugo82 to be
   discussed separately.
-- **Routing in KiCad.** A Freerouting test was inconclusive: v2.5 mis-rotates
-  back-side pad shapes at 15°, and v1.9 crashed. Route by hand, starting with the
-  Helios fan-out and the centre area.
-- **Assembly panel:** `kicad/kugo82_panel.kicad_pcb` (`tools/panel.sh kugo82`,
-  recipe `panel.json`, 442.7 × 167.2 mm). Re-run it after routing.
+- **Routing (2026-10-23):** the switch matrix of both halves is routed by
+  `tools/lib/route_grid.py`, as on hachigo74: per half the key-diode links on B.Cu, the rows
+  on B.Cu and the columns on F.Cu / B.Cu (`left "^c[0-9]+_r[0-9]+$=B" "^R[0-9]+$=B"
+  "^C[0-9]$=FB"`, right the same with `^mirror_c...`). 218 connections (82 key-diode, 72 row,
+  64 column), 703 segments, 82 vias; DRC with parity: no errors (5 silk_overlap baseline),
+  464 unconnected left.
+- **LED data chain in the halves (2026-10-23):** `LED_1`-`LED_40` (right) and `LED_44`-`LED_83`
+  (left), `"^LED_...$=FB"`, hard ones again with `--window 40 --max-nodes 3000000`: 78 of 80
+  routed, no via in a pad, DRC with parity clean (5 silk_overlap), 386 unconnected left.
+  Left for the user: **`LED_25`** (LED25 -> LED26, right; only a via-in-pad path, undone) and
+  **`LED_70`** (LED70 -> LED71, left; no path), the centre (rows, columns, `LED_DATA`, the
+  indicator links `LED_41`-`LED_43`), 5 V and GND.

@@ -65,23 +65,20 @@ Don't use the "Same Side" (A-type) cables listed next to them. Order a few spare
 
 ## Board order
 
-- Route only the design board (`<keyboard>/kicad/<keyboard>.kicad_pcb`). Then rebuild
-  the panel with `bash tools/panel.sh <keyboard>` and run the Fabrication Toolkit on
-  `<keyboard>_panel.kicad_pcb`.
-- At JLC choose "Panel by Customer", 1 board per panel, no extra edge rails. Use
-  Standard PCBA, assembly on the bottom side.
-- Or skip our panel and let JLC add the rails (hachigo74): run the Fabrication Toolkit on
-  the design board, choose "Edge Rails: Added by JLCPCB" (or "Panel by JLCPCB") and
-  "Confirm Production file" to check their tabs. File any tab nubs flush (the case has
+- Route the design board (`<keyboard>/kicad/<keyboard>.kicad_pcb`), refill the pours (B)
+  and run the Fabrication Toolkit on it.
+- At JLC choose "Edge Rails: Added by JLCPCB" (or "Panel by JLCPCB"): JLC builds the panel,
+  which keeps the board under the 650 cm² "Large Size" fee (our own panel, removed on
+  2026-10-23, was over it). Standard PCBA, assembly on the bottom side. Tick "Confirm
+  Production file" to check their tabs and V-cuts. File any tab nubs flush (the case has
   no clearance around the board edge).
 - Marking: since May 2026 JLC prints no order number, and by default nothing at all
   ([how to mark on PCB](https://jlcpcb.com/help/article/how-to-mark-on-pcb)). Don't put
-  `JLCJLCJLCJLC` on the silkscreen any more; it would be printed as is. The only (free)
-  options are a QR / Data Matrix code or a serial number, placed in a solid silkscreen
-  square for "Specify Position". The old panels still carry the text on their rail
-  (`panel.json` `text`): remove it before using them again.
-- Upload the Gerbers, BOM and position file from the same (panel) board. Check the
-  part rotations in JLC's placement preview: everything is on the back at 15° steps.
+  `JLCJLCJLCJLC` on the silkscreen; it would be printed as is. The only (free) options are
+  a QR / Data Matrix code or a serial number, placed in a solid silkscreen square for
+  "Specify Position" (JLC put theirs on the rail for the first order).
+- Upload the Gerbers, BOM and position file from the same board. Check the part rotations
+  in JLC's placement preview: everything is on the back at 15° steps.
 
 ## Orders
 

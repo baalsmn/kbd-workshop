@@ -1,5 +1,5 @@
 # Angle-keeping grid router for the keyboard boards (KiCad python + shapely / numpy,
-# e.g. the KiKit venv from tools/panel.sh: %LOCALAPPDATA%/kugo-kikit/Scripts/python.exe).
+# e.g. the venv %LOCALAPPDATA%/kugo-kikit/Scripts/python.exe).
 #
 # Auto-routers work on one 0 / 45 / 90 deg grid for the whole board; the key halves are
 # turned +-15 deg, so their tracks come out as staircases. This router searches on a

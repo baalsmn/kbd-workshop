@@ -115,62 +115,26 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
   see Deskthority; ebastler's footprint uses reliefs too). Each corner is an r0.5 relief
   arc (centre ±1.3, ±1.2) tangent to the side edge, 0.11 mm past the end edges; the
   courtyard (y ±1.75) encloses it. Copper may come to 0.4 mm of the window (DRC rule
-  "LED window relief clearance", panel copy by courtyard in `panel.sh`).
+  "LED window relief clearance").
 - **Track widths** are DRC rules in `keyboard.kicad_dru` (copied into each project's
-  `.kicad_dru` and, by `panel.sh`, into the panel's): min (DRC error below it) / opt
+  `.kicad_dru`): min (DRC error below it) / opt
   (the router's default width): signals 0.2 / 0.25 mm, `VCC` (5 V, LED chain) 0.3 /
   1.0 mm, `GND` 0.5 / 1.0 mm, `3V3` 0.3 / 0.3 mm. 5 V plan (user's): 1 mm stub from the
   Helios pad to C85, then 0.5–0.6 mm trunks (two per half, joined at the outer column),
-  0.3 mm allowed for the last hop to an LED pad; 2 vias per power layer change. Net names match by their end (`*VCC`), so
-  the panels' `Board_0-` nets match too. GND is best a pour on both layers.
+  0.3 mm allowed for the last hop to an LED pad; 2 vias per power layer change. Net names match by their end (`*VCC`).
+  GND is best a pour on both layers.
 - `tools/lib/kicad_project.py` copies the footprint's LCSC number into the schematic
   symbol.
 - The user exports with the Fabrication Toolkit plugin (bennymeg) in KiCad. Check the
   rotations in JLC's placement preview: everything is on the back at 15° steps. Fix
   them with the plugin's `FT Rotation Offset` / `FT Position Offset` fields.
-- **Assembly panel:** `bash tools/panel.sh <name>` makes `<keyboard>/kicad/<name>_panel.kicad_pcb`
-  from the project board with KiKit (installed on first use into
-  `%LOCALAPPDATA%/kugo-kikit`, a venv on KiCad's Python; KiCad itself is untouched).
-  - The recipe is `<keyboard>/panel.json`, following JLC's edge rail / fiducial
-    guideline (jlcpcb.com/help/article/how-to-add-edge-rails-fiducials-for-pcb-assembly-order,
-    checked 2026-10-19: rails >= 5 mm; fiducials 1 mm bare copper, mask opening 2x,
-    3-4 of them, keep-out >= 3.35 mm from the board edge):
-    - A closed frame (`RailsFrame` framing plugin in `tools/lib/panel_tabs.py`, 2 mm
-      gap): 9 mm rails top and bottom, because a 2 mm keep-out needs 3.35 mm to both
-      the outer edge and the rail's inner edge (8.7 mm; with 5 mm rails it was only
-      1.55 mm); 5 mm side rails (JLC's rail minimum, no fiducials on them). KiKit's own
-      frame has one width for all sides, hence the plugin.
-    - 3 fiducials per side (front and back; the back is the assembly side), 1 mm
-      copper, 2 mm opening, centred in the rail (4.5 mm in): keep-out 3.5 mm from
-      every edge. Tooling holes (3, 1.152 mm) and the texts are centred in the rails too.
-    - 5 mm mouse-bite tabs (0.5 mm holes, 0.8 mm pitch, offset 0.25 mm into the board
-      so the nubs don't stick out), and `JLCJLCJLCJLC` on the rail (JLC prints the
-      order number there, not on the board).
-    - JLC ships assembled boards with the rails on; removal is an extra paid option.
-  - V-cut can't be used: no straight edge of the outline is the outermost one.
-  - Tabs come from `tools/lib/panel_tabs.py` (`FixedTabs` tabs plugin): fixed spots
-    where the outline reaches the frame; top / bottom as x (mm from the board bbox's
-    left edge), left / right as y (mm from its top edge), `value:width` for a tab of
-    its own width. Per board, 14 tabs:
-    - 2 on the top edge of each half, 2 at each thumb-key corner / centre bottom edge
-      (8, as before);
-    - 2 top-centre bridges, 8 mm wide, ~29 mm long down to the recessed edge behind
-      the OLED (centre ± 25 mm; it was 236–243 mm between top tabs);
-    - 1 side tab at the outer corner of each half (the leftmost / rightmost point).
-    - hachigo74: top 51.6 73.6 166.4:8 216.4:8 309.2 331.2, bottom 126.6 161.4 221.4
-      256.2, left / right 86 (panel 396.8 × 165.9 mm).
-    - kugo82: top 70.6 92.6 189.3:8 239.3:8 336.0 358.0, bottom 149.6 184.3 244.3
-      279.0, left / right 82 (panel 442.7 × 167.2 mm; JLC's limit is 460 mm).
-  - `tools/lib/snap_outline.py` closes Ergogen's ~0.0001 mm outline gaps in a temp
-    copy first; KiKit rejects them, KiCad doesn't.
-  - KiKit moves footprint cutouts (LED windows, stabilizer cutouts) into the board
-    outline and leaves the panel's `.kicad_dru` empty, so `panel.sh` writes a panel
-    rule: 0.2 mm edge clearance for LED pads against Edge.Cuts inside the LED
-    courtyard.
-  - Expected panel DRC: 5 silk_overlap, plus `lib_footprint_mismatch` for every LED
-    and 2U footprint (78 on hachigo74, 86 on kugo82; they lost their cutouts to the
-    outline, harmless), plus the unrouted pads.
-  - Re-run it after routing, then run the Fabrication Toolkit on the panel board.
+- **Panelization: JLC does it** (user's decision, 2026-10-23): upload the design board's
+  files and choose "Edge Rails: Added by JLCPCB". Our own KiKit panel (rails, fiducials,
+  mouse bites, `tools/panel.sh`, `panel.json`) was removed; it pushed the board over JLC's
+  650 cm² "Large Size" fee. It is in git history (up to commit 55d6b66) if ever needed.
+  JLC's panel for the first hachigo74 order: 5 mm rails top and bottom, V-cut along the
+  rails' inner edges (the board only touches them at its outermost points), tabs on the
+  routed edges, their QR code on the rail.
 
 ## Working with the user
 
@@ -201,7 +165,6 @@ bash tools/build.sh [name]     # default kugo82; also hachigo74
 bash tools/case.sh [name]      # out/cases/*.jscad -> <keyboard>/case/*.stl
 bash tools/step.sh [name]      # STEP + Fusion data -> <keyboard>/case/step/, case/fusion/
 bash tools/render.sh [name]    # 3D renders -> <keyboard>/renders/ (only when asked)
-bash tools/panel.sh [name]     # JLC assembly panel (rails + tabs) -> <keyboard>/kicad/<name>_panel.kicad_pcb
 ```
 
 - `tools/lib/design.sh` finds `ergogen/<name>.yaml` and its keyboard folder (from
@@ -267,7 +230,8 @@ bash tools/panel.sh [name]     # JLC assembly panel (rails + tabs) -> <keyboard>
   - `vrml.js`, `keycap.js`, `oled.js`: VRML model generators.
   - `stl2wrl.js`: STL → VRML conversion.
   - `kle_parse.js`: KLE parser that decodes legend positions.
-- **Routing tools** (KiCad python + shapely: the KiKit venv `%LOCALAPPDATA%/kugo-kikit`):
+- **Routing tools** (KiCad python + shapely: the venv `%LOCALAPPDATA%/kugo-kikit`, a venv on
+  KiCad's Python made for KiKit once; it still holds shapely / numpy for these tools):
   - `route_grid.py`: angle-keeping grid router (key frame per half, 0 deg centre).
   - `led_rechain.py`: re-orders / renumbers the LED data chain on a routed board.
   - `remap_pins.py`: moves nets to other pins of a footprint (the Helios), removing only
