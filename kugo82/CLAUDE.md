@@ -284,3 +284,18 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
   Left for the user: the VCC pads of **LED14, LED23, C23** (right) and **LED71** (left),
   and the 5 V feed in the centre (Helios / C85 to the trunks' inner ends). DRC with parity:
   no errors; track_dangling = the trunks' inner ends waiting for the feed.
+- **DRC fixes after the user's routing (2026-10-24):** 218 GND stitching vias
+  (`gnd_stitch.py --spacing 15 --avoid MCU1,DISP1,J1`, two passes) and the gap in the right
+  outer-column 5 V trunk, (398.6, 79.8)-(402.7, 94.5), routed. Unconnected 72 -> 4 (pours
+  refilled), schematic parity 0.
+- **Leftovers to fix in KiCad (DRC with pours refilled, 2026-10-24):**
+  - [ ] VCC: LED23 pad 3 and C23 pad 1 (right half) not connected; the router finds no path.
+  - [ ] GND: J1 pad 11 (trackpad connector) not connected to the pour; a 0.2 mm track is
+        allowed there (J1 fine-pitch rule).
+  - [ ] GND: one pour piece too small for a stitching via (the two GND zones, `gnd` on F.Cu
+        and `gnd-f-b` on both, overlap on F.Cu; KiCad's DRC window shows where it is).
+  - [ ] 3 starved thermals (1 spoke instead of 2): MCU1 pad 14, DISP1 pad 1, LED1 pad 1;
+        add a short track to the pour or a second spoke.
+  - [ ] 8 copper slivers on F.Cu (thin pour spikes).
+  - [ ] 8 lib_footprint_mismatch on rotated parts (MCU1, J1, DISP1, R1, LED42, LED43, C42,
+        C43): KiCad's rotation quirk; Update from library in the DRC window (defaults) clears them.
