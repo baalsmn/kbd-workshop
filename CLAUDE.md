@@ -16,6 +16,43 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
     Shared hardware, stack-up and open items: **`kugo82/CLAUDE.md`**.
   - `hachigo74/`: hachigo74 (74 keys, kugo82 minus column c1): `kle/`,
     `case/`. Details: **`hachigo74/CLAUDE.md`** (hardware otherwise as kugo).
+- `keycaps/`: everything keycap-related (user's rule, 2026-10-24): the user's
+  `keycap-10-13.step` (the original design) and `keycap.py`, a parametric build123d remake of it
+  (run with the build123d PYTHONPATH, writes `keycaps/build/`): 1U = 18.2 x 18.2 (Ergogen `kc`,
+  0.8 gap on the 19 pitch), 1.25U 22.95, 2U 37.2 with KS-57 stems; skirt 5 deg off vertical
+  (user: closer to square to the plate; the original had 16); 3 deg sloped top (north up),
+  north roll-off, a valley (the insert 0.5 below the top plane, rising smoothly to it 8.6 out),
+  flat pocket for a separately printed legend insert (Ø10 x 0.8,
+  printed face down, legend 0.16 deep = the first 2 layers (0.10 + 0.06), its own body for a colour change, two keyed pins Ø1.0 /
+  Ø1.4 through the 0.8 floor). Stem 1.3 below the skirt (on the KS-33 cup floor) so the skirt
+  clears the switch over the full 3.0 travel; cross hole 4.10 x 1.20 (FDM, 0.2 nozzle). KS-57
+  stems start 1.25 higher (their cross top is 9.8 above the PCB, the switch's 8.55) with a
+  ceiling recess over the stabilizer housings (top 6.55, y -4.9 .. 4.6). `check_fit.py` sweeps each cap
+  over the travel against the vendor switch / stabilizer STEP models, checks the insert and
+  the gaps on the Ergogen key points (0.80 min, 6.6 to the centre cover).
+  - Thumb versions (1.25U / 2U, `--units 1.25t,2st`, user's request): the south face is one arc
+    tangent to the insert plane at the insert's south edge and to the south skirt face (meets
+    it 0.7 above the skirt bottom); ~1 mm wall at the inside corner.
+  - `assembly.py <u> <legend> [--stab] [--thumb]`: key_<...>.step (coloured assembly) plus
+    _cap / _insert (.step/.stl) and _legend.stl. Legend file names are ASCII (`A_acute`).
+  - `orca_project.py` -> `build/keycaps_hu.3mf` (Bambu project layout, opens in OrcaSlicer):
+    plate 1 the 35 Hungarian letters A..Z with Á É Í Ó Ö Ő Ú Ü Ű as inserts face down (legend =
+    filament 2), plate 2 one of each cap upright with tree supports; no printer settings stored
+    (the user has a Bambu A1, prints with a 0.2 nozzle); plates laid out for a 256 bed.
+    Caps print lying on the north skirt face (user's choice: layer lines across the top, no
+    support on the top), cavity opening to the back, per-object tree supports (inside only:
+    stem underside, cavity roof; threshold 40), 4 mm brim, seam back, 8 wall loops. Filament:
+    Polymaker matte PLA = Orca preset `PolyTerra PLA @BBL A1 0.2 nozzle`.
+  - `orca_settings.py`: print settings built from the installed Orca system presets (A1 0.2 nozzle,
+    PolyTerra x2, `0.06mm High Quality @BBL A1 0.2 nozzle`) + our changes (0.10 first layer /
+    0.06 layers, 0.20 outer / 0.22 lines, Arachne + precise outer wall, outer wall 40 mm/s, seam
+    back, no scarf, avoid crossing walls, tree supports 40 deg off by default, fans 80-100 %).
+    orca_project.py embeds them as `Metadata/project_settings.config` (shown in Orca as the
+    system presets, modified); `keycaps/orca/*.json` are importable user presets (File > Import
+    > Import Configs). Keys are checked against the presets; `precise_outer_wall`, `fuzzy_skin`,
+    `brim_type` sit at Orca's built-in defaults (names checked in OrcaSlicer.dll).
+  - The valley's flat floor reaches 0.3 past the insert pocket: where the two edges coincided,
+    the stretched (1.25U) valley left a tangent seam and 5 open mesh edges.
 - A new keyboard = `ergogen/<name>.yaml` starting with the line
   `# keyboard: <folder>` (where its outputs go; default a folder named `<name>`),
   plus that folder (with `kle/`). The tools find the yaml by name.
@@ -197,6 +234,35 @@ bash tools/render.sh [name]    # 3D renders -> <keyboard>/renders/ (only when as
   - Converter details (`tools/lib/step_case.py`): DXF endpoints are snapped so loops
     close; tiny arcs become lines; holes come from even-odd filling; every extrude is
     forced upward (+Z), because rebuilt faces can come out flipped.
+  - **Tilt wedge** (`tools/lib/wedge_case.py`, run by step.sh; user's design 2026-10-24): a
+    separate printed skeleton under the unchanged tub that raises the **south** edge, so the
+    case stands on the table with the key plane tilted (negative tilt). 3 mm at the north
+    edge, `WEDGE_ANGLE` (default 6 deg) over the 164 mm depth = 20.3 mm at the south.
+    - Skeleton (user's request): a 10 mm frame band under the tub's edge (8 mm wall) with a
+      1 mm rim around the tub's foot (0.3 clearance, 2 wide), 4 columns per half (Ø10 struts,
+      a Ø6.0 x 1.0 column on top with a 3.2 x 1.1 pocket for a 3 x 1 mm magnet), ribs (5 wide)
+      joining a half's columns in a ring and each to the frame, and a centre wall (3 mm each
+      side of the halves' joint, north to south frame) so the halves butt along the whole
+      depth. No screw holes: the cover screws and reset pin stay reachable through the
+      openings (1.2 mm clear of the wall).
+    - Joint magnets (user's request): 2 facing pairs of horizontal 3.2 x 1.1 pockets in the
+      centre wall (spread along it inside the frame, centred in the wall height), each only
+      where the wall is tall enough for the magnet + 1 mm above and below (5.2 mm): at 6 deg
+      both (y -87.5 / -139.7), at 1.5 deg only the south one. In Fusion the `side_holes`
+      step places them for the tilt_angle at build time (log says how many fit); they don't
+      move with a later tilt_angle change.
+    - Column places = the yaml outlines `wedge_socket` / `wedge_magnet` (key centres c4_r4,
+      c3_r2, c8_r4, c8_r2 and mirrors). The tub floor has the matching socket (Ø6.4, 1.1 deep)
+      and magnet pocket (Ø3.2, to 2.2: 0.8 floor left) in its recipe, so the STLs, STEP and
+      Fusion tub all have them. Glue the magnets with opposite poles facing (0.3 mm air gap).
+    - Writes `case/wedge_<a>deg_left/right.stl`, `case/step/wedge_<a>deg_left/right.step`
+      (print orientation, table side down) and `..._assembly.step` (tub frame). Fusion data:
+      `wedge_left/right`, whose "tilt" step the script turns into a split by a plane at the
+      user parameter `tilt_angle` (asked at start, up to 15 deg).
+    - build123d gotchas met here: an inward `Kind.ARC` offset of the case leaves 0.1 µm
+      edges (invalid solid, booleans come out empty), so the frame opening uses
+      `Kind.INTERSECTION`; overlapping 2D pieces don't fuse (flipped normals), so they are
+      extruded with `dir=(0, 0, 1)` and fused as solids.
   - It also writes `<keyboard>/case/fusion/<name>_case.json` (`tools/lib/fusion_data.py`):
     every outline as closed loops of lines / 3-point arcs / circles, with nesting
     depth and exact bounding box, plus the case recipe.
@@ -209,6 +275,13 @@ bash tools/render.sh [name]    # 3D renders -> <keyboard>/renders/ (only when as
   (Matching profiles by bounding box failed: Fusion's boxes are loose on arcs.)
   - Arc end points are paired by position: Fusion keeps arcs counter-clockwise, so a
     concave arc's "start" is our end point.
+  - **Optional tilt wedge** (asked at start if the data has one): `tilt_angle` user parameter;
+    built in the tub frame (the table plane is tilted, not the keyboard): `tilt_split` puts a
+    plane through the north line at the angle (the sign chosen so it falls to the south),
+    splits the wedge and removes the piece under it. The axis line spans only the wedge's
+    width (keeps the plane small); the planes and axis sketch are hidden (light bulb off).
+  - Nearly straight or dot-sized arcs (offset slivers, e.g. the rib region) are drawn as
+    lines or skipped: Fusion refuses a three-point arc on them.
   - **Optional plate ribs** (asked at start, default `1.0, 1.0, 1.5`): a rib frame
     under the plate around every switch cutout. Relief gap (default 1 mm) around the
     switch (on the 2U keys around switch + stabilizer housings + wire, 30 × 15.1) so
@@ -218,6 +291,13 @@ bash tools/render.sh [name]    # 3D renders -> <keyboard>/renders/ (only when as
     holes cut through. Data: `rib` in the `_case.json` (key rectangles from
     `switches_outline` + `stab_cutouts`, region from `pcb_outline`). Checked offline
     with the defaults: nearest through-hole pad (Helios) 11.1 mm away.
+- **Fusion test bridge** `tools/fusion/Bridge/` (add-in, start it in Scripts and Add-Ins ->
+  Add-Ins, stop it when done; not run on start-up): runs Python sent to 127.0.0.1 (port 8765)
+  on Fusion's main thread, token in `~/.fusion_bridge` (new each start, deleted on stop);
+  browser requests (Origin header) refused. Client: `python tools/fusion/fusion_run.py
+  <file.py> | -c "code" | --ping`. Tested 2026-10-24 (Fusion 2706.1.14): all 9 parts one solid each,
+  volumes = the build123d STEP, tilt_angle 3 / 10 / 15 / 6 deg recompute cleanly. KeyboardCase's `build_design(data, ribs, tilt)` builds
+  without the dialogs (import the script file and call it). Test in new, unsaved designs only.
 - **`render.sh` workarounds:**
   - The user's KiCad 3D settings hide "virtual" footprints, so the render copy
     marks every footprint `smd`, including those with no attr line at all, like the

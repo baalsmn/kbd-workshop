@@ -1,0 +1,115 @@
+# Print settings for the keycaps (Bambu A1, 0.2 nozzle, Polymaker matte PLA = PolyTerra), built from
+# the OrcaSlicer system presets installed on this PC plus our changes:
+#   - project_settings(n_filaments): the full flat config Orca stores in a project 3MF
+#     (Metadata/project_settings.config), used by orca_project.py;
+#   - write_presets(dir): importable user presets (File > Import > Import Configs in Orca):
+#     "Keycaps 0.06 @BBL A1 0.2 nozzle" (process) and "PolyTerra PLA keycaps @BBL A1 0.2 nozzle"
+#     (filament), each inheriting the system preset and holding only our changes.
+# Per-object settings for the caps (supports, brim, seam, walls) stay in orca_project.py.
+# Usage: python keycaps/orca_settings.py   -> keycaps/orca/*.json
+import os, sys, json, glob
+
+SYSTEM = os.path.join(os.environ.get('APPDATA', ''), 'OrcaSlicer', 'system', 'BBL')
+PRINTER = 'Bambu Lab A1 0.2 nozzle'
+PROCESS = '0.06mm High Quality @BBL A1 0.2 nozzle'
+FILAMENT = 'PolyTerra PLA @BBL A1 0.2 nozzle'
+PROCESS_NAME = 'Keycaps 0.06 @BBL A1 0.2 nozzle'
+FILAMENT_NAME = 'PolyTerra PLA keycaps @BBL A1 0.2 nozzle'
+COLOURS = ['#E8E6E1', '#1C1C1E']            # filament 1 (caps, inserts) / 2 (legends)
+
+PROCESS_CHANGES = {
+    'layer_height': '0.06', 'initial_layer_print_height': '0.1',     # legend = first 2 layers (0.16)
+    'line_width': '0.22', 'outer_wall_line_width': '0.2', 'inner_wall_line_width': '0.22',
+    'wall_generator': 'arachne', 'precise_outer_wall': '1',
+    'outer_wall_speed': '40', 'outer_wall_acceleration': '1500',
+    'seam_position': 'back', 'seam_slope_type': 'none',
+    'reduce_crossing_wall': '1', 'ironing_type': 'no ironing', 'fuzzy_skin': 'none',
+    'elefant_foot_compensation': '0.1',
+    'enable_support': '0',                 # on per object (the caps), not for the inserts
+    'support_type': 'tree(auto)', 'support_threshold_angle': '40', 'support_on_build_plate_only': '0',
+    'support_top_z_distance': '0.12', 'support_interface_top_layers': '2', 'bridge_no_support': '1',
+    'brim_type': 'no_brim',                # the caps get a 4 mm brim per object
+}
+FILAMENT_CHANGES = {'fan_min_speed': '80', 'fan_max_speed': '100', 'slow_down_layer_time': '8',
+                    'slow_down_for_layer_cooling': '1'}
+META = {'type', 'name', 'inherits', 'from', 'setting_id', 'instantiation', 'description'}
+# real Orca options left at their built-in defaults in the BBL presets (names checked in OrcaSlicer.dll)
+DEFAULTED = {'precise_outer_wall', 'fuzzy_skin', 'brim_type'}
+
+_index = None
+
+
+def preset(name):
+    global _index
+    if _index is None:
+        _index = {}
+        for f in glob.glob(os.path.join(SYSTEM, '**', '*.json'), recursive=True):
+            try:
+                d = json.load(open(f, encoding='utf-8'))
+            except Exception:
+                continue
+            if isinstance(d, dict) and 'name' in d:
+                _index[d['name']] = d
+    d = _index[name]
+    base = preset(d['inherits']) if d.get('inherits') else {}
+    out = dict(base)
+    out.update({k: v for k, v in d.items() if k not in META})
+    return out
+
+
+def apply(cfg, changes):
+    """Set each change in the shape the preset uses (list values stay lists); unknown keys fail."""
+    missing = [k for k in changes if k not in cfg and k not in DEFAULTED]
+    if missing:
+        raise KeyError('not in the preset: %s' % ', '.join(missing))
+    for k, v in changes.items():
+        cfg[k] = [v] * len(cfg[k]) if isinstance(cfg.get(k), list) else v
+    return cfg
+
+
+def available():
+    return os.path.isdir(SYSTEM)
+
+
+def project_settings(n_filaments=2):
+    printer, process, fil = preset(PRINTER), apply(preset(PROCESS), PROCESS_CHANGES), apply(preset(FILAMENT), FILAMENT_CHANGES)
+    cfg = {}
+    cfg.update(printer); cfg.update(process)
+    for k, v in fil.items():
+        cfg[k] = (v * n_filaments) if isinstance(v, list) and len(v) == 1 else v
+    cfg['filament_colour'] = COLOURS[:n_filaments]
+    cfg.update({'name': 'project_settings', 'from': 'project', 'version': '01.10.02.67',
+                'printer_settings_id': PRINTER, 'print_settings_id': PROCESS,
+                'filament_settings_id': [FILAMENT] * n_filaments,
+                'inherits_group': [''] * (n_filaments + 2),
+                'different_settings_to_system': [';'.join(sorted(PROCESS_CHANGES))]
+                + [';'.join(sorted(FILAMENT_CHANGES))] * n_filaments + ['']})
+    if n_filaments > 1:                       # flushing between the 2 filaments (AMS lite)
+        cfg['flush_volumes_matrix'] = ['0' if i == j else '280' for i in range(n_filaments) for j in range(n_filaments)]
+    return cfg
+
+
+def write_presets(out):
+    os.makedirs(out, exist_ok=True)
+    apply(preset(PROCESS), PROCESS_CHANGES); apply(preset(FILAMENT), FILAMENT_CHANGES)   # (checks the keys)
+    proc, fil = preset(PROCESS), preset(FILAMENT)
+    p = {'type': 'process', 'name': PROCESS_NAME, 'inherits': PROCESS, 'from': 'User', 'instantiation': 'true',
+         'print_settings_id': PROCESS_NAME, 'version': '2.1.0.19'}
+    p.update({k: ([v] * len(proc[k]) if isinstance(proc.get(k), list) else v) for k, v in PROCESS_CHANGES.items()})
+    f = {'type': 'filament', 'name': FILAMENT_NAME, 'inherits': FILAMENT, 'from': 'User', 'instantiation': 'true',
+         'filament_settings_id': [FILAMENT_NAME], 'version': '2.1.0.19'}
+    f.update({k: ([v] * len(fil[k]) if isinstance(fil[k], list) else v) for k, v in FILAMENT_CHANGES.items()})
+    paths = []
+    for d in (p, f):
+        path = os.path.join(out, d['name'] + '.json')
+        json.dump(d, open(path, 'w', encoding='utf-8'), indent=4)
+        paths.append(path)
+    return paths
+
+
+if __name__ == '__main__':
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'orca')
+    for p in write_presets(out): print(p)
+    c = project_settings()
+    print('project settings: %d keys, printer %s, process %s, filaments %s' % (
+        len(c), c['printer_settings_id'], c['print_settings_id'], c['filament_settings_id']))
