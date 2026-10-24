@@ -15,6 +15,11 @@
 # snap in; neighbouring frames merge into a web. Clipped 0.5 mm inside the PCB
 # outline, with the plate's holes cut through. The depth is the user parameter
 # `plate_rib` (Modify > Change Parameters); gap and width are fixed per run.
+#
+# Optional tilt wedge (asked at start, if the data has one): wedge_left / wedge_right, a
+# printed wedge under the tub that raises the south edge so the key plane tilts. Built in
+# the tub's frame (the tub floor is z = 0): the "tilt" recipe step splits it along a table
+# plane at the user parameter `tilt_angle`, so changing it re-shapes the wedge.
 import adsk.core, adsk.fusion, traceback, json, os, math
 
 MM = 0.1            # Fusion's internal unit is cm
@@ -46,11 +51,21 @@ def draw_outline(comp, name, loops, sx, sy):
                 continue
             q = [[p[0] + sx, p[1] + sy] for p in s['p']]
             a, b = q[0], q[-1]
-            if s['t'] == 'L':
+            if math.hypot(b[0] - a[0], b[1] - a[1]) < 1e-3:
+                continue                            # a dot (offset leftovers): the neighbours meet anyway
+            m = q[1] if s['t'] == 'A' else None
+            # nearly straight arcs (sagitta < 1 um, e.g. 0.1 mm offset slivers) are invalid in Fusion
+            if m and abs((m[0] - a[0]) * (b[1] - a[1]) - (m[1] - a[1]) * (b[0] - a[0])) \
+                    / math.hypot(b[0] - a[0], b[1] - a[1]) < 1e-3:
+                m = None
+            arc = None
+            if m:
+                try: arc = arcs.addByThreePoints(P(*a), P(*m), P(*b))
+                except RuntimeError: arc = None
+            if arc is None:
                 ln = lines.addByTwoPoints(sp(a) or P(*a), sp(b) or P(*b))
                 keep(a, ln.startSketchPoint); keep(b, ln.endSketchPoint)
             else:
-                arc = arcs.addByThreePoints(P(*a), P(*q[1]), P(*b))
                 # Fusion keeps arcs counter-clockwise: for a clockwise (concave) arc its
                 # "start" point is our end point, so pair the points by position
                 for e in (arc.startSketchPoint, arc.endSketchPoint):
@@ -126,6 +141,85 @@ def add_ribs(comp, bodies, sketches, rib, opt, log):
         except Exception as e: log.append('%s: rib join failed (%s)' % (comp.name, e))
 
 
+def side_holes(comp, bodies, item, log):
+    """Joint magnet pockets: horizontal holes (radius r, depth on each side) through the plane
+    x = item x, at the candidate ys where the wedge wall (table to z = 0, at the tilt_angle
+    set now) is tall enough for the hole plus margin above and below; centred in its height.
+    Placed at build time: after a smaller tilt_angle, check they still fit."""
+    p = adsk.fusion.Design.cast(comp.parentDesign).userParameters.itemByName('tilt_angle')
+    if p is None: return
+    t = math.tan(p.value)
+    holes = []
+    for y in item['ys']:
+        h = -item['north_z'] + (item['north_y'] - y) * t
+        if h >= 2 * item['r'] + 2 * item['margin']: holes.append((y, -h / 2))
+    log.append('%s: %d of %d joint magnets fit at %.1f deg' % (comp.name, len(holes), len(item['ys']), math.degrees(p.value)))
+    if not holes: return
+    planes = comp.constructionPlanes
+    pi = planes.createInput()
+    pi.setByOffset(comp.yZConstructionPlane, adsk.core.ValueInput.createByReal(item['x'] * MM))
+    pl = planes.add(pi)
+    pl.name = 'wedge joint plane'
+    sk = comp.sketches.add(pl)
+    sk.name = 'wedge joint magnets'
+    for y, z in holes:
+        sk.sketchCurves.sketchCircles.addByCenterRadius(
+            sk.modelToSketchSpace(adsk.core.Point3D.create(item['x'] * MM, y * MM, z * MM)), item['r'] * MM)
+    feats = comp.features
+    ei = feats.extrudeFeatures.createInput(all_profiles(sk), adsk.fusion.FeatureOperations.CutFeatureOperation)
+    ei.setSymmetricExtent(adsk.core.ValueInput.createByReal(2 * item['depth'] * MM), True)
+    ei.participantBodies = [b for b in bodies if b.isValid]
+    feats.extrudeFeatures.add(ei).name = 'joint magnet pockets'
+    for o in (pl, sk):
+        try: o.isLightBulbOn = False
+        except Exception: pass
+
+
+def tilt_split(comp, bodies, item, log):
+    """Cut the wedge along the table plane: through the line y = north_y, z = north_z
+    (along x), tilted by the user parameter tilt_angle so it falls towards the south
+    (the wedge gets thicker there); the part below the plane is removed."""
+    feats = comp.features
+    y, z = item['north_y'], item['north_z']
+    planes = comp.constructionPlanes
+    pi = planes.createInput()
+    pi.setByOffset(comp.xYConstructionPlane, adsk.core.ValueInput.createByReal(z * MM))
+    base = planes.add(pi)
+    base.name = 'wedge north line plane'
+    sk = comp.sketches.add(base)
+    sk.name = 'wedge tilt axis'
+    x0, x1 = item.get('x0', -1000), item.get('x1', 1000)  # the axis only as long as the wedge (plane size)
+    a = sk.modelToSketchSpace(adsk.core.Point3D.create(x0 * MM, y * MM, z * MM))
+    b = sk.modelToSketchSpace(adsk.core.Point3D.create(x1 * MM, y * MM, z * MM))
+    axis = sk.sketchCurves.sketchLines.addByTwoPoints(a, b)
+    table = None
+    for expr in ('tilt_angle', '-tilt_angle'):           # the sign that makes the plane fall to the south
+        pi = planes.createInput()
+        pi.setByAngle(axis, adsk.core.ValueInput.createByString(expr), base)
+        pl = planes.add(pi)
+        n = pl.geometry.normal
+        if n.y * n.z < 0:                                 # normal (0, -sin, cos): rises to the north
+            table = pl; break
+        pl.deleteMe()
+    if table is None:
+        log.append('%s: could not orient the tilt plane' % comp.name); return
+    table.name = 'wedge table plane (tilt_angle)'
+    for o in (base, table, sk):                           # hidden by default (Browser: light bulb)
+        try: o.isLightBulbOn = False
+        except Exception: pass
+    for body in [b for b in bodies if b.isValid]:
+        si = feats.splitBodyFeatures.createInput(body, table, True)
+        try:
+            sf = feats.splitBodyFeatures.add(si)
+        except Exception as e:
+            log.append('%s: tilt split failed (%s)' % (comp.name, e)); continue
+        sf.name = 'tilt split'
+        parts = [sf.bodies.item(k) for k in range(sf.bodies.count)]
+        if len(parts) > 1:                                # drop the piece under the table
+            low = min(parts, key=lambda p: p.boundingBox.maxPoint.z)
+            feats.removeFeatures.add(low).name = 'remove below table'
+
+
 def all_profiles(sk):
     c = adsk.core.ObjectCollection.create()
     for i in range(sk.profiles.count): c.add(sk.profiles.item(i))
@@ -137,6 +231,13 @@ def build_part(comp, recipe, outlines, log, rib=None, rib_opt=None):
     bodies, sketches = [], {}
     for i, item in enumerate(recipe):
         name = item['name']
+        if item.get('operation') == 'tilt':
+            tilt_split(comp, bodies, item, log)
+            bodies = [b for b in comp.bRepBodies if b.isValid]
+            continue
+        if item.get('operation') == 'side_holes':
+            side_holes(comp, bodies, item, log)
+            continue
         loops = outlines.get(name) or []
         if not loops:
             log.append('%s: outline %s is empty, skipped' % (comp.name, name)); continue
@@ -202,6 +303,46 @@ def build_part(comp, recipe, outlines, log, rib=None, rib_opt=None):
         b.name = comp.name if k == 0 else '%s %d' % (comp.name, k + 1)
 
 
+def build_design(data, ribs=None, tilt=None):
+    """Build every part of the case data in a new design. ribs = (depth, gap, width) mm or
+    None, tilt = wedge angle (deg) or None (no wedge parts). Returns the log lines.
+    Called by run() after its dialogs, or directly (tools/fusion/Bridge)."""
+    app = adsk.core.Application.get()
+    app.documents.add(adsk.core.DocumentTypes.FusionDesignDocumentType)
+    design = adsk.fusion.Design.cast(app.activeProduct)
+    design.designType = adsk.fusion.DesignTypes.ParametricDesignType
+    design.fusionUnitsManager.distanceDisplayUnits = adsk.fusion.DistanceUnits.MillimeterDistanceUnits
+    root = design.rootComponent
+    rib, rib_opt = data.get('rib'), None
+    if rib and ribs:
+        depth, gap, width = ribs
+        rib_opt = {'gap': gap, 'width': width}
+        design.userParameters.add('plate_rib', adsk.core.ValueInput.createByString('%g mm' % depth), 'mm',
+                                  'plate rib depth below the switch plate (max %.2f)' % (rib['plate_z'] - rib['pcb_top']))
+    cases = dict(data['cases'])
+    wedge = data.get('wedge')
+    if wedge and tilt:
+        design.userParameters.add('tilt_angle', adsk.core.ValueInput.createByString('%g deg' % tilt), 'deg',
+                                  'tilt wedge: key plane angle, south edge up (max %g)' % wedge['max_angle'])
+    else:
+        cases = {k: v for k, v in cases.items() if not k.startswith('wedge_')}
+    # (the root component can't be renamed; it takes the name the design is saved under)
+    log, tl = [], design.timeline
+    for part, recipe in cases.items():
+        start = tl.markerPosition
+        occ = root.occurrences.addNewComponent(adsk.core.Matrix3D.create())
+        comp = occ.component
+        comp.name = part
+        build_part(comp, recipe, data['outlines'], log, rib, rib_opt)
+        adsk.doEvents()
+        try:
+            if tl.markerPosition - 1 > start:
+                tl.timelineGroups.add(start, tl.markerPosition - 1).name = part
+        except Exception:
+            pass
+    return ['Built %d parts of %s.' % (len(cases), data.get('design', ''))] + log
+
+
 def run(context):
     app = adsk.core.Application.get()
     ui = app.userInterface
@@ -212,12 +353,7 @@ def run(context):
         if dlg.showOpen() != adsk.core.DialogResults.DialogOK:
             return
         data = json.load(open(dlg.filename, encoding='utf-8'))
-        doc = app.documents.add(adsk.core.DocumentTypes.FusionDesignDocumentType)
-        design = adsk.fusion.Design.cast(app.activeProduct)
-        design.designType = adsk.fusion.DesignTypes.ParametricDesignType
-        design.fusionUnitsManager.distanceDisplayUnits = adsk.fusion.DistanceUnits.MillimeterDistanceUnits
-        root = design.rootComponent
-        rib, rib_opt = data.get('rib'), None
+        rib, ribs, tilt = data.get('rib'), None, None
         if rib:
             room = rib['plate_z'] - rib['pcb_top']
             txt, cancelled = ui.inputBox(
@@ -227,27 +363,21 @@ def run(context):
                 'Plate ribs', '1.0, 1.0, 1.5')
             if cancelled: return
             if txt.strip() and txt.strip() != '0':
-                depth, gap, width = [float(v) for v in txt.replace(';', ',').split(',')]
-                if not 0 < depth <= room + 1e-6:
+                ribs = [float(v) for v in txt.replace(';', ',').split(',')]
+                if not 0 < ribs[0] <= room + 1e-6:
                     ui.messageBox('Rib depth must be > 0 and <= %.2f mm' % room); return
-                rib_opt = {'gap': gap, 'width': width}
-                design.userParameters.add('plate_rib', adsk.core.ValueInput.createByString('%g mm' % depth), 'mm',
-                                          'plate rib depth below the switch plate (max %.2f)' % room)
-        # (the root component can't be renamed; it takes the name the design is saved under)
-        log, tl = [], design.timeline
-        for part, recipe in data['cases'].items():
-            start = tl.markerPosition
-            occ = root.occurrences.addNewComponent(adsk.core.Matrix3D.create())
-            comp = occ.component
-            comp.name = part
-            build_part(comp, recipe, data['outlines'], log, rib, rib_opt)
-            adsk.doEvents()
-            try:
-                if tl.markerPosition - 1 > start:
-                    tl.timelineGroups.add(start, tl.markerPosition - 1).name = part
-            except Exception:
-                pass
-        ui.messageBox('Built %d parts of %s.%s' % (len(data['cases']), data.get('design', ''),
-                      ('\n\n' + '\n'.join(log)) if log else ''))
+        wedge = data.get('wedge')
+        if wedge:
+            txt, cancelled = ui.inputBox(
+                'Tilt wedge under the tub, south edge raised (empty or 0 = no wedge):\n'
+                'key plane angle in degrees (up to %g); change it later as the user parameter tilt_angle' % wedge['max_angle'],
+                'Tilt wedge', '%g' % wedge['angle'])
+            if cancelled: return
+            if txt.strip() and float(txt) != 0:
+                tilt = float(txt)
+                if not 0 < tilt <= wedge['max_angle']:
+                    ui.messageBox('Tilt angle must be > 0 and <= %g degrees' % wedge['max_angle']); return
+        log = build_design(data, ribs, tilt)
+        ui.messageBox(log[0] + (('\n\n' + '\n'.join(log[1:])) if len(log) > 1 else ''))
     except Exception:
         ui.messageBox('Failed:\n{}'.format(traceback.format_exc()))

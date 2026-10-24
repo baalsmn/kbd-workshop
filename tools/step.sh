@@ -35,3 +35,7 @@ PYTHONPATH="$(w "$B3D")" python -I -c "import sys; sys.path.insert(0, r'$(w "$B3
 FOUT="$C/fusion"; mkdir -p "$FOUT"
 PYTHONPATH="$(w "$B3D")" python -I -c "import sys; sys.path[:0] = [r'$(w "$B3D")', r'$(w "$P/tools/lib")']; sys.argv = ['fusion_data.py'] + sys.argv[1:]; exec(open(r'$(w "$P/tools/lib/fusion_data.py")').read())" \
   "$(w "$P/build/cases.json")" "$(w "$P/out/outlines")" "$(w "$FOUT/${NAME}_case.json")" "$NAME" tub_left tub_right lid_left lid_right center_cover trackpad_ring oled_spacers
+
+# tilt wedge under the tub (south edge raised): STEP + STL at WEDGE_ANGLE (default 6 deg),
+# and the parametric wedge parts in the Fusion data file (user parameter tilt_angle)
+PYTHONPATH="$(w "$B3D")" python -I -c "import sys; sys.path[:0] = [r'$(w "$B3D")', r'$(w "$P/tools/lib")']; sys.argv = ['wedge_case.py'] + sys.argv[1:]; exec(open(r'$(w "$P/tools/lib/wedge_case.py")').read())"   "$(w "$P/out/outlines")" "$(w "$OUT")" --angle "${WEDGE_ANGLE:-6}" --stl-dir "$(w "$C")" --json "$(w "$FOUT/${NAME}_case.json")"

@@ -1,0 +1,13 @@
+{
+	"autodeskProduct":	"Fusion",
+	"type":	"addin",
+	"id":	"c0f4d3cd-f6aa-4656-8fa3-5b90aae76df4",
+	"author":	"baal",
+	"description":	{
+		"":	"Local bridge for testing the case scripts: runs Python sent to 127.0.0.1 with a token (see Bridge.py). Stop it when done."
+	},
+	"version":	"1.0",
+	"runOnStartup":	false,
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true
+}

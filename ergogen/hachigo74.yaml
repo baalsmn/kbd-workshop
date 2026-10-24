@@ -1559,6 +1559,61 @@ outlines:
         rotate: 0
         shift: [300, 0]
 
+  # Tilt wedge (tools/lib/wedge_case.py) locating columns: 4 per half under the tub,
+  # at key centres clear of the floor screws and reset pin. The tub floor gets a socket
+  # (6.4, 1.1 deep) for the wedge's 6.0 x 1.0 column and above it a pocket for a
+  # 3 x 1 mm magnet (3.2, to 2.2 deep: 0.8 mm floor left); the column has the same
+  # magnet pocket in its top. Glue the magnets in with opposite poles facing.
+  wedge_socket:
+    - what: circle
+      radius: 3.2
+      where: hand-zone_c4_r4
+    - what: circle
+      radius: 3.2
+      where: hand-zone_c3_r2
+    - what: circle
+      radius: 3.2
+      where: hand-zone_c8_r4
+    - what: circle
+      radius: 3.2
+      where: hand-zone_c8_r2
+    - what: circle
+      radius: 3.2
+      where: mirror_hand-zone_c4_r4
+    - what: circle
+      radius: 3.2
+      where: mirror_hand-zone_c3_r2
+    - what: circle
+      radius: 3.2
+      where: mirror_hand-zone_c8_r4
+    - what: circle
+      radius: 3.2
+      where: mirror_hand-zone_c8_r2
+  wedge_magnet:
+    - what: circle
+      radius: 1.6
+      where: hand-zone_c4_r4
+    - what: circle
+      radius: 1.6
+      where: hand-zone_c3_r2
+    - what: circle
+      radius: 1.6
+      where: hand-zone_c8_r4
+    - what: circle
+      radius: 1.6
+      where: hand-zone_c8_r2
+    - what: circle
+      radius: 1.6
+      where: mirror_hand-zone_c4_r4
+    - what: circle
+      radius: 1.6
+      where: mirror_hand-zone_c3_r2
+    - what: circle
+      radius: 1.6
+      where: mirror_hand-zone_c8_r4
+    - what: circle
+      radius: 1.6
+      where: mirror_hand-zone_c8_r2
 
 cases:
   # Z stack-up (mm): bottom 3.0 | under-PCB clearance 5.5 (Helios 1.6 board +
@@ -1595,6 +1650,14 @@ cases:
       operation: subtract
       shift: [0, 0, 0]
       extrude: 1.6     # screw heads of the bottom-up cover screws
+    - name: wedge_socket
+      operation: subtract
+      shift: [0, 0, 0]
+      extrude: 1.1     # tilt wedge column socket
+    - name: wedge_magnet
+      operation: subtract
+      shift: [0, 0, 0]
+      extrude: 2.2     # 3 x 1 magnet above the socket (glued)
     - name: case
       operation: intersect
       extrude: 30
@@ -1624,6 +1687,14 @@ cases:
       operation: subtract
       shift: [0, 0, 0]
       extrude: 1.6
+    - name: wedge_socket
+      operation: subtract
+      shift: [0, 0, 0]
+      extrude: 1.1     # tilt wedge column socket
+    - name: wedge_magnet
+      operation: subtract
+      shift: [0, 0, 0]
+      extrude: 2.2     # 3 x 1 magnet above the socket (glued)
     - name: case
       operation: intersect
       extrude: 30
