@@ -50,7 +50,7 @@ module.exports = {
     switch_model: '${KIPRJMOD}/../../kicad-libraries/3dmodels/vendor_Gateron_KS-33_switch.step',
     stab_model: '${KIPRJMOD}/../../kicad-libraries/3dmodels/vendor_Gateron_KS-57B210T_stabilizer.step',
     // keycap (VRML), file chosen by width: {w} is replaced with 1, 1.25 or 2. The MBK
-    // caps (vendor_keycap_MBK_{w}u.wrl, from drafts/MBK_*.stl by tools/lib/stl2wrl.js:
+    // caps (vendor_keycap_MBK_{w}u.wrl, from the user's MBK keycap STLs (not kept) by tools/lib/stl2wrl.js:
     // stem bottom 6.3 / rim 9.6 above the PCB top; 1.25u = the 1u cap stretched in x);
     // the generated keycap_lowprofile_{w}u.wrl (tools/lib/keycap.js) also fit. '' = none
     keycap_model: '${KIPRJMOD}/../../kicad-libraries/3dmodels/vendor_keycap_MBK_{w}u.wrl',

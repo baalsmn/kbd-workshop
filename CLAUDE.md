@@ -65,7 +65,8 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
   see `THIRD_PARTY_NOTICES.md`); the copies in `<keyboard>/kicad/libraries/3dmodels/` are
   gitignored, so after a fresh clone run
   `cp kicad-libraries/3dmodels/vendor_* <keyboard>/kicad/libraries/3dmodels/`.
-  Originals in `vendor/` and `drafts/`. Checked against the drawings: socket 15.08 × 5.39 × 3.0, in the
+  Originals: the user's uploads (most also in the gitignored `vendor/`; the `drafts/` copies
+  were removed on 2026-10-24 and never committed). Checked against the drawings: socket 15.08 × 5.39 × 3.0, in the
   footprint frame; switch 15 × 15, origin at the key centre with z 0 = PCB top (offset
   0, 0, −1.6), pins at (2.6, 5.75) / (−4.4, 4.7); stabilizer 30 × 16.97, housings 6.0 at
   ±12, 4.45 below the plate top (offset −60, 0, 1.65); LED pin-1 lead (cut corner) and body
@@ -73,11 +74,12 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
   - OLED: the vendor STEP as is, offset (0, −12.2, 1.2) (header row at its y +12.2); it
     still shows the plastic header spacer (the module really sits on bare pins). A cleaned
     re-export lost the per-face colours (build123d keeps one colour per part), so it wasn't used.
-  - Keycaps: `drafts/MBK_*.stl` -> VRML by `tools/lib/stl2wrl.js` (binary STL now read),
+  - Keycaps: the user's MBK keycap STLs (uploaded to `drafts/`, not kept) -> VRML by `tools/lib/stl2wrl.js` (binary STL now read),
     stem bottom 6.3 / rim 9.6 / top 13.6 above the PCB top (switch stem top 8.55);
     1.25u = the 1u cap stretched 1.25x in x (no MBK 1.25u model).
 - Switch footprint (`ks33_hotswap.js`): back silkscreen = the stepped socket body from the
-  courtyard of Gateron's KS33 hot-swap footprint (`drafts/Gateron_KS33_Hotswap.pretty`),
+  courtyard of Gateron's KS33 hot-swap footprint (`Gateron_KS33_Hotswap.pretty`, uploaded
+  by the user, not kept in the repo),
   mirrored to the back, terminal tabs left out (on the pads); the 14 × 14 switch body is
   drawn as corner marks (Dwgs.User). Pads kept (ours: 2.45 × 2.55, at the drawing's pad
   centres; the uploaded footprint's 2.55 squares sit 0.5 mm further in). Centre hole kept

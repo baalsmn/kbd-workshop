@@ -58,6 +58,6 @@ licences and must not be redistributed without the makers' permission.
 
 - Vendor datasheets (`datasheets/*.pdf`) belong to their manufacturers; see
   `datasheets/LINKS.md`.
-- The originals of the vendor 3D models and the vendor footprints (`vendor/`, `drafts/`)
-  are kept out of git; the footprints are drawn from the datasheets, and models
+- The originals of the vendor 3D models and the vendor footprints are kept out of git
+  (`vendor/`, gitignored); the footprints are drawn from the datasheets, and models
   recreated from datasheet dimensions (`tools/lib/make_models.py`) remain available.

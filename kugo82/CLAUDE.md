@@ -144,7 +144,8 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
     from the connector (z 10.1) to the PCB bottom, leaving a flat run of ~19.3 mm for
     the 30 mm cable.
   - Trackpad pin n = Molex pin n. **Pin 1 verified** from the user's photos of the
-    real module (`drafts/cirque back.jpg`, `cirque connector close.jpg`): the
+    real module (`drafts/cirque back.jpg`, `cirque connector close.jpg`, removed from the repo on
+    2026-10-24, still in git history before commit 5a96c8e): the
     trackpad's J1 pin 1 is at the east end (+x, top view), and so is Molex J1 pin 1
     (pad x +2.75 in the board); the cable runs straight north, so the order holds.
     Module test pads match the pinout: 4 DR, 9 SCL, 10 SDA, 11 GND, 12 VDD.
