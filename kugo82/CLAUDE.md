@@ -288,14 +288,6 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
   (`gnd_stitch.py --spacing 15 --avoid MCU1,DISP1,J1`, two passes) and the gap in the right
   outer-column 5 V trunk, (398.6, 79.8)-(402.7, 94.5), routed. Unconnected 72 -> 4 (pours
   refilled), schematic parity 0.
-- **Leftovers to fix in KiCad (DRC with pours refilled, 2026-10-24):**
-  - [ ] VCC: LED23 pad 3 and C23 pad 1 (right half) not connected; the router finds no path.
-  - [ ] GND: J1 pad 11 (trackpad connector) not connected to the pour; a 0.2 mm track is
-        allowed there (J1 fine-pitch rule).
-  - [ ] GND: one pour piece too small for a stitching via (the two GND zones, `gnd` on F.Cu
-        and `gnd-f-b` on both, overlap on F.Cu; KiCad's DRC window shows where it is).
-  - [ ] 3 starved thermals (1 spoke instead of 2): MCU1 pad 14, DISP1 pad 1, LED1 pad 1;
-        add a short track to the pour or a second spoke.
-  - [ ] 8 copper slivers on F.Cu (thin pour spikes).
-  - [ ] 8 lib_footprint_mismatch on rotated parts (MCU1, J1, DISP1, R1, LED42, LED43, C42,
-        C43): KiCad's rotation quirk; Update from library in the DRC window (defaults) clears them.
+- **Leftovers fixed by the user (2026-10-24, saved 12:28):** DRC with pours refilled and
+  schematic parity: 0 unconnected, 0 parity issues, 1 violation, excluded by the user (a
+  0.34 mm GND stub, 0.3 mm wide, near J1 at (218.1, 114.6), under the 0.5 mm GND minimum).
