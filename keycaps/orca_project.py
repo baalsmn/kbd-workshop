@@ -1,5 +1,5 @@
 # OrcaSlicer / Bambu Studio project (3MF, Bambu project layout) with two plates:
-#   plate 1 "inserts": the Hungarian alphabet as legend inserts, face down (smooth face on the
+#   plate 1 "inserts": the legends of keycaps/inserts.txt as inserts, face down (smooth face on the
 #     bed), each object = insert (filament 1) + legend (filament 2, the first 0.4 mm);
 #   plate 2 "keycaps": one of each cap (1U, 1.25U, 1.25U thumb, 2U, 2U thumb) lying on the north
 #     skirt face (layer lines run across the top, nothing on the top needs support), the cavity
@@ -17,7 +17,6 @@ from build123d import Pos, Rot
 import keycap as K
 import orca_settings
 
-HU = 'A Á B C D E É F G H I Í J K L M N O Ó Ö Ő P Q R S T U Ú Ü Ű V W X Y Z'.split()
 CAPS = [((1, False, False), '1U'), ((1.25, False, False), '1.25U'), ((1.25, False, True), '1.25U thumb'),
         ((2, True, False), '2U stab'), ((2, True, True), '2U stab thumb')]
 
@@ -25,6 +24,58 @@ CAPS = [((1, False, False), '1U'), ((1.25, False, False), '1.25U'), ((1.25, Fals
 def mesh(shape, tol=0.01, ang=0.15):
     v, t = shape.tessellate(tol, ang)
     return [(p.X, p.Y, p.Z) for p in v], t
+
+
+def read_stl(path):
+    """Vertices + triangles of a binary or ASCII STL (shared vertices merged)."""
+    import struct
+    data = open(path, 'rb').read()
+    n = struct.unpack('<I', data[80:84])[0] if len(data) >= 84 else 0
+    if len(data) == 84 + 50 * n:                              # binary
+        tri_pts = [struct.unpack('<9f', data[84 + 50 * i + 12:84 + 50 * i + 48]) for i in range(n)]
+        tri_pts = [(t[0:3], t[3:6], t[6:9]) for t in tri_pts]
+    else:                                                     # ASCII
+        v = [tuple(float(x) for x in l.split()[1:4]) for l in data.decode('ascii', 'ignore').splitlines()
+             if l.strip().startswith('vertex')]
+        tri_pts = [tuple(v[i:i + 3]) for i in range(0, len(v), 3)]
+    key, verts, tris = {}, [], []
+    for t in tri_pts:
+        ids = []
+        for q in t:
+            k = tuple(round(c, 5) for c in q)
+            if k not in key: key[k] = len(verts); verts.append(k)
+            ids.append(key[k])
+        if len(set(ids)) == 3: tris.append(tuple(ids))
+    return verts, tris
+
+
+def cap_mesh(u, stab, thumb, P):
+    """A cap's print mesh, lying on its north skirt face, cavity opening to +y, centred, on z = 0:
+    from Fusion's STL (build/fusion/<cap>.stl, the cap source) when there, else tessellated."""
+    a = math.radians(-(90 + P['draft']))
+    rot = lambda x, y, z: (-x, -(y * math.cos(a) - z * math.sin(a)), y * math.sin(a) + z * math.cos(a))  # Rx, then Rz(180)
+    stl = os.path.join(K.FUSION_DIR, K.cap_name(u, stab, thumb) + '.stl')
+    if P['cap_source'] == 'fusion' and os.path.exists(stl):
+        verts, tris = read_stl(stl)
+    else:
+        verts, tris = mesh(K.build_cap(u, stab, thumb, P))
+    verts = [rot(*v) for v in verts]
+    x0, x1 = min(v[0] for v in verts), max(v[0] for v in verts)
+    y0, y1 = min(v[1] for v in verts), max(v[1] for v in verts)
+    z0 = min(v[2] for v in verts)
+    return [(x - (x0 + x1) / 2, y - (y0 + y1) / 2, z - z0) for x, y, z in verts], tris
+
+
+def insert_meshes(ch, P):
+    """Insert and legend meshes, face down (top face on z = 0): from Fusion's STLs
+    (build/fusion/insert_<name>.stl / _legend.stl) when there, else build123d."""
+    t = P['insert_t']
+    flip = lambda m: ([(x, -y, t - z) for x, y, z in m[0]], m[1])   # Rx(180) + t (a rotation: winding kept)
+    base = os.path.join(K.INSERT_DIR, 'insert_' + K.file_name(ch))
+    if P['cap_source'] == 'fusion' and os.path.exists(base + '.stl') and os.path.exists(base + '_legend.stl'):
+        return flip(read_stl(base + '.stl')), flip(read_stl(base + '_legend.stl'))
+    ins, leg = K.build_insert(ch, P)
+    return flip(mesh(ins)), flip(mesh(leg))
 
 
 def mesh_xml(oid, verts, tris):
@@ -46,12 +97,12 @@ def main():
     # plate 1: inserts, flipped face down (top face on the bed)
     flip = Pos(0, 0, P['insert_t']) * Rot(180, 0, 0)
     cols, pitch = 7, 14.0
-    rows = math.ceil(len(HU) / cols)
-    for i, ch in enumerate(HU):
-        ins, leg = K.build_insert(ch)
+    rows = math.ceil(len(K.LEGENDS) / cols)
+    for i, ch in enumerate(K.LEGENDS):
+        ins_m, leg_m = insert_meshes(ch, P)
         x = A.bed / 2 + (i % cols - (cols - 1) / 2) * pitch
         y = A.bed / 2 - (i // cols - (rows - 1) / 2) * pitch
-        objects.append(('insert %s' % ch, 1, (x, y), [('insert', 1, flip * ins), ('legend %s' % ch, 2, flip * leg)], {}))
+        objects.append(('insert %s' % ch, 1, (x, y), [('insert', 1, ins_m), ('legend %s' % ch, 2, leg_m)], {}))
     # plate 2: caps on the north skirt face, cavity opening to +y
     place = [(-28, 22), (28, 22), (-32, -8), (0, -8), (32, -8)]          # 2U, 2U thumb / 1U, 1.25U, 1.25U thumb
     order = [3, 4, 0, 1, 2]
@@ -60,33 +111,49 @@ def main():
                   'brim_object_gap': '0.1', 'seam_position': 'back', 'wall_loops': '8'}
     for (dx, dy), k in zip(place, order):
         (u, stab, thumb), label = CAPS[k]
-        cap = Rot(0, 0, 180) * Rot(-(90 + P['draft']), 0, 0) * K.build_cap(u, stab, thumb)
-        vs = [v for v in cap.tessellate(0.01, 0.15)[0]]           # (bounding boxes of the valley surface are loose)
-        x0, x1, y0, y1 = min(v.X for v in vs), max(v.X for v in vs), min(v.Y for v in vs), max(v.Y for v in vs)
-        cap = Pos(-(x0 + x1) / 2, -(y0 + y1) / 2, -min(v.Z for v in vs)) * cap
-        objects.append(('cap %s' % label, 2, (A.bed / 2 + dx, A.bed / 2 + dy), [('cap', 1, cap)], dict(per_object)))
+        verts, tris = cap_mesh(u, stab, thumb, P)
+        objects.append(('cap %s' % label, 2, (A.bed / 2 + dx, A.bed / 2 + dy), [('cap', 1, (verts, tris))], dict(per_object)))
+    plates = write_3mf(A.out, objects, A.bed, {1: 'inserts (keycaps/inserts.txt, face down)', 2: 'keycaps'})
+    print('%s: %d objects, plate 1 %d inserts, plate 2 %d caps, print settings %s' % (
+        A.out, len(objects), len(plates[1]), len(plates[2]), 'included' if orca_settings.available() else 'NOT included (no Orca presets)'))
+    # every insert also on its own (insert + legend as 2 parts of one object, the legend on filament 2):
+    # a 3MF keeps the parts and their filaments, an STL does not
+    out3 = K.INSERT_DIR
+    n = 0
+    for name, plate, xy, parts, extra in objects:
+        if name.startswith('insert '):
+            ch = name[len('insert '):]
+            write_3mf(os.path.join(out3, 'insert_%s.3mf' % K.file_name(ch)), [(name, 1, (A.bed / 2, A.bed / 2), parts, extra)],
+                      A.bed, {1: 'insert %s (face down)' % ch}, title='keycap insert %s (keyboard-workshop)' % ch)
+            n += 1
+    print('%s: %d single-insert 3MF files (insert + legend, 2 filaments)' % (out3, n))
 
-    model_files, rels, res, build, settings, plates = {}, [], [], [], [], {1: [], 2: []}
+
+def write_3mf(path, objects, bed, names, title='keycaps (keyboard-workshop)'):
+    """Bambu / Orca project 3MF: objects = (name, plate, (x, y), [(part name, filament, mesh or shape)],
+    per-object settings); names = {plate: name}; the print settings (orca_settings) when available.
+    Returns {plate: [object ids]}."""
+    model_files, rels, res, build, settings, plates = {}, [], [], [], [], {k: [] for k in names}
     nid = 1
     for n, (name, plate, (x, y), parts, extra) in enumerate(objects):
         part_ids, comp_xml, part_meshes = [], [], []
         for pname, ext, shp in parts:
-            verts, tris = mesh(shp)
+            verts, tris = shp if isinstance(shp, tuple) else mesh(shp)
             part_meshes.append((nid, verts, tris)); part_ids.append((nid, pname, ext, len(tris))); nid += 1
         oid = nid; nid += 1
-        path = '3D/Objects/object_%d.model' % oid
-        model_files[path] = ('<?xml version="1.0" encoding="UTF-8"?>\n<model unit="millimeter" xml:lang="en-US" '
+        mpath = '3D/Objects/object_%d.model' % oid           # (not 'path': that is the output file)
+        model_files[mpath] = ('<?xml version="1.0" encoding="UTF-8"?>\n<model unit="millimeter" xml:lang="en-US" '
                              'xmlns="http://schemas.microsoft.com/3dmanufacturing/core/2015/02" '
                              'xmlns:BambuStudio="http://schemas.bambulab.com/package/2021" '
                              'xmlns:p="http://schemas.microsoft.com/3dmanufacturing/production/2015/06" requiredextensions="p">\n'
                              ' <metadata name="BambuStudio:3mfVersion">1</metadata>\n <resources>\n'
                              + ''.join(mesh_xml(i, v, t) for i, v, t in part_meshes) + ' </resources>\n <build/>\n</model>\n')
-        rels.append(path)
+        rels.append(mpath)
         res.append('  <object id="%d" p:UUID="%s" type="model">\n   <components>\n%s   </components>\n  </object>\n' % (
             oid, uuid.uuid4(), ''.join('    <component p:path="/%s" objectid="%d" p:UUID="%s" transform="1 0 0 0 1 0 0 0 1 0 0 0"/>\n'
-                                      % (path, i, uuid.uuid4()) for i, _, _, _ in part_ids)))
+                                      % (mpath, i, uuid.uuid4()) for i, _, _, _ in part_ids)))
         build.append('  <item objectid="%d" p:UUID="%s" transform="1 0 0 0 1 0 0 0 1 %.3f %.3f 0" printable="1"/>\n' % (
-            oid, uuid.uuid4(), x + (plate - 1) * A.bed * 1.2, y))
+            oid, uuid.uuid4(), x + (plate - 1) * bed * 1.2, y))
         s = ['  <object id="%d">\n    <metadata key="name" value="%s"/>\n    <metadata key="extruder" value="1"/>\n' % (oid, name)]
         s += ['    <metadata key="%s" value="%s"/>\n' % kv for kv in extra.items()]
         for i, pname, ext, nf in part_ids:
@@ -98,7 +165,6 @@ def main():
         s.append('  </object>\n')
         settings.append(''.join(s))
         plates[plate].append(oid)
-    names = {1: 'inserts (Hungarian alphabet, face down)', 2: 'keycaps'}
     plate_xml = ''.join('  <plate>\n    <metadata key="plater_id" value="%d"/>\n    <metadata key="plater_name" value="%s"/>\n'
                         '    <metadata key="locked" value="false"/>\n%s  </plate>\n' % (
                             k, names[k], ''.join('    <model_instance>\n      <metadata key="object_id" value="%d"/>\n'
@@ -111,11 +177,11 @@ def main():
                   'xmlns:p="http://schemas.microsoft.com/3dmanufacturing/production/2015/06" requiredextensions="p">\n'
                   ' <metadata name="Application">BambuStudio-01.10.02.67</metadata>\n'
                   ' <metadata name="BambuStudio:3mfVersion">1</metadata>\n'
-                  ' <metadata name="Title">keycaps (keyboard-workshop)</metadata>\n'
+                  ' <metadata name="Title">%s</metadata>\n' % title +
                   ' <resources>\n' + ''.join(res) + ' </resources>\n <build p:UUID="%s">\n' % uuid.uuid4()
                   + ''.join(build) + ' </build>\n</model>\n')
-    os.makedirs(os.path.dirname(A.out), exist_ok=True)
-    with zipfile.ZipFile(A.out, 'w', zipfile.ZIP_DEFLATED) as z:
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with zipfile.ZipFile(path, 'w', zipfile.ZIP_DEFLATED) as z:
         z.writestr('[Content_Types].xml', '<?xml version="1.0" encoding="UTF-8"?>\n<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">\n'
                    ' <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>\n'
                    ' <Default Extension="model" ContentType="application/vnd.ms-package.3dmanufacturing-3dmodel+xml"/>\n'
@@ -132,8 +198,7 @@ def main():
         if orca_settings.available():
             z.writestr('Metadata/project_settings.config', json.dumps(orca_settings.project_settings(2), indent=4))
         z.writestr('Metadata/model_settings.config', '<?xml version="1.0" encoding="UTF-8"?>\n<config>\n' + ''.join(settings) + plate_xml + '</config>\n')
-    print('%s: %d objects, plate 1 %d inserts, plate 2 %d caps, print settings %s' % (
-        A.out, len(objects), len(plates[1]), len(plates[2]), 'included' if orca_settings.available() else 'NOT included (no Orca presets)'))
+    return plates
 
 
 if __name__ == '__main__':

@@ -1,0 +1,44 @@
+# Legend inserts to generate: one legend per line (a letter, digit, symbol or a short word such as
+# Esc or F1). Empty lines and lines starting with # are ignored; a legend that is itself # is
+# written as \#. Read by keycap.py (recipe 'legends' for the Fusion builder, the insert files) and
+# orca_project.py (the inserts plate). After a change: python keycaps/keycap.py --fusion, build the
+# inserts in Fusion (KeycapBuilder), then python keycaps/orca_project.py.
+# File names: letters and digits as they are, accented letters as letter + accent (Á -> A_acute),
+# anything else as its code (/ -> u002f).
+
+# Hungarian alphabet (the single-letter keys)
+A
+Á
+B
+C
+D
+E
+É
+F
+G
+H
+I
+Í
+J
+K
+L
+M
+N
+O
+Ó
+Ö
+Ő
+P
+Q
+R
+S
+T
+U
+Ú
+Ü
+Ű
+V
+W
+X
+Y
+Z

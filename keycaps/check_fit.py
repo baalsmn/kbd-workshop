@@ -46,11 +46,11 @@ def sweep(cap, parts):
 print('1. travel sweep (skirt bottom %.2f above the PCB top at rest, %.2f bottomed out)' % (SEAT, SEAT - TRAVEL))
 caps = {}
 for u, stab, thumb in ((1, False, False), (1.25, False, False), (1.25, False, True), (2, True, False), (2, True, True)):
-    cap = K.build_cap(u, stab, thumb)
+    cap, src = K.get_cap(u, stab, thumb)
     caps[(u, stab, thumb)] = cap
     parts = sw_fixed + (st_fixed if stab else [])
     d, v = sweep(cap, parts)
-    print('   %gU%s%s: %s' % (u, ' + stab' if stab else '', ' thumb' if thumb else '', 'clear over the full %.1f mm' % TRAVEL if d is None
+    print('   %gU%s%s (%s): %s' % (u, ' + stab' if stab else '', ' thumb' if thumb else '', src, 'clear over the full %.1f mm' % TRAVEL if d is None
                             else 'HITS at %.1f mm travel (%.3f mm3)' % (d, v)))
     # the stems / crosses at rest: switch cross top 8.55, stab cross top 9.8 above the PCB top
     if stab:
@@ -61,7 +61,7 @@ cap = caps[(1, False, False)]
 W, D = 19 - P['gap'], P['depth']
 t = math.tan(math.radians(P['draft']))
 z_top, z_pocket, z_ceil = K.insert_levels(P, W - 2 * P['h_centre'] * t, D - 2 * P['h_centre'] * t)
-ins, _ = K.build_insert('A')
+ins, _, _ = K.get_insert('A')
 placed = K.top_frame(P) * Pos(0, 0, z_pocket) * ins
 print('   overlap cap / insert %.4f mm3; insert top %.2f below the top plane; floor %.2f, pins %.1f long (flush with the ceiling)'
       % (overlap(placed, [cap]), -z_top, P['floor'], P['floor']))

@@ -1,0 +1,10 @@
+{
+	"autodeskProduct":	"Fusion",
+	"type":	"script",
+	"author":	"baal",
+	"description":	{
+		"":	"Rebuilds the keycaps (keycaps/build/keycaps_fusion.json) as parametric designs with every step in the timeline"
+	},
+	"supportedOS":	"windows|mac",
+	"editEnabled":	true
+}

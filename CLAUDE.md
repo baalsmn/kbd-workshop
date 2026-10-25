@@ -30,9 +30,65 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
   ceiling recess over the stabilizer housings (top 6.55, y -4.9 .. 4.6). `check_fit.py` sweeps each cap
   over the travel against the vendor switch / stabilizer STEP models, checks the insert and
   the gaps on the Ergogen key points (0.80 min, 6.6 to the centre cover).
-  - Thumb versions (1.25U / 2U, `--units 1.25t,2st`, user's request): the south face is one arc
-    tangent to the insert plane at the insert's south edge and to the south skirt face (meets
-    it 0.7 above the skirt bottom); ~1 mm wall at the inside corner.
+  - Thumb versions (1.25U / 2U, `--units 1.25t,2st`, user's request; `thumb_style='valley'`): from
+    the insert's south edge the south part rolls down: in the centre section an arc tangent to the
+    insert plane, then a short line down to the south skirt's bottom edge (user: fully down, meets
+    it at 15 deg; at the sides, where the curve is raised, a strip of skirt up to 0.66 is left); every east-west
+    slice is that profile raised by the valley's own east-west profile at the start line (user:
+    continuous with the top). Point-grid surface starting 0.002 above the top; ~1 mm wall at the
+    inside corner. Fillet (user, 2026-10-25): only the north, west and east top edges (none touching
+    the thumb surface), 0.6, and only on the **1.25U thumb**; on the 2U thumb that fillet fails,
+    so it has none for now (`thumb_fillet_units`); thumb caps have square south corners (user's
+    idea; with them Fusion fillets both thumb caps, build123d only the 1.25U). The 1.25U thumb curve is scaled per slice down
+    through the skirt's bottom edge (`thumb_scaled_units`, user: no skirt left on the south side,
+    aims 0.05 below the edge; the edge moves in 0.014); the 2U thumb keeps the earlier curve
+    (its cut fails the scaled way) and has no fillet. `thumb_style='straight'` (WIP, user's idea to simplify): no
+    east-west valley, one north-south profile (roll-off, valley rise, flat insert band, thumb arc)
+    pushed across; its fillet failed too (the side / south edges), not finished.
+  - `top_fillet` 0.6 (user) along the top outer edge outline on every other cap: the edges between
+    top faces and the outer skirt faces (picked by their exact draft lean), filleted as one chain
+    (OCC needs the whole tangent chain; one bad edge fails it all; the script says what it skipped).
+  - Corner radii shrink upwards with the draft (outside r_bottom 2.0, inside r_inner 0.8), like a
+    tapered extrude, so a Fusion rebuild matches. `keycap.py --fusion` writes
+    `build/keycaps_fusion.json` (every number per cap, step by step, plus the build123d volume).
+  - **Fusion is the source of the caps** (user, 2026-10-25; `cap_source='fusion'`). Workflow:
+    1. `keycap.py --fusion` writes `build/keycaps_fusion.json` (every number per cap, step by step,
+       plus build123d's volume as a check);
+    2. **Fusion builder** `keycaps/fusion/KeycapBuilder/` (run in Fusion or through the bridge:
+       `build_keycap(rec, legend)` + `export_keycap()`) makes one parametric design per cap, a
+       timeline group per stage (skirt extrude tapered by user parameter `draft` (thumb caps:
+       square south corners), sloped top split at `slope`, north roll-off cut, valley revolve +
+       stretch + move + cut, thumb loft through closed sections + cut, pocket / pins, cavity
+       tapered to the ceiling plane, stab recesses, stems + crosses, fillet `top_fillet`) and the
+       legend insert as its own component; saves `build/fusion/<cap>.f3d`, `.step` (cap only),
+       `.stl` (high refinement);
+    3. `keycap.py` (`get_cap()`), `assembly.py`, `check_fit.py`, `orca_project.py` then use those:
+       the STEP for the cap files and checks, the STL for the Orca meshes (build123d's mesher fails
+       on some imported Fusion surfaces). Without the export, `build_cap()` is the fallback.
+    Checked 2026-10-25 (Fusion 2706.1.14): all designs healthy, volumes within 0.11 % of
+    build123d (2U thumb -0.54 %: Fusion has its fillet, build123d's fails), all caps clear the
+    switch / stabilizer over the full travel, the 3MF meshes closed.
+  - **The inserts come from Fusion too** (user, 2026-10-25): the builder's `make_insert()` (also
+    used in each cap design) makes the insert body + pins and the legend: the text cut into the
+    insert from its own sketch, and the legend in a sub-component `legend` (every piece of the
+    letter: Fusion keeps a letter and its accent as separate bodies, a join does not merge them).
+    Fusion's sketch text height is the capital height, so the recipe carries
+    `legend_height` = build123d's capital height (3.58 for size 5). `build_insert_design()` +
+    `export_insert()` (also offered in the script's run) build the 35 letters of `keycap.HU` (recipe
+    `legends`) and save `build/fusion/inserts/insert_<name>.step` (insert + legend), `.stl`,
+    `_legend.stl` (and `insert_A.f3d` as the design with history). `keycap.get_insert()` loads them,
+    the Orca project uses the STLs (face down).
+  - **The legend list is `keycaps/inserts.txt`** (user): one legend per line (letter, digit,
+    symbol or short word), `#` comments. Read by keycap.py (`LEGENDS`, recipe `legends`) and
+    orca_project.py. File names: letters / digits as is, accented letters letter + accent
+    (`O_dacute`), anything else its code (`/` -> `u002f`).
+  - **Each insert is also saved as a 3MF** (user: the format that keeps the two colours):
+    `build/fusion/inserts/insert_<name>.3mf`, one object with the insert (filament 1) and the legend
+    (filament 2) as parts, face down, with the print settings; written by orca_project.py
+    (`write_3mf()`, the same writer as the project). An STL can't carry the parts / filaments.
+    Checked by letting Orca's CLI read and re-export them (`orca-slicer.exe --export-3mf out in`):
+    the legend parts stay on filament 2 (project: 35 of 35). Checked 2026-10-25: all 35 legend volumes within
+    0.03 mm3 of build123d.
   - `assembly.py <u> <legend> [--stab] [--thumb]`: key_<...>.step (coloured assembly) plus
     _cap / _insert (.step/.stl) and _legend.stl. Legend file names are ASCII (`A_acute`).
   - `orca_project.py` -> `build/keycaps_hu.3mf` (Bambu project layout, opens in OrcaSlicer):
