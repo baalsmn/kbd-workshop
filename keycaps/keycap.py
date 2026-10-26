@@ -351,7 +351,7 @@ def cap_name(u, stab=False, thumb=False):
 
 
 def get_cap(u, stab=False, thumb=False, p=P):
-    """The cap as used everywhere (files, fit checks, assembly, Orca project): Fusion's export
+    """The cap as used everywhere (files, fit checks, assembly, Bambu project): Fusion's export
     (build/fusion/<cap>.step, made by keycaps/fusion/KeycapBuilder from the recipe) when cap_source is
     'fusion' and the file is there, else build_cap(). Returns (shape, source)."""
     f = os.path.join(FUSION_DIR, cap_name(u, stab, thumb) + '.step')

@@ -16,7 +16,8 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
     Shared hardware, stack-up and open items: **`kugo82/CLAUDE.md`**.
   - `hachigo74/`: hachigo74 (74 keys, kugo82 minus column c1): `kle/`,
     `case/`. Details: **`hachigo74/CLAUDE.md`** (hardware otherwise as kugo).
-- `keycaps/`: everything keycap-related (user's rule, 2026-10-24): the user's
+- `keycaps/`: everything keycap-related (user's rule, 2026-10-24; its generated `keycaps/build/` is
+  caught by the `build/` ignore rule and kept local only, user's decision 2026-10-25): the user's
   `keycap-10-13.step` (the original design) and `keycap.py`, a parametric build123d remake of it
   (run with the build123d PYTHONPATH, writes `keycaps/build/`): 1U = 18.2 x 18.2 (Ergogen `kc`,
   0.8 gap on the 19 pitch), 1.25U 22.95, 2U 37.2 with KS-57 stems; skirt 5 deg off vertical
@@ -62,8 +63,8 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
        tapered to the ceiling plane, stab recesses, stems + crosses, fillet `top_fillet`) and the
        legend insert as its own component; saves `build/fusion/<cap>.f3d`, `.step` (cap only),
        `.stl` (high refinement);
-    3. `keycap.py` (`get_cap()`), `assembly.py`, `check_fit.py`, `orca_project.py` then use those:
-       the STEP for the cap files and checks, the STL for the Orca meshes (build123d's mesher fails
+    3. `keycap.py` (`get_cap()`), `assembly.py`, `check_fit.py`, `bambu_project.py` then use those:
+       the STEP for the cap files and checks, the STL for the 3MF meshes (build123d's mesher fails
        on some imported Fusion surfaces). Without the export, `build_cap()` is the fallback.
     Checked 2026-10-25 (Fusion 2706.1.14): all designs healthy, volumes within 0.11 % of
     build123d (2U thumb -0.54 %: Fusion has its fillet, build123d's fails), all caps clear the
@@ -77,36 +78,55 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
     `export_insert()` (also offered in the script's run) build the 35 letters of `keycap.HU` (recipe
     `legends`) and save `build/fusion/inserts/insert_<name>.step` (insert + legend), `.stl`,
     `_legend.stl` (and `insert_A.f3d` as the design with history). `keycap.get_insert()` loads them,
-    the Orca project uses the STLs (face down).
+    the Bambu project uses the STLs (face down).
   - **The legend list is `keycaps/inserts.txt`** (user): one legend per line (letter, digit,
     symbol or short word), `#` comments. Read by keycap.py (`LEGENDS`, recipe `legends`) and
-    orca_project.py. File names: letters / digits as is, accented letters letter + accent
+    bambu_project.py. File names: letters / digits as is, accented letters letter + accent
     (`O_dacute`), anything else its code (`/` -> `u002f`).
   - **Each insert is also saved as a 3MF** (user: the format that keeps the two colours):
     `build/fusion/inserts/insert_<name>.3mf`, one object with the insert (filament 1) and the legend
-    (filament 2) as parts, face down, with the print settings; written by orca_project.py
+    (filament 2) as parts, face down, with the print settings; written by bambu_project.py
     (`write_3mf()`, the same writer as the project). An STL can't carry the parts / filaments.
-    Checked by letting Orca's CLI read and re-export them (`orca-slicer.exe --export-3mf out in`):
+    Checked by letting Bambu Studio's CLI read and re-export them (`bambu-studio.exe --export-3mf out in`):
     the legend parts stay on filament 2 (project: 35 of 35). Checked 2026-10-25: all 35 legend volumes within
     0.03 mm3 of build123d.
   - `assembly.py <u> <legend> [--stab] [--thumb]`: key_<...>.step (coloured assembly) plus
     _cap / _insert (.step/.stl) and _legend.stl. Legend file names are ASCII (`A_acute`).
-  - `orca_project.py` -> `build/keycaps_hu.3mf` (Bambu project layout, opens in OrcaSlicer):
+  - `bambu_project.py` -> `build/keycaps_hu.3mf` (Bambu Studio project; **Bambu Studio only**, user
+    2026-10-26: Orca no longer needed; was orca_project.py):
     plate 1 the 35 Hungarian letters A..Z with Á É Í Ó Ö Ő Ú Ü Ű as inserts face down (legend =
     filament 2), plate 2 one of each cap upright with tree supports; no printer settings stored
     (the user has a Bambu A1, prints with a 0.2 nozzle); plates laid out for a 256 bed.
     Caps print lying on the north skirt face (user's choice: layer lines across the top, no
     support on the top), cavity opening to the back, per-object tree supports (inside only:
     stem underside, cavity roof; threshold 40), 4 mm brim, seam back, 8 wall loops. Filament:
-    Polymaker matte PLA = Orca preset `PolyTerra PLA @BBL A1 0.2 nozzle`.
-  - `orca_settings.py`: print settings built from the installed Orca system presets (A1 0.2 nozzle,
+    Polymaker matte PLA = preset `PolyTerra PLA @BBL A1 0.2 nozzle`. Prime tower at (195, 60) on
+    every plate (`wipe_tower_x/y`, one entry per plate): Bambu's default ran off the A1 bed
+    ("G-code outside of the printable area"). Checked 2026-10-26 with Bambu Studio 02.08.02.61's CLI
+    (`bambu-studio.exe --slice <plate> --outputdir`, result.json is UTF-8): plates 1 and 2 and a
+    single insert slice with "Success", the inserts plate with the filament changes (T1 / T0).
+    Names: Bambu Studio's GUI refuses `<>:/\|?*"` in any object / part / plate name ("Invalid
+    name", then "Invalid configuration file" and nothing loads; the CLI doesn't check), so
+    `write_3mf()` passes every name through `safe_name()` (forbidden characters -> their code).
+    The GUI is stricter than the CLI on `project_settings.config` too (user's tests 2026-10-26: "no
+    geometry data" + "Invalid configuration file", even for Bambu's own CLI re-save of ours): it needs
+    the per-filament fields Bambu Studio 2.x writes, one entry per filament (`filament_ids`,
+    `filament_self_index`, `filament_map` + `filament_map_mode`, `filament_nozzle_map`,
+    `filament_volume_map`, `extruder_ams_count`, colour fields, `flush_volumes_vector` 2 per filament),
+    and no preset-only fields (`compatible_printers*`, `compatible_prints*`, `inherits_group`).
+    Preset `include` lists (Bambu's templates, e.g. the A1 start / end G-code) are merged in, and
+    keys Bambu doesn't write into projects are left out (`NOT_IN_PROJECT`). Reference: compare with
+    a project Bambu Studio itself saved; the GUI opens ours since (single inserts and the project).
+  - `bambu_settings.py` (was orca_settings.py): print settings built from the installed Bambu Studio
+    system presets (`%APPDATA%/BambuStudio/system/BBL`; A1 0.2 nozzle,
     PolyTerra x2, `0.06mm High Quality @BBL A1 0.2 nozzle`) + our changes (0.10 first layer /
     0.06 layers, 0.20 outer / 0.22 lines, Arachne + precise outer wall, outer wall 40 mm/s, seam
     back, no scarf, avoid crossing walls, tree supports 40 deg off by default, fans 80-100 %).
-    orca_project.py embeds them as `Metadata/project_settings.config` (shown in Orca as the
-    system presets, modified); `keycaps/orca/*.json` are importable user presets (File > Import
+    bambu_project.py embeds them as `Metadata/project_settings.config` (shown in Bambu Studio as the
+    system presets, modified; the 3MF headers carry Bambu Studio's version from BambuStudio.conf);
+    `keycaps/bambu/*.json` are importable user presets (File > Import
     > Import Configs). Keys are checked against the presets; `precise_outer_wall`, `fuzzy_skin`,
-    `brim_type` sit at Orca's built-in defaults (names checked in OrcaSlicer.dll).
+    `brim_type` sit at built-in defaults (names checked in BambuStudio.dll).
   - The valley's flat floor reaches 0.3 past the insert pocket: where the two edges coincided,
     the stretched (1.25U) valley left a tangent seam and 5 open mesh edges.
 - A new keyboard = `ergogen/<name>.yaml` starting with the line

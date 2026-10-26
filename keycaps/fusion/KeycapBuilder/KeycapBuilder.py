@@ -436,7 +436,7 @@ def build_keycap(rec, legend='A', params=None):
 
 def export_keycap(design, rec, folder):
     """Save the design (<name>.f3d) and the cap alone (<name>.step, <name>.stl): Fusion is the source
-    of the caps (keycap.py get_cap() loads these STEP files for the files, fit checks and Orca)."""
+    of the caps (keycap.py get_cap() loads these STEP files for the files, fit checks and the Bambu project)."""
     import os
     os.makedirs(folder, exist_ok=True)
     occ, body = build_keycap.last
@@ -465,7 +465,7 @@ def run(context):
         leg, cancelled = ui.inputBox('Legend on the insert (empty = none):', 'Keycaps', 'A')
         if cancelled: return
         save = ui.messageBox('Also save each cap (.f3d, .step, .stl) to build/fusion next to the recipe?\n'
-                             '(Fusion is the source of the cap files, fit checks and the Orca project)', 'Keycaps',
+                             '(Fusion is the source of the cap files, fit checks and the Bambu project)', 'Keycaps',
                              adsk.core.MessageBoxButtonTypes.YesNoButtonType) == adsk.core.DialogResults.DialogYes
         import os
         folder = os.path.join(os.path.dirname(dlg.filename), 'fusion')

@@ -1,8 +1,8 @@
 # Legend inserts to generate: one legend per line (a letter, digit, symbol or a short word such as
 # Esc or F1). Empty lines and lines starting with # are ignored; a legend that is itself # is
 # written as \#. Read by keycap.py (recipe 'legends' for the Fusion builder, the insert files) and
-# orca_project.py (the inserts plate). After a change: python keycaps/keycap.py --fusion, build the
-# inserts in Fusion (KeycapBuilder), then python keycaps/orca_project.py.
+# bambu_project.py (the inserts plate). After a change: python keycaps/keycap.py --fusion, build the
+# inserts in Fusion (KeycapBuilder), then python keycaps/bambu_project.py.
 # File names: letters and digits as they are, accented letters as letter + accent (Á -> A_acute),
 # anything else as its code (/ -> u002f).
 

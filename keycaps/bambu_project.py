@@ -1,4 +1,4 @@
-# OrcaSlicer / Bambu Studio project (3MF, Bambu project layout) with two plates:
+# Bambu Studio project (3MF, Bambu project layout) with two plates:
 #   plate 1 "inserts": the legends of keycaps/inserts.txt as inserts, face down (smooth face on the
 #     bed), each object = insert (filament 1) + legend (filament 2, the first 0.4 mm);
 #   plate 2 "keycaps": one of each cap (1U, 1.25U, 1.25U thumb, 2U, 2U thumb) lying on the north
@@ -6,16 +6,16 @@
 #     opening to the back (+y) so the seam (position back) lands on the skirt rim. Per object:
 #     tree supports for the inside only (stem underside, the cavity roof), 4 mm brim (17.5 mm
 #     tall on its north face), 8 wall loops (walls all perimeters).
-# Print settings (orca_settings.py: A1 0.2 nozzle, PolyTerra PLA x2, 0.06 process + our changes) are
-# stored as Metadata/project_settings.config when Orca's system presets are found on this PC:
+# Print settings (bambu_settings.py: A1 0.2 nozzle, PolyTerra PLA x2, 0.06 process + our changes) are
+# stored as Metadata/project_settings.config when Bambu Studio's system presets are found on this PC:
 # open the file as a project and they load with it. Plates are laid out for a 256 x 256 bed (Bambu A1), plate i at
-# x = i * 1.2 * 256 like Orca does.
-# Usage: python keycaps/orca_project.py [--out keycaps/build/keycaps_hu.3mf] [--bed 256]
+# x = i * 1.2 * 256 like Bambu Studio does.
+# Usage: python keycaps/bambu_project.py [--out keycaps/build/keycaps_hu.3mf] [--bed 256]
 import os, sys, math, json, zipfile, uuid, argparse
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from build123d import Pos, Rot
 import keycap as K
-import orca_settings
+import bambu_settings
 
 CAPS = [((1, False, False), '1U'), ((1.25, False, False), '1.25U'), ((1.25, False, True), '1.25U thumb'),
         ((2, True, False), '2U stab'), ((2, True, True), '2U stab thumb')]
@@ -113,9 +113,9 @@ def main():
         (u, stab, thumb), label = CAPS[k]
         verts, tris = cap_mesh(u, stab, thumb, P)
         objects.append(('cap %s' % label, 2, (A.bed / 2 + dx, A.bed / 2 + dy), [('cap', 1, (verts, tris))], dict(per_object)))
-    plates = write_3mf(A.out, objects, A.bed, {1: 'inserts (keycaps/inserts.txt, face down)', 2: 'keycaps'})
+    plates = write_3mf(A.out, objects, A.bed, {1: 'inserts (face down)', 2: 'keycaps'})
     print('%s: %d objects, plate 1 %d inserts, plate 2 %d caps, print settings %s' % (
-        A.out, len(objects), len(plates[1]), len(plates[2]), 'included' if orca_settings.available() else 'NOT included (no Orca presets)'))
+        A.out, len(objects), len(plates[1]), len(plates[2]), 'included' if bambu_settings.available() else 'NOT included (no Bambu Studio presets)'))
     # every insert also on its own (insert + legend as 2 parts of one object, the legend on filament 2):
     # a 3MF keeps the parts and their filaments, an STL does not
     out3 = K.INSERT_DIR
@@ -129,10 +129,23 @@ def main():
     print('%s: %d single-insert 3MF files (insert + legend, 2 filaments)' % (out3, n))
 
 
+NOT_IN_NAMES = set('<>:/' + chr(92) + '|?*"')          # Bambu Studio refuses these in any name
+
+
+def safe_name(s):
+    """A name Bambu Studio accepts (no <>:/\\|?*", e.g. from a symbol legend: '/' -> 'u002f'),
+    XML-escaped for the attribute."""
+    s = ''.join('u%04x' % ord(c) if c in NOT_IN_NAMES else c for c in s)
+    return s.replace('&', '&amp;').replace("'", '&apos;')
+
+
 def write_3mf(path, objects, bed, names, title='keycaps (keyboard-workshop)'):
-    """Bambu / Orca project 3MF: objects = (name, plate, (x, y), [(part name, filament, mesh or shape)],
-    per-object settings); names = {plate: name}; the print settings (orca_settings) when available.
-    Returns {plate: [object ids]}."""
+    """Bambu Studio project 3MF: objects = (name, plate, (x, y), [(part name, filament, mesh or shape)],
+    per-object settings); names = {plate: name}; the print settings (bambu_settings) when available.
+    Every object / part / plate name and the title go through safe_name(). Returns {plate: [object ids]}."""
+    names = {k: safe_name(v) for k, v in names.items()}
+    title = safe_name(title)
+    objects = [(safe_name(o[0]), o[1], o[2], [(safe_name(q[0]),) + tuple(q[1:]) for q in o[3]], o[4]) for o in objects]
     model_files, rels, res, build, settings, plates = {}, [], [], [], [], {k: [] for k in names}
     nid = 1
     for n, (name, plate, (x, y), parts, extra) in enumerate(objects):
@@ -175,7 +188,7 @@ def write_3mf(path, objects, bed, names, title='keycaps (keyboard-workshop)'):
                   'xmlns="http://schemas.microsoft.com/3dmanufacturing/core/2015/02" '
                   'xmlns:BambuStudio="http://schemas.bambulab.com/package/2021" '
                   'xmlns:p="http://schemas.microsoft.com/3dmanufacturing/production/2015/06" requiredextensions="p">\n'
-                  ' <metadata name="Application">BambuStudio-01.10.02.67</metadata>\n'
+                  ' <metadata name="Application">BambuStudio-%s</metadata>\n' % bambu_settings.studio_version() +
                   ' <metadata name="BambuStudio:3mfVersion">1</metadata>\n'
                   ' <metadata name="Title">%s</metadata>\n' % title +
                   ' <resources>\n' + ''.join(res) + ' </resources>\n <build p:UUID="%s">\n' % uuid.uuid4()
@@ -195,8 +208,8 @@ def write_3mf(path, objects, bed, names, title='keycaps (keyboard-workshop)'):
                              % (p, i + 1) for i, p in enumerate(rels)) + '</Relationships>\n')
         for p, txt in model_files.items():
             z.writestr(p, txt)
-        if orca_settings.available():
-            z.writestr('Metadata/project_settings.config', json.dumps(orca_settings.project_settings(2), indent=4))
+        if bambu_settings.available():
+            z.writestr('Metadata/project_settings.config', json.dumps(bambu_settings.project_settings(2, len(names)), indent=4))
         z.writestr('Metadata/model_settings.config', '<?xml version="1.0" encoding="UTF-8"?>\n<config>\n' + ''.join(settings) + plate_xml + '</config>\n')
     return plates
 
