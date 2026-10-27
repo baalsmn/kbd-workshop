@@ -49,6 +49,9 @@ P = dict(
     valley=0.5, valley_r=8.6,             # valley: the insert plane valley below the top plane, rising
                                           # smoothly (smoothstep, no crease) from the insert edge to the
                                           # top plane at valley_r (stretched in x on wide caps)
+    valley_style='flat',                  # 'flat' (the insert caps: a flat floor for the insert) or 'dish'
+                                          # (legend caps, user 2026-10-27: no flat, one smooth dish from the
+                                          # centre, depth `valley`, to the top plane at valley_r)
     insert='circle', insert_size=10.0,    # 'circle' (diameter) or 'square' (side)
     insert_t=0.8, insert_clear=0.1,       # insert thickness (4 x 0.2 layers), radial pocket gap
     floor=0.8,                            # top wall under the pocket (= pin length)
@@ -79,6 +82,9 @@ def flat_r(p):
 def valley_z(p, r):
     """Top surface height (top frame) at radius r (y direction): flat, smoothstep, plane."""
     r0, r1 = flat_r(p), p['valley_r']
+    if p.get('valley_style') == 'dish':          # level at the centre and at valley_r
+        u = min(abs(r) / r1, 1.0)
+        return -p['valley'] * (1 - u * u) ** 2
     if r <= r0: return -p['valley']
     if r >= r1: return 0.0
     u = (r - r0) / (r1 - r0)
@@ -88,6 +94,12 @@ def valley_z(p, r):
 def valley_tool(p, sx):
     """Solid above the valley surface (revolved profile, stretched sx in x), in the top frame."""
     r0, r1, R = flat_r(p), p['valley_r'], p['valley_r'] * 3
+    if p.get('valley_style') == 'dish':
+        pts = [(r1 * k / 24, 0, valley_z(p, r1 * k / 24)) for k in range(25)]
+        w = Wire([Spline(*pts, tangents=((1, 0, 0), (1, 0, 0))),
+                  Line((r1, 0, 0), (R, 0, 0)), Line((R, 0, 0), (R, 0, 10)),
+                  Line((R, 0, 10), (0, 0, 10)), Line((0, 0, 10), (0, 0, -p['valley']))])
+        return scale(revolve(Face(w), Axis.Z), (sx, 1, 1))
     pts = [(r0 + (r1 - r0) * k / 16, 0, valley_z(p, r0 + (r1 - r0) * k / 16)) for k in range(17)]
     w = Wire([Line((0, 0, -p['valley']), (r0, 0, -p['valley'])),
               Spline(*pts, tangents=((1, 0, 0), (1, 0, 0))),
@@ -99,7 +111,7 @@ def valley_tool(p, sx):
 def insert_levels(p, w_top=None, d_top=None):
     z_top = -p['valley']                         # the insert is the valley floor
     z_pocket = z_top - p['insert_t']
-    z_ceil = z_pocket - p['floor']
+    z_ceil = p.get('ceiling', z_pocket - p['floor'])   # (legend caps: fixed, the insert caps' -2.1)
     return z_top, z_pocket, z_ceil
 
 
@@ -213,6 +225,41 @@ def thumb_points(p, W, D, sx, nx=97, ny=31, scaled=True):
     return [[(x, y, arc(y) * (1 + rise(x) / t1[1]) + 0.002 * max(arc(y), 0) / t1[1]) for x in xs] for y in ys]
 
 
+def top_points(p, W, D, sx, nx=49, ny=49):
+    """Grid points (rows at one cap-frame y each, cap frame) of the whole top for valley_style 'dish':
+    the sloped plane minus the dish minus the north roll-off, added up (user: no edge where the dish
+    met the roll-off; separate cuts take the lower of the two and leave a ridge). Both dips are level
+    where they start, so the sum is smooth everywhere."""
+    sl = math.radians(p['slope'])
+    t = math.tan(math.radians(p['draft']))
+    d_top = D - 2 * p['h_centre'] * t
+    L, drop = p['fade_len'], p['fade_drop']
+    Rf, yf = L * L / (2 * drop), d_top / 2 - L
+    def zt(x, yt):                               # top-frame height at top-frame (x, yt)
+        z = valley_z(p, math.hypot(x / sx, yt))
+        if yt > yf:
+            z -= Rf - math.sqrt(max(Rf * Rf - (yt - yf) ** 2, 0))
+        return z
+    xs = [-W / 2 - 1.5 + (W + 3) * k / (nx - 1) for k in range(nx)]
+    ys = [-D / 2 - 1.5 + (D + 3) * k / (ny - 1) for k in range(ny)]
+    rows = []
+    for y in ys:
+        row = []
+        for x in xs:
+            yt = y / math.cos(sl)
+            for _ in range(6):                   # cap y = yt cos - z sin: solve for yt
+                yt = (y + zt(x, yt) * math.sin(sl)) / math.cos(sl)
+            z = zt(x, yt)
+            row.append((x, y, p['h_centre'] + yt * math.sin(sl) + z * math.cos(sl)))
+        rows.append(row)
+    return rows
+
+
+def top_tool(p, W, D, sx):
+    """Solid above the 'dish' top surface (top_points)."""
+    return extrude(Face.make_surface_from_array_of_points(top_points(p, W, D, sx), tol=1e-4), amount=15, dir=(0, 0, 1))
+
+
 def thumb_valley_tool(p, W, D, sx, scaled=True):
     """Solid above the 'valley' thumb surface (thumb_points)."""
     pts = thumb_points(p, W, D, sx, scaled=scaled)
@@ -252,6 +299,18 @@ def top_edge_fillet(cap, W, D, rad, draft, skip_south_of=None):
         return out, len(edges), skipped
 
 
+def wall_inside(u, p=P):
+    """The solid inside the skirt walls (the skirt offset inwards by the wall), from below the skirt
+    bottom to above the top: the cavity before the ceiling cut."""
+    W, D = u * p['pitch'] - p['gap'], p['depth']
+    t = math.tan(math.radians(p['draft']))
+    H = p['h_centre'] + D / 2 * math.tan(math.radians(p['slope'])) + 2
+    inset, tw = H * t, p['wall'] / math.cos(math.radians(p['draft']))
+    return loft([Pos(0, 0, -1) * RectangleRounded(W - 2 * tw + 2 * t, D - 2 * tw + 2 * t, p['r_inner']),
+                 Pos(0, 0, H) * RectangleRounded(W - 2 * tw - 2 * inset, D - 2 * tw - 2 * inset,
+                                                 max(p['r_inner'] - (H + 1) * t, 0.05))])
+
+
 def build_cap(u, stab=False, thumb=False, p=P):
     W, D = u * p['pitch'] - p['gap'], p['depth']
     t = math.tan(math.radians(p['draft']))
@@ -269,32 +328,34 @@ def build_cap(u, stab=False, thumb=False, p=P):
     if thumb and p['thumb_style'] == 'straight':  # straight east-west top: one profile (thumb_profile)
         cap = outer - thumb_tool(p, W, D)
     else:
-        # top: sloped plane
-        cap = outer - tf * Box(big, big, 30, align=(Align.CENTER, Align.CENTER, Align.MIN))
+        # top: sloped plane (dish tops: part of the one top surface; a plane cut too leaves coincident faces)
+        dish = p.get('valley_style') == 'dish' and not thumb
+        cap = outer if dish else outer - tf * Box(big, big, 30, align=(Align.CENTER, Align.CENTER, Align.MIN))
         # north roll-off: a cylinder (axis x) tangent to the top plane fade_len inside the north edge
         L, drop = p['fade_len'], p['fade_drop']
         Rf = L * L / (2 * drop)
         yf = d_top / 2 - L
         roll = (Pos(0, yf, -Rf) * Box(big, 30, 40, align=(Align.CENTER, Align.MIN, Align.MIN))
                 - Pos(0, yf, -Rf) * Rot(0, 90, 0) * Cylinder(Rf, big))
-        cap = cap - tf * roll
-        # valley: flat insert floor, rising smoothly to the top plane (stretched in x on wide caps)
-        cap = cap - tf * valley_tool(p, w_top / d_top)
+        if dish:                                 # one smooth surface: plane - dish - roll-off
+            cap = cap - top_tool(p, W, D, w_top / d_top)
+        else:
+            cap = cap - tf * roll
+            # valley: flat insert floor, rising smoothly to the top plane (stretched in x on wide caps)
+            cap = cap - tf * valley_tool(p, w_top / d_top)
         if thumb:                                # 'valley' thumb: the south part rolls down from the insert
             cap = cap - thumb_valley_tool(p, W, D, w_top / d_top, u in p['thumb_scaled_units'])
-    # legend insert pocket and pin holes
+    # legend insert pocket and pin holes (pocket=False: none, the valley floor stays one surface)
     z_top, z_pocket, z_ceil = insert_levels(p, w_top, d_top)
-    cap = cap - tf * Pos(0, 0, z_pocket) * extrude(insert_face(p, p['insert_clear']), amount=10)
-    for x, y, d in p['pins']:
+    if p.get('pocket', True):
+        cap = cap - tf * Pos(0, 0, z_pocket) * extrude(insert_face(p, p['insert_clear']), amount=10)
+    for x, y, d in (p['pins'] if p.get('pocket', True) else ()):
         cap = cap - tf * Pos(x, y, z_ceil - 3) * Cylinder(d / 2 + p['pin_clear'], 3 + p['floor'] + 0.01,
                                                          align=(Align.CENTER, Align.CENTER, Align.MIN))
-    # inside: the skirt offset by the wall, up to the ceiling (parallel to the top)
-    tw = p['wall'] / math.cos(math.radians(p['draft']))
-    inner = loft([Pos(0, 0, -1) * RectangleRounded(W - 2 * tw + 2 * t, D - 2 * tw + 2 * t, p['r_inner']),
-                  Pos(0, 0, H) * RectangleRounded(W - 2 * tw - 2 * inset, D - 2 * tw - 2 * inset,
-                                                  max(p['r_inner'] - (H + 1) * t, 0.05))])
-    inner = inner - tf * Pos(0, 0, z_ceil) * Box(big, big, 30, align=(Align.CENTER, Align.CENTER, Align.MIN))
-    cap = cap - inner
+    # inside: the skirt offset by the wall, up to the ceiling (parallel to the top); cavity=False: none
+    inner = wall_inside(u, p) - tf * Pos(0, 0, z_ceil) * Box(big, big, 30, align=(Align.CENTER, Align.CENTER, Align.MIN))
+    if p.get('cavity', True):
+        cap = cap - inner
     if stab:
         hw, y0, y1, zr = p['stab_recess']
         for x in (-p['stab_x'], p['stab_x']):
@@ -412,7 +473,11 @@ def recipe(u, stab=False, thumb=False, p=P):
     roll = [tfp(yf, 0), tfp(yf, 5), tfp(yf + Rf + 1, 5), tfp(yf + Rf + 1, -Rf), tfp(yf + Rf, -Rf),
             tfp(yf + Rf * q, -Rf + Rf * q)]           # T, A, B, C, E, arc midpoint (E -> mid -> T)
     r0, r1 = flat_r(p), p['valley_r']
-    vprof = [(r0 + (r1 - r0) * k / 16, valley_z(p, r0 + (r1 - r0) * k / 16)) for k in range(17)]
+    if p.get('valley_style') == 'dish':          # (Fusion: no flat line when its radius is 0)
+        r0 = 0.0
+        vprof = [(r1 * k / 24, valley_z(p, r1 * k / 24)) for k in range(25)]
+    else:
+        vprof = [(r0 + (r1 - r0) * k / 16, valley_z(p, r0 + (r1 - r0) * k / 16)) for k in range(17)]
     z_top, z_pocket, z_ceil = insert_levels(p)
     tw = p['wall'] / math.cos(math.radians(p['draft']))
     ceil_c = p['h_centre'] + z_ceil
@@ -439,6 +504,9 @@ def recipe(u, stab=False, thumb=False, p=P):
                     'legend_depth': p['legend_depth'], 'legend_size': p['legend_size'], 'font': p['legend_font'],
                     'z': z_pocket, 'pins': [[x, y, d] for x, y, d in p['pins']], 'pin_len': p['floor'],
                     'legend_height': legend_cap_height(p)}}   # (Fusion text height = capital height)
+    if p.get('valley_style') == 'dish' and not thumb:   # (Fusion: one loft cut instead of roll + valley)
+        r['roll'], r['valley'] = None, None
+        r['top_surface'] = top_points(p, W, D, w_top / d_top, nx=33, ny=33)
     if thumb:
         r['thumb'] = (thumb_profile(p, D) if p['thumb_style'] == 'straight' else
                       thumb_points(p, W, D, w_top / d_top, nx=33, ny=9, scaled=u in p['thumb_scaled_units']))

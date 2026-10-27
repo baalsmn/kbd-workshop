@@ -127,6 +127,41 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
     `keycaps/bambu/*.json` are importable user presets (File > Import
     > Import Configs). Keys are checked against the presets; `precise_outer_wall`, `fuzzy_skin`,
     `brim_type` sit at built-in defaults (names checked in BambuStudio.dll).
+  - **Printed-in legends** (`legend_cap.py`, second approach, user 2026-10-27; the insert caps stay):
+    no pocket (`build_cap` with `pocket=False`) and no flat floor (`valley_style='dish'`, user: the valley
+    continues to the centre: z = -0.6 (1 - (r / valley_r)^2)^2, level at the centre and at valley_r);
+    the ceiling stays at the insert caps' -2.1 (`ceiling`; following a 0.7 dish down 0.2 touched the
+    switch at 3.0 travel, its sloped south end is the low point), so the shell is 1.0 at the centre.
+    The whole top is **one surface** (`top_points()` / `top_tool()`, recipe `top_surface`; Fusion step
+    `surface()`, a loft cut like the thumb's): plane - dish - north roll-off added up (user: separate cuts
+    left a ridge north of the dish where it met the roll-off). No plane cut before it (coincident faces
+    broke the boolean); Fusion still makes the top plane (ceiling / legend planes) but doesn't split at it.
+    **Blank version** (user): `--legend ''` -> `cap_<u>u_blank` (same shape, one body, filament 1;
+    Fusion recipe with `legend` / `core` None: no split, `legend_cap_<u>u_blank.f3d/.step/.stl`).
+    Checked: 857.2 mm3 in both (= shell + core of the A cap), slices in ~1 h, no filament changes.
+    Stem Ø5.0 on the legend caps (user: 5.22 too wide; `L['stem_d']`, the insert caps keep 5.22; 0.45
+    wall at the cross hole's arm ends). The 3MF uses the Fusion STLs only while their volumes match
+    build123d's (0.2 %), else build123d's meshes, with a note to rebuild in Fusion.
+    Split like a double-shot
+    moulding (user): a translucent **core** (filament 2: stems, a `core_t` 0.5 layer over the cavity
+    ceiling inside the skirt walls, the legend reaching up through the shell) under an opaque
+    **shell** (filament 1: the rest of the top, 1.0 at the centre, + the whole skirt). User: thick
+    shell, thin core (a 0.8 skin over a 0.8 core left the slicer broken lines). Core region =
+    `wall_inside()` & below the ceiling plane + core_t (`cavity=False` builds the cap without its cavity). Legend Arial bold 5.85
+    (user: 30 % up from 4.5), its box's south-east corner on the top's centre point (north-west
+    quadrant, box 4.2 x 4.19). Writes `build/legend/cap_<u>u_<legend>.step/.3mf` + `_shell/_core.stl`.
+    **In Fusion too** (2026-10-27): `legend_cap.py --fusion` writes
+    `build/legend/legend_cap_<u>u_<legend>_fusion.json` (the cap recipe with `pocket: None` + `legend`
+    / `core`); KeycapBuilder `build_legend_cap(rec)` runs the usual cap steps (no pocket) and a
+    "double shot" group (core region = cavity outline tapered by `draft` up to the core plane + stem
+    ends + sketch text; core = cap & region, shell = cap - core); `export_legend_cap()` saves
+    `build/fusion/legend/<name>.f3d/.step/_shell.stl/_core.stl`, and the 3MF then uses those STLs.
+    Fusion text: `boundingBox` of a sketch text is its glyph box (matches build123d's); the text is
+    flipped to read from above by the sketch's x / y directions. Closed counters (A's triangle) are
+    shell islands: Fusion won't join bodies that don't touch, so they stay bodies `shell island <n>`
+    (merged into the shell STL). Checked: shell / core volumes within 0.01 % of build123d, STLs
+    closed, letter orientation by point tests. Only 1U 'A' so far. Slice check (lying on the north face): both filaments on every layer:
+    246 filament changes, ~19 h, ~94 g of filament (purge) for one cap.
   - The valley's flat floor reaches 0.3 past the insert pocket: where the two edges coincided,
     the stretched (1.25U) valley left a tangent seam and 5 open mesh edges.
 - A new keyboard = `ergogen/<name>.yaml` starting with the line
