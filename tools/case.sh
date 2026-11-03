@@ -18,12 +18,14 @@ JSCAD="$T/jscad/node_modules/.bin/openjscad"
 OUT="$KB/case"; [ "$NAME" = "$(basename "$KB")" ] || OUT="$KB/case/$NAME"
 [ -f "$P/out/pcbs/$NAME.kicad_pcb" ] || { echo "out/ is not a build of $NAME - run tools/build.sh $NAME first"; exit 1; }
 W="$P/build/case"; rm -rf "$W"; mkdir -p "$W" "$OUT"
-for p in tub_left tub_right lid_left lid_right center_cover trackpad_ring oled_spacers; do
+PARTS="tub_left tub_right lid_left lid_right center_cover trackpad_ring oled_spacers"
+[ -f "$P/out/cases/center_bridge.jscad" ] && PARTS="$PARTS center_bridge"   # (hachigo74 only so far)
+for p in $PARTS; do
   node "$T/lib/fixarcs.js" "$P/out/cases/$p.jscad" "$W/$p.jscad"
   sed -i 's/\("radius":1[12][.0-9]*,[^}]*"large":\)true/\1false/g' "$W/$p.jscad"
 done
 cd "$W"
-for p in tub_left tub_right lid_left lid_right center_cover trackpad_ring oled_spacers; do
+for p in $PARTS; do
   "$JSCAD" "$p.jscad" -o "$OUT/$p.stl" >/dev/null 2>&1 &
 done
 wait

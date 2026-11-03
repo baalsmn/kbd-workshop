@@ -38,6 +38,24 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
     変換 = right c9_r2 (INT4), かな = right c9_r5 (INT2); ¥/ー = right c3_r2 (INT3),
     \/ろ = left c3_r3 (INT1), 0/わ on right c4_r5. F11/F12 moved to the Fn layer of
     半角 / かな.
+- **Tub joint reinforcement** (user, 2026-11-03; hachigo74 only so far; PCB unchanged):
+  - Dovetails, tails on `tub_right`, sockets in `tub_left` (0.15 larger per side), engaged by
+    dropping one half straight down, before the PCB goes in. Floor tails (`dovetail_floor`, z 0-3,
+    neck 8, head 12, 8 long) at centre-frame y 60 / 32 / -4; south wall tail (`dovetail_wall`, z 0-11.4,
+    neck 4, head 5.6, 6 long, 1.0 mm of wall left each side of the socket). No tail in the north
+    wall: the USB opening takes it. `tub_right` prints 209 mm wide; it is cut with `cut_right_tails`
+    (`cut_right` + the tails), so the tails come out of its floor and wall. Its STL's x range still
+    starts at 186.1: a zero-area triangle at the USB opening, there before the tails, harmless.
+  - Bridge plate `center_bridge` (new part, z 3-4.5 on the floor, glue optional; user: wide, for
+    stiffness when glued): 138 wide (+-69, 0.72 clear of the crosses at +-69.72; 28 g), clipped 0.5 inside
+    the walls (`bridge_inside`), a 20 wide notch north of y 60 for the USB plug, close holes (0.1
+    clearance) around the 4 centre posts, a hole round the reset boss and an 11 x 3 slot for the OLED's
+    4 header pins, which hang to z 3.3 if not trimmed. Print flat.
+  - Checked against the routed board's 3D model: no overlap; next lowest part over the plate z 5.36
+    (dx +-5.8, y -66.6 .. -59.4, in the USB notch), then z 5.89. Floor openings under it: only the tails' clearance.
+  - Fusion (KeyboardCase `build_design`, Fusion 2706.1.17, 2026-11-03): all 10 parts build, all 234
+    timeline items healthy, volumes = the STEP files to the mm3, tilt_angle 3 / 15 / 6 deg recompute cleanly
+    (tilt checked with the 36 wide plate).
 - Build: `bash tools/build.sh hachigo74`, then `tools/case.sh hachigo74` and
   `tools/step.sh hachigo74` → `case/`, `case/step/`, `case/fusion/` here.
 - Expected DRC: 2 `silk_overlap`, 499 unconnected pads; 74 switches, 76 LEDs.

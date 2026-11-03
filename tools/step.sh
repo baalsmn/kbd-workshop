@@ -29,12 +29,12 @@ const d=yaml.load(fs.readFileSync(process.argv[2],"utf8"));fs.writeFileSync(proc
 mkdir -p "$OUT"
 w() { cygpath -w "$1" 2>/dev/null || echo "$1"; }
 PYTHONPATH="$(w "$B3D")" python -I -c "import sys; sys.path.insert(0, r'$(w "$B3D")'); sys.argv = ['step_case.py'] + sys.argv[1:]; exec(open(r'$(w "$P/tools/lib/step_case.py")').read())" \
-  "$(w "$P/build/cases.json")" "$(w "$P/out/outlines")" "$(w "$OUT")" tub_left tub_right lid_left lid_right center_cover trackpad_ring oled_spacers
+  "$(w "$P/build/cases.json")" "$(w "$P/out/outlines")" "$(w "$OUT")" tub_left tub_right lid_left lid_right center_cover trackpad_ring oled_spacers center_bridge
 
 # data file for the Fusion script tools/fusion/KeyboardCase (parametric timeline rebuild)
 FOUT="$C/fusion"; mkdir -p "$FOUT"
 PYTHONPATH="$(w "$B3D")" python -I -c "import sys; sys.path[:0] = [r'$(w "$B3D")', r'$(w "$P/tools/lib")']; sys.argv = ['fusion_data.py'] + sys.argv[1:]; exec(open(r'$(w "$P/tools/lib/fusion_data.py")').read())" \
-  "$(w "$P/build/cases.json")" "$(w "$P/out/outlines")" "$(w "$FOUT/${NAME}_case.json")" "$NAME" tub_left tub_right lid_left lid_right center_cover trackpad_ring oled_spacers
+  "$(w "$P/build/cases.json")" "$(w "$P/out/outlines")" "$(w "$FOUT/${NAME}_case.json")" "$NAME" tub_left tub_right lid_left lid_right center_cover trackpad_ring oled_spacers center_bridge
 
 # tilt wedge under the tub (south edge raised): STEP + STL at WEDGE_ANGLE (default 6 deg),
 # and the parametric wedge parts in the Fusion data file (user parameter tilt_angle)
