@@ -1537,6 +1537,39 @@ outlines:
     - operation: subtract
       name: indicator_holes
 
+  # Ribs under the plate round every switch (user 2026-11-04: part of the final lids), z 10.4-11.4,
+  # 0.3 above the PCB. Relief 1 round the cutout so switches and stabilizers still snap in, frame
+  # 1.5 round that (1.55 here: neighbours overlap by 0.1, as touching edges are fragile in maker.js;
+  # between keys the web is 2.9 wide whatever the frame). 2U: round switch + stabilizer housings (Gateron's STEP, in the band: x +-15, y -9.74 .. 7.05).
+  # Kept 0.5 inside the PCB outline (clear of the tub wall), with the plate's own holes cut through.
+  rib_frames:
+    - what: rectangle
+      where: -/_c5_r1$/
+      size: [sw + 5.1, sw + 5.1]
+    - what: rectangle
+      where: /_c5_r1$/
+      size: [35.1, 21.9]
+      adjust.shift: [0, -1.35]
+  rib_relief:
+    - what: rectangle
+      where: -/_c5_r1$/
+      size: [sw + 2, sw + 2]
+    - what: rectangle
+      where: /_c5_r1$/
+      size: [32, 18.8]
+      adjust.shift: [0, -1.35]
+  rib_region:
+    - name: pcb_core
+      expand: 1.5
+  plate_ribs:
+    - name: rib_frames
+    - operation: subtract
+      name: rib_relief
+    - operation: intersect
+      name: rib_region
+    - operation: intersect
+      name: plate_clean
+
   # USB-C plug opening through the north case wall, in front of the Helios
   # receptacle (receptacle face ~1 mm inside the PCB edge at y 73.28).
   # 13 mm wide for the plug overmold; cut from y 72 to past the 10 mm wall.
@@ -1850,6 +1883,9 @@ cases:
     - name: cross_upper
       shift: [0, 0, 10.1]
       extrude: 1.3     # PCB top -> plate underside
+    - name: plate_ribs
+      shift: [0, 0, 10.4]
+      extrude: 1       # ribs under the plate
     - name: case
       operation: intersect
       extrude: 30
@@ -1866,6 +1902,9 @@ cases:
     - name: cross_upper
       shift: [0, 0, 10.1]
       extrude: 1.3     # PCB top -> plate underside
+    - name: plate_ribs
+      shift: [0, 0, 10.4]
+      extrude: 1       # ribs under the plate
     - name: case
       operation: intersect
       extrude: 30
@@ -1963,6 +2002,9 @@ cases:
     - name: plate_clean
       shift: [0, 0, 11.4]
       extrude: 1.2
+    - name: plate_ribs
+      shift: [0, 0, 10.4]
+      extrude: 1       # ribs under the plate
     - name: center_cover_low
       shift: [0, 0, 12.6]
       extrude: 1.9     # pocket ceiling 14.5: OLED module top 14.4 (spacer 1.2 + 3.1 measured)

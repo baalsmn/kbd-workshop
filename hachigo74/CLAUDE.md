@@ -60,6 +60,13 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
   - Fusion (KeyboardCase `build_design`, Fusion 2706.1.17, 2026-11-03): all 10 parts build, all 234
     timeline items healthy, volumes = the STEP files to the mm3, tilt_angle 3 / 15 / 6 deg recompute cleanly
     (tilt checked with the 36 wide plate).
+- **Plate ribs in the lids** (user, 2026-11-04: part of the final design): outline `plate_ribs` in the lid recipes
+  (z 10.4-11.4, 0.3 above the PCB), so the STLs, STEP and Fusion all have them and the Fusion script no longer
+  asks (no `rib` data; depth is not a Fusion parameter here, change it in the yaml). Relief 1 round each cutout, frame 1.5
+  (1.55 in the yaml: neighbours overlap 0.1, touching edges are fragile in maker.js), clipped 0.5 inside the PCB outline, the plate's
+  holes cut through. The 2U relief goes round the stabilizer housings as they are in Gateron's STEP (y down to -9.74, relief -10.75):
+  the old Fusion option's 30 x 15.1 hit both housings (about 2 mm3 each, up to z 11.25). Checked 2026-11-04 against the routed board's model:
+  no contact. Lids 21244 mm3 each (+3747), about 27 g, not printed yet.
 - OLED module (user measured, 2026-11-04): board 28 x 27.2 (the vendor model is 28.4 x 27.4), so it fits
   the `oled` opening 28.2 x 28. Back of its board to the glass top 3.1, so with the 1.2 spacers the glass top is
   z 14.4: the cover's pocket ceiling is z 14.5 here (kugo82 still 13.95), low layer 12.6-14.5, top layer 1.0, `cover_boss_oled` 12.5-14.5.

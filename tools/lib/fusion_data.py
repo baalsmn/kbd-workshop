@@ -94,9 +94,9 @@ def main():
     names = sorted({it['name'] for r in cases.values() for it in r})
     outlines = {n: outline(os.path.join(outlines_dir, n + '.dxf')) for n in names}
     data = {'design': name, 'units': 'mm', 'cases': cases, 'outlines': outlines}
-    # optional plate ribs (Fusion script): key rectangles, region, plate z and gap to the PCB
+    # optional plate ribs (Fusion script; not when the design's lids already have them): key rectangles, region, plate z and gap to the PCB
     lid = cases.get('lid_left') or []
-    if lid and os.path.exists(os.path.join(outlines_dir, 'switches_outline.dxf')):
+    if lid and not any(i['name'] == 'plate_ribs' for i in lid) and os.path.exists(os.path.join(outlines_dir, 'switches_outline.dxf')):
         plate = lid[0]; z = (list(plate.get('shift') or []) + [0, 0, 0])[2]
         under = [(list(i.get('shift') or []) + [0, 0, 0])[2] for i in lid[1:] if i.get('operation', 'add') == 'add']
         data['rib'] = {'plate_z': z, 'pcb_top': min(under) if under else z - 1.3, 'plate_holes': plate['name'],

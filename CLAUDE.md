@@ -398,7 +398,9 @@ bash tools/render.sh [name]    # 3D renders -> <keyboard>/renders/ (only when as
     width (keeps the plane small); the planes and axis sketch are hidden (light bulb off).
   - Nearly straight or dot-sized arcs (offset slivers, e.g. the rib region) are drawn as
     lines or skipped: Fusion refuses a three-point arc on them.
-  - **Optional plate ribs** (asked at start, default `1.0, 1.0, 1.5`): a rib frame
+  - **Optional plate ribs** (now kugo82 only: hachigo74's lids have them in the yaml, see its
+    CLAUDE.md, so the script doesn't ask; this option's 2U relief hits the stabilizer housings,
+    y -8.05 against their -9.74, fix before using it; asked at start, default `1.0, 1.0, 1.5`): a rib frame
     under the plate around every switch cutout. Relief gap (default 1 mm) around the
     switch (on the 2U keys around switch + stabilizer housings + wire, 30 × 15.1) so
     switches and stabs still snap in; frame width (default 1.5, > 1.45 merges the
