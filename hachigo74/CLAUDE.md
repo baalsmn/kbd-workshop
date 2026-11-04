@@ -48,8 +48,7 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
     neck 8, head 12, 8 long) at centre-frame y 60 / 32 / -4; south wall tail (`dovetail_wall`, z 0-11.4,
     neck 4, head 5.6, 6 long, centred in the wall at y -39.195, about 0.96 mm of wall left each side of the socket head). No tail in the north
     wall: the USB opening takes it. `tub_right` prints 209 mm wide; it is cut with `cut_right_tails`
-    (`cut_right` + the tails), so the tails come out of its floor and wall. Its STL's x range still
-    starts at 186.1: a zero-area triangle at the USB opening, there before the tails, harmless (`lid_left.stl` has the same kind, up to x 242.7, so it reads 233.9 wide; the STEP files are exact).
+    (`cut_right` + the tails), so the tails come out of its floor and wall.
   - Bridge plate `center_bridge` (new part, z 3-4.5 on the floor, glue optional; user: wide, for
     stiffness when glued): 138 wide (+-69, 0.72 clear of the crosses at +-69.72; 28 g), clipped 0.75 inside
     the walls (`bridge_inside`), a 20 wide notch north of y 60 for the USB plug, close holes (0.1
@@ -66,16 +65,28 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
   (1.55 in the yaml: neighbours overlap 0.1, touching edges are fragile in maker.js), clipped 0.5 inside the PCB outline, the plate's
   holes cut through. The 2U relief goes round the stabilizer housings as they are in Gateron's STEP (y down to -9.74, relief -10.75):
   the old Fusion option's 30 x 15.1 hit both housings (about 2 mm3 each, up to z 11.25). Checked 2026-11-04 against the routed board's model:
-  no contact. Lids 21244 mm3 each (+3747), about 27 g, not printed yet.
+  no contact. With the later support ring, half crosses and 14.06 cutouts: lids 21491 mm3 each, about 27 g; rechecked 2026-11-04, no contact.
+- **Trackpad support ring** (user, 2026-11-04, so the pad doesn't wobble when pushed; hachigo74 only): `tp_support` in the lid recipes,
+  plate underside to PCB top (z 10.1-11.4), r 18.2-20 round the pad centre, cut round the FFC slot, on the front silkscreen marks. No pads there on the routed board, but it rests on tracks and vias under the solder mask.
+- **Half crosses beside the Helios** (user, 2026-11-04): 2 T shapes in `cross_upper` (added by hand, not from crosses.py), plate to PCB top, centre x +-11, y 62, arms 5 north / south / outward. No lower crosses under them.
+- **USB opening** (user, 2026-11-04): floor under it stays 3 thick and a 1.5 strip of tub wall stays over it (z 9.9-11.4, the plate on top of that): `usb_cutout` z 3-9.9, 13 wide. A 0.3 lip on the lid was tried first and dropped. Plug axis about z 5.3, so 2.3 below the axis (was 3.8) and 4.6 above; a plug body centred on its axis fits up to about 4.6 tall.
+- **Top fillets, Fusion only** (user, 2026-11-04; `TOP_FILLETS` in KeyboardCase.py, the STL / STEP files stay square): top outside edge of the lid plate 1.0 (`lid_fillet`) and of the
+  wedge rim 1.5 (`wedge_fillet`, leaves 0.5 flat on the 2 wide rim), last step of each part, not along the joint or round the centre openings. Print these from a Fusion export.
+- **The 4 centre posts** (user, 2026-11-04; the cover-screw posts in the tubs): inner hole Ø3.0 from the floor top to the PCB (z 3-8.5), 1.25 wall in the Ø5.5 post. The floor below keeps its Ø2.4 hole and Ø4.4 head counterbore, so there's a 0.3 step at z 3.
+- **Switch cutout** (user, 2026-11-04): `sw` 14.06. 14.1 printed too big; `case/test/switch_cutout_14.06_strip` (3 cutouts, the lid's plate + rib section, at 15 deg on the bed) fits. The cutout is an Ergogen outline only, no footprint or PCB geometry depends on it.
+- Lid plate's OLED opening `oled_plate` (user, 2026-11-04): 0.5 further north than the cover's pocket `oled` (28.2 x 28.5), square corners; the pocket is unchanged.
 - OLED module (user measured, 2026-11-04): board 28 x 27.2 (the vendor model is 28.4 x 27.4), so it fits
   the `oled` opening 28.2 x 28. Back of its board to the glass top 3.1, so with the 1.2 spacers the glass top is
   z 14.4: the cover's pocket ceiling is z 14.5 here (kugo82 still 13.95), low layer 12.6-14.5, top layer 1.0, `cover_boss_oled` 12.5-14.5.
   Glass starts about 4.7 from the board's header-side edge (user measured; vendor model 4.0). The Ø5 bosses have a flat
   on the glass side, 2.05 north of the screw (y 26.185, 0.55 wall left round the insert hole), reaching about 4.2 from that edge
   if the screw hole is 2.135 from it as in the vendor model (not measured on the real module).
+- **OLED screw holes don't match the module (known issue, not fixed; user measured, 2026-11-04):** the module's two holes are 23.6 apart
+  horizontally, the board and case have them 22.352 apart (`oled_screw`, footprint `oled_i2c`, x +-11.176), 1.25 too close. Two screws can't both go in:
+  use one, or drill the PCB out a bit. On the next PCB revision move them to about x +-11.8 (the spacers, bosses and insert posts move with `oled_screw`; check the room first).
 - Build: `bash tools/build.sh hachigo74`, then `tools/case.sh hachigo74` and
   `tools/step.sh hachigo74` → `case/`, `case/step/`, `case/fusion/` here.
-- Expected DRC: 2 `silk_overlap`, 499 unconnected pads; 74 switches, 76 LEDs.
+- Expected DRC: 5 `silk_overlap`, 499 unconnected pads; 74 switches, 76 LEDs.
 - **KiCad project `kicad/`** (portable, see its README): PCB + generated schematic +
   `.kicad_dru` + a copy of `../kicad-libraries` in `kicad/libraries/`, all paths
   `${KIPRJMOD}/libraries/...`. Made by `tools/lib/kicad_project.py` (KiCad python)
@@ -87,6 +98,11 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
     Helios symbol is out of the BOM like its footprint (hand-soldered module).
   - The project is the master from now on: an Ergogen rebuild + `--force` regenerate
     would lose routing done in KiCad.
+  - Updated 2026-11-04 (user) for the next board, as text edits + zone refill: switch centre holes 5.15 (placed footprints and
+    `libraries/`), front silkscreen marks for the trackpad ring and the right half cross (user: no mark for the left one, it would cross the logo; that cross is still in the lid). Tracks and vias unchanged (2930, compared), the pour only grew
+    (F.Cu +165, B.Cu +118 mm2), DRC: 0 violations, 0 unconnected, parity 0.
+    `production/` still holds the first order's files (Ø5.25): re-export before ordering. 2 lower-cross marks on the back (around (133, 125) and its mirror) stay about 0.6 off
+    the case on purpose (user: moved by hand to avoid DRC warnings).
 
 ## Firmware (QMK)
 

@@ -20,9 +20,16 @@
 # printed wedge under the tub that raises the south edge so the key plane tilts. Built in
 # the tub's frame (the tub floor is z = 0): the "tilt" recipe step splits it along a table
 # plane at the user parameter `tilt_angle`, so changing it re-shapes the wedge.
+#
+# Top fillets (TOP_FILLETS, per design, Fusion only: the STL / STEP files don't have them): the
+# top outside edge of the lid plate and of the wedge rim, as the last step of each part, radius =
+# user parameter `lid_fillet` / `wedge_fillet`. Not along the joint between the halves or round
+# the centre openings.
 import adsk.core, adsk.fusion, traceback, json, os, math
 
 MM = 0.1            # Fusion's internal unit is cm
+# design -> part name prefix -> (user parameter, radius in mm)
+TOP_FILLETS = {'hachigo74': {'lid': ('lid_fillet', 1.0), 'wedge': ('wedge_fillet', 1.5)}}
 
 
 def P(x, y):
@@ -303,6 +310,51 @@ def build_part(comp, recipe, outlines, log, rib=None, rib_opt=None):
         b.name = comp.name if k == 0 else '%s %d' % (comp.name, k + 1)
 
 
+def top_outer_edges(body, right):
+    """The body's top outside edge: on its largest top face, the longest chain of the outer loop
+    between two points on the joint plane (the body's inner x side). The joint line itself and
+    the notches round the centre openings are the other chains."""
+    planar = adsk.core.SurfaceTypes.PlaneSurfaceType
+    tops = [f for f in body.faces if f.geometry.surfaceType == planar and abs(f.evaluator.getNormalAtPoint(f.pointOnFace)[1].z - 1) < 1e-6]
+    zmax = max(f.pointOnFace.z for f in tops)
+    top = max([f for f in tops if abs(f.pointOnFace.z - zmax) < 1e-6], key=lambda f: f.area)
+    jx = body.boundingBox.minPoint.x if right else body.boundingBox.maxPoint.x
+    on = lambda v: abs(v.geometry.x - jx) < 1e-5
+    loop = [l for l in top.loops if l.isOuter][0]
+    ces = [loop.coEdges.item(i) for i in range(loop.coEdges.count)]
+    ends = lambda c: (c.edge.endVertex, c.edge.startVertex) if c.isOpposedToEdge else (c.edge.startVertex, c.edge.endVertex)
+    first = [i for i, c in enumerate(ces) if on(ends(c)[0]) and not on(ends(c)[1])]
+    if not first: return []
+    chains, cur = [], []
+    for c in ces[first[0]:] + ces[:first[0]]:
+        a, b = ends(c)
+        if on(a) and on(b): continue
+        cur.append(c.edge)
+        if on(b):
+            chains.append(cur); cur = []
+    return max(chains, key=lambda ch: sum(e.length for e in ch)) if chains else []
+
+
+def top_fillet(comp, param, log):
+    """Fillet the top outside edge of the part's body, radius = the user parameter."""
+    bodies = [b for b in comp.bRepBodies if b.isValid]
+    if not bodies:
+        log.append('%s: no body to fillet' % comp.name); return
+    body = max(bodies, key=lambda b: b.volume)
+    edges = top_outer_edges(body, comp.name.endswith('right'))
+    if not edges:
+        log.append('%s: top outside edge not found, no fillet' % comp.name); return
+    col = adsk.core.ObjectCollection.create()
+    for e in edges: col.add(e)
+    fi = comp.features.filletFeatures.createInput()
+    fi.edgeSetInputs.addConstantRadiusEdgeSet(col, adsk.core.ValueInput.createByString(param), False)
+    try:
+        comp.features.filletFeatures.add(fi).name = 'top outside fillet'
+        log.append('%s: top outside fillet on %d edges' % (comp.name, len(edges)))
+    except Exception as e:
+        log.append('%s: top outside fillet failed (%s)' % (comp.name, e))
+
+
 def build_design(data, ribs=None, tilt=None):
     """Build every part of the case data in a new design. ribs = (depth, gap, width) mm or
     None, tilt = wedge angle (deg) or None (no wedge parts). Returns the log lines.
@@ -326,6 +378,10 @@ def build_design(data, ribs=None, tilt=None):
                                   'tilt wedge: key plane angle, south edge up (max %g)' % wedge['max_angle'])
     else:
         cases = {k: v for k, v in cases.items() if not k.startswith('wedge_')}
+    fillets = TOP_FILLETS.get(data.get('design'), {})
+    for prefix, (param, r) in fillets.items():
+        if any(k.startswith(prefix) for k in cases):
+            design.userParameters.add(param, adsk.core.ValueInput.createByString('%g mm' % r), 'mm', 'top outside edge fillet of the %s' % prefix)
     # (the root component can't be renamed; it takes the name the design is saved under)
     log, tl = [], design.timeline
     for part, recipe in cases.items():
@@ -334,6 +390,9 @@ def build_design(data, ribs=None, tilt=None):
         comp = occ.component
         comp.name = part
         build_part(comp, recipe, data['outlines'], log, rib, rib_opt)
+        for prefix, (param, r) in fillets.items():
+            if part.startswith(prefix):
+                top_fillet(comp, param, log)
         adsk.doEvents()
         try:
             if tl.markerPosition - 1 > start:

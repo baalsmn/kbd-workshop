@@ -5,7 +5,7 @@
 units:
   sp: 19
   kc: 18.2
-  sw: 14.1
+  sw: 14.06   # plate cutout; 14.1 printed too big, 14.06 fits (test strip, hachigo74/case/test/)
 
 
 
@@ -310,6 +310,15 @@ outlines:
           - hand-zone_c9_r2
           - mirror_hand-zone_c9_r2
         shift: [0, 35.7]    # kugo82: 9.8 mm south, cutout bottom 21.7 (1.5 above the trackpad ring)
+  # The lid plate's own opening (user 2026-11-05): 0.5 further north than the cover's pocket, square corners
+  oled_plate:
+    - what: rectangle
+      size: [28.2, 28.5]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        shift: [0, 35.95]
   # visible screen: the 21.7 x 10.9 active area + ~0.6 mm margin
   oled_window:
     - what: rectangle
@@ -431,6 +440,36 @@ outlines:
           - mirror_hand-zone_c9_r2
         rotate: 0
         shift: [0, -2]
+  # Support under the pad's rim (user 2026-11-05: the pad must not wobble when pushed): a ring from the
+  # plate's underside to the PCB top (z 10.1-11.4, part of the lids), r 18.2-20 (0.1 off the plate opening,
+  # outside the pad's parts zone, up to the pad's edge). Cut 0.3-0.5 round the FFC slot (not tangent to r 18.2).
+  tp_support:
+    - what: circle
+      radius: 20
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0, -2]
+    - operation: subtract
+      what: circle
+      radius: 18.2
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0, -2]
+    - operation: subtract
+      what: rectangle
+      size: [12.6, 6]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0, -17.4]
   tp_ring_wall:
     - what: circle
       radius: 22.2
@@ -703,6 +742,7 @@ outlines:
   # 5.5 mm insert post (insert_post), above it a 1.2 mm spacer up to the module
   # underside (separate printed part oled_spacers). They also hold the centre
   # cover (holes through every layer, like pcb_mounting).
+  # Known issue: the real module's holes are 23.6 apart, these 22.352 (hachigo74/CLAUDE.md).
   oled_screw:
     - what: circle
       radius: 1.2
@@ -1065,7 +1105,7 @@ outlines:
     - name: c9r5_screw
       expand: 0.3
   # Centre-cover screws (OLED south holes + the 2 south of the trackpad) go
-  # bottom-up: floor counterbore -> 5.5 mm post (clearance hole) -> PCB ->
+  # bottom-up: floor counterbore -> 5.5 mm post (3.0 hole) -> PCB ->
   # spacer / boss -> M2 insert in a boss under the centre cover (blind hole,
   # nothing visible on the cover top).
   cover_screw:
@@ -1111,6 +1151,8 @@ outlines:
     - name: insert_post
     - operation: subtract
       name: insert_hole
+    - operation: subtract
+      name: cover_insert_hole   # the 4 centre posts: 3.0 too (user 2026-11-04), the floor below keeps its 2.4 hole
     - operation: subtract
       name: pcb_mounting
     - operation: intersect
@@ -1499,6 +1541,40 @@ outlines:
       where:
         ref: mirror_hand-zone_c8_r2
         shift: [-9.500, -11.375]
+    # half crosses beside the Helios (user 2026-11-05: T, arms 5 from the centre, north / south / outward; centre x +-11, y 62,
+    # midway between the OLED opening and the PCB edge; 1.48 clear of the Helios's front pads, not from crosses.py)
+    - what: rectangle
+      size: [2, 10]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [11, 62]
+    - what: rectangle
+      size: [5, 2]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [13.5, 62]
+    - what: rectangle
+      size: [2, 10]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [-11, 62]
+    - what: rectangle
+      size: [5, 2]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [-13.5, 62]
   # Silkscreen markers of every case support touching the PCB, so they show in
   # KiCad: back = screw posts + lower crosses, front = OLED spacers + trackpad outline. Built from the
   # same outlines the case uses, so they always match.
@@ -1514,6 +1590,8 @@ outlines:
       name: cross_upper
     - operation: add       # trackpad outline
       name: tp_outline
+    - operation: add
+      name: tp_support
 
   # switch plate (lid) with all cutouts
   plate_clean:
@@ -1533,7 +1611,7 @@ outlines:
     - operation: subtract
       name: tp_claw_plate_cut      # room for the ring claws and hooks under the cover
     - operation: subtract
-      name: oled
+      name: oled_plate
     - operation: subtract
       name: indicator_holes
 
@@ -1809,8 +1887,8 @@ cases:
       extrude: 1.8
     - name: usb_cutout
       operation: subtract
-      shift: [0, 0, 1.5]   # plug axis ~3.2 below the PCB bottom, +-3.75
-      extrude: 7.5
+      shift: [0, 0, 3]     # floor stays 3 thick; a 1.5 strip of tub wall stays over it, z 9.9-11.4 (plug axis ~3.2 below the PCB bottom)
+      extrude: 6.9
     - name: cover_counterbore
       operation: subtract
       shift: [0, 0, 0]
@@ -1852,8 +1930,8 @@ cases:
       extrude: 1.8
     - name: usb_cutout
       operation: subtract
-      shift: [0, 0, 1.5]
-      extrude: 7.5
+      shift: [0, 0, 3]
+      extrude: 6.9
     - name: cover_counterbore
       operation: subtract
       shift: [0, 0, 0]
@@ -1886,6 +1964,9 @@ cases:
     - name: plate_ribs
       shift: [0, 0, 10.4]
       extrude: 1       # ribs under the plate
+    - name: tp_support
+      shift: [0, 0, 10.1]
+      extrude: 1.3     # ring under the trackpad's rim, plate to PCB top
     - name: case
       operation: intersect
       extrude: 30
@@ -1905,6 +1986,9 @@ cases:
     - name: plate_ribs
       shift: [0, 0, 10.4]
       extrude: 1       # ribs under the plate
+    - name: tp_support
+      shift: [0, 0, 10.1]
+      extrude: 1.3     # ring under the trackpad's rim, plate to PCB top
     - name: case
       operation: intersect
       extrude: 30
@@ -2005,6 +2089,9 @@ cases:
     - name: plate_ribs
       shift: [0, 0, 10.4]
       extrude: 1       # ribs under the plate
+    - name: tp_support
+      shift: [0, 0, 10.1]
+      extrude: 1.3     # ring under the trackpad's rim, plate to PCB top
     - name: center_cover_low
       shift: [0, 0, 12.6]
       extrude: 1.9     # pocket ceiling 14.5: OLED module top 14.4 (spacer 1.2 + 3.1 measured)
@@ -2025,8 +2112,8 @@ cases:
       extrude: 0.7
     - name: usb_cutout
       operation: subtract
-      shift: [0, 0, 1.5]
-      extrude: 7.5
+      shift: [0, 0, 3]
+      extrude: 6.9     # opening z 3-9.9, as in the tubs
     - name: case
       operation: intersect
       extrude: 30
