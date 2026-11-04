@@ -230,8 +230,13 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
   by the user, not kept in the repo),
   mirrored to the back, terminal tabs left out (on the pads); the 14 × 14 switch body is
   drawn as corner marks (Dwgs.User). Pads kept (ours: 2.45 × 2.55, at the drawing's pad
-  centres; the uploaded footprint's 2.55 squares sit 0.5 mm further in). Centre hole kept
-  at Ø5.25 (switch drawing; the socket drawing's Ø5.1 leaves 0.05 mm round the Ø5.05 post).
+  centres; the uploaded footprint's 2.55 squares sit 0.5 mm further in). Centre hole **Ø5.15**
+  (user, 2026-11-03; 0.1 play round the Ø5.05 post, between the socket drawing's Ø5.1 and the switch
+  drawing's Ø5.25; not yet tried on a board). It was Ø5.25 (switch drawing), and on the first hachigo74 PCB (ordered with Ø5.25, its KiCad project
+  not changed) the post moves in the hole and only the electrical pins locate the switch.
+  Switch heights (Gateron's STEP, above the PCB top): 4 corner feet to about 0.22 ((±4.95, ±6.25), Ø~0.4),
+  body floor above them, plate top 2.5 = flange underside. So a pad under the switch fits in about 0.2
+  without lifting it; pin tips reach 0.8 below the PCB bottom, so lifting costs socket engagement.
 - KS-57 stabilizer PCB cutouts: y −5.2 … +9.8, 6.2 wide (Gateron's STEP: the part below the
   PCB top spans −5.11 … +9.70, 5.85 wide; the old −5.8 … +8.95 hit the lever end).
 - Updating placed footprints on a project board: the pcbnew Python bindings lose their

@@ -1013,7 +1013,7 @@ outlines:
   # upside down on the back). Helios board: SW1 at (+4.885, +11.715) from the
   # board centre (y down); mirrored on the back -> x -4.885; board centre is
   # 1.115 north of the footprint origin (0, 54.7) -> (-4.885, 44.10).
-  # Press it with a pin/paperclip from below (double-tap = UF2 bootloader).
+  # Press it with a pin/paperclip from below (hold ~1 s = UF2 bootloader).
   # Pin channel: 1.3 mm bore (prints ~1.1-1.2, takes a 0.8-1 mm SIM tool or
   # paperclip) through the 3 mm floor and a 1.8 mm boss on top of it, so the
   # pin is guided 4.8 mm straight up at the button (boss top z 4.8, ~2 mm

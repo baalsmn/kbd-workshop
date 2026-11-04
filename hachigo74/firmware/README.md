@@ -9,7 +9,7 @@ Built by GitHub Actions on every push to `hachigo74/firmware/` (workflow
 
 1. GitHub → **Actions** → the latest green **firmware** run → **Artifacts** →
    `hachigo74-firmware` (a zip with the `.uf2`).
-2. Double-tap the Helios reset (through the pin channel in the case floor, or on the bare
+2. Hold the Helios reset about 1 s and release (through the pin channel in the case floor, or on the bare
    board), or hold the **left arrow** key (left half, c2_r1) while plugging in. A drive
    called **RPI-RP2** appears.
 3. Copy the `.uf2` onto it. The keyboard restarts with the new firmware.

@@ -158,7 +158,7 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
     I2C DNP). In the user's photo R1 still looked fitted.
 - **Reset:** there's no separate button. A 1.3 mm pin channel through the case floor
   plus a 1.8 mm boss (top z 4.8) sits under the Helios' own reset switch at
-  (−4.885, 44.10); double-tap it with a SIM tool or paperclip for the UF2 bootloader.
+  (−4.885, 44.10); hold it ~1 s with a SIM tool or paperclip for the UF2 bootloader.
 - **Centre frame** (used for all centre parts): the midpoint of the c9_r2 pair,
   unrotated, y up.
 - **Support:**

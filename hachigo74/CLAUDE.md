@@ -39,15 +39,19 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
     \/ろ = left c3_r3 (INT1), 0/わ on right c4_r5. F11/F12 moved to the Fn layer of
     半角 / かな.
 - **Tub joint reinforcement** (user, 2026-11-03; hachigo74 only so far; PCB unchanged):
-  - Dovetails, tails on `tub_right`, sockets in `tub_left` (0.15 larger per side), engaged by
+  - **PCB gap** (user, 2026-11-04): the tub's inner wall is `tub_cavity` = `pcb_core` expanded 2.25, so
+    0.25 clearance per side round the PCB (it was 0: the wall followed `pcb_outline` exactly) and a 7.75 wall;
+    the lower posts are clipped to `tub_cavity` so they stay joined to the wall. Thinnest wall at an
+    edge insert hole 2.05 (hole to cavity). Only hachigo74: kugo82's yaml still has no gap.
+  - Dovetails, tails on `tub_right`, sockets in `tub_left` (0.10 larger per side; user: 0.15 was too loose on the printed test strip, 2026-11-04), engaged by
     dropping one half straight down, before the PCB goes in. Floor tails (`dovetail_floor`, z 0-3,
     neck 8, head 12, 8 long) at centre-frame y 60 / 32 / -4; south wall tail (`dovetail_wall`, z 0-11.4,
-    neck 4, head 5.6, 6 long, 1.0 mm of wall left each side of the socket). No tail in the north
+    neck 4, head 5.6, 6 long, centred in the wall at y -39.195, about 0.96 mm of wall left each side of the socket head). No tail in the north
     wall: the USB opening takes it. `tub_right` prints 209 mm wide; it is cut with `cut_right_tails`
     (`cut_right` + the tails), so the tails come out of its floor and wall. Its STL's x range still
-    starts at 186.1: a zero-area triangle at the USB opening, there before the tails, harmless.
+    starts at 186.1: a zero-area triangle at the USB opening, there before the tails, harmless (`lid_left.stl` has the same kind, up to x 242.7, so it reads 233.9 wide; the STEP files are exact).
   - Bridge plate `center_bridge` (new part, z 3-4.5 on the floor, glue optional; user: wide, for
-    stiffness when glued): 138 wide (+-69, 0.72 clear of the crosses at +-69.72; 28 g), clipped 0.5 inside
+    stiffness when glued): 138 wide (+-69, 0.72 clear of the crosses at +-69.72; 28 g), clipped 0.75 inside
     the walls (`bridge_inside`), a 20 wide notch north of y 60 for the USB plug, close holes (0.1
     clearance) around the 4 centre posts, a hole round the reset boss and an 11 x 3 slot for the OLED's
     4 header pins, which hang to z 3.3 if not trimmed. Print flat.
@@ -56,6 +60,12 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
   - Fusion (KeyboardCase `build_design`, Fusion 2706.1.17, 2026-11-03): all 10 parts build, all 234
     timeline items healthy, volumes = the STEP files to the mm3, tilt_angle 3 / 15 / 6 deg recompute cleanly
     (tilt checked with the 36 wide plate).
+- OLED module (user measured, 2026-11-04): board 28 x 27.2 (the vendor model is 28.4 x 27.4), so it fits
+  the `oled` opening 28.2 x 28. Back of its board to the glass top 3.1, so with the 1.2 spacers the glass top is
+  z 14.4: the cover's pocket ceiling is z 14.5 here (kugo82 still 13.95), low layer 12.6-14.5, top layer 1.0, `cover_boss_oled` 12.5-14.5.
+  Glass starts about 4.7 from the board's header-side edge (user measured; vendor model 4.0). The Ø5 bosses have a flat
+  on the glass side, 2.05 north of the screw (y 26.185, 0.55 wall left round the insert hole), reaching about 4.2 from that edge
+  if the screw hole is 2.135 from it as in the vendor model (not measured on the real module).
 - Build: `bash tools/build.sh hachigo74`, then `tools/case.sh hachigo74` and
   `tools/step.sh hachigo74` → `case/`, `case/step/`, `case/fusion/` here.
 - Expected DRC: 2 `silk_overlap`, 499 unconnected pads; 74 switches, 76 LEDs.
@@ -89,7 +99,7 @@ Decided (user, 2026-10-23); kugo82 is discussed separately.
 - Build: GitHub Actions in this repo, with **Vial's QMK fork** (vial-kb/vial-qmk, pinned
   commit dd43959, based on QMK 0.29; user's choice 2026-10-23 over VIA, for the tapping-term
   settings), keymap `vial`. The workflow copies `hachigo74/firmware/hachigo74/` into its
-  `keyboards/` and builds the `.uf2` as a download. Flash: double-tap reset, copy the `.uf2`
+  `keyboards/` and builds the `.uf2` as a download. Flash: hold reset ~1 s and release (> 500 ms; a double-tap does nothing), copy the `.uf2`
   to the RP2040 drive.
 - Other dual keys, as the KLE legends say: left c5_r1 hold Ctrl / tap Tab; right c3_r1
   hold AltGr / tap Alt; right c7_r1 tap Space / hold Enter; the `(` `)` `@` keys give `{`

@@ -1,6 +1,6 @@
 // Gateron KS-33 switch on a KS-2P02B01-02 hot-swap socket, 1U or wider (2U with
 // a KS-57 stabilizer). Drawn from the Gateron datasheets (datasheets/LINKS.md):
-//   KS-33E10B055NN-Y24 "PCB Layout": centre hole 5.25, pin holes 3.00 at
+//   KS-33E10B055NN-Y24 "PCB Layout": centre hole 5.25 (we use 5.15: 5.25 was loose), pin holes 3.00 at
 //     (2.60, 5.75) and (4.40, 4.70) from the centre;
 //   KS-2P02B01-02 "PCB Layout": the same two 3.0 holes 7.00 apart, pads 2.55 tall
 //     on the hole rows, outer pad edges 9.40 / 7.61 from the centre (scaled from
@@ -146,7 +146,7 @@ ${p.lcsc ? `    (property "LCSC" "${p.lcsc}"
     (fp_rect (start ${-half} -9.525) (end ${half} 9.525)
       (stroke (width 0.15) (type solid)) (fill none) (layer "Dwgs.User"))
 
-    (pad "" np_thru_hole circle (at 0 0 ${p.r}) (size 5.25 5.25) (drill 5.25) (layers "F&B.Cu" "*.Mask"))
+    (pad "" np_thru_hole circle (at 0 0 ${p.r}) (size 5.15 5.15) (drill 5.15) (layers "F&B.Cu" "*.Mask"))
     (pad "" np_thru_hole circle (at ${x(2.6)} 5.75 ${p.r}) (size 3 3) (drill 3) (layers "F&B.Cu" "*.Mask"))
     (pad "" np_thru_hole circle (at ${x(-4.4)} 4.7 ${p.r}) (size 3 3) (drill 3) (layers "F&B.Cu" "*.Mask"))
 
