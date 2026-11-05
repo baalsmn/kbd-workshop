@@ -137,8 +137,9 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
     - **0.2 nozzle** (clearly sharper threads; the thread is only ~0.8 deep, which a 0.42 line can barely trace and a 0.22
       line can): layers 0.08-0.10, lines 0.22 (the collar wall then gets 3 lines). Slow, but the parts are small.
     - Test first: print only the collar band of the cover and the ring at the chosen settings.
-  - Not done: the KiCad project's front silkscreen still marks the old 40 mm pad (Ergogen's `tp_outline` mark is 46.13);
-    kugo82 still has the snap ring. The thread faces are picked by size (M50 only).
+  - KiCad project's front silkscreen: the trackpad mark is the 46.13 circle (r 23.065, 0.15 wide) since 2026-11-05,
+    as Ergogen draws it (the support ring's mark lies inside it); it replaced the two r 20 arcs of the 40 mm mark, DRC
+    unchanged (0 violations, 0 unconnected, 0 parity). Not done: kugo82 still has the snap ring. The thread faces are picked by size (M50 only).
 - **Half crosses beside the Helios** (user, 2026-11-04): 2 T shapes in `cross_upper` (added by hand, not from crosses.py), plate to PCB top, centre x +-11, y 62, arms 5 north / south / outward. No lower crosses under them.
 - **USB opening** (user, 2026-11-05, after trying a bulky plug): floor under it stays 3 thick, the tub wall is open up to its top and the lid plate (z 11.4) covers it: `usb_cutout` z 3-11.4, 13 wide. It had a 1.5 strip of tub wall over it (z 9.9-11.4), and before that a 0.3 lip on the lid. Plug axis about z 5.3, so 2.3 below the axis and 6.1 above; the floor still limits a plug body centred on its axis to about 4.6 tall.
 - **Top edges, Fusion only** (user, 2026-11-04; `TOP_EDGES` in KeyboardCase.py, the STL / STEP files stay square): top outside edge of the lid plate chamfer 0.5 (`lid_chamfer`; user 2026-11-05, was a 1.0 fillet) and of the
@@ -155,6 +156,11 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
 - **OLED screw holes moved to the module's spacing (user measured 23.6 apart, 2026-11-04; moved 2026-11-05):** `oled_screw` and the KiCad projects (holes and their
   silkscreen rings) are at x +-11.8, y unchanged, assuming the holes are centred on the header. Routing unchanged; the Ø5.5 spacer on the east side overlaps the `C5` track by 0.26 (on the
   mask, 1.29 from the hole edge). The first-order boards have them at +-11.176 (22.352 apart, 1.25 too close): use one screw, or drill the PCB out a bit.
+  - On the first build (user, 2026-11-05): either drill the PCB holes out, or no OLED screws at all: simple spacers on the
+    main PCB with a thin pin in the middle that goes into the module's hole, so the module sits parallel to the main PCB
+    (not modeled yet: needs the module's hole diameter and board thickness).
+  - **Future builds** (user, 2026-11-05, not done): move the OLED a bit further north and drop the screw holes through the
+    main PCB; the module is fixed only by its soldered header and the spacers, and the centre cover holds it down.
 - Build: `bash tools/build.sh hachigo74`, then `tools/case.sh hachigo74` and
   `tools/step.sh hachigo74` → `case/`, `case/step/`, `case/fusion/` here.
 - Expected DRC: 5 `silk_overlap`, 499 unconnected pads; 74 switches, 76 LEDs.
