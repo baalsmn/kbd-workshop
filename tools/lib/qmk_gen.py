@@ -290,14 +290,117 @@ oled_rotation_t oled_init_kb(oled_rotation_t rotation) {
     return OLED_ROTATION_180;
 }
 
+// ---- status screen in a 9 x 12 font (tools/lib/oled_font.py), drawn pixel by pixel ----
+#define FONT_W 9
+#define FONT_H 14
+#define ROW_Y(n) ((n) * 17)
+static const char font_chars[] = "@FONT_CHARS@";
+static const uint8_t font_rows[][FONT_H] = {
+@FONT_ROWS@
+};
+
+static void draw_char(uint8_t x, uint8_t y, char c) {
+    uint8_t g = 0;                                                      // unknown character: blank
+    for (uint8_t i = 0; font_chars[i]; i++) {
+        if (font_chars[i] == c) {
+            g = i;
+            break;
+        }
+    }
+    for (uint8_t r = 0; r < FONT_H; r++) {
+        for (uint8_t col = 0; col < FONT_W; col++) {
+            oled_write_pixel(x + col, y + r, col < 8 && (font_rows[g][r] & (0x80 >> col)));
+        }
+    }
+}
+
+// text from x, padded with blanks to `width` characters so a shorter value clears the longer one
+static void draw_text(uint8_t x, uint8_t y, const char *s, uint8_t width) {
+    for (uint8_t i = 0; i < width; i++) {
+        draw_char(x + i * FONT_W, y, *s ? *s : ' ');
+        if (*s) s++;
+    }
+}
+
+// right-aligned text ending at the screen's right edge, cleared to `width` characters
+static void draw_right(uint8_t y, const char *s, uint8_t width) {
+    uint8_t n = 0;
+    while (s[n]) n++;
+    uint8_t x = 128 - width * FONT_W;
+    draw_text(x, y, "", width - n);
+    draw_text(x + (width - n) * FONT_W, y, s, n);
+}
+
+// a number as text, optionally with a percent sign; returns its first character in buf (8 bytes)
+static const char *num_text(char *buf, uint16_t v, bool percent) {
+    uint8_t i = 7;
+    buf[i] = 0;
+    if (percent) buf[--i] = '%';
+    do {
+        buf[--i] = '0' + v % 10;
+        v /= 10;
+    } while (v);
+    return buf + i;
+}
+
+static const char *layer_name(void) {
+    switch (get_highest_layer(layer_state | default_layer_state)) {
+        case 0: return "BASE";
+        case 1: return "HIGH";
+        case 2: return "LOW";
+        default: return "L3";
+    }
+}
+
+#ifdef RGB_MATRIX_ENABLE
+static const char *rgb_name(void) {
+    if (!rgb_matrix_is_enabled()) return "OFF";
+    switch (rgb_matrix_get_mode()) {
+        case RGB_MATRIX_SOLID_COLOR: return "SOL";
+        case RGB_MATRIX_BREATHING: return "BRE";
+        case RGB_MATRIX_CYCLE_ALL: return "CYC";
+        case RGB_MATRIX_CYCLE_LEFT_RIGHT: return "CLR";
+        case RGB_MATRIX_RAINBOW_MOVING_CHEVRON: return "CHV";
+        case RGB_MATRIX_SOLID_REACTIVE_SIMPLE: return "REA";
+        default: return "---";
+    }
+}
+
+// the effects that have a speed: not solid colour, off or an unknown one
+static bool rgb_uses_speed(void) {
+    if (!rgb_matrix_is_enabled()) return false;
+    switch (rgb_matrix_get_mode()) {
+        case RGB_MATRIX_BREATHING:
+        case RGB_MATRIX_CYCLE_ALL:
+        case RGB_MATRIX_CYCLE_LEFT_RIGHT:
+        case RGB_MATRIX_RAINBOW_MOVING_CHEVRON:
+        case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:
+            return true;
+        default:
+            return false;
+    }
+}
+#endif
+
 bool oled_task_kb(void) {
     if (!oled_task_user()) return false;
-    oled_write_ln_P(PSTR("@N@"), false);
-    oled_write_ln_P(PSTR(""), false);
-    oled_write_ln_P(fn_active() ? PSTR("Layer: Fn") : PSTR("Layer: Base"), false);
-    oled_write_P(PSTR("KPM: "), false);
-    oled_write_ln(get_u16_str(kpm_get(), ' '), false);
-    oled_write_ln_P(PSTR("(last 10 s)"), false);
+    static uint32_t last_draw;
+    if (timer_elapsed32(last_draw) < 50) return false;
+    last_draw = timer_read32();
+    char buf[8];
+
+    draw_text(0, ROW_Y(0), layer_name(), 4);
+    draw_text(46, ROW_Y(0), fn_active() ? "FN" : "", 4);
+    draw_right(ROW_Y(0), host_keyboard_led_state().caps_lock ? "CAPS" : "", 4);
+
+#ifdef RGB_MATRIX_ENABLE
+    draw_text(0, ROW_Y(1), rgb_name(), 4);
+    // % of the firmware's brightness cap
+    draw_text(46, ROW_Y(1), num_text(buf, (rgb_matrix_get_val() * 100U + RGB_MATRIX_MAXIMUM_BRIGHTNESS / 2) / RGB_MATRIX_MAXIMUM_BRIGHTNESS, true), 4);
+    draw_right(ROW_Y(1), rgb_uses_speed() ? num_text(buf, (rgb_matrix_get_speed() * 100U + 127) / 255, true) : "", 4);
+#endif
+
+    draw_right(ROW_Y(3), num_text(buf, kpm_get(), false), 5);
     return false;
 }
 #endif
@@ -319,7 +422,11 @@ bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
 }
 #endif
 '''
-open(os.path.join(OUT, NAME + '.c'), 'w', encoding='utf-8', newline='\n').write(C_SRC.replace('@N@', NAME))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from oled_font import c_table
+FONT_CHARS, FONT_ROWS = c_table()
+open(os.path.join(OUT, NAME + '.c'), 'w', encoding='utf-8', newline='\n').write(
+    C_SRC.replace('@N@', NAME).replace('@FONT_CHARS@', FONT_CHARS).replace('@FONT_ROWS@', FONT_ROWS))
 
 # ---- keymap "vial": keymap.c, rules.mk, config.h, vial.json (built with vial-qmk) ----
 KM = os.path.join(OUT, 'keymaps', 'vial')

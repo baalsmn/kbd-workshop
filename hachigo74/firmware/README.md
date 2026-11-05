@@ -33,7 +33,8 @@ Test in this order; each step builds on the one before. Note what fails and wher
 - [ ] **LEDs:** every key lit dim white; both indicator LEDs green while Fn is held (and
       while a one-shot Fn waits), off otherwise.
 - [ ] **OLED:** text the right way up (if not: a one-line change, the module's rotation),
-      showing the layer (Base / Fn) and the KPM of the last 10 s.
+      showing the layer (BASE / HIGH / LOW), the KPM of the last 10 s, the RGB effect,
+      brightness % and speed %, `FN` while Fn is active, `CAPS` while Caps Lock is on.
 - [ ] **Trackpad:** pointer direction (if mirrored or rotated: a one-line change), tap to
       click, circular scroll along the edge.
 - [ ] **Vial:** the layout appears on its own; remap a key and check it sticks after

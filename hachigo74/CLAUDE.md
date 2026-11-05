@@ -147,6 +147,9 @@ Decided (user, 2026-10-23); kugo82 is discussed separately.
   it before some changes): hold left Esc + right Backspace. RGB through VialRGB. The custom
   keys live in the keyboard code (`hachigo74.c`, keycodes `QK_KB_0..2` in `hachigo74.h`), so
   they work whatever Vial stores; the 3 AltGr keys show up as custom keys in the app.
-- **OLED:** name, layer (Base / Fn, also during a one-shot) and **KPM**: key presses in
-  ten 1 s slots, the last 10 s x 6 (every press counts, modifiers too).
+- **OLED** (user, 2026-11-05): status screen in our own 9 x 12 font (`tools/lib/oled_font.py`, only the characters
+  used; add a glyph there for new text), no labels, columns x 0 / 46 / right edge, rows every 17 px. Row 1: layer name (0 BASE, 1 HIGH, 2 LOW, 3 `L3`), `FN` while Fn is
+  held or a one-shot waits, `CAPS`. Row 2: effect code (OFF SOL BRE CYC CLR CHV REA), brightness as a % of the 40/255 cap, effect speed as a % of 255 (blank when solid, off or unknown).
+  Row 3 empty. Row 4: KPM at the right. KPM = key presses in ten 1 s slots, the last 10 s x 6 (every press counts, modifiers too). Goes dark after QMK's
+  default 60 s without a screen change, a key press wakes it.
 - Later: Cirque features, RGB defaults, home-row mods.
