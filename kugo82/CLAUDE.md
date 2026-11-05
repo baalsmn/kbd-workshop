@@ -94,8 +94,8 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
   ~1.2 mm above the PCB, header at y 23.5, VDD = 3V3.
   - Plate cutout / cover pocket `oled` at (0, 35.7), bottom edge at y 21.7, 1.5 mm
     above the trackpad ring. The screen window `oled_window` is at (0, 36.35).
-  - The 2 bottom corner holes take bottom-up screws (`oled_screw` at (±11.176,
-    24.135)). Each runs from the floor through a post, the PCB, a 5.5 mm spacer
+  - The 2 bottom corner holes take bottom-up screws (`oled_screw` at (±11.8,
+    24.135), the module's measured 23.6 spacing). Each runs from the floor through a post, the PCB, a 5.5 mm spacer
     (`oled_spacers`) and the OLED board into an insert in a boss under the centre
     cover (see Support).
   - The 2 top holes (±11.176, 47.25) stay unused: the Helios castellation pads are
@@ -198,7 +198,7 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
     trackpad.
     - The strip runs y −33.1…52.1: 2.4 mm past the south screw holes, and 2.4 mm
       above the OLED cutout top (49.7). That's the same 2.4 mm wall as at the sides.
-    - It's held by the 2 OLED screws (±11.176, 24.135) and the 2 screws south of the
+    - It's held by the 2 OLED screws (±11.8, 24.135) and the 2 screws south of the
       trackpad (±11, −29.5).
   - No screwless studs any more. The user removed all of them from the key area.
   - **Support crosses** (`cross_lower`, `cross_upper`; no PCB holes needed): 2 mm

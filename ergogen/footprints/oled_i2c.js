@@ -2,7 +2,7 @@
 // These generic modules have no vendor datasheet; the layout is the common
 // module geometry: 4-pin 2.54 mm header (standard 1.7 mm pads, 1.0 mm drills)
 // and the module's 4 corner holes, outline 27.4 x 27.2 mm (all measured on the
-// module).
+// module; hole spacing 23.6 measured on the 2 bottom holes, the top 2 assumed the same).
 //
 // Pad 1 (x=-3.81) -> params.GND
 // Pad 2 (x=-1.27) -> params.VDD
@@ -90,7 +90,7 @@ module.exports = {
     ${line(-5.08, -1.27, 5.08, -1.27, 'F.Fab', 0.1)}
     ${line(-4.445, 1.27, -5.08, 0.635, 'F.Fab', 0.1)}
 
-    ${p.holes ? [hole(-11.176, 0.635), hole(11.176, 0.635), hole(11.176, 23.749), hole(-11.176, 23.749)].join('\n    ') : ''}
+    ${p.holes ? [hole(-11.8, 0.635), hole(11.8, 0.635), hole(11.8, 23.749), hole(-11.8, 23.749)].join('\n    ') : ''}
 
     ${pin(1, 'rect', -3.81, p.GND)}
     ${pin(2, 'oval', -1.27, p.VDD)}

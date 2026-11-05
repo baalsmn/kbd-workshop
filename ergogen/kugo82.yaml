@@ -731,7 +731,7 @@ outlines:
         ref: mirror_hand-zone_c5_r3
         shift: [9.0, -10.5]   # c5/c6 at r2/r3 (SE corner; the west corners have only 1.1 mm room)
   # Screws through the OLED module's 2 bottom corner holes (module footprint
-  # (+-11.176, 0.635) from the header row, rotated 180 deg). Below the PCB a
+  # (+-11.8, 0.635) from the header row, measured on the module: 23.6 apart, rotated 180 deg). Below the PCB a
   # 5.5 mm insert post (insert_post), above it a 1.2 mm spacer up to the module
   # underside (separate printed part oled_spacers). They also hold the centre
   # cover (holes through every layer, like pcb_mounting).
@@ -743,7 +743,7 @@ outlines:
           - hand-zone_c9_r2
           - mirror_hand-zone_c9_r2
         rotate: 0
-        shift: [11.176, 24.135]
+        shift: [11.8, 24.135]
     - what: circle
       radius: 1.2
       where:
@@ -751,7 +751,7 @@ outlines:
           - hand-zone_c9_r2
           - mirror_hand-zone_c9_r2
         rotate: 0
-        shift: [-11.176, 24.135]
+        shift: [-11.8, 24.135]
   pcb_mounting_std: # standard mounting holes (7.4 mm posts): only the cover screws south of the trackpad
     # key-area screws moved to the thin-post group (c9r5_screw), kugo82
     # centre cover screws, south of the trackpad

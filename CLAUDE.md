@@ -409,6 +409,10 @@ bash tools/render.sh [name]    # 3D renders -> <keyboard>/renders/ (only when as
     holes cut through. Data: `rib` in the `_case.json` (key rectangles from
     `switches_outline` + `stab_cutouts`, region from `pcb_outline`). Checked offline
     with the defaults: nearest through-hole pad (Helios) 11.1 mm away.
+  - **Fusion-only features** per design: `TOP_EDGES` (chamfer / fillet of a part's top outside edge) and
+    `THREADS` (modeled ISO thread on a cylinder face of a given radius, faces then offset by the user
+    parameter `thread_play`; Fusion's thread size is the designation's, not the face's). Zero-area sketch
+    profiles (an arc meeting a curve within a micron) are skipped: extruding one fails.
 - **Fusion test bridge** `tools/fusion/Bridge/` (add-in, start it in Scripts and Add-Ins ->
   Add-Ins, stop it when done; not run on start-up): runs Python sent to 127.0.0.1 (port 8765)
   on Fusion's main thread, token in `~/.fusion_bridge` (new each start, deleted on stop);

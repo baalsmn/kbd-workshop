@@ -344,28 +344,55 @@ outlines:
       where:
         ref: mirror_hand-zone_c9_r2
         shift: [0.125sp + 19.5, -sp]   # = the old c9_r1 [19.5, 0]
-  # trackpad opening in the centre cover: around the snap ring (r 22.2) + 0.3 mm
+  # Trackpad mounting (user 2026-11-05): the TM040040 with Cirque's curved ABS overlay
+  # (datasheet p. 13, section A-A: top face 43.86, a flange round the bottom out to 46.13, about
+  # 1 wide (1.135 by the drawing) and 1.7 thick (user measured); the 40 mm board in its R20.20
+  # pocket; 5 mm thick without the connector, user measured) sits in a 1 mm recess in the
+  # centre cover top: it rests on the overlay's underside on the cover's low layer (z 14.5, ledge
+  # r 20.4 - 23.25), top z 19.5 (0.5 below the keycap tops). The cover is open below r 20.4
+  # (board + parts), the plate below r 18.1. Held by a screw-on ring (trackpad_ring): M50x1.5,
+  # male thread on a collar of the cover (r 23.25 - 25, z 15.5-19.3), the ring's internal thread
+  # and a sleeve under its lip (r 22.2 - 23.1, inside the collar's bore) press the flange down
+  # (flange top z 16.2); the lip (z 19.5-20.3) stays outside the 43.86 top face.
+  # The threads are modeled in Fusion only (KeyboardCase THREADS, play `thread_play`); the STL /
+  # STEP of the cover and ring are plain placeholders. Anti-rotation: a pin in the overlay's notch (tp_notch_pin).
+  # The pad's north edge is 0.6 from the OLED pocket in plan, the ring 6 from the screen window.
+  # recess for the pad in the cover's top layer (z 14.5-15.5): overlay r 23.065 + 0.185
   cirque_flush:
     - what: circle
-      radius: 22.5
+      radius: 23.25
       where:
-        aggregate.parts: 
+        aggregate.parts:
           - hand-zone_c9_r2
           - mirror_hand-zone_c9_r2
         rotate: 0
         shift: [0,-2]
-  # Trackpad mounting: the TM040040 (5 mm thick without the connector, user
-  # measured) lies directly on the switch plate (underside z 12.6, top 17.6),
-  # level, no pocket in the plate. The plate has
-  # an opening under the parts zone (r 18.1, parts stay inside r 18.0), so the
-  # pad rests on its 2 mm parts-free rim. The connector sticks out 2.5 mm below
-  # the pad (user measured), down to the PCB top (z 10.1); the PCB cutout
-  # (tp_cable_slot, 12 x 5) gives it room and lets the FFC through to the Molex.
-  # Anti-rotation: a peg on the centre cover (tp_cover_peg) sits in the pad's
-  # south flat ("south notch"). Held from above by the snap ring
-  # (trackpad_ring): stands on the plate around the pad, lip over the pad edge;
-  # 3 claws flush with the ring wall hook under the cover bottom edge (plate
-  # cutouts give the hooks room).
+  # opening through the cover's low layer under the pad (board r 20.2 in the overlay + 0.2)
+  tp_cover_opening:
+    - what: circle
+      radius: 20.4
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0, -2]
+  # anti-rotation pin (user 2026-11-05) in the overlay's test alignment notch, turned to the south: the notch is
+  # 2.3 wide, as tall as the flange (1.7) and cuts 2.5 in from the edge (r 20.565 - 23.065). Pin 2.0 wide on the
+  # ledge, from r 20.7 out into the recess wall / collar (r 23.4), 1.5 tall (z 14.5-16.0: 0.2 under the flange
+  # top, so the ring's sleeve lands on the flange, not the pin).
+  tp_notch_pin:
+    - what: rectangle
+      size: [2, 2.7]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0, -24.05]   # y -22.7 .. -25.4 = r 20.7 .. 23.4 from the pad centre (0, -2)
+  # The connector sticks out 2.5 mm below the pad (user measured), now down to z 12.0 in the
+  # plate opening; the PCB cutout (tp_cable_slot, 12 x 5) lets the FFC through to the Molex
+  # (30 mm FFC, user checked it still reaches with the pad 1.9 higher).
   # PCB cutout under the trackpad connector: the connector sticks out 2.5 mm
   # below the pad (user measured), i.e. down to the PCB top exactly, so the
   # cutout takes the whole connector body comfortably (12-pin 0.5 mm vertical,
@@ -390,50 +417,9 @@ outlines:
           - mirror_hand-zone_c9_r2
         rotate: 0
         shift: [0, -2]
-  # peg on the plate against the pad's south flat (flat at r 19.7 -> y -21.7)
-  # peg on the centre cover: from the cover opening edge (r 22.5 -> y -24.5)
-  # to the pad's south flat (r 19.7 -> y -21.7, 0.05 mm gap), up to the cover top
-  tp_cover_peg:
-    - what: rectangle
-      size: [5, 3.4]
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 0
-        shift: [0.000, -23.450]
-  # room for the peg in the ring wall (0.2 mm around it)
-  # room for the cover peg in the ring wall (0.2 mm around it, through the wall)
-  tp_key_notch:
-    - what: rectangle
-      size: [5.4, 2.8]
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 0
-        shift: [0.000, -23.000]
-  tp_pad_pocket:     # round pad pocket in the ring: 40 mm pad + 0.2 mm
+  tp_outline:        # the pad itself: Cirque's curved overlay, 46.13 round (datasheet p. 13), no flats
     - what: circle
-      radius: 20.2
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 0
-        shift: [0, -2]
-  tp_outline:        # the pad itself: 40 mm round, cut flat top and bottom (39.40 across)
-    - what: circle
-      radius: 20
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 0
-        shift: [0, -2]
-    - what: rectangle
-      size: [41, 39.4]
-      operation: intersect
+      radius: 23.065
       where:
         aggregate.parts:
           - hand-zone_c9_r2
@@ -470,9 +456,13 @@ outlines:
           - mirror_hand-zone_c9_r2
         rotate: 0
         shift: [0, -17.4]
-  tp_ring_wall:
+  # Screw-on trackpad ring (M50x1.5; thread geometry and play in Fusion, see cirque_flush):
+  #   collar on the cover, r 23.25 - 25.0 (thread major), z 15.5-19.3
+  #   ring, r 24.188 (internal thread minor) - 26.5, z 15.75-19.5, lip r 22.2 - 26.5, z 19.5-20.3,
+  #   sleeve r 22.2 - 23.1, z 16.2-19.5 (0.135 off the pad's side, 0.15 off the collar's bore)
+  tp_collar:
     - what: circle
-      radius: 22.2
+      radius: 25
       where:
         aggregate.parts:
           - hand-zone_c9_r2
@@ -480,196 +470,48 @@ outlines:
         rotate: 0
         shift: [0, -2]
     - operation: subtract
-      name: tp_pad_pocket
-    - operation: subtract
-      name: tp_key_notch
-  # ring claws (2: east / west), 8 mm wide, flush with the ring wall (nothing
-  # sticks out): a 8 mm arc of the wall's outer 1 mm is cut free by two 0.5 mm
-  # slits (z 12.6-16.0) with the inner wall behind it relieved, so it flexes
-  # inward; below the ring it carries a hook reaching 0.5 mm past the cover
-  # opening edge (r 22.5 -> 23.0) that catches under the cover bottom (z 12.6).
-  # The plate has a cutout under each claw for the hook. Arc segments (ring
-  # shapes cut to the claw zone), so nothing bulges past the ring's round edge.
-  tp_claw_zone:     # 8 mm wide zones, radial r 15-25
-    - what: rectangle
-      size: [8, 10]
+      name: cirque_flush
+  tp_ring_body:
+    - what: circle
+      radius: 26.5
       where:
         aggregate.parts:
           - hand-zone_c9_r2
           - mirror_hand-zone_c9_r2
-        rotate: -90
-        shift: [20.000, -2.000]
-    - what: rectangle
-      size: [8, 10]
+        rotate: 0
+        shift: [0, -2]
+    - what: circle
+      radius: 24.188
+      operation: subtract
       where:
         aggregate.parts:
           - hand-zone_c9_r2
           - mirror_hand-zone_c9_r2
-        rotate: 90
-        shift: [-20.000, -2.000]
-  tp_claw_zone_wide: # zones for the plate cutout (8 + 1.2 mm)
-    - what: rectangle
-      size: [9.2, 10]
+        rotate: 0
+        shift: [0, -2]
+  # sleeve from the lip down inside the collar's bore onto the overlay's bottom flange (user measured
+  # 1.7 thick -> flange top z 16.2; width 1 assumed, datasheet ~1.135: pad side r 22.065 above it)
+  tp_ring_sleeve:
+    - what: circle
+      radius: 23.1
       where:
         aggregate.parts:
           - hand-zone_c9_r2
           - mirror_hand-zone_c9_r2
-        rotate: -90
-        shift: [20.000, -2.000]
-    - what: rectangle
-      size: [9.2, 10]
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 90
-        shift: [-20.000, -2.000]
-  tp_claw_slit_zone: # 2 x 0.5 mm strips at the claw edges
-    - what: rectangle
-      size: [0.5, 10]
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: -90
-        shift: [20.000, 2.250]
-    - what: rectangle
-      size: [0.5, 10]
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: -90
-        shift: [20.000, -6.250]
-    - what: rectangle
-      size: [0.5, 10]
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 90
-        shift: [-20.000, -6.250]
-    - what: rectangle
-      size: [0.5, 10]
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 90
-        shift: [-20.000, 2.250]
-  tp_ann_arm: # r 21.2-22.2
+        rotate: 0
+        shift: [0, -2]
     - what: circle
       radius: 22.2
+      operation: subtract
       where:
         aggregate.parts:
           - hand-zone_c9_r2
           - mirror_hand-zone_c9_r2
         rotate: 0
-        shift: [0.000, -2.000]
-    - operation: subtract
-      what: circle
-      radius: 21.2
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 0
-        shift: [0.000, -2.000]
-  tp_ann_hook: # r 21.2-23.0
-    - what: circle
-      radius: 23
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 0
-        shift: [0.000, -2.000]
-    - operation: subtract
-      what: circle
-      radius: 21.2
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 0
-        shift: [0.000, -2.000]
-  tp_ann_relief: # r 20.0-21.2
-    - what: circle
-      radius: 21.2
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 0
-        shift: [0.000, -2.000]
-    - operation: subtract
-      what: circle
-      radius: 20
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 0
-        shift: [0.000, -2.000]
-  tp_ann_slit: # r 20.0-22.4
-    - what: circle
-      radius: 22.4
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 0
-        shift: [0.000, -2.000]
-    - operation: subtract
-      what: circle
-      radius: 20
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 0
-        shift: [0.000, -2.000]
-  tp_ann_plate: # r 20.8-23.6
-    - what: circle
-      radius: 23.6
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 0
-        shift: [0.000, -2.000]
-    - operation: subtract
-      what: circle
-      radius: 20.8
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 0
-        shift: [0.000, -2.000]
-  tp_claw_slit:      # slits through the wall
-    - name: tp_ann_slit
-    - operation: intersect
-      name: tp_claw_slit_zone
-  tp_claw_relief:    # inner wall behind the claw removed
-    - name: tp_ann_relief
-    - operation: intersect
-      name: tp_claw_zone
-  tp_claw_arm:       # claw below the ring, z 11.9-12.6
-    - name: tp_ann_arm
-    - operation: intersect
-      name: tp_claw_zone
-  tp_claw_hook:      # hook, z 11.9-12.55 (under the cover bottom)
-    - name: tp_ann_hook
-    - operation: intersect
-      name: tp_claw_zone
-  tp_claw_plate_cut: # plate cutout for the claw and hook
-    - name: tp_ann_plate
-    - operation: intersect
-      name: tp_claw_zone_wide
+        shift: [0, -2]
   tp_ring_lip:
     - what: circle
-      radius: 22.2
+      radius: 26.5
       where:
         aggregate.parts:
           - hand-zone_c9_r2
@@ -677,7 +519,7 @@ outlines:
         rotate: 0
         shift: [0, -2]
     - what: circle
-      radius: 19.3
+      radius: 22.2
       operation: subtract
       where:
         aggregate.parts:
@@ -687,8 +529,8 @@ outlines:
         shift: [0, -2]
   # Centre cover outline (from the user's draft): a strip parallel to the
   # OLED, 33 mm wide (OLED pocket +-14.1 + 2.4 mm wall),
-  # widening into a circle r 25 around the trackpad (concentric,
-  # 2.8 mm outside the snap ring), top and bottom edges straight: top 2.4 mm
+  # widening into a circle r 29.3 around the trackpad (concentric,
+  # 2.8 mm outside the screw-on ring), top and bottom edges straight: top 2.4 mm
   # above the OLED cutout, bottom 2.4 mm past the south screws; corners r 3.
   center_cover_raw:
     - what: rectangle
@@ -700,7 +542,7 @@ outlines:
         rotate: 0
         shift: [0, 9.5]      # y -33.1 .. 52.1: 2.4 mm past the south screw holes (-29.5, r 1.2) and above the OLED cutout top (49.7), same 2.4 mm as at the sides
     - what: circle
-      radius: 25
+      radius: 29.3
       operation: add
       where:
         aggregate.parts:
@@ -738,11 +580,10 @@ outlines:
         ref: mirror_hand-zone_c5_r3
         shift: [9.0, -10.5]   # c5/c6 at r2/r3 (SE corner; the west corners have only 1.1 mm room)
   # Screws through the OLED module's 2 bottom corner holes (module footprint
-  # (+-11.176, 0.635) from the header row, rotated 180 deg). Below the PCB a
+  # (+-11.8, 0.635) from the header row, measured on the module: 23.6 apart, rotated 180 deg). Below the PCB a
   # 5.5 mm insert post (insert_post), above it a 1.2 mm spacer up to the module
   # underside (separate printed part oled_spacers). They also hold the centre
   # cover (holes through every layer, like pcb_mounting).
-  # Known issue: the real module's holes are 23.6 apart, these 22.352 (hachigo74/CLAUDE.md).
   oled_screw:
     - what: circle
       radius: 1.2
@@ -751,7 +592,7 @@ outlines:
           - hand-zone_c9_r2
           - mirror_hand-zone_c9_r2
         rotate: 0
-        shift: [11.176, 24.135]
+        shift: [11.8, 24.135]
     - what: circle
       radius: 1.2
       where:
@@ -759,7 +600,7 @@ outlines:
           - hand-zone_c9_r2
           - mirror_hand-zone_c9_r2
         rotate: 0
-        shift: [-11.176, 24.135]
+        shift: [-11.8, 24.135]
   pcb_mounting_std: # standard mounting holes (7.4 mm posts): only the cover screws south of the trackpad
     # key-area screws moved to the thin-post group (c9r5_screw), kugo82
     # centre cover screws, south of the trackpad
@@ -1055,12 +896,12 @@ outlines:
       name: mcu_reset_hole
 
   # Centre cover (follows cirque_cover):
-  #   low layer: plate top -> OLED glass top, pocket for the OLED module
-  #   top layer: OLED glass top -> z 15.5, with the screen window
+  #   low layer: plate top -> OLED glass top, pocket for the OLED module, opening under the pad
+  #   top layer: OLED glass top -> z 15.5, with the screen window and the pad recess
   center_cover_low:
     - name: cirque_cover
     - operation: subtract
-      name: cirque_flush
+      name: tp_cover_opening
     - operation: subtract
       name: oled
     - operation: subtract
@@ -1104,10 +945,12 @@ outlines:
   insert_hole:      # 3.0 mm hole for the M2 heat-set insert (key-area screws, top-down)
     - name: c9r5_screw
       expand: 0.3
-  # Centre-cover screws (OLED south holes + the 2 south of the trackpad) go
-  # bottom-up: floor counterbore -> 5.5 mm post (3.0 hole) -> PCB ->
-  # spacer / boss -> M2 insert in a boss under the centre cover (blind hole,
-  # nothing visible on the cover top).
+  # Centre-cover screws. The 2 at the OLED go bottom-up: floor counterbore -> 5.5 mm
+  # post (3.0 hole) -> PCB -> spacer -> M2 insert in a boss under the centre cover
+  # (blind hole, nothing visible on the cover top). The 2 south of the trackpad go
+  # top-down (user 2026-11-05, the cover's bosses there removed): cover counterbore ->
+  # cover -> plate -> spacer (in the lid, PCB top -> plate) -> PCB -> M2 insert in the
+  # top of the tub post (its 3.0 hole), about M2 x 8.
   cover_screw:
     - name: oled_screw
     - operation: add
@@ -1115,12 +958,12 @@ outlines:
   cover_counterbore: # 4.4 mm screw head counterbore in the floor (1.6 deep)
     - name: cover_screw
       expand: 1.0
-  cover_boss_south: # 5.5 mm boss under the cover, down through the plate to the PCB top
+  cover_south_spacer: # 5.5 mm spacer in the lid, PCB top -> plate, at the south cover screws
     - name: pcb_mounting_std
       expand: 1.55
-  cover_boss_south_hole: # plate hole for it (6.0 mm)
+  cover_south_cbore: # 4.4 mm screw head counterbore in the cover top at the south screws
     - name: pcb_mounting_std
-      expand: 1.8
+      expand: 1.0
   cover_boss_oled:  # 5 mm boss under the cover, standing on the OLED board
     - name: oled_screw
       expand: 1.3
@@ -1133,8 +976,11 @@ outlines:
           - mirror_hand-zone_c9_r2
         rotate: 0
         shift: [0, 28.185]
-  cover_insert_hole: # 3.0 mm blind insert hole in the cover bosses
+  cover_insert_hole: # 3.0 mm insert hole: the 4 centre posts in the tubs
     - name: cover_screw
+      expand: 0.3
+  cover_insert_hole_oled: # 3.0 mm blind insert hole in the cover's OLED bosses
+    - name: oled_screw
       expand: 0.3
   spacer_disc_key:  # 5.5 mm spacer between the PCB and the plate at the key-area screws
     - name: c9r5_screw
@@ -1161,6 +1007,8 @@ outlines:
   # spacers between PCB and switch plate (lids), screw clearance hole
   standoffs_upper:
     - name: spacer_disc_key
+    - operation: add
+      name: cover_south_spacer
     - operation: subtract
       name: pcb_mounting
     - operation: intersect
@@ -1585,7 +1433,7 @@ outlines:
   support_marks_front:
     - name: oled_spacer_disc
     - operation: add
-      name: cover_boss_south
+      name: cover_south_spacer    # (same place and size as the cover's old south bosses)
     - operation: add
       name: cross_upper
     - operation: add       # trackpad outline
@@ -1606,10 +1454,6 @@ outlines:
       name: pcb_mounting
     - operation: subtract
       name: tp_plate_opening      # under the trackpad's parts zone
-    - operation: subtract
-      name: cover_boss_south_hole # the cover's south screw bosses reach through the plate
-    - operation: subtract
-      name: tp_claw_plate_cut      # room for the ring claws and hooks under the cover
     - operation: subtract
       name: oled_plate
     - operation: subtract
@@ -1887,8 +1731,8 @@ cases:
       extrude: 1.8
     - name: usb_cutout
       operation: subtract
-      shift: [0, 0, 3]     # floor stays 3 thick; a 1.5 strip of tub wall stays over it, z 9.9-11.4 (plug axis ~3.2 below the PCB bottom)
-      extrude: 6.9
+      shift: [0, 0, 3]     # floor stays 3 thick; open up to the wall top z 11.4, the plate covers it (plug axis ~3.2 below the PCB bottom)
+      extrude: 8.4
     - name: cover_counterbore
       operation: subtract
       shift: [0, 0, 0]
@@ -1931,7 +1775,7 @@ cases:
     - name: usb_cutout
       operation: subtract
       shift: [0, 0, 3]
-      extrude: 6.9
+      extrude: 8.4
     - name: cover_counterbore
       operation: subtract
       shift: [0, 0, 0]
@@ -1998,57 +1842,51 @@ cases:
 
   # Centre cover (print separately, sits on the plate, screwed through the
   # 4 holes around the trackpad): low layer plate top -> OLED glass top
-  # (pocket for the OLED module), top layer -> z 15.5; opening around the
-  # trackpad snap ring.
+  # (pocket for the OLED module), top layer -> z 15.5 with the trackpad recess; the
+  # collar the trackpad ring screws onto (M50x1.5 thread in Fusion).
   center_cover:
     - name: center_cover_low
       shift: [0, 0, 12.6]
-      extrude: 1.9     # pocket ceiling 14.5: OLED module top 14.4 (spacer 1.2 + 3.1 measured)
+      extrude: 1.9     # pocket ceiling 14.5: OLED module top 14.4 (spacer 1.2 + 3.1 measured); pad ledge at 14.5
     - name: center_cover_top
       shift: [0, 0, 14.5]
       extrude: 1
-    - name: tp_cover_peg     # trackpad anti-rotation peg, up to the cover top
-      shift: [0, 0, 12.6]
-      extrude: 2.9
-    - name: cover_boss_south # down through the plate to the PCB top
-      shift: [0, 0, 10.1]
-      extrude: 2.5
+    - name: tp_collar        # collar for the screw-on ring, z 15.5-19.3 (0.2 under the ring's lip)
+      shift: [0, 0, 15.5]
+      extrude: 3.8
+    - name: tp_notch_pin     # anti-rotation pin in the overlay's notch, on the ledge (z 14.5-16.0)
+      shift: [0, 0, 14.5]
+      extrude: 1.5
     - name: cover_boss_oled  # down onto the OLED board top (z 12.5)
       shift: [0, 0, 12.5]
       extrude: 2
-    - name: cover_insert_hole
-      operation: subtract
-      shift: [0, 0, 10.1]
-      extrude: 3.5     # south bosses: insert 10.1-13.6, 1.9 mm solid cover above
-    - name: cover_insert_hole
+    - name: cover_insert_hole_oled
       operation: subtract
       shift: [0, 0, 12.5]
       extrude: 2.7     # OLED bosses: 2.7 mm deep, 0.3 mm skin at the top (short M2 insert)
+    - name: pcb_mounting_std # south screws, top-down: 2.4 through the cover
+      operation: subtract
+      shift: [0, 0, 12.6]
+      extrude: 2.9
+    - name: cover_south_cbore
+      operation: subtract
+      shift: [0, 0, 14.5]
+      extrude: 1       # head counterbore 14.5-15.5 (user: 1 deep, 1.9 under the head; a 2.0 tall head stands 1.0 proud)
 
-  # Trackpad snap ring (print separately, top down): wall on the plate around
-  # the 5 mm pad up to 0.1 mm above it, lip over the pad edge, 3 claws flush
-  # with the wall that hook under the centre cover's bottom edge.
+  # Screw-on trackpad ring (print separately, top down): internal M50x1.5 thread (Fusion) onto
+  # the cover's collar; its sleeve presses the overlay's flange. Shown screwed down onto the pad
+  # (sleeve on the flange top z 16.2); its bottom then stands 0.25 above the cover top. Prints
+  # lip down without supports (everything rises straight from the lip).
   trackpad_ring:
-    - name: tp_ring_wall
-      shift: [0, 0, 12.6]
-      extrude: 5.1     # up to 0.1 mm above the 5 mm pad (z 17.7)
+    - name: tp_ring_body
+      shift: [0, 0, 15.75]
+      extrude: 3.75    # thread part, z 15.75-19.5
     - name: tp_ring_lip
-      shift: [0, 0, 17.7]
-      extrude: 0.8     # lip over the pad edge (z 17.7-18.5)
-    - name: tp_claw_arm
-      shift: [0, 0, 11.9]
-      extrude: 0.7
-    - name: tp_claw_hook
-      shift: [0, 0, 11.9]
-      extrude: 0.65
-    - name: tp_claw_slit
-      operation: subtract
-      shift: [0, 0, 12.6]
-      extrude: 3.4     # slits up to z 16.0, the claw hangs from the wall above
-    - name: tp_claw_relief
-      operation: subtract
-      shift: [0, 0, 12.6]
-      extrude: 3.4
+      shift: [0, 0, 19.5]
+      extrude: 0.8     # lip (z 19.5-20.3), outside the pad's 43.86 top face
+    - name: tp_ring_sleeve
+      shift: [0, 0, 16.2]
+      extrude: 3.3     # sleeve down onto the flange (z 16.2-19.5)
 
   # Bridge plate across the joint, on the tub floor (around the centre posts, glue optional)
   center_bridge:
@@ -2098,22 +1936,22 @@ cases:
     - name: center_cover_top
       shift: [0, 0, 14.5]
       extrude: 1
-    - name: tp_cover_peg
-      shift: [0, 0, 12.6]
-      extrude: 2.9
-    - name: tp_ring_wall
-      shift: [0, 0, 12.6]
-      extrude: 5.1     # up to 0.1 mm above the 5 mm pad (z 17.7)
+    - name: tp_collar
+      shift: [0, 0, 15.5]
+      extrude: 3.8
+    - name: tp_notch_pin
+      shift: [0, 0, 14.5]
+      extrude: 1.5
+    - name: tp_ring_sleeve
+      shift: [0, 0, 16.2]
+      extrude: 3.3
     - name: tp_ring_lip
-      shift: [0, 0, 17.7]
+      shift: [0, 0, 19.5]
       extrude: 0.8
-    - name: tp_claw_arm
-      shift: [0, 0, 11.9]
-      extrude: 0.7
     - name: usb_cutout
       operation: subtract
       shift: [0, 0, 3]
-      extrude: 6.9     # opening z 3-9.9, as in the tubs
+      extrude: 8.4     # opening z 3-11.4, as in the tubs
     - name: case
       operation: intersect
       extrude: 30

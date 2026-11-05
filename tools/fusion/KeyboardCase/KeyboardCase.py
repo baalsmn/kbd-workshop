@@ -25,11 +25,20 @@
 # outside edge of the lid plate (chamfer, user parameter `lid_chamfer`) and of the wedge rim
 # (fillet, `wedge_fillet`), as the last step of each part. Not along the joint between the halves
 # or round the centre openings.
+#
+# Threads (THREADS, per design, Fusion only): a modeled thread on the cylinder face of the given
+# radius (the yaml's plain collar / bore), then its faces offset by the user parameter
+# `thread_play` (per side, normal to the faces) so a printed pair turns: hachigo74's trackpad ring
+# screws onto the centre cover's collar (M50x1.5, cover external, ring internal).
 import adsk.core, adsk.fusion, traceback, json, os, math
 
 MM = 0.1            # Fusion's internal unit is cm
 # design -> part name prefix -> (kind, user parameter, size in mm)
 TOP_EDGES = {'hachigo74': {'lid': ('chamfer', 'lid_chamfer', 0.5), 'wedge': ('fillet', 'wedge_fillet', 1.5)}}
+# design -> part name -> (face radius mm, internal, designation, class); play = THREAD_PLAY mm per side
+THREADS = {'hachigo74': {'center_cover': (25.0, False, 'M50x1.5', '6g'),
+                         'trackpad_ring': (24.188, True, 'M50x1.5', '6H')}}
+THREAD_PLAY = 0.1
 
 
 def P(x, y):
@@ -228,8 +237,13 @@ def tilt_split(comp, bodies, item, log):
 
 
 def all_profiles(sk):
+    """Every profile of the sketch except zero-area slivers (where an arc meets another curve
+    within a micron, e.g. the cover's r3 fillets on its r29.3 circle; extruding one fails)."""
     c = adsk.core.ObjectCollection.create()
-    for i in range(sk.profiles.count): c.add(sk.profiles.item(i))
+    for i in range(sk.profiles.count):
+        p = sk.profiles.item(i)
+        if p.areaProperties().area * 100 >= 0.01:
+            c.add(p)
     return c
 
 
@@ -362,6 +376,46 @@ def top_edge(comp, kind, param, log):
         log.append('%s: top outside %s failed (%s)' % (comp.name, kind, e))
 
 
+def add_thread(comp, radius, internal, designation, cls, log):
+    """Modeled ISO metric thread on the part's cylinder face of `radius` (mm), its faces then
+    offset by -thread_play so the printed pair has play (Fusion's thread size doesn't follow
+    the face: it is the designation's, the face only has to be near it)."""
+    faces = [f for b in comp.bRepBodies for f in b.faces
+             if f.geometry.surfaceType == adsk.core.SurfaceTypes.CylinderSurfaceType
+             and abs(f.geometry.radius / MM - radius) < 0.01]
+    if len(faces) != 1:
+        log.append('%s: %d cylinder faces of r %g, no thread' % (comp.name, len(faces), radius)); return
+    tf = comp.features.threadFeatures
+    try:
+        col = adsk.core.ObjectCollection.create(); col.add(faces[0])
+        ti = tf.createInput(col, tf.createThreadInfo(internal, 'ISO Metric profile', designation, cls))
+        ti.isModeled = True
+        ti.isFullLength = True
+        thread = tf.add(ti)
+        thread.name = '%s %s thread' % (designation, 'internal' if internal else 'external')
+    except Exception as e:
+        log.append('%s: %s thread failed (%s)' % (comp.name, designation, e)); return
+    body = thread.bodies.item(0) if thread.bodies.count else faces[0].body
+    # the thread's faces (helical flanks, crest, root): the non-planar faces that go round the
+    # whole thread, i.e. whose outer size is between the thread's minor and major diameter
+    keep = []
+    for f in body.faces:
+        if f.geometry.surfaceType == adsk.core.SurfaceTypes.PlaneSurfaceType:
+            continue
+        bb = f.boundingBox
+        w, h = (bb.maxPoint.x - bb.minPoint.x) / MM, (bb.maxPoint.y - bb.minPoint.y) / MM
+        if 2 * 23.9 < w < 2 * 25.2 and 2 * 23.9 < h < 2 * 25.2:
+            keep.append(f)
+    try:
+        of = comp.features.offsetFacesFeatures
+        off = of.add(of.createInput(keep, adsk.core.ValueInput.createByString('-thread_play')))
+        off.name = 'thread play'
+        log.append('%s: %s %s thread, %d faces offset by thread_play' % (comp.name, designation,
+                   'internal' if internal else 'external', len(keep)))
+    except Exception as e:
+        log.append('%s: thread play offset failed (%s)' % (comp.name, e))
+
+
 def build_design(data, ribs=None, tilt=None):
     """Build every part of the case data in a new design. ribs = (depth, gap, width) mm or
     None, tilt = wedge angle (deg) or None (no wedge parts). Returns the log lines.
@@ -389,6 +443,10 @@ def build_design(data, ribs=None, tilt=None):
     for prefix, (kind, param, size) in top_edges.items():
         if any(k.startswith(prefix) for k in cases):
             design.userParameters.add(param, adsk.core.ValueInput.createByString('%g mm' % size), 'mm', 'top outside edge %s of the %s' % (kind, prefix))
+    threads = THREADS.get(data.get('design'), {})
+    if any(k in cases for k in threads):
+        design.userParameters.add('thread_play', adsk.core.ValueInput.createByString('%g mm' % THREAD_PLAY), 'mm',
+                                  'play per side on the printed threads (faces offset normal to the flanks)')
     # (the root component can't be renamed; it takes the name the design is saved under)
     log, tl = [], design.timeline
     for part, recipe in cases.items():
@@ -400,6 +458,8 @@ def build_design(data, ribs=None, tilt=None):
         for prefix, (kind, param, size) in top_edges.items():
             if part.startswith(prefix):
                 top_edge(comp, kind, param, log)
+        if part in threads:
+            add_thread(comp, *threads[part], log)
         adsk.doEvents()
         try:
             if tl.markerPosition - 1 > start:

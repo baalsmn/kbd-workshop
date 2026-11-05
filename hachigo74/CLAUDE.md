@@ -68,8 +68,79 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
   no contact. With the later support ring, half crosses and 14.06 cutouts: lids 21491 mm3 each, about 27 g; rechecked 2026-11-04, no contact.
 - **Trackpad support ring** (user, 2026-11-04, so the pad doesn't wobble when pushed; hachigo74 only): `tp_support` in the lid recipes,
   plate underside to PCB top (z 10.1-11.4), r 18.2-20 round the pad centre, cut round the FFC slot, on the front silkscreen marks. No pads there on the routed board, but it rests on tracks and vias under the solder mask.
+  Since the pad sits on the cover (below), it carries the plate under the cover's ledge instead.
+- **Trackpad on the centre cover, screw-on ring** (user, 2026-11-05): the pad is the TM040040 with Cirque's curved ABS
+  overlay, **46.13 across** (datasheet p. 13; the old design used the bare board's 40 mm, so the snap ring's tongues
+  had no room). It sits in a 1 mm recess in the cover top (`cirque_flush` r 23.25), on the overlay rim on the low layer
+  (z 14.5, ledge r 20.4-23.25; `tp_cover_opening` r 20.4 below for the board and its parts), top z 19.5 (0.5 under the
+  keycap tops). The ring screws onto a collar of the cover (`tp_collar` r 23.25-25, z 15.5-19.3): M50x1.5, male on the
+  cover, female in the ring (`tp_ring_body` r 24.188-26.5, z 15.75-19.5, lip `tp_ring_lip` r 22.1-26.5, z 19.5-20.3,
+  on the overlay's flat band outside the 43.86 touch area; ring top 0.3 above the keycap tops). Cover circle r 29.3
+  (was 25). Claws, their plate slots and the old flat-side peg are gone (anti-rotation now: the notch pin below).
+  - **Threads in Fusion only** (`THREADS` in KeyboardCase.py): modeled M50x1.5 (6g / 6H) on the r 25 / r 24.188 faces,
+    then the thread faces offset by `thread_play` (user parameter, 0.1 per side normal to the flanks: about 0.4 radial at
+    the crests). The STL / STEP of the cover and ring are plain placeholders (the ring's bore overlaps the collar there);
+    print `case/fusion/center_cover_threaded.stl` and `trackpad_ring_threaded.stl` (exported from that build, closed meshes).
+  - Checked 2026-11-05 (Fusion 2706.1.17): 254 timeline items healthy, thread_play 0.15 / 0.1 recompute; collar wall
+    0.71 at the thread root (crest r 24.69), ring 1.3 at its root (r 25.2); turning the ring at its screwed-down height,
+    0 overlap with the cover over a 120 deg range (the play); the pad (46.13 x 5) overlaps neither part.
+  - Overlay shape (datasheet section A-A, left = underside, right = top; user confirmed): top face 43.86, a flange
+    round the bottom out to 46.13, about 1 wide (1.135 by the drawing), **1.7 thick** (user measured), so its top is
+    z 16.2. Clamping (user 2026-11-05): a sleeve under the ring's lip (`tp_ring_sleeve` r 22.2-23.1, z 16.2-19.5,
+    0.9 wall) goes down inside the collar's bore and presses the flange (0.87 of it, with a 1 wide flange); 0.135 off
+    the pad's side, 0.15 off the bore. The ring stops on the flange with 0.25 left before its bottom meets the cover.
+    The lip (r 22.2, z 19.5-20.3) stays outside the 43.86 top face. The ring prints lip down without supports.
+  - **Anti-rotation pin** (user, 2026-11-05): `tp_notch_pin` on the cover's ledge at the south, in the overlay's test
+    alignment notch (turned south; notch 2.3 wide, the flange's 1.7 tall, 2.5 in from the edge, user measured). Pin
+    2.0 wide, r 20.7 out into the recess wall / collar, z 14.5-16.0 (0.2 under the flange top, so the sleeve lands on
+    the flange). Clear of the notch by 0.15 each side and 0.135 at its inner end; checked in Fusion: a pad with the
+    notch touches neither part, without it it would overlap the pin by 7.07 mm3.
+    (The first version's lip at z 19.5 touched nothing: it assumed a flat band at full height outside 43.86.)
+- **South cover screws top-down** (user, 2026-11-05): the cover's south bosses (through the plate to the PCB) are gone.
+  M2 (about M2 x 8) from the cover top: counterbore Ø4.4 z 14.5-15.5 (`cover_south_cbore`, user: 1 deep so 1.9 stays under the head), Ø2.4 through the cover,
+  the plate's Ø2.4 hole (its Ø6 boss hole is gone), a Ø5.5 spacer in the lid PCB top -> plate (`cover_south_spacer` in
+  `standoffs_upper`, the front silkscreen mark in the same place as the old boss), the PCB, then an M2 heat-set insert
+  pressed into the top of the tub's post (its Ø3.0 bore). The floor's Ø2.4 hole and counterbore under those posts stay
+  (unused). The OLED screws still go bottom-up into the cover's bosses (`cover_insert_hole_oled`).
+  - **Printing the threaded parts** (recommended settings, 2026-11-05; not yet tried). Print them **separately**, cover
+    top up, ring lip down, **no supports**: in both, everything rises from the bed side (the ring's sleeve, the channel
+    for the collar and its threaded wall all grow straight up from the lip, the channel is open at the top).
+    - **Why not printed together** (print-in-place, then unscrewed; checked in Fusion with the ring turned to the middle of
+      its play): the gaps are too small for FDM, which needs about 0.4 vertical (2 layers of 0.2) and ~0.4 horizontal:
+      ring bottom over the cover top 0.25 vertical, lip over the collar top 0.2, thread flanks 0.30 vertical, sleeve to the
+      collar's bore 0.15 horizontal, smallest gap anywhere 0.15. The ring's first layers would land on the cover and fuse,
+      its 2.3 wide flat bottom has nothing under it, and the sleeve's end would start in the air 1.7 above the pad seat.
+      M50x1.5 can't simply get more play: its crests overlap only ~0.3 radially at thread_play 0.1; the ~0.2 per side the
+      flank gaps would need leaves no overlap (the ring would slide off). Printing together would need a coarser thread
+      (M52x3, ring 1.6 wider in diameter, its edge ~0.4 from the south screw heads), 0.2 play, 0.4 vertical gaps at the ring
+      bottom and the collar top, a 45 deg chamfer under the ring and a support under the sleeve's end. Not done. Also, the
+      other part doesn't really support a thread printed with it: each overhanging flank still faces an air gap and prints
+      as it would alone; the other part only catches drooping strands.
+    - **Why separately works**: the ISO flanks are 30 deg above horizontal (60 deg from the axis), so each layer overhangs
+      the one below by about 1.7 x the layer height; below a line width it stays mostly supported:
+
+      | layer | overhang per layer | layers per turn (1.5 pitch) |
+      |---|---|---|
+      | 0.20 | 0.35 | 7.5 |
+      | 0.16 | 0.28 | 9 |
+      | 0.12 | 0.21 | 12.5 |
+    - **0.4 nozzle**:
+      - Layer 0.12 in the thread band only (a height range modifier in Bambu Studio), 0.2 elsewhere: about 3-7 above the
+        bed on the cover (top up; its underside z 12.5, collar z 15.5-19.3), 0.8-4.6 on the ring (lip down).
+      - Lines: outer wall 0.42, inner walls 0.45, Arachne (thin walls: collar 0.71 at the thread root = 2 lines, ring wall
+        ~1.3 = 3 lines, sleeve 0.9 = 2 lines).
+      - Outer wall ~30 mm/s (slower than the usual 40). Fan 100 % on those layers (the overhanging flanks).
+      - Seam aligned, away from where the ring is gripped: a seam on a thread is a bump you feel while screwing.
+      - X-Y hole and contour compensation 0: the play is in the model; tune `thread_play` in Fusion instead (+0.05 if
+        tight) and re-export the STLs.
+      - No ironing on the collar or the ring.
+    - **0.2 nozzle** (clearly sharper threads; the thread is only ~0.8 deep, which a 0.42 line can barely trace and a 0.22
+      line can): layers 0.08-0.10, lines 0.22 (the collar wall then gets 3 lines). Slow, but the parts are small.
+    - Test first: print only the collar band of the cover and the ring at the chosen settings.
+  - Not done: the KiCad project's front silkscreen still marks the old 40 mm pad (Ergogen's `tp_outline` mark is 46.13);
+    kugo82 still has the snap ring. The thread faces are picked by size (M50 only).
 - **Half crosses beside the Helios** (user, 2026-11-04): 2 T shapes in `cross_upper` (added by hand, not from crosses.py), plate to PCB top, centre x +-11, y 62, arms 5 north / south / outward. No lower crosses under them.
-- **USB opening** (user, 2026-11-04): floor under it stays 3 thick and a 1.5 strip of tub wall stays over it (z 9.9-11.4, the plate on top of that): `usb_cutout` z 3-9.9, 13 wide. A 0.3 lip on the lid was tried first and dropped. Plug axis about z 5.3, so 2.3 below the axis (was 3.8) and 4.6 above; a plug body centred on its axis fits up to about 4.6 tall.
+- **USB opening** (user, 2026-11-05, after trying a bulky plug): floor under it stays 3 thick, the tub wall is open up to its top and the lid plate (z 11.4) covers it: `usb_cutout` z 3-11.4, 13 wide. It had a 1.5 strip of tub wall over it (z 9.9-11.4), and before that a 0.3 lip on the lid. Plug axis about z 5.3, so 2.3 below the axis and 6.1 above; the floor still limits a plug body centred on its axis to about 4.6 tall.
 - **Top edges, Fusion only** (user, 2026-11-04; `TOP_EDGES` in KeyboardCase.py, the STL / STEP files stay square): top outside edge of the lid plate chamfer 0.5 (`lid_chamfer`; user 2026-11-05, was a 1.0 fillet) and of the
   wedge rim fillet 1.5 (`wedge_fillet`, leaves 0.5 flat on the 2 wide rim), last step of each part, not along the joint or round the centre openings. Print these from a Fusion export.
 - **The 4 centre posts** (user, 2026-11-04; the cover-screw posts in the tubs): inner hole Ø3.0 from the floor top to the PCB (z 3-8.5), 1.25 wall in the Ø5.5 post. The floor below keeps its Ø2.4 hole and Ø4.4 head counterbore, so there's a 0.3 step at z 3.
@@ -81,9 +152,9 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
   Glass starts about 4.7 from the board's header-side edge (user measured; vendor model 4.0). The Ø5 bosses have a flat
   on the glass side, 2.05 north of the screw (y 26.185, 0.55 wall left round the insert hole), reaching about 4.2 from that edge
   if the screw hole is 2.135 from it as in the vendor model (not measured on the real module).
-- **OLED screw holes don't match the module (known issue, not fixed; user measured, 2026-11-04):** the module's two holes are 23.6 apart
-  horizontally, the board and case have them 22.352 apart (`oled_screw`, footprint `oled_i2c`, x +-11.176), 1.25 too close. Two screws can't both go in:
-  use one, or drill the PCB out a bit. On the next PCB revision move them to about x +-11.8 (the spacers, bosses and insert posts move with `oled_screw`; check the room first).
+- **OLED screw holes moved to the module's spacing (user measured 23.6 apart, 2026-11-04; moved 2026-11-05):** `oled_screw` and the KiCad projects (holes and their
+  silkscreen rings) are at x +-11.8, y unchanged, assuming the holes are centred on the header. Routing unchanged; the Ø5.5 spacer on the east side overlaps the `C5` track by 0.26 (on the
+  mask, 1.29 from the hole edge). The first-order boards have them at +-11.176 (22.352 apart, 1.25 too close): use one screw, or drill the PCB out a bit.
 - Build: `bash tools/build.sh hachigo74`, then `tools/case.sh hachigo74` and
   `tools/step.sh hachigo74` → `case/`, `case/step/`, `case/fusion/` here.
 - Expected DRC: 5 `silk_overlap`, 499 unconnected pads; 74 switches, 76 LEDs.
