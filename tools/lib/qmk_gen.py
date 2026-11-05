@@ -389,17 +389,17 @@ bool oled_task_kb(void) {
     last_draw = timer_read32();
     char buf[8];
 
+    // left column: layer, FN, CAPS
     draw_text(0, ROW_Y(0), layer_name(), 4);
-    draw_text(46, ROW_Y(0), fn_active() ? "FN" : "", 4);
-    draw_right(ROW_Y(0), host_keyboard_led_state().caps_lock ? "CAPS" : "", 4);
+    draw_text(0, ROW_Y(1), fn_active() ? "FN" : "", 4);
+    draw_text(0, ROW_Y(2), host_keyboard_led_state().caps_lock ? "CAPS" : "", 4);
 
+    // right column: RGB effect, brightness (% of the firmware's cap), effect speed, KPM
 #ifdef RGB_MATRIX_ENABLE
-    draw_text(0, ROW_Y(1), rgb_name(), 4);
-    // % of the firmware's brightness cap
-    draw_text(46, ROW_Y(1), num_text(buf, (rgb_matrix_get_val() * 100U + RGB_MATRIX_MAXIMUM_BRIGHTNESS / 2) / RGB_MATRIX_MAXIMUM_BRIGHTNESS, true), 4);
-    draw_right(ROW_Y(1), rgb_uses_speed() ? num_text(buf, (rgb_matrix_get_speed() * 100U + 127) / 255, true) : "", 4);
+    draw_right(ROW_Y(0), rgb_name(), 4);
+    draw_right(ROW_Y(1), num_text(buf, (rgb_matrix_get_val() * 100U + RGB_MATRIX_MAXIMUM_BRIGHTNESS / 2) / RGB_MATRIX_MAXIMUM_BRIGHTNESS, true), 4);
+    draw_right(ROW_Y(2), rgb_uses_speed() ? num_text(buf, (rgb_matrix_get_speed() * 100U + 127) / 255, true) : "", 4);
 #endif
-
     draw_right(ROW_Y(3), num_text(buf, kpm_get(), false), 5);
     return false;
 }
