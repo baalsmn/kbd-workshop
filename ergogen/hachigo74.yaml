@@ -351,7 +351,7 @@ outlines:
   # centre cover top: it rests on the overlay's underside on the cover's low layer (z 14.5, ledge
   # r 20.4 - 23.25), top z 19.5 (0.5 below the keycap tops). The cover is open below r 20.4
   # (board + parts), the plate below r 18.1. Held by a screw-on ring (trackpad_ring): M50x1.5,
-  # male thread on a collar of the cover (r 23.25 - 25, z 15.5-19.3), the ring's internal thread
+  # male thread on a collar of the cover (r 23.25 - 25, z 15.5-18.3), the ring's internal thread
   # and a sleeve under its lip (r 22.2 - 23.1, inside the collar's bore) press the flange down
   # (flange top z 16.2); the lip (z 19.5-20.3) stays outside the 43.86 top face.
   # The threads are modeled in Fusion only (KeyboardCase THREADS, play `thread_play`); the STL /
@@ -457,12 +457,26 @@ outlines:
         rotate: 0
         shift: [0, -17.4]
   # Screw-on trackpad ring (M50x1.5; thread geometry and play in Fusion, see cirque_flush):
-  #   collar on the cover, r 23.25 - 25.0 (thread major), z 15.5-19.3
-  #   ring, r 24.188 (internal thread minor) - 26.5, z 15.75-19.5, lip r 22.2 - 26.5, z 19.5-20.3,
+  #   collar on the cover, r 23.25 - 25.0 (thread major), z 15.5-18.7, on a seat r 26.5, z 15.5-16.2
+  #   (thread 16.2-18.7, all of it engaged with the ring)
+  #   ring, r 24.188 (internal thread minor) - 26.5, z 16.2-18.9 (thread), solid r 22.2 - 26.5, z 18.9-20.3,
   #   sleeve r 22.2 - 23.1, z 16.2-19.5 (0.135 off the pad's side, 0.15 off the collar's bore)
   tp_collar:
     - what: circle
       radius: 25
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [0, -2]
+    - operation: subtract
+      name: cirque_flush
+  # seat under the ring (user 2026-11-06): the cover top raised 0.7 (z 15.5-16.2) out to the ring's r 26.5,
+  # level with the flange top, so the ring's bottom and its sleeve's end land at the same height (16.2)
+  tp_ring_seat:
+    - what: circle
+      radius: 26.5
       where:
         aggregate.parts:
           - hand-zone_c9_r2
@@ -1851,9 +1865,12 @@ cases:
     - name: center_cover_top
       shift: [0, 0, 14.5]
       extrude: 1
-    - name: tp_collar        # collar for the screw-on ring, z 15.5-19.3 (0.2 under the ring's lip)
+    - name: tp_ring_seat     # seat under the ring, z 15.5-16.2 (user 2026-11-06: up to the sleeve's end / flange top)
       shift: [0, 0, 15.5]
-      extrude: 3.8
+      extrude: 0.7
+    - name: tp_collar        # collar for the screw-on ring, z 15.5-18.7 (thread 16.2-18.7 above the seat, 2.5)
+      shift: [0, 0, 15.5]
+      extrude: 3.2
     - name: tp_notch_pin     # anti-rotation pin in the overlay's notch, on the ledge (z 14.5-16.0)
       shift: [0, 0, 14.5]
       extrude: 1.5
@@ -1873,17 +1890,19 @@ cases:
       shift: [0, 0, 14.5]
       extrude: 1       # head counterbore 14.5-15.5 (user: 1 deep, 1.9 under the head; a 2.0 tall head stands 1.0 proud)
 
-  # Screw-on trackpad ring (print separately, top down): internal M50x1.5 thread (Fusion) onto
-  # the cover's collar; its sleeve presses the overlay's flange. Shown screwed down onto the pad
-  # (sleeve on the flange top z 16.2); its bottom then stands 0.25 above the cover top. Prints
-  # lip down without supports (everything rises straight from the lip).
+  # Screw-on trackpad ring (print separately, top up: its bottom is flat, the top has the 4 x 1
+  # fillet): internal M50x1.5 thread (Fusion) onto the cover's collar; its sleeve presses the
+  # overlay's flange. Shown screwed down onto the pad (sleeve on the flange top z 16.2); its
+  # bottom then sits on the seat (z 16.2) too.
   trackpad_ring:
     - name: tp_ring_body
-      shift: [0, 0, 15.75]
-      extrude: 3.75    # thread part, z 15.75-19.5
+      shift: [0, 0, 16.2]
+      extrude: 3.3     # thread part, z 16.2-19.5 (user 2026-11-06: bottom level with the sleeve's end, was 15.75)
     - name: tp_ring_lip
-      shift: [0, 0, 19.5]
-      extrude: 0.8     # lip (z 19.5-20.3), outside the pad's 43.86 top face
+      shift: [0, 0, 18.9]
+      extrude: 1.4     # solid top (user 2026-11-06): z 18.9-20.3, 0.2 over the collar's top (18.7), so the
+                       # internal thread stops there and the top edge can take a fillet (Fusion: asymmetric, ring_fillet_h 4 / ring_fillet_v 1);
+                       # the lip proper (z 19.5-20.3) stays outside the pad's 43.86 top face
     - name: tp_ring_sleeve
       shift: [0, 0, 16.2]
       extrude: 3.3     # sleeve down onto the flange (z 16.2-19.5)
@@ -1936,18 +1955,24 @@ cases:
     - name: center_cover_top
       shift: [0, 0, 14.5]
       extrude: 1
+    - name: tp_ring_seat
+      shift: [0, 0, 15.5]
+      extrude: 0.7
     - name: tp_collar
       shift: [0, 0, 15.5]
-      extrude: 3.8
+      extrude: 3.2
     - name: tp_notch_pin
       shift: [0, 0, 14.5]
       extrude: 1.5
+    - name: tp_ring_body
+      shift: [0, 0, 16.2]
+      extrude: 3.3
     - name: tp_ring_sleeve
       shift: [0, 0, 16.2]
       extrude: 3.3
     - name: tp_ring_lip
-      shift: [0, 0, 19.5]
-      extrude: 0.8
+      shift: [0, 0, 18.9]
+      extrude: 1.4
     - name: usb_cutout
       operation: subtract
       shift: [0, 0, 3]

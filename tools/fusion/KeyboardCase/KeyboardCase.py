@@ -23,7 +23,8 @@
 #
 # Top edges (TOP_EDGES, per design, Fusion only: the STL / STEP files don't have them): the top
 # outside edge of the lid plate (chamfer, user parameter `lid_chamfer`) and of the wedge rim
-# (fillet, `wedge_fillet`), as the last step of each part. Not along the joint between the halves
+# (fillet, `wedge_fillet`), the trackpad ring's top outer circle (asymmetric fillet, `ring_fillet_h` across the top,
+# `ring_fillet_v` down the side), as the last step of each part. Not along the joint between the halves
 # or round the centre openings.
 #
 # Threads (THREADS, per design, Fusion only): a modeled thread on the cylinder face of the given
@@ -34,7 +35,10 @@ import adsk.core, adsk.fusion, traceback, json, os, math
 
 MM = 0.1            # Fusion's internal unit is cm
 # design -> part name prefix -> (kind, user parameter, size in mm)
-TOP_EDGES = {'hachigo74': {'lid': ('chamfer', 'lid_chamfer', 0.5), 'wedge': ('fillet', 'wedge_fillet', 1.5)}}
+TOP_EDGES = {'hachigo74': {'lid': ('chamfer', 'lid_chamfer', 0.5), 'wedge': ('fillet', 'wedge_fillet', 1.5),
+                           'trackpad_ring': ('asymmetric', ('ring_fillet_h', 'ring_fillet_v'), (4.0, 1.0))}}
+# 'asymmetric': an asymmetric fillet, (horizontal offset into the top face, vertical offset down the side)
+RING_FILLET_FLIP = False    # the edge set's isFlipped that puts offsetOne on the top face (checked in Fusion)
 # design -> part name -> (face radius mm, internal, designation, class); play = THREAD_PLAY mm per side
 THREADS = {'hachigo74': {'center_cover': (25.0, False, 'M50x1.5', '6g'),
                          'trackpad_ring': (24.188, True, 'M50x1.5', '6H')}}
@@ -336,6 +340,8 @@ def top_outer_edges(body, right):
     on = lambda v: abs(v.geometry.x - jx) < 1e-5
     loop = [l for l in top.loops if l.isOuter][0]
     ces = [loop.coEdges.item(i) for i in range(loop.coEdges.count)]
+    if len(ces) == 1:           # a round part (the trackpad ring): its whole outer circle
+        return [ces[0].edge]
     ends = lambda c: (c.edge.endVertex, c.edge.startVertex) if c.isOpposedToEdge else (c.edge.startVertex, c.edge.endVertex)
     first = [i for i, c in enumerate(ces) if on(ends(c)[0]) and not on(ends(c)[1])]
     if not first: return []
@@ -360,9 +366,15 @@ def top_edge(comp, kind, param, log):
         log.append('%s: top outside edge not found, no %s' % (comp.name, kind)); return
     col = adsk.core.ObjectCollection.create()
     for e in edges: col.add(e)
-    size = adsk.core.ValueInput.createByString(param)
+    size = None if kind == 'asymmetric' else adsk.core.ValueInput.createByString(param)
     try:
-        if kind == 'chamfer':
+        if kind == 'asymmetric':
+            fi = comp.features.filletFeatures.createInput()
+            es = fi.edgeSetInputs.addAsymmetricRadiusEdgeSet(col, adsk.core.ValueInput.createByString(param[0]),
+                                                             adsk.core.ValueInput.createByString(param[1]), False)
+            es.isFlipped = RING_FILLET_FLIP
+            feature = comp.features.filletFeatures.add(fi)
+        elif kind == 'chamfer':
             ci = comp.features.chamferFeatures.createInput2()
             ci.chamferEdgeSets.addEqualDistanceChamferEdgeSet(col, size, False)
             feature = comp.features.chamferFeatures.add(ci)
@@ -442,7 +454,11 @@ def build_design(data, ribs=None, tilt=None):
     top_edges = TOP_EDGES.get(data.get('design'), {})
     for prefix, (kind, param, size) in top_edges.items():
         if any(k.startswith(prefix) for k in cases):
-            design.userParameters.add(param, adsk.core.ValueInput.createByString('%g mm' % size), 'mm', 'top outside edge %s of the %s' % (kind, prefix))
+            if kind == 'asymmetric':
+                for pn, sz, d in zip(param, size, ('horizontal (across the top)', 'vertical (down the side)')):
+                    design.userParameters.add(pn, adsk.core.ValueInput.createByString('%g mm' % sz), 'mm', 'top outside asymmetric fillet of the %s, %s' % (prefix, d))
+            else:
+                design.userParameters.add(param, adsk.core.ValueInput.createByString('%g mm' % size), 'mm', 'top outside edge %s of the %s' % (kind, prefix))
     threads = THREADS.get(data.get('design'), {})
     if any(k in cases for k in threads):
         design.userParameters.add('thread_play', adsk.core.ValueInput.createByString('%g mm' % THREAD_PLAY), 'mm',

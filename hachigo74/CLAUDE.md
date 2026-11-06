@@ -73,8 +73,13 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
   overlay, **46.13 across** (datasheet p. 13; the old design used the bare board's 40 mm, so the snap ring's tongues
   had no room). It sits in a 1 mm recess in the cover top (`cirque_flush` r 23.25), on the overlay rim on the low layer
   (z 14.5, ledge r 20.4-23.25; `tp_cover_opening` r 20.4 below for the board and its parts), top z 19.5 (0.5 under the
-  keycap tops). The ring screws onto a collar of the cover (`tp_collar` r 23.25-25, z 15.5-19.3): M50x1.5, male on the
-  cover, female in the ring (`tp_ring_body` r 24.188-26.5, z 15.75-19.5, lip `tp_ring_lip` r 22.1-26.5, z 19.5-20.3,
+  keycap tops). The ring screws onto a collar of the cover (`tp_collar` r 23.25-25, z 15.5-18.7, user 2026-11-06; its foot is inside a seat `tp_ring_seat` r 26.5,
+  z 15.5-16.2: the cover top raised 0.7 under the ring, level with the flange top, so the ring's bottom and its
+  sleeve's end both land at 16.2; thread 16.2-18.7, all 2.5 engaged, about 1.7 turns): M50x1.5, male on the
+  cover, female in the ring (`tp_ring_body` r 24.188-26.5, z 16.2-19.5 since 2026-11-06 (was 15.75), on the seat; `tp_ring_lip` r 22.2-26.5 is solid z 18.9-20.3 since
+  2026-11-06, so the internal thread ends 0.2 over the collar top and the ring's top outer edge has an asymmetric fillet,
+  Fusion user parameters `ring_fillet_h` 4.0 across the top and `ring_fillet_v` 1.0 down the side (user, 2026-11-06; the
+  first print failed at the top; ring height unchanged; top flat only r 22.2-22.5, the outer edge at z 19.3); the lip part z 19.5-20.3 sits
   on the overlay's flat band outside the 43.86 touch area; ring top 0.3 above the keycap tops). Cover circle r 29.3
   (was 25). Claws, their plate slots and the old flat-side peg are gone (anti-rotation now: the notch pin below).
   - **Threads in Fusion only** (`THREADS` in KeyboardCase.py): modeled M50x1.5 (6g / 6H) on the r 25 / r 24.188 faces,
@@ -84,12 +89,16 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
   - Checked 2026-11-05 (Fusion 2706.1.17): 254 timeline items healthy, thread_play 0.15 / 0.1 recompute; collar wall
     0.71 at the thread root (crest r 24.69), ring 1.3 at its root (r 25.2); turning the ring at its screwed-down height,
     0 overlap with the cover over a 120 deg range (the play); the pad (46.13 x 5) overlaps neither part.
+    Rechecked 2026-11-06 with the 2.8 collar, the seat and the solid ring top: 269 items healthy (ring_fillet_h / _v 3 / 1.2 and 4 / 1 recompute),
+    the same 120 deg free range, collar top 18.3, ring thread z 16.2-18.9, ring solid above (1.4), seat clear of the south
+    screw counterbores (0.9).
   - Overlay shape (datasheet section A-A, left = underside, right = top; user confirmed): top face 43.86, a flange
     round the bottom out to 46.13, about 1 wide (1.135 by the drawing), **1.7 thick** (user measured), so its top is
     z 16.2. Clamping (user 2026-11-05): a sleeve under the ring's lip (`tp_ring_sleeve` r 22.2-23.1, z 16.2-19.5,
     0.9 wall) goes down inside the collar's bore and presses the flange (0.87 of it, with a 1 wide flange); 0.135 off
-    the pad's side, 0.15 off the bore. The ring stops on the flange with 0.25 left before its bottom meets the cover.
-    The lip (r 22.2, z 19.5-20.3) stays outside the 43.86 top face. The ring prints lip down without supports.
+    the pad's side, 0.15 off the bore. The ring stops on the flange and the seat together (both z 16.2, since 2026-11-06; if the flange is thinner than
+    1.7 the ring bottoms on the seat first and the pad isn't clamped: then lower the seat).
+    The lip (r 22.2, z 19.5-20.3) stays outside the 43.86 top face. The ring prints top up since the 4 mm fillet (see below).
   - **Anti-rotation pin** (user, 2026-11-05): `tp_notch_pin` on the cover's ledge at the south, in the overlay's test
     alignment notch (turned south; notch 2.3 wide, the flange's 1.7 tall, 2.5 in from the edge, user measured). Pin
     2.0 wide, r 20.7 out into the recess wall / collar, z 14.5-16.0 (0.2 under the flange top, so the sleeve lands on
@@ -103,11 +112,13 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
   pressed into the top of the tub's post (its Ø3.0 bore). The floor's Ø2.4 hole and counterbore under those posts stay
   (unused). The OLED screws still go bottom-up into the cover's bosses (`cover_insert_hole_oled`).
   - **Printing the threaded parts** (recommended settings, 2026-11-05; not yet tried). Print them **separately**, cover
-    top up, ring lip down, **no supports**: in both, everything rises from the bed side (the ring's sleeve, the channel
+    top up, ring **top up too** since 2026-11-06 (the 4 x 1 fillet leaves only 0.3 flat on its top; its bottom is flat now:
+    body and sleeve both end at z 16.2; the channel between them, 1.1-1.9 wide, is bridged at z 18.9), **no supports**.
+    Before that the ring printed lip down: everything rose from the bed side (the ring's sleeve, the channel
     for the collar and its threaded wall all grow straight up from the lip, the channel is open at the top).
     - **Why not printed together** (print-in-place, then unscrewed; checked in Fusion with the ring turned to the middle of
       its play): the gaps are too small for FDM, which needs about 0.4 vertical (2 layers of 0.2) and ~0.4 horizontal:
-      ring bottom over the cover top 0.25 vertical, lip over the collar top 0.2, thread flanks 0.30 vertical, sleeve to the
+      ring bottom over the cover top 0.25 vertical, lip over the collar top 0.2 (1.2 since the 2.8 collar), thread flanks 0.30 vertical, sleeve to the
       collar's bore 0.15 horizontal, smallest gap anywhere 0.15. The ring's first layers would land on the cover and fuse,
       its 2.3 wide flat bottom has nothing under it, and the sleeve's end would start in the air 1.7 above the pad seat.
       M50x1.5 can't simply get more play: its crests overlap only ~0.3 radially at thread_play 0.1; the ~0.2 per side the
@@ -125,8 +136,8 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
       | 0.16 | 0.28 | 9 |
       | 0.12 | 0.21 | 12.5 |
     - **0.4 nozzle**:
-      - Layer 0.12 in the thread band only (a height range modifier in Bambu Studio), 0.2 elsewhere: about 3-7 above the
-        bed on the cover (top up; its underside z 12.5, collar z 15.5-19.3), 0.8-4.6 on the ring (lip down).
+      - Layer 0.12 in the thread band only (a height range modifier in Bambu Studio), 0.2 elsewhere: about 3-6 above the
+        bed on the cover (top up; its underside z 12.5, thread z 16.2-18.7), 1.4-4.1 on the ring (lip down; thread z 16.2-18.9).
       - Lines: outer wall 0.42, inner walls 0.45, Arachne (thin walls: collar 0.71 at the thread root = 2 lines, ring wall
         ~1.3 = 3 lines, sleeve 0.9 = 2 lines).
       - Outer wall ~30 mm/s (slower than the usual 40). Fan 100 % on those layers (the overhanging flanks).
