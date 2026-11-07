@@ -23,7 +23,8 @@
 
 // 76 LEDs at 37 mA full white = 2.8 A: brightness is capped in keyboard.json (40/255)
 // Indicator LEDs (chain index; user 2026-11-07): left = layer (base off, Fn1 green, Fn2 blue, Fn3 off),
-// right = Shift (yellow while a Shift is held, and while Caps Lock is on)
+// right = modifiers (user 2026-11-07): yellow while a Shift is held, purple for Ctrl, white for Alt (either, AltGr too);
+// several held: Shift, then Ctrl, then Alt; none held: yellow while Caps Lock is on
 #define INDICATOR_LEFT 38
 #define INDICATOR_RIGHT 37
 // (three separate values each: the SET_COLOR macro counts its arguments before expanding them)
@@ -36,3 +37,9 @@
 #define INDICATOR_SHIFT_R 96
 #define INDICATOR_SHIFT_G 72
 #define INDICATOR_SHIFT_B 0
+#define INDICATOR_CTRL_R 64
+#define INDICATOR_CTRL_G 0
+#define INDICATOR_CTRL_B 96
+#define INDICATOR_ALT_R 72
+#define INDICATOR_ALT_G 72
+#define INDICATOR_ALT_B 72

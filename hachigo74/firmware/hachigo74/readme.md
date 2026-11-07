@@ -21,8 +21,8 @@ Layer names as in Vial: 0 BASE, 1 FN1, 2 FN2, 3 FN3.
 | Line | Left | Right (right-aligned) |
 |---|---|---|
 | 1 | Layer: BASE / FN1 / FN2 / FN3 | Effect: OFF, SOL (solid), BRE (breathing), CYC (cycle all), CLR (cycle left-right), CHV (rainbow chevron), REA (reactive); `---` = another effect |
-| 2 | CAPS while Caps Lock is on | Brightness, % of the firmware's cap (40/255) |
-| 3 | - | Effect speed, % (blank for solid colour, off or another effect) |
+| 2 | The held modifiers, joined by +: SHFT, CTRL, ALT (AltGr too), e.g. SHFT+CTRL; else CAPS while Caps Lock is on | Brightness, % of the firmware's cap (40/255) |
+| 3 | +ALT when all three modifiers are held (the rest of line 2) | Effect speed, % (blank for solid colour, off or another effect) |
 | 4 | - | KPM: key presses per minute (the last 10 s x 6) |
 
 The screen goes dark after 15 min without a key press; a key press wakes it.
@@ -30,7 +30,8 @@ The screen goes dark after 15 min without a key press; a key press wakes it.
 ## Indicator LEDs
 
 * Left: the layer: off on BASE, green on FN1 (also while a one-shot FN1 waits), blue on FN2, off on FN3.
-* Right: yellow while a Shift is held, and while Caps Lock is on.
+* Right: the held modifier: yellow for Shift, purple for Ctrl, white for Alt (AltGr too); with several held,
+  Shift, then Ctrl, then Alt. With none held: yellow while Caps Lock is on.
 
 The key LEDs go dark after 15 min idle, and at once when the computer suspends USB.
 

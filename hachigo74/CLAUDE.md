@@ -249,8 +249,8 @@ Decided (user, 2026-10-23); kugo82 is discussed separately.
 - Outer thumb keys (c9_r1, both halves): hold = Shift, tap = one-shot Fn1 (custom
   code: QMK's mod-tap can't send `OSL`).
 - Indicator LEDs (user, 2026-11-07): left = the layer: off on base, green on Fn1 (also while the one-shot waits),
-  blue on Fn2, off on Fn3; right = Shift: yellow while a Shift is held (only while it is down) and while Caps Lock
-  is on. Colours at 96 of 255 (then the 40/255 cap): `INDICATOR_*` in config.h.
+  blue on Fn2, off on Fn3; right = modifiers: yellow while a Shift is held (only while it is down), purple for Ctrl, white for Alt (AltGr
+  too; user 2026-11-07), several held: Shift > Ctrl > Alt; none held: yellow while Caps Lock is on. Colours at 96 of 255 (then the 40/255 cap): `INDICATOR_*` in config.h.
 - Build: GitHub Actions in this repo, with **Vial's QMK fork** (vial-kb/vial-qmk, pinned
   commit dd43959, based on QMK 0.29; user's choice 2026-10-23 over VIA, for the tapping-term
   settings), keymap `vial`. The workflow copies `hachigo74/firmware/hachigo74/` into its
@@ -297,7 +297,8 @@ Decided (user, 2026-10-23); kugo82 is discussed separately.
   keys live in the keyboard code (`hachigo74.c`, keycodes `QK_KB_0..2` in `hachigo74.h`), so
   they work whatever Vial stores; the 3 AltGr keys show up as custom keys in the app.
 - **OLED** (user, 2026-11-05): status screen in our own 9 x 12 font (`tools/lib/oled_font.py`, only the characters
-  used; add a glyph there for new text), no labels, rows every 17 px. Left column, top down: layer name (0 BASE, 1 FN1, 2 FN2, 3 FN3; was HIGH / LOW / L3), `CAPS` on line 2 (user,
+  used; add a glyph there for new text), no labels, rows every 17 px. Left column, top down: layer name (0 BASE, 1 FN1, 2 FN2, 3 FN3; was HIGH / LOW / L3), line 2 the held modifiers `SHFT` / `CTRL` / `ALT` joined by `+` (user
+  2026-11-07; `T` and `+` added to the font; with all three, `+ALT` goes on line 3), else `CAPS` (user,
   2026-11-07: the `FN` there only repeated FN1 and was removed; line 3 is empty). Right column (right-aligned), top down: effect code (OFF SOL BRE CYC CLR CHV REA), brightness as a % of the 40/255 cap,
   effect speed as a % of 255 (blank when solid, off or unknown), KPM. The middle column is free. KPM = key presses in ten 1 s slots, the last 10 s x 6 (every press counts, modifiers too). Goes dark after 15 min
   idle (`OLED_TIMEOUT`, user 2026-11-07; was QMK's 60 s), a key press wakes it. The key LEDs go dark after 15 min too
