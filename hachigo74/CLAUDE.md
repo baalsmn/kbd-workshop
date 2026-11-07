@@ -285,7 +285,7 @@ Decided (user, 2026-10-23); kugo82 is discussed separately.
   warnings; 10 x 8 matrix, 74 keys, 76 RGB LEDs, indicators 37 / 38 flagged as indicators;
   Vial's `vial_generate_definition.py` packs our vial.json). **The Vial build
   compiles** in GitHub Actions (commit 0e1cd06, 2026-10-23); in use on the board since 2026-11.
-- RGB matrix: brightness capped at 40/255 (USB power), default solid blue (hue 170, sat 255; user 2026-11-07, was white). Brightness in 10 % steps of the cap
+- RGB matrix: brightness capped at 40/255 (USB power), default breathing, purple (hue 191, sat 255), speed 51 = 20 % (user 2026-11-07; was solid blue, before that solid white). Brightness in 10 % steps of the cap
   (`val_steps` 4) on the old volume keys (user, 2026-11-07: Bri+ `RM_VALU` right c2_r3, Bri- `RM_VALD` right c2_r2),
   and 20 % of the cap (8) at every start (`keyboard_post_init_kb`, not saved). Vial keeps the keymap in the flash: after
   flashing, an EEPROM reset (Bootmagic: hold left c2_r1 while plugging in) or Vial's own edit is needed to get the new keys.

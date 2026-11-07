@@ -54,10 +54,11 @@
         "sleep": true,
         "val_steps": 4,
         "default": {
-            "animation": "solid_color",
-            "hue": 170,
+            "animation": "breathing",
+            "hue": 191,
             "sat": 255,
-            "val": 8
+            "val": 8,
+            "speed": 51
         },
         "animations": {
             "solid_color": true,

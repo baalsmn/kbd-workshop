@@ -170,9 +170,10 @@ kbjson = {
                  'rgb_matrix': True, 'oled': True, 'pointing_device': True},
     'ws2812': {'driver': 'vendor', 'pin': 'GP25'},
     # brightness in 10 % steps of the 40 cap (val_steps 4), 20 % (8) at every start (keyboard_post_init_kb);
-    # default colour blue (user 2026-11-07: QMK hue 170, full saturation; was white, sat 0)
+    # default (user 2026-11-07): breathing, purple (QMK hue 191 = HSV_PURPLE, full saturation), speed 20 % of 255 (51);
+    # was solid blue (170), before that solid white
     'rgb_matrix': {'driver': 'ws2812', 'max_brightness': 40, 'sleep': True, 'val_steps': 4,
-                   'default': {'animation': 'solid_color', 'hue': 170, 'sat': 255, 'val': 8},
+                   'default': {'animation': 'breathing', 'hue': 191, 'sat': 255, 'val': 8, 'speed': 51},
                    'animations': {'solid_color': True, 'breathing': True, 'cycle_all': True,
                                   'cycle_left_right': True, 'rainbow_moving_chevron': True,
                                   'solid_reactive_simple': True},
