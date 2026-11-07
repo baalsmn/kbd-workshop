@@ -76,7 +76,11 @@ LEGEND = {   # legend text -> keycode on the Fn layer
     '[': 'HU_LBRC', ']': 'HU_RBRC', '<': 'HU_LABK', '>': 'HU_RABK', '~': 'HU_TILD',
     '$': 'HU_DLR', '€': 'HU_EURO', 'End': 'KC_END', 'PrtSc': 'KC_PSCR', 'Undo': 'C(HU_Z)',
 }
+SPECIAL1 = {   # Fn layer keys not drawn in the KLE
+    'hand-zone_c3_r5': 'QK_BOOT',                 # Fn + Esc: restart into the RP2040 bootloader (user, 2026-11-07;
+}                                                 # works whenever pressed; Vial wants an unlock only to assign it from the app)
 def fn_code(k):
+    if k['name'] in SPECIAL1: return SPECIAL1[k['name']]
     L = legends(k['name'])
     for slot in (7, 2):
         t = L[slot].strip()

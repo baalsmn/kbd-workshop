@@ -218,7 +218,8 @@ Decided (user, 2026-10-23); kugo82 is discussed separately.
   `keyboards/` and builds the `.uf2` as a download. Flash: hold reset ~1 s and release (> 500 ms; a double-tap does nothing), copy the `.uf2`
   to the RP2040 drive.
 - Other dual keys, as the KLE legends say: left c5_r1 hold Ctrl / tap Tab; right c3_r1
-  hold AltGr / tap Alt; right c7_r1 tap Space / hold Enter; the `(` `)` `@` keys give `{`
+  hold AltGr / tap Alt; right c7_r1 tap Space / hold Enter; Fn + Esc (left c3_r5) = `QK_BOOT`, restart into the
+  RP2040 bootloader for flashing (user, 2026-11-07; vial-qmk's lock only stops assigning it from the app, not pressing it); the `(` `)` `@` keys give `{`
   `}` `*` with AltGr. Bootmagic (bootloader while plugging in): hold left c2_r1 (←).
 - **Files** (`firmware/`): `matrix.json` from the routed board by `tools/lib/qmk_matrix.py`
   (KiCad python, after `tools/build.sh hachigo74`: switch -> diode -> row, LED by its key's

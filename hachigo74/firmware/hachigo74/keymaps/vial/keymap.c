@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MO(1)             // mirror_c2_r1
     ),
     [1] = LAYOUT(
-        _______,  // c3_r5
+        QK_BOOT,  // c3_r5
         KC_F1,    // c4_r5
         KC_F2,    // c5_r5
         KC_F3,    // c6_r5
