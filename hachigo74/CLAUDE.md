@@ -171,11 +171,12 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
     main PCB with a thin pin in the middle that goes into the module's hole, so the module sits parallel to the main PCB
     The user modelled them (2026-11-07, `case/fusion/spacers.f3d`, to the physical module; read through the bridge):
     Body1, a pin spacer: Ø5.0 x 1.1 with a Ø2.0 x 0.8 pin on top (1.9 overall); Body2, a plain ring Ø5.0 / Ø3.0 x 1.1.
-    (The yaml's `oled_spacers` are 1.2 tall; not changed to match.)
+    The yaml's `oled_spacers` are 1.1 tall to match (2026-11-07, were 1.2; the glass top is z 14.3 now).
+- Cover's screen window `oled_window` (user, 2026-11-07, from the built keyboard: LCD 15 high, the old 23 x 12 window
+  sat 1 north of it): 23 x 15, north edge 1.2 further south: centre 33.65 north of c9_r2 (edges 41.15 / 26.15); 1.65 from the
+  trackpad seat / ring (r 26.5) at the south.
   - **Future builds** (user, 2026-11-05, not done): move the OLED a bit further north and drop the screw holes through the
     main PCB; the module is fixed only by its soldered header and the spacers, and the centre cover holds it down.
-- **To check later** (user, 2026-11-07, not done): a PCB cutout must be extended 1 mm to the south (which one is to be
-  confirmed: probably the trackpad FFC slot `tp_cable_slot`).
 - Build: `bash tools/build.sh hachigo74`, then `tools/case.sh hachigo74` and
   `tools/step.sh hachigo74` → `case/`, `case/step/`, `case/fusion/` here.
 - Expected DRC: 5 `silk_overlap`, 499 unconnected pads; 74 switches, 76 LEDs.
@@ -229,7 +230,10 @@ Decided (user, 2026-10-23); kugo82 is discussed separately.
   warnings; 10 x 8 matrix, 74 keys, 76 RGB LEDs, indicators 37 / 38 flagged as indicators;
   Vial's `vial_generate_definition.py` packs our vial.json). **The Vial build
   compiles** in GitHub Actions (commit 0e1cd06, 2026-10-23); not yet tested on the board.
-- RGB matrix: brightness capped at 40/255 (USB power), default solid white at 40.
+- RGB matrix: brightness capped at 40/255 (USB power), default solid white. Brightness in 10 % steps of the cap
+  (`val_steps` 4) on the old volume keys (user, 2026-11-07: Bri+ `RM_VALU` right c2_r3, Bri- `RM_VALD` right c2_r2),
+  and 20 % of the cap (8) at every start (`keyboard_post_init_kb`, not saved). Vial keeps the keymap in the flash: after
+  flashing, an EEPROM reset (Bootmagic: hold left c2_r1 while plugging in) or Vial's own edit is needed to get the new keys.
   Cirque: absolute mode, tap to click, circular scroll; its DR pin (GP7) is unused (the
   driver polls). Axes: `POINTING_DEVICE_ROTATION_90` (user's test 2026-11-07 without it: finger up -> cursor right,
   right -> down, down -> left, left -> up).

@@ -346,7 +346,7 @@
    }
   },
   "mirror_hand-zone_c2_r2": {
-   "label": "Vol-\n\n\n\nVOLD",
+   "label": "Bri-\n\n\n\nRM_VALD",
    "props": {
     "a": 6,
     "c": "#ccb18c",
@@ -355,7 +355,7 @@
    }
   },
   "mirror_hand-zone_c2_r3": {
-   "label": "Vol+\n\n\n\nVOLU",
+   "label": "Bri+\n\n\n\nRM_VALU",
    "props": {
     "a": 6,
     "c": "#ccb18c",

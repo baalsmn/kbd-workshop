@@ -25,6 +25,11 @@ uint16_t kpm_get(void) {
 
 void keyboard_post_init_kb(void) {
     kpm_slot_start = timer_read32();
+#ifdef RGB_MATRIX_ENABLE
+    // start at 20 % of the brightness cap every time (user, 2026-11-07); Bri+ / Bri- change it in 10 % steps,
+    // the saved value is kept only until the next start
+    rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), RGB_MATRIX_MAXIMUM_BRIGHTNESS / 5);
+#endif
     keyboard_post_init_user();
 }
 

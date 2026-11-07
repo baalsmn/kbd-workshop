@@ -57,6 +57,7 @@ SPECIAL0 = {   # key name (without hand-zone prefix) -> keycode, by the KLE's ho
 def base_code(k):
     if k['name'] in SPECIAL0: return SPECIAL0[k['name']]
     q = legends(k['name'])[4].strip()
+    if q.startswith('RM_'): return q              # RGB matrix keys (Bri+ / Bri-: RM_VALU / RM_VALD)
     return 'KC_' + q
 
 # ---- layer 1 ----
@@ -123,8 +124,9 @@ kbjson = {
     'features': {'bootmagic': True, 'extrakey': True, 'mousekey': True, 'nkro': True,
                  'rgb_matrix': True, 'oled': True, 'pointing_device': True},
     'ws2812': {'driver': 'vendor', 'pin': 'GP25'},
-    'rgb_matrix': {'driver': 'ws2812', 'max_brightness': 40, 'sleep': True,
-                   'default': {'animation': 'solid_color', 'sat': 0, 'val': 40},
+    # brightness in 10 % steps of the 40 cap (val_steps 4), 20 % (8) at every start (keyboard_post_init_kb)
+    'rgb_matrix': {'driver': 'ws2812', 'max_brightness': 40, 'sleep': True, 'val_steps': 4,
+                   'default': {'animation': 'solid_color', 'sat': 0, 'val': 8},
                    'animations': {'solid_color': True, 'breathing': True, 'cycle_all': True,
                                   'cycle_left_right': True, 'rainbow_moving_chevron': True,
                                   'solid_reactive_simple': True},
@@ -232,6 +234,11 @@ uint16_t kpm_get(void) {
 
 void keyboard_post_init_kb(void) {
     kpm_slot_start = timer_read32();
+#ifdef RGB_MATRIX_ENABLE
+    // start at 20 % of the brightness cap every time (user, 2026-11-07); Bri+ / Bri- change it in 10 % steps,
+    // the saved value is kept only until the next start
+    rgb_matrix_sethsv_noeeprom(rgb_matrix_get_hue(), rgb_matrix_get_sat(), RGB_MATRIX_MAXIMUM_BRIGHTNESS / 5);
+#endif
     keyboard_post_init_user();
 }
 

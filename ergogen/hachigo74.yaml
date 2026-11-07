@@ -319,16 +319,17 @@ outlines:
           - hand-zone_c9_r2
           - mirror_hand-zone_c9_r2
         shift: [0, 35.95]
-  # visible screen: the 21.7 x 10.9 active area + ~0.6 mm margin
+  # visible screen (user 2026-11-07, on the built keyboard: the LCD is 15 high and the old 23 x 12 window at 36.35
+  # sat 1 north of it, covering its south edge): 23 x 15, north edge 1.2 further south (41.15), south edge 26.15
   oled_window:
     - what: rectangle
-      size: [23, 12]
+      size: [23, 15]
       corner: 1
       where:
         aggregate.parts: 
           - hand-zone_c9_r2
           - mirror_hand-zone_c9_r2
-        shift: [0, 36.35]
+        shift: [0, 33.65]
   # 2 indicator LEDs where they were next to the c9_r1 keys before c9_r1 became the
   # thumb key (anchored on c9_r2 now), on their inner side (19.5 mm
   # from the old key centre = 8 mm past the 1.25U keycap edge at 11.5): 3 mm light holes in
@@ -595,7 +596,7 @@ outlines:
         shift: [9.0, -10.5]   # c5/c6 at r2/r3 (SE corner; the west corners have only 1.1 mm room)
   # Screws through the OLED module's 2 bottom corner holes (module footprint
   # (+-11.8, 0.635) from the header row, measured on the module: 23.6 apart, rotated 180 deg). Below the PCB a
-  # 5.5 mm insert post (insert_post), above it a 1.2 mm spacer up to the module
+  # 5.5 mm insert post (insert_post), above it a 1.1 mm spacer up to the module
   # underside (separate printed part oled_spacers). They also hold the centre
   # cover (holes through every layer, like pcb_mounting).
   oled_screw:
@@ -1720,7 +1721,7 @@ cases:
   # Z stack-up (mm): bottom 3.0 | under-PCB clearance 5.5 (Helios 1.6 board +
   # ~3.3 USB-C receptacle hang below the PCB) | PCB 1.6 | gap to plate 1.3 |
   # plate 1.2  -> plate top 12.6.  Z (case coords): floor top 3, PCB bottom
-  # 8.5, PCB top 10.1, plate 11.4-12.6, OLED glass top 14.4, cover pocket ceiling 14.5, cover top 15.5,
+  # 8.5, PCB top 10.1, plate 11.4-12.6, OLED glass top 14.3 (spacer 1.1), cover pocket ceiling 14.5, cover top 15.5,
   # trackpad 12.6-17.6 on the plate (5 mm, user measured; connector down to 10.1), ring lip 17.7-18.5.
   # Every printed part is clipped to the "case" outline so nothing can stick out
   # past the case edge, then cut in half on the mirror axis.
@@ -1861,7 +1862,7 @@ cases:
   center_cover:
     - name: center_cover_low
       shift: [0, 0, 12.6]
-      extrude: 1.9     # pocket ceiling 14.5: OLED module top 14.4 (spacer 1.2 + 3.1 measured); pad ledge at 14.5
+      extrude: 1.9     # pocket ceiling 14.5: OLED module top 14.3 (spacer 1.1 + 3.1 measured); pad ledge at 14.5
     - name: center_cover_top
       shift: [0, 0, 14.5]
       extrude: 1
@@ -1913,11 +1914,12 @@ cases:
       shift: [0, 0, 3]
       extrude: 1.5
 
-  # 2 spacers for the OLED screws (PCB top -> module underside, 1.2 mm, 5.5 mm dia)
+  # 2 spacers for the OLED screws (PCB top -> module underside, 1.1 mm, 5.5 mm dia;
+  # user 2026-11-07: 1.1 like the spacers in case/fusion/spacers.f3d, was 1.2)
   oled_spacers:
     - name: oled_spacer
       shift: [0, 0, 10.1]
-      extrude: 1.2
+      extrude: 1.1
 
   assembly:    # whole case in one piece, for checking only
     - name: case_bottom
@@ -1951,7 +1953,7 @@ cases:
       extrude: 1.3     # ring under the trackpad's rim, plate to PCB top
     - name: center_cover_low
       shift: [0, 0, 12.6]
-      extrude: 1.9     # pocket ceiling 14.5: OLED module top 14.4 (spacer 1.2 + 3.1 measured)
+      extrude: 1.9     # pocket ceiling 14.5: OLED module top 14.3 (spacer 1.1 + 3.1 measured)
     - name: center_cover_top
       shift: [0, 0, 14.5]
       extrude: 1

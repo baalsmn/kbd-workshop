@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_L,             // mirror_c5_r3
         KC_SCLN,          // mirror_c4_r3
         KC_QUOT,          // mirror_c3_r3
-        KC_VOLU,          // mirror_c2_r3
+        RM_VALU,          // mirror_c2_r3
         HU_PAREN_R,       // mirror_c9_r2
         KC_N,             // mirror_c8_r2
         KC_M,             // mirror_c7_r2
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_DOT,           // mirror_c5_r2
         KC_SLSH,          // mirror_c4_r2
         HU_AT_ASTR,       // mirror_c3_r2
-        KC_VOLD,          // mirror_c2_r2
+        RM_VALD,          // mirror_c2_r2
         SFT_FN,           // mirror_c9_r1
         SPC_ENT,          // mirror_c7_r1
         KC_ENT,           // mirror_c5_r1

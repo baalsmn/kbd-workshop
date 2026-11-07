@@ -52,10 +52,11 @@
         "driver": "ws2812",
         "max_brightness": 40,
         "sleep": true,
+        "val_steps": 4,
         "default": {
             "animation": "solid_color",
             "sat": 0,
-            "val": 40
+            "val": 8
         },
         "animations": {
             "solid_color": true,
