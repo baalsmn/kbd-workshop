@@ -65,3 +65,6 @@ diodes, capacitors, resistor, FFC connector), delivered to Hungary by DHL Expres
 duties paid: **EUR 221.84 in total**, about EUR 55 per assembled board. Not included:
 the hand-soldered parts (hot-swap sockets, Helios, OLED), switches, keycaps, trackpad
 and case. Breakdown: [ordering/README.md](ordering/README.md#orders).
+
+All parts of one hachigo74 (PCB share, Helios, OLED, switches, sockets, stabilizers, trackpad, cable,
+screws): about EUR 137, without the shops' shipping, filament and keycaps: [ordering/README.md](ordering/README.md#hachigo74-all-parts-of-one-keyboard-as-built-2026-11).

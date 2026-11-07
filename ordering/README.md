@@ -47,6 +47,12 @@ Needed: 12 pin, 0.5 mm pitch, contacts on opposite ends ("Reverse", type B / D),
 
 Don't use the "Same Side" (A-type) cables listed next to them. Order a few spares.
 
+**From a European distributor instead** (user, 2026-11-07: the cable costs cents, but LCSC's shipping to Hungary
+is about EUR 15): **GCT 05-12-D-0030-A-4-06-4-T**, 12 positions, 0.5 mm, 30 mm, contacts on opposite sides
+("Top on One Side, Bottom on Other" = reverse; the `-A-` variant 05-12-A-0030-... is same-side, don't use it).
+DigiKey had 203 in stock (2026-11-07, about EUR 0.90 each). GCT is also sold by Mouser and TME: add it to the order
+the Cirque trackpad comes in (Mouser), so it ships for free with it. Check the thickness (0.3 mm) on the datasheet.
+
 ## Shipping the cable with the boards
 
 - JLCPCB's parts library won't ship it. Parts bought there are "stored in your
@@ -104,6 +110,30 @@ separately). Shipped by DHL Express, DDP (duties paid at checkout).
 
 About EUR 55 per assembled board, everything included. Shipping, import tax and fees
 came to EUR 124.35, more than the boards themselves (EUR 104.84).
+
+### hachigo74, all parts of one keyboard (as built, 2026-11)
+
+Prices are what the user paid where known, else shop list prices looked up on 2026-11-07
+(marked *list*); **TBD** = not found yet, fill in from the invoice. USD converted at about
+0.86 EUR (an assumption, check the rate). Shop shipping is not included unless stated.
+
+| Part | Source | Qty | Price | EUR (about) |
+|---|---|---|---|---|
+| PCB, JLC-assembled (LEDs, diodes, caps, resistor, FFC connector) | JLCPCB, invoice above | 1 of 4 | EUR 221.84 / 4, shipping and VAT included | 55.46 |
+| 0xCB Helios (RP2040) | [keeb.supply](https://keeb.supply/products/0xcb-helios) | 1 | EUR 16.00 incl. DE VAT, *list* (MillMax pins +3.60) | 16.00 |
+| OLED 0.96" 128 x 64 I2C, D096-12864-I2C-GV-WH | hestore.hu | 1 | EUR 3 (user) | 3.00 |
+| Gateron KS-33 Low Profile 2.0 switches (white bottom housing, Blue) | [gateron.com](https://www.gateron.com/products/gateron-ks-33-low-profile-20-switch-set) | 74 (pack of 110) | EUR 23.51 per 110 (user) | 23.51 |
+| Gateron Upgrade Low Profile Hot-swap PCB 2.0 Socket (KS-2P02B01-02) | [gateron.com](https://www.gateron.com/products/gateron-low-profile-switch-hot-swap-pcb-socket) | 74 (pack of 110) | EUR 8.40 per 110 (user) | 8.40 |
+| Gateron Low Profile Plate Mounted Stabilizer 2U (KS-57B210T) | [gateron.com](https://www.gateron.com/products/gateron-low-profile-plate-mounted-stabilizer) | 2 | EUR 0.92 each (user) | 1.84 |
+| Cirque TM040040-2024-303 (40 mm, curved overlay) | [Mouser](https://www.trustedparts.com/en/part/cirque-corporation/TM040040-2024-303) | 1 | USD 9.62, *list* (Mouser data via TrustedParts) | 8.30 |
+| Trackpad FFC, 12 pin 0.5 mm, reverse, 30 mm (GCT 05-12-D-0030-A-4-06-4-T) | DigiKey / Mouser, with the trackpad | 1 | about EUR 0.90, *list* (LCSC: USD 0.07 + about EUR 15 shipping) | 0.90 |
+| Screws (M2 for the cover etc.) | | 1 lot | about EUR 20 with shipping (user's estimate) | 20.00 |
+| **Total** | | | | **about 137** |
+
+Not in the table: the printed case (filament), the 3 x 1 magnets of the tilt wedge, keycaps
+(borrowed Keychron low-profile US caps for now; the Hungarian caps are still to be made, see
+`keycaps/`), and the shops' shipping for Gateron and Mouser. The switch and socket packs of 110 leave 36 of each
+as spares.
 
 ## Sources
 
