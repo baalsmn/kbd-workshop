@@ -169,7 +169,9 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
   mask, 1.29 from the hole edge). The first-order boards have them at +-11.176 (22.352 apart, 1.25 too close): use one screw, or drill the PCB out a bit.
   - On the first build (user, 2026-11-05): either drill the PCB holes out, or no OLED screws at all: simple spacers on the
     main PCB with a thin pin in the middle that goes into the module's hole, so the module sits parallel to the main PCB
-    (not modeled yet: needs the module's hole diameter and board thickness).
+    The user modelled them (2026-11-07, `case/fusion/spacers.f3d`, to the physical module; read through the bridge):
+    Body1, a pin spacer: Ø5.0 x 1.1 with a Ø2.0 x 0.8 pin on top (1.9 overall); Body2, a plain ring Ø5.0 / Ø3.0 x 1.1.
+    (The yaml's `oled_spacers` are 1.2 tall; not changed to match.)
   - **Future builds** (user, 2026-11-05, not done): move the OLED a bit further north and drop the screw holes through the
     main PCB; the module is fixed only by its soldered header and the spacers, and the centre cover holds it down.
 - **To check later** (user, 2026-11-07, not done): a PCB cutout must be extended 1 mm to the south (which one is to be
