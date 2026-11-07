@@ -55,7 +55,8 @@
         "val_steps": 4,
         "default": {
             "animation": "solid_color",
-            "sat": 0,
+            "hue": 170,
+            "sat": 255,
             "val": 8
         },
         "animations": {

@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_L,              // mirror_c5_r3
         KC_SCLN,           // mirror_c4_r3
         KC_QUOTE,          // mirror_c3_r3
-        RM_VALU,           // mirror_c2_r3
+        KC_VOLD,           // mirror_c2_r3
         HU_PAREN_R,        // mirror_c9_r2
         KC_N,              // mirror_c8_r2
         KC_M,              // mirror_c7_r2
@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_DOT,            // mirror_c5_r2
         KC_SLASH,          // mirror_c4_r2
         HU_AT_ASTR,        // mirror_c3_r2
-        RM_VALD,           // mirror_c2_r2
+        KC_VOLU,           // mirror_c2_r2
         KC_RSFT,           // mirror_c9_r1
         RALT_T(KC_SPACE),  // mirror_c7_r1
         RCTL_T(KC_ENTER),  // mirror_c5_r1
@@ -108,16 +108,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RALT(KC_G),           // c8_r3
         RALT(KC_NUBS),        // c9_r3
         _______,              // c2_r2
-        _______,              // c3_r2
+        RM_VALU,              // c3_r2
         RALT(KC_Z),           // c4_r2
         RALT(KC_X),           // c5_r2
         RALT(KC_C),           // c6_r2
         RALT(KC_V),           // c7_r2
         RALT(KC_B),           // c8_r2
         RALT(KC_F),           // c9_r2
-        _______,              // c2_r1
-        _______,              // c3_r1
-        _______,              // c4_r1
+        RM_SPDU,              // c2_r1
+        RM_VALD,              // c3_r1
+        RM_SPDD,              // c4_r1
         _______,              // c5_r1
         _______,              // c7_r1
         _______,              // c9_r1
@@ -143,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RALT(KC_L),           // mirror_c5_r3
         _______,              // mirror_c4_r3
         RALT(KC_QUOTE),       // mirror_c3_r3
-        UG_NEXT,              // mirror_c2_r3
+        RM_NEXT,              // mirror_c2_r3
         RALT(KC_G),           // mirror_c9_r2
         RALT(KC_N),           // mirror_c8_r2
         _______,              // mirror_c7_r2
@@ -151,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,              // mirror_c5_r2
         RALT(KC_1),           // mirror_c4_r2
         _______,              // mirror_c3_r2
-        UG_PREV,              // mirror_c2_r2
+        RM_PREV,              // mirror_c2_r2
         _______,              // mirror_c9_r1
         _______,              // mirror_c7_r1
         _______,              // mirror_c5_r1
@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  // c7_r4
         _______,  // c8_r4
         _______,  // c9_r4
-        RM_NEXT,  // c2_r3
+        _______,  // c2_r3
         _______,  // c3_r3
         _______,  // c4_r3
         _______,  // c5_r3
@@ -183,17 +183,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  // c7_r3
         _______,  // c8_r3
         _______,  // c9_r3
-        RM_PREV,  // c2_r2
-        RM_VALU,  // c3_r2
+        _______,  // c2_r2
+        RM_HUEU,  // c3_r2
         _______,  // c4_r2
         _______,  // c5_r2
         _______,  // c6_r2
         _______,  // c7_r2
         _______,  // c8_r2
         _______,  // c9_r2
-        RM_SPDU,  // c2_r1
-        RM_VALD,  // c3_r1
-        RM_SPDD,  // c4_r1
+        RM_SATD,  // c2_r1
+        RM_HUED,  // c3_r1
+        RM_SATU,  // c4_r1
         _______,  // c5_r1
         _______,  // c7_r1
         _______,  // c9_r1
@@ -219,7 +219,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  // mirror_c5_r3
         _______,  // mirror_c4_r3
         _______,  // mirror_c3_r3
-        RM_HUEU,  // mirror_c2_r3
+        _______,  // mirror_c2_r3
         _______,  // mirror_c9_r2
         _______,  // mirror_c8_r2
         _______,  // mirror_c7_r2
@@ -227,7 +227,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,  // mirror_c5_r2
         _______,  // mirror_c4_r2
         _______,  // mirror_c3_r2
-        RM_HUED,  // mirror_c2_r2
+        _______,  // mirror_c2_r2
         _______,  // mirror_c9_r1
         _______,  // mirror_c7_r1
         _______,  // mirror_c5_r1
