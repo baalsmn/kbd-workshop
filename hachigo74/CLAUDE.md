@@ -257,8 +257,12 @@ Decided (user, 2026-10-23); kugo82 is discussed separately.
   of the KLE legends (the KLE files no longer match the keymap); Vial's old names are renamed to the same codes
   (`KC_BSPACE` -> `KC_BSPC`, ..., `RGB_MOD` / `RGB_RMOD` -> `UG_NEXT` / `UG_PREV` (0x7821 / 0x7822, underglow codes,
   as Vial stored them), `USER00..02` -> `HU_PAREN_L` / `HU_PAREN_R` / `HU_AT_ASTR`). Checked: uid matches, every key has a
-  code, every name exists in the pinned QMK. Not carried over: Vial's QMK settings (tapping term etc.); its macros, tap
-  dances, combos and key overrides were empty (the script stops if they aren't). To update: save a new layout from Vial
+  code, every name exists in the pinned QMK. Its **tap dances** are carried over too: Vial has no compile-time tap
+  dance defaults (an EEPROM reset empties them), so keymap.c writes them once after each EEPROM reset
+  (`keyboard_post_init_user`, bit 0 of the user EEPROM word as the done marker). Now TD(0) right thumb c9_r1: Shift /
+  Shift / Caps on double tap; TD(1) right c2_r1: MO(1) / MO(1) / TG(1); TD(2) right c3_r1: MO(2) / MO(2) / TG(2).
+  Not carried over: Vial's QMK settings (tapping term etc.); macros, combos and key overrides (empty; the script
+  stops if they aren't). To update: save a new layout from Vial
   over the file and re-run qmk_gen.py.
 - Checked offline (`qmk.info.info_json` on QMK 0.34.7 and on vial-qmk: no errors or
   warnings; 10 x 8 matrix, 74 keys, 76 RGB LEDs, indicators 37 / 38 flagged as indicators;

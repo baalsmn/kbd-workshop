@@ -5,6 +5,9 @@
 // Vial is on: this is the keymap loaded on first start (or after an EEPROM reset).
 #include QMK_KEYBOARD_H
 #include "keymap_hungarian.h"
+#ifdef VIAL_TAP_DANCE_ENABLE
+#    include "dynamic_keymap.h"
+#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
@@ -76,12 +79,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_SLASH,          // mirror_c4_r2
         HU_AT_ASTR,        // mirror_c3_r2
         KC_VOLU,           // mirror_c2_r2
-        KC_RSFT,           // mirror_c9_r1
+        TD(0),             // mirror_c9_r1
         RALT_T(KC_SPACE),  // mirror_c7_r1
         RCTL_T(KC_ENTER),  // mirror_c5_r1
         KC_RCTL,           // mirror_c4_r1
-        MO(2),             // mirror_c3_r1
-        MO(1)              // mirror_c2_r1
+        TD(2),             // mirror_c3_r1
+        TD(1)              // mirror_c2_r1
     ),
     [1] = LAYOUT(
         QK_BOOT,              // c3_r5
@@ -115,9 +118,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RALT(KC_V),           // c7_r2
         RALT(KC_B),           // c8_r2
         RALT(KC_F),           // c9_r2
-        RM_SPDU,              // c2_r1
+        RM_SPDD,              // c2_r1
         RM_VALD,              // c3_r1
-        RM_SPDD,              // c4_r1
+        RM_SPDU,              // c4_r1
         _______,              // c5_r1
         _______,              // c7_r1
         _______,              // c9_r1
@@ -312,3 +315,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______   // mirror_c2_r1
     ),
 };
+
+#ifdef VIAL_TAP_DANCE_ENABLE
+// Default tap dances from the Vial layout file (on tap, on hold, on double tap, on tap + hold, tapping term ms).
+// Vial has no compile-time tap dance defaults (an EEPROM reset empties them), so they are written here once
+// after each EEPROM reset; bit 0 of the user EEPROM word marks it done (an EEPROM reset clears it).
+static const vial_tap_dance_entry_t default_tap_dance[] = {
+    [0] = {.on_tap = KC_RSFT, .on_hold = KC_RSFT, .on_double_tap = KC_CAPS, .on_tap_hold = KC_NO, .custom_tapping_term = 200},
+    [1] = {.on_tap = MO(1), .on_hold = MO(1), .on_double_tap = TG(1), .on_tap_hold = KC_NO, .custom_tapping_term = 200},
+    [2] = {.on_tap = MO(2), .on_hold = MO(2), .on_double_tap = TG(2), .on_tap_hold = KC_NO, .custom_tapping_term = 200}
+};
+
+void keyboard_post_init_user(void) {
+    uint32_t user = eeconfig_read_user();
+    if (user & 1) return;
+    for (uint8_t i = 0; i < ARRAY_SIZE(default_tap_dance) && i < VIAL_TAP_DANCE_ENTRIES; i++) {
+        dynamic_keymap_set_tap_dance(i, &default_tap_dance[i]);
+    }
+    eeconfig_update_user(user | 1);
+}
+#endif
