@@ -41,6 +41,13 @@ TOP_EDGES = {'hachigo74': {'lid': ('chamfer', 'lid_chamfer', 0.5), 'wedge': ('fi
 # 'chamfer2': a two-distance chamfer (horizontal into the top face, vertical down the side; user 2026-11-07) round the
 # whole outer loop of the part's largest top face; its direction is checked per edge with probe points afterwards
 # and the edge set flipped if it came out the other way round.
+# design -> part name prefix -> [(name, (horizontal, vertical) user parameters, sizes mm, hole box (w, h) mm)]: a
+# two-distance chamfer round a hole in the part's largest top face (the inner loop whose box matches w x h)
+TOP_HOLES = {'hachigo74': {'center_cover': [('OLED window', ('window_chamfer_h', 'window_chamfer_v'), (1.0, 0.5), (23.0, 14.0))]}}
+# design -> part -> [(name, (horizontal, vertical) user parameters, sizes mm, z of the face mm)]: two-distance chamfer on the
+# straight y-direction edges at the east and west ends of the upward face at that z (the T clip's bar: a lead-in so the
+# plates slide over it, user 2026-11-07)
+END_CHAMFERS = {'hachigo74': {'cover_clip': [('bar end', ('clip_chamfer_h', 'clip_chamfer_v'), (1.5, 0.5), 11.25)]}}
 # design -> part name -> (face radius mm, internal, designation, class); play = THREAD_PLAY mm per side
 THREADS = {'hachigo74': {'center_cover': (25.0, False, 'M50x1.5', '6g'),
                          'trackpad_ring': (24.188, True, 'M50x1.5', '6H')}}
@@ -400,11 +407,44 @@ def chamfer_ok(body, probes, ztop, h, v):
     return good
 
 
-def top_chamfer2(comp, body, param, log):
-    """Two-distance chamfer round the outer loop of the largest top face (param = (horizontal, vertical) names)."""
-    edges, ztop = largest_top_loop(body)
+def top_hole_loop(body, size):
+    """The edges of the inner loop of the body's largest upward planar face whose box is size (w, h) mm, and its z."""
+    planar = adsk.core.SurfaceTypes.PlaneSurfaceType
+    tops = [f for f in body.faces if f.geometry.surfaceType == planar and abs(f.evaluator.getNormalAtPoint(f.pointOnFace)[1].z - 1) < 1e-6]
+    if not tops:
+        return [], 0
+    top = max(tops, key=lambda f: f.area)
+    for l in top.loops:
+        if l.isOuter:
+            continue
+        bb = l.boundingBox
+        if abs((bb.maxPoint.x - bb.minPoint.x) / MM - size[0]) < 0.05 and abs((bb.maxPoint.y - bb.minPoint.y) / MM - size[1]) < 0.05:
+            return [l.coEdges.item(i).edge for i in range(l.coEdges.count)], top.pointOnFace.z
+    return [], 0
+
+
+def end_edges(body, z):
+    """The straight edges along y at the east and west ends (body box x min / max) of the upward planar faces at z (mm)."""
+    planar = adsk.core.SurfaceTypes.PlaneSurfaceType
+    bb = body.boundingBox
+    out = []
+    for f in body.faces:
+        if f.geometry.surfaceType != planar or abs(f.evaluator.getNormalAtPoint(f.pointOnFace)[1].z - 1) > 1e-6 or abs(f.pointOnFace.z / MM - z) > 1e-3:
+            continue
+        for e in f.edges:
+            a, b = e.startVertex.geometry, e.endVertex.geometry
+            if abs(a.x - b.x) < 1e-6 and min(abs(a.x - bb.minPoint.x), abs(a.x - bb.maxPoint.x)) < 1e-6:
+                out.append(e)
+    return out
+
+
+def top_chamfer2(comp, body, param, log, edges=None, ztop=0, what='top outside chamfer'):
+    """Two-distance chamfer round the outer loop of the largest top face (param = (horizontal, vertical) names),
+    or round the given edges of a top face at ztop."""
+    if edges is None:
+        edges, ztop = largest_top_loop(body)
     if not edges:
-        log.append('%s: no top face, no chamfer' % comp.name)
+        log.append('%s: no edges, no %s' % (comp.name, what))
         return
     probes = edge_probes(body, edges, ztop)
     up = comp.parentDesign.userParameters
@@ -422,11 +462,11 @@ def top_chamfer2(comp, body, param, log):
             if good == len(probes) or flip:
                 break
             feature.deleteMe()
-        feature.name = 'top outside chamfer'
-        log.append('%s: top outside chamfer %g x %g on %d edges (flipped %s), %d of %d probes the right way round'
-                   % (comp.name, h, v, len(edges), flip, good, len(probes)))
+        feature.name = what
+        log.append('%s: %s %g x %g on %d edges (flipped %s), %d of %d probes the right way round'
+                   % (comp.name, what, h, v, len(edges), flip, good, len(probes)))
     except Exception as e:
-        log.append('%s: top outside chamfer failed (%s)' % (comp.name, e))
+        log.append('%s: %s failed (%s)' % (comp.name, what, e))
 
 
 def top_edge(comp, kind, param, log):
@@ -530,6 +570,18 @@ def build_design(data, ribs=None, tilt=None):
                     design.userParameters.add(pn, adsk.core.ValueInput.createByString('%g mm' % sz), 'mm', 'top outside chamfer of the %s, %s' % (prefix, d))
             else:
                 design.userParameters.add(param, adsk.core.ValueInput.createByString('%g mm' % size), 'mm', 'top outside edge %s of the %s' % (kind, prefix))
+    top_holes = TOP_HOLES.get(data.get('design'), {})
+    end_chamfers = END_CHAMFERS.get(data.get('design'), {})
+    for part, items in end_chamfers.items():
+        if part in cases:
+            for what, param, size, z in items:
+                for pn, sz, d in zip(param, size, ('horizontal (along the top)', 'vertical (down the end)')):
+                    design.userParameters.add(pn, adsk.core.ValueInput.createByString('%g mm' % sz), 'mm', '%s chamfer of the %s, %s' % (what, part, d))
+    for prefix, holes in top_holes.items():
+        if any(k.startswith(prefix) for k in cases):
+            for what, param, size, box in holes:
+                for pn, sz, d in zip(param, size, ('horizontal (across the top)', 'vertical (down the opening)')):
+                    design.userParameters.add(pn, adsk.core.ValueInput.createByString('%g mm' % sz), 'mm', '%s top edge chamfer, %s' % (what, d))
     threads = THREADS.get(data.get('design'), {})
     if any(k in cases for k in threads):
         design.userParameters.add('thread_play', adsk.core.ValueInput.createByString('%g mm' % THREAD_PLAY), 'mm',
@@ -545,6 +597,15 @@ def build_design(data, ribs=None, tilt=None):
         for prefix, (kind, param, size) in top_edges.items():
             if part.startswith(prefix):
                 top_edge(comp, kind, param, log)
+        for prefix, holes in top_holes.items():
+            if part.startswith(prefix):
+                for what, param, size, box in holes:
+                    body = max([b for b in comp.bRepBodies if b.isValid], key=lambda b: b.volume)
+                    edges, ztop = top_hole_loop(body, box)
+                    top_chamfer2(comp, body, param, log, edges, ztop, what + ' chamfer')
+        for what, param, size, z in end_chamfers.get(part, []):
+            body = max([b for b in comp.bRepBodies if b.isValid], key=lambda b: b.volume)
+            top_chamfer2(comp, body, param, log, end_edges(body, z), z * MM, what + ' chamfer')
         if part in threads:
             add_thread(comp, *threads[part], log)
         adsk.doEvents()

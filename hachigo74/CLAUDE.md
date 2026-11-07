@@ -161,6 +161,8 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
   direction checked with probe points per edge): the centre cover's top outline 2.5 across x 1.0 down (`cover_chamfer_h` /
   `cover_chamfer_v`, the whole 1.0 top layer at the edge; 16 edges) and the trackpad ring's top 3.0 x 1.0. At the south
   screws the cover edge is only 1.4 from the Ø4.4 counterbores, so their outer rim is down to z 15.06 there (floor 14.5).
+  Holes in a top face (TOP_HOLES: the inner loop of the largest top face whose box matches the given size): the OLED
+  window's top edge 1.0 x 0.5 (`window_chamfer_h` / `_v`).
 - **The 4 centre posts** (user, 2026-11-04; the cover-screw posts in the tubs): inner hole Ø3.0 from the floor top to the PCB (z 3-8.5), 1.25 wall in the Ø5.5 post. The floor below keeps its Ø2.4 hole and Ø4.4 head counterbore, so there's a 0.3 step at z 3.
 - **Switch cutout** (user, 2026-11-04): `sw` 14.06. 14.1 printed too big; `case/test/switch_cutout_14.06_strip` (3 cutouts, the lid's plate + rib section, at 15 deg on the bed) fits. The cutout is an Ergogen outline only, no footprint or PCB geometry depends on it.
 - Lid plate's OLED opening `oled_plate` (user, 2026-11-04): 0.5 further north than the cover's pocket `oled` (28.2 x 28.5), square corners; the pocket is unchanged.
@@ -178,8 +180,22 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
     Body1, a pin spacer: Ø5.0 x 1.1 with a Ø2.0 x 0.8 pin on top (1.9 overall); Body2, a plain ring Ø5.0 / Ø3.0 x 1.1.
     The yaml's `oled_spacers` are 1.1 tall to match (2026-11-07, were 1.2; the glass top is z 14.3 now).
 - Cover's screen window `oled_window` (user, 2026-11-07, from the built keyboard: LCD 15 high, the old 23 x 12 window
-  sat 1 north of it): 23 x 15, north edge 1.2 further south: centre 33.65 north of c9_r2 (edges 41.15 / 26.15); 1.65 from the
-  trackpad seat / ring (r 26.5) at the south.
+  sat 1 north of it): 23 x 15, north edge 1.2 further south (41.15 north of c9_r2). Then 23 x 14 (user, 2026-11-07, north edge
+  kept): centre 34.15, edges 41.15 / 27.15; 2.15 from the trackpad seat / ring (r 26.5) at the south. Its top edge has a
+  two-distance chamfer in Fusion, 1.0 across the cover top x 0.5 down the opening (`window_chamfer_h` / `window_chamfer_v`).
+- **T clip at the cover's north edge** (user, 2026-11-07; part `cover_clip`, `case/cover_clip.stl`): holds the north edge down
+  to the plates, the 2 south screws hold the rest. A separate printed T in the middle of the north wall: stem 3.0 x 1.6
+  (x 208.3-211.3, y -82.65..-81.05) down through the joint between the lid plates, bar 11 x 4.65 x 0.8 (x 204.3-215.3,
+  y -82.65..-78.0, z 10.45-11.25) east-west under both plates: 0.15 under the plate underside, 0.35 over the PCB top,
+  1.2 from the Helios pins' pad edges (x 202.18 / 217.42; trim pin ends there flush). Each plate has a half notch for
+  the stem (`lid_clip_notch` in `plate_clean`, 3.4 x 1.8, opening into the OLED opening, north edge 0.3 inside the cover
+  edge); the stem is glued into `cover_clip_socket` in the cover's underside (3.2 x 2.2, z 12.6-14.1, open into the OLED
+  pocket; 0.1 play, stem top 0.1 under its ceiling). Assembly: the lids slide in sideways under the bar (no cover
+  movement). The bar's top edges at its east and west ends have a lead-in chamfer (user, 2026-11-07; Fusion only,
+  `END_CHAMFERS` in KeyboardCase.py): 1.5 along the top x 0.5 down the end (`clip_chamfer_h` / `clip_chamfer_v`), 0.3 of
+  the 0.8 bar left at the ends. **Print `case/fusion/cover_clip_chamfered.stl`** (the plain `case/cover_clip.stl` has no
+  chamfer), lying on its south face (the T outline on the bed, layers along the T). Fusion check: no overlap
+  with the cover, lids, ring or spacers; plates over the bar, open at the stem; the cover covers the notches.
   - **Future builds** (user, 2026-11-05, not done): move the OLED a bit further north and drop the screw holes through the
     main PCB; the module is fixed only by its soldered header and the spacers, and the centre cover holds it down.
 - Build: `bash tools/build.sh hachigo74`, then `tools/case.sh hachigo74` and

@@ -320,16 +320,58 @@ outlines:
           - mirror_hand-zone_c9_r2
         shift: [0, 35.95]
   # visible screen (user 2026-11-07, on the built keyboard: the LCD is 15 high and the old 23 x 12 window at 36.35
-  # sat 1 north of it, covering its south edge): 23 x 15, north edge 1.2 further south (41.15), south edge 26.15
+  # sat 1 north of it, covering its south edge): 23 x 15, north edge 1.2 further south (41.15), south edge 26.15;
+  # 23 x 14 since 2026-11-07 (user: smaller, north edge kept at 41.15, south edge 27.15); Fusion chamfers its top
+  # edge 1 across x 0.5 down (window_chamfer_h / window_chamfer_v)
   oled_window:
     - what: rectangle
-      size: [23, 15]
+      size: [23, 14]
       corner: 1
       where:
         aggregate.parts: 
           - hand-zone_c9_r2
           - mirror_hand-zone_c9_r2
-        shift: [0, 33.65]
+        shift: [0, 34.15]
+  # T clip holding the cover's north edge to the plates (user 2026-11-07): a separate printed T in the
+  # middle of the north wall; its stem goes down through the joint between the lid plates (a half notch
+  # in each plate), its bar runs east-west under both plates (z 10.45-11.25, 0.15 under the plate, 0.35
+  # over the PCB, between the Helios pin rows: 1.2 from the pads' edges). The lids slide in sideways under
+  # it; the stem is glued into a socket in the cover's underside. Prints lying on its south face. Fusion adds a lead-in
+  # chamfer on the bar's top edges at the east / west ends (clip_chamfer_h 1.5 / clip_chamfer_v 0.5).
+  cover_clip_bar:
+    - what: rectangle
+      size: [11, 4.65]
+      where:
+        aggregate.parts: 
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        shift: [0, 52.326]
+  cover_clip_stem:
+    - what: rectangle
+      size: [3.0, 1.6]
+      where:
+        aggregate.parts: 
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        shift: [0, 50.801]
+  # socket for the stem in the cover underside (0.1 play), z 12.6-14.1
+  cover_clip_socket:
+    - what: rectangle
+      size: [3.2, 2.2]
+      where:
+        aggregate.parts: 
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        shift: [0, 50.601]
+  # notch for the stem in the plates (0.2 play), 0.3 inside the cover edge
+  lid_clip_notch:
+    - what: rectangle
+      size: [3.4, 1.8]
+      where:
+        aggregate.parts: 
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        shift: [0, 50.901]
   # 2 indicator LEDs where they were next to the c9_r1 keys before c9_r1 became the
   # thumb key (anchored on c9_r2 now), on their inner side (19.5 mm
   # from the old key centre = 8 mm past the 1.25U keycap edge at 11.5): 3 mm light holes in
@@ -1457,6 +1499,8 @@ outlines:
     - operation: subtract
       name: oled_plate
     - operation: subtract
+      name: lid_clip_notch        # the cover's T clip stem
+    - operation: subtract
       name: indicator_holes
 
   # Ribs under the plate round every switch (user 2026-11-04: part of the final lids), z 10.4-11.4,
@@ -1869,6 +1913,10 @@ cases:
       operation: subtract
       shift: [0, 0, 14.5]
       extrude: 1       # head counterbore 14.5-15.5 (user: 1 deep, 1.9 under the head; a 2.0 tall head stands 1.0 proud)
+    - name: cover_clip_socket # the T clip's stem, glued (z 12.6-14.1)
+      operation: subtract
+      shift: [0, 0, 12.6]
+      extrude: 1.5
 
   # Screw-on trackpad ring (print separately, top up: its bottom is flat, the top has the 4 x 1
   # fillet): internal M50x1.5 thread (Fusion) onto the cover's collar; its sleeve presses the
@@ -1886,6 +1934,15 @@ cases:
     - name: tp_ring_sleeve
       shift: [0, 0, 16.2]
       extrude: 3.3     # sleeve down onto the flange (z 16.2-19.5)
+
+  # T clip under the plates at the cover's north edge (print lying on its south face, the T on the bed)
+  cover_clip:
+    - name: cover_clip_bar
+      shift: [0, 0, 10.45]
+      extrude: 0.8     # z 10.45-11.25 under the plates
+    - name: cover_clip_stem
+      shift: [0, 0, 11.25]
+      extrude: 2.75    # z 11.25-14.0, through the plates' notch into the cover (socket to 14.1)
 
   # Bridge plate across the joint, on the tub floor (around the centre posts, glue optional)
   center_bridge:
@@ -1954,6 +2011,12 @@ cases:
     - name: tp_ring_lip
       shift: [0, 0, 18.9]
       extrude: 1.4
+    - name: cover_clip_bar
+      shift: [0, 0, 10.45]
+      extrude: 0.8
+    - name: cover_clip_stem
+      shift: [0, 0, 11.25]
+      extrude: 2.75
     - name: usb_cutout
       operation: subtract
       shift: [0, 0, 3]
