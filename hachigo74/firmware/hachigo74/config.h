@@ -13,6 +13,8 @@
 #define CIRQUE_PINNACLE_DIAMETER_MM 40
 #define CIRQUE_PINNACLE_TAP_ENABLE
 #define POINTING_DEVICE_GESTURES_SCROLL_ENABLE
+// mounted turned: finger up gave cursor right, right gave down (user, 2026-11-07); QMK turns x, y -> y, -x
+#define POINTING_DEVICE_ROTATION_90
 
 // 76 LEDs at 37 mA full white = 2.8 A: brightness is capped in keyboard.json (40/255)
 // Indicator LEDs (chain index): off on layer 0, green on layer 1

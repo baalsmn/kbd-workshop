@@ -172,6 +172,8 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
     (not modeled yet: needs the module's hole diameter and board thickness).
   - **Future builds** (user, 2026-11-05, not done): move the OLED a bit further north and drop the screw holes through the
     main PCB; the module is fixed only by its soldered header and the spacers, and the centre cover holds it down.
+- **To check later** (user, 2026-11-07, not done): a PCB cutout must be extended 1 mm to the south (which one is to be
+  confirmed: probably the trackpad FFC slot `tp_cable_slot`).
 - Build: `bash tools/build.sh hachigo74`, then `tools/case.sh hachigo74` and
   `tools/step.sh hachigo74` → `case/`, `case/step/`, `case/fusion/` here.
 - Expected DRC: 5 `silk_overlap`, 499 unconnected pads; 74 switches, 76 LEDs.
@@ -227,7 +229,8 @@ Decided (user, 2026-10-23); kugo82 is discussed separately.
   compiles** in GitHub Actions (commit 0e1cd06, 2026-10-23); not yet tested on the board.
 - RGB matrix: brightness capped at 40/255 (USB power), default solid white at 40.
   Cirque: absolute mode, tap to click, circular scroll; its DR pin (GP7) is unused (the
-  driver polls). Its axes may need `POINTING_DEVICE_ROTATION_*` / `_INVERT_*` once tested.
+  driver polls). Axes: `POINTING_DEVICE_ROTATION_90` (user's test 2026-11-07 without it: finger up -> cursor right,
+  right -> down, down -> left, left -> up).
 - **Vial:** the layout is stored in the firmware (vial.json), so the Vial app (get.vial.today,
   desktop or web) shows it with no file to load. Keymap in the RP2040 flash; 4 layers (0 base,
   1 Fn, 2-3 spare). "QMK Settings" in the app: tapping term, permissive hold, etc., saved on
