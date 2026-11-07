@@ -4,6 +4,20 @@ Shared rules, build and tools: `../CLAUDE.md`. Everything not listed here
 (switches, LEDs, MCU, matrix pins, OLED, trackpad, screws, case stack-up) is the
 same as kugo82: see `../kugo82/CLAUDE.md`.
 
+## Status (2026-11-07)
+
+The keyboard is built and in use: first PCB, printed case, Vial firmware with the user's layout; trackpad, OLED and
+RGB work. Left to do (user):
+
+1. **Reprint the centre cover and the T clip** (`case/fusion/center_cover_threaded.stl`,
+   `case/fusion/cover_clip_chamfered.stl`): the current print works, but the cover doesn't sit flush on the plate
+   (a gap between them); the clip is meant to close it.
+2. **Keycaps**: finalize them and put on the Hungarian legends (`keycaps/`: the insert caps or the printed-in legend
+   caps, see `../CLAUDE.md`). For now the board has borrowed Keychron low-profile US-layout caps.
+
+Smaller open points: the USB sleep / Vial disconnect (likely the host's USB selective suspend, see Firmware), and the
+"Future builds" items under the OLED notes.
+
 - **`ergogen/hachigo74.yaml`** (74 keys, 37 per half, from `kle/hachigo74.json`): a
   variant of kugo82 with the outer column c1 removed (column names c2–c9 kept,
   so every reference stays valid; the board sits 1 sp further left on the sheet).
@@ -267,7 +281,7 @@ Decided (user, 2026-10-23); kugo82 is discussed separately.
 - Checked offline (`qmk.info.info_json` on QMK 0.34.7 and on vial-qmk: no errors or
   warnings; 10 x 8 matrix, 74 keys, 76 RGB LEDs, indicators 37 / 38 flagged as indicators;
   Vial's `vial_generate_definition.py` packs our vial.json). **The Vial build
-  compiles** in GitHub Actions (commit 0e1cd06, 2026-10-23); not yet tested on the board.
+  compiles** in GitHub Actions (commit 0e1cd06, 2026-10-23); in use on the board since 2026-11.
 - RGB matrix: brightness capped at 40/255 (USB power), default solid blue (hue 170, sat 255; user 2026-11-07, was white). Brightness in 10 % steps of the cap
   (`val_steps` 4) on the old volume keys (user, 2026-11-07: Bri+ `RM_VALU` right c2_r3, Bri- `RM_VALD` right c2_r2),
   and 20 % of the cap (8) at every start (`keyboard_post_init_kb`, not saved). Vial keeps the keymap in the flash: after
