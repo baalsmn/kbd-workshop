@@ -272,8 +272,11 @@ Decided (user, 2026-10-23); kugo82 is discussed separately.
   (`KC_BSPACE` -> `KC_BSPC`, ..., `RGB_MOD` / `RGB_RMOD` -> `UG_NEXT` / `UG_PREV` (0x7821 / 0x7822, underglow codes,
   as Vial stored them), `USER00..02` -> `HU_PAREN_L` / `HU_PAREN_R` / `HU_AT_ASTR`). Checked: uid matches, every key has a
   code, every name exists in the pinned QMK. Its **tap dances** are carried over too: Vial has no compile-time tap
-  dance defaults (an EEPROM reset empties them), so keymap.c writes them once after each EEPROM reset
-  (`keyboard_post_init_user`, bit 0 of the user EEPROM word as the done marker). Now TD(0) right thumb c9_r1: Shift /
+  dance defaults (an EEPROM reset empties them), so keymap.c writes them at start-up whenever every tap dance entry
+  is empty (`keyboard_post_init_user`; clearing all of them in Vial brings them back at the next start). First
+  version (d621c5c / daa7479) did nothing: it tested `VIAL_TAP_DANCE_ENABLE` before `vial.h` (which defines it) was
+  included, so the code was compiled out; `dynamic_keymap.h` is now included first. It also used a once-only EEPROM
+  marker, which a reset by a new build would miss. Now TD(0) right thumb c9_r1: Shift /
   Shift / Caps on double tap; TD(1) right c2_r1: MO(1) / MO(1) / TG(1); TD(2) right c3_r1: MO(2) / MO(2) / TG(2).
   Not carried over: Vial's QMK settings (tapping term etc.); macros, combos and key overrides (empty; the script
   stops if they aren't). To update: save a new layout from Vial

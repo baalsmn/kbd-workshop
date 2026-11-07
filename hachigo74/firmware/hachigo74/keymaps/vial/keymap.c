@@ -5,9 +5,7 @@
 // Vial is on: this is the keymap loaded on first start (or after an EEPROM reset).
 #include QMK_KEYBOARD_H
 #include "keymap_hungarian.h"
-#ifdef VIAL_TAP_DANCE_ENABLE
-#    include "dynamic_keymap.h"
-#endif
+#include "dynamic_keymap.h"   // (includes vial.h, which defines VIAL_TAP_DANCE_ENABLE: include it before testing that)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT(
@@ -318,8 +316,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef VIAL_TAP_DANCE_ENABLE
 // Default tap dances from the Vial layout file (on tap, on hold, on double tap, on tap + hold, tapping term ms).
-// Vial has no compile-time tap dance defaults (an EEPROM reset empties them), so they are written here once
-// after each EEPROM reset; bit 0 of the user EEPROM word marks it done (an EEPROM reset clears it).
+// Vial has no compile-time tap dance defaults (an EEPROM reset, or a new build that resets Vial's storage, empties
+// them), so they are written here at start-up whenever every tap dance entry is empty. (So clearing all of them in
+// Vial brings these back at the next start; keep one entry set to avoid that.)
 static const vial_tap_dance_entry_t default_tap_dance[] = {
     [0] = {.on_tap = KC_RSFT, .on_hold = KC_RSFT, .on_double_tap = KC_CAPS, .on_tap_hold = KC_NO, .custom_tapping_term = 200},
     [1] = {.on_tap = MO(1), .on_hold = MO(1), .on_double_tap = TG(1), .on_tap_hold = KC_NO, .custom_tapping_term = 200},
@@ -327,11 +326,15 @@ static const vial_tap_dance_entry_t default_tap_dance[] = {
 };
 
 void keyboard_post_init_user(void) {
-    uint32_t user = eeconfig_read_user();
-    if (user & 1) return;
+    for (uint8_t i = 0; i < VIAL_TAP_DANCE_ENTRIES; i++) {
+        vial_tap_dance_entry_t td;
+        if (dynamic_keymap_get_tap_dance(i, &td) != 0) return;
+        if (td.on_tap != KC_NO || td.on_hold != KC_NO || td.on_double_tap != KC_NO || td.on_tap_hold != KC_NO) return;
+    }
     for (uint8_t i = 0; i < ARRAY_SIZE(default_tap_dance) && i < VIAL_TAP_DANCE_ENTRIES; i++) {
         dynamic_keymap_set_tap_dance(i, &default_tap_dance[i]);
     }
-    eeconfig_update_user(user | 1);
 }
+#else
+#    error "VIAL_TAP_DANCE_ENABLE not defined: the default tap dances would be left out (is vial.h included?)"
 #endif
