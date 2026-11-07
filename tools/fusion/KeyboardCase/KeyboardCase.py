@@ -51,6 +51,9 @@ END_CHAMFERS = {'hachigo74': {'cover_clip': [('bar end', ('clip_chamfer_h', 'cli
 # design -> part name -> (face radius mm, internal, designation, class); play = THREAD_PLAY mm per side
 THREADS = {'hachigo74': {'center_cover': (25.0, False, 'M50x1.5', '6g'),
                          'trackpad_ring': (24.188, True, 'M50x1.5', '6H')}}
+# kugo82 v1 shares hachigo74's centre cover, trackpad ring and T clip (user 2026-11-08; same centre geometry)
+for _t in (TOP_EDGES, TOP_HOLES, END_CHAMFERS, THREADS):
+    _t['kugo82'] = {k: v for k, v in _t['hachigo74'].items() if k in ('trackpad_ring', 'center_cover', 'cover_clip')}
 THREAD_PLAY = 0.1
 
 
@@ -314,14 +317,22 @@ def build_part(comp, recipe, outlines, log, rib=None, rib_opt=None):
                 'subtract': adsk.fusion.FeatureOperations.CutFeatureOperation,
                 'intersect': adsk.fusion.FeatureOperations.IntersectFeatureOperation}[op]
         if op == 'add':
-            tools = adsk.core.ObjectCollection.create()
-            for b in new: tools.add(b)
-            ci = feats.combineFeatures.createInput(bodies[0], tools)
-            ci.operation = kind; ci.isKeepToolBodies = False
-            try:
-                feats.combineFeatures.add(ci)
-            except Exception:
-                bodies += new                       # disjoint lump: keep it as its own body
+            # each new piece joins the body it touches (several separate bodies, e.g. the 2 OLED pin spacers,
+            # each get their own pin); a piece touching none stays its own body
+            def touches(a, b):
+                pa, pb = a.boundingBox, b.boundingBox
+                return (pa.minPoint.x <= pb.maxPoint.x + 1e-6 and pb.minPoint.x <= pa.maxPoint.x + 1e-6 and
+                        pa.minPoint.y <= pb.maxPoint.y + 1e-6 and pb.minPoint.y <= pa.maxPoint.y + 1e-6 and
+                        pa.minPoint.z <= pb.maxPoint.z + 1e-6 and pb.minPoint.z <= pa.maxPoint.z + 1e-6)
+            for nb in new:
+                targets = [b for b in bodies if b.isValid and touches(b, nb)] or [b for b in bodies if b.isValid][:1]
+                tools = adsk.core.ObjectCollection.create(); tools.add(nb)
+                ci = feats.combineFeatures.createInput(targets[0], tools)
+                ci.operation = kind; ci.isKeepToolBodies = False
+                try:
+                    feats.combineFeatures.add(ci)
+                except Exception:
+                    bodies.append(nb)               # disjoint lump: keep it as its own body
         else:
             for t, target in enumerate(list(bodies)):
                 tools = adsk.core.ObjectCollection.create()

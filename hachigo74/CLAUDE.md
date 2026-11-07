@@ -24,7 +24,23 @@ built this way too):
 - **PCB v2:** drop the two OLED screw holes (`oled_screw`, x +-11.8) and their rings from the PCB.
 - **Tub v2:** replace the two OLED screw posts under the PCB (the north pair of the 4 centre posts, with the floor
   counterbore and insert hole) by plain half crosses, like `cross_lower` elsewhere, as back support only.
-- Not done yet in the yaml / KiCad (the KiCad project only on request).
+- **Applied 2026-11-08** (user) in the yaml, the KiCad project and the case:
+  - `oled_screw` is gone from `pcb_mounting` / `cover_screw`: no PCB holes, no tub posts, floor counterbores or
+    insert holes there. The bridge plate keeps 0.2 clear of the new crosses (`bridge_post_hole`).
+  - `oled_cross` (in `cross_lower`): a half cross (T: 2 wide, 10 north-south, the arm 5 outward) under the PCB at each old
+    post spot (x +-11.8, 24.135 north of c9_r2); nothing on the PCB back within 7 mm.
+  - `oled_spacers` = the user's pin spacer (`spacers.f3d` Body1, now part of the main case model): Ø5 x 1.1
+    (`oled_pin_spacer`, z 10.1-11.2) with a Ø2 x 0.8 pin (`oled_pin`, z 11.2-12.0) at the module's north holes, x +-11.8,
+    47.635 north of c9_r2 (23.5 north of the south holes, from the vendor model; x as measured). 0.84 clear of the
+    Helios's front pads; no overlap with the lids, cover or T clip. Only these 2 (the header carries the south side).
+  - KiCad project (`hachigo74/kicad`): the 2 Edge.Cuts holes and their front / back silk rings removed, front silk
+    circles at the pin spacers and back silk outlines of the 2 half crosses added (copied from the Ergogen board,
+    shifted by the project's offset -0.2415, -7.4348), zones refilled. Tracks / vias / footprints unchanged (2432 / 498
+    / 307); DRC with parity: 0 violations, 0 unconnected, 0 parity. Regenerate the fabrication files before ordering.
+  - Fusion: KeyboardCase's `add` step now joins each new piece to the body it touches (the second pin spacer's pin
+    came out as its own body); every other part's volume unchanged, 363 timeline items healthy.
+- **Lid screw hole at c5/c6** (user, 2026-11-08): the plate ribs (z 10.4-11.4) closed the key-area screw hole between
+  c5 and c6 (r2/r3, both halves; the only one). The lid recipes now cut `pcb_mounting` through z 10.1-12.6 after the ribs.
 
 Smaller open points: the USB sleep / Vial disconnect (likely the host's USB selective suspend, see Firmware), and the
 "Future builds" items under the OLED notes.
@@ -223,7 +239,7 @@ Smaller open points: the USB sleep / Vial disconnect (likely the host's USB sele
   with the cover, lids, ring or spacers; plates over the bar, open at the stem; the cover covers the notches.
   - **Future builds** (user, 2026-11-05, not done): move the OLED a bit further north and drop the screw holes through the
     main PCB; the module is fixed only by its soldered header and the spacers, and the centre cover holds it down.
-    Confirmed for v2 on 2026-11-07, see Status at the top (plus half crosses instead of the OLED screw posts).
+    Confirmed for v2 on 2026-11-07 and applied on 2026-11-08, see Status at the top.
 - Build: `bash tools/build.sh hachigo74`, then `tools/case.sh hachigo74` and
   `tools/step.sh hachigo74` → `case/`, `case/step/`, `case/fusion/` here.
 - Expected DRC: 5 `silk_overlap`, 499 unconnected pads; 74 switches, 76 LEDs.

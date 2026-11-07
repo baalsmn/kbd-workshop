@@ -90,6 +90,17 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
 - **Indicators:** anchored on c9_r2 at [0.125sp + 19.5, −sp] (where they were next
   to c9_r1 before the thumb key moved; left = layer LED 1, right = fn LED 0). 0603 caps 4 mm below them. 3 mm light holes in the plate
   (outside the centre cover).
+- **Centre cover, trackpad, OLED mounting: hachigo74's design since 2026-11-08** (user; the centre of both boards is
+  identical relative to c9_r2: every key and centre part within 80 mm checked). Ported from `ergogen/hachigo74.yaml`:
+  the trackpad (TM040040 with the curved overlay) on the cover's ledge with the screw-on M50x1.5 ring (`tp_collar`,
+  `tp_ring_*`, `tp_ring_seat`, `tp_notch_pin`, `tp_support` in the lids), the OLED window 24 x 14 and `oled_plate`,
+  the T clip at the cover's north edge (`cover_clip`, `lid_clip_notch`, `cover_clip_socket`), the 2 south cover screws
+  top-down (`cover_south_cbore`, `cover_south_spacer` in the lids, M2 insert in the tub post), **no OLED screws** (no
+  PCB holes, no posts, no cover bosses): 2 pin spacers at the module's north holes (`oled_pin_spacer` / `oled_pin`) and
+  half crosses (`oled_cross`) where the OLED posts were. The Fusion-only edges (cover / ring / window / clip chamfers)
+  and the threads apply to kugo82 too (KeyboardCase.py). Details, sizes and checks: `../hachigo74/CLAUDE.md`. The
+  descriptions below of the snap ring, the peg, the bottom-up cover screws, the cover bosses and the OLED screws
+  are the earlier kugo82 design, superseded.
 - **OLED:** 0.96" SSD1306 128×64 I2C module, rotated 180°, on bare header pins
   ~1.2 mm above the PCB, header at y 23.5, VDD = 3V3.
   - Plate cutout / cover pocket `oled` at (0, 35.7), bottom edge at y 21.7, 1.5 mm
@@ -270,7 +281,12 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
   hachigo74: T clip at the north edge + 2 south screws, no `cover_boss_oled`). So: drop the two OLED screw holes
   (`oled_screw`) and their rings from the PCB, drop the OLED screw posts in the tubs (floor counterbore, insert hole)
   and put plain half crosses there as back support (like `cross_lower`), and spacers that match spacers.f3d. Less
-  dependent on the exact size of the OLED panel. Not done yet in `ergogen/kugo82.yaml`.
+  dependent on the exact size of the OLED panel. **Applied 2026-11-08**, together with the rest of hachigo74's centre
+  design (see Hardware): yaml, case (STL / STEP / Fusion: 296 timeline items healthy, the same checks as hachigo74
+  pass: thread, pad fit, south screws, window, T clip, spacers, crosses; `case/fusion/*_threaded.stl`,
+  `cover_clip_chamfered.stl` closed) and the KiCad project (`kugo82/kicad`: the 2 OLED holes and their rings and the
+  old 40 mm trackpad marks removed, the pin spacer, half cross and r 23.065 trackpad marks added, zones refilled;
+  tracks / vias / footprints unchanged; DRC as before: the 1 `track_width`, 0 unconnected, parity 0).
 - **QMK firmware:** hachigo74 first (see `../hachigo74/CLAUDE.md`, Firmware); kugo82 to be
   discussed separately.
 - **Routing (2026-10-23):** the switch matrix of both halves is routed by

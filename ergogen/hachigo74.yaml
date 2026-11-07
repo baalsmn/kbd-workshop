@@ -636,32 +636,11 @@ outlines:
       where:
         ref: mirror_hand-zone_c5_r3
         shift: [9.0, -10.5]   # c5/c6 at r2/r3 (SE corner; the west corners have only 1.1 mm room)
-  # Screws through the OLED module's 2 bottom corner holes (module footprint
-  # (+-11.8, 0.635) from the header row, measured on the module: 23.6 apart, rotated 180 deg). Below the PCB a
-  # 5.5 mm insert post (insert_post), above it a 1.1 mm spacer up to the module
-  # underside (separate printed part oled_spacers). They also hold the centre
-  # cover (holes through every layer, like pcb_mounting).
-  oled_screw:
-    - what: circle
-      radius: 1.2
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 0
-        shift: [11.8, 24.135]
-    - what: circle
-      radius: 1.2
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 0
-        shift: [-11.8, 24.135]
+  # (OLED screws through the module's 2 bottom corner holes, x +-11.8, 24.135: removed 2026-11-08 (user, v2): the
+  # module sits on pin spacers at its north holes (oled_pin_spacer) and on its soldered header.)
   pcb_mounting_std: # standard mounting holes (7.4 mm posts): only the cover screws south of the trackpad
     # key-area screws moved to the thin-post group (c9r5_screw), kugo82
     # centre cover screws, south of the trackpad
-    # (the 2 north ones go through the OLED holes, see oled_screw)
     - what: circle
       radius: 1.2
       where:
@@ -682,8 +661,7 @@ outlines:
     - name: pcb_mounting_std
     - operation: add
       name: c9r5_screw
-    - operation: add
-      name: oled_screw
+    # (no OLED screws since 2026-11-08, user: the module sits on pin spacers at its north holes and its header)
 
   edge_mounting: # mounting holes case elements only
     # left bottom
@@ -1002,16 +980,13 @@ outlines:
   insert_hole:      # 3.0 mm hole for the M2 heat-set insert (key-area screws, top-down)
     - name: c9r5_screw
       expand: 0.3
-  # Centre-cover screws. The 2 at the OLED go bottom-up: floor counterbore -> 5.5 mm
-  # post (3.0 hole) -> PCB -> spacer -> M2 insert in a boss under the centre cover
-  # (blind hole, nothing visible on the cover top). The 2 south of the trackpad go
+  # Centre-cover screws. (The 2 at the OLED went bottom-up into bosses under the cover; both
+  # gone: the bosses on 2026-11-07, the screws, posts and PCB holes on 2026-11-08.) The 2 south of the trackpad go
   # top-down (user 2026-11-05, the cover's bosses there removed): cover counterbore ->
   # cover -> plate -> spacer (in the lid, PCB top -> plate) -> PCB -> M2 insert in the
   # top of the tub post (its 3.0 hole), about M2 x 8.
-  cover_screw:
-    - name: oled_screw
-    - operation: add
-      name: pcb_mounting_std
+  cover_screw:     # (the 2 OLED screws are gone since 2026-11-08: only the 2 south of the trackpad)
+    - name: pcb_mounting_std
   cover_counterbore: # 4.4 mm screw head counterbore in the floor (1.6 deep)
     - name: cover_screw
       expand: 1.0
@@ -1027,13 +1002,41 @@ outlines:
   spacer_disc_key:  # 5.5 mm spacer between the PCB and the plate at the key-area screws
     - name: c9r5_screw
       expand: 1.55
-  oled_spacer_disc: # 5.5 mm spacer between the PCB and the OLED module (separate part)
-    - name: oled_screw
-      expand: 1.55
-  oled_spacer:
-    - name: oled_spacer_disc
-    - operation: subtract
-      name: oled_screw
+  oled_pin_spacer: # OLED pin spacers (user 2026-11-08, case/fusion/spacers.f3d Body1): Ø5 x 1.1 on the PCB at
+    # the module's north holes (x +-11.8 as measured; 23.5 north of the south holes, from the vendor model), PCB top -> module
+    - what: circle
+      radius: 2.5
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [11.8, 47.635]
+    - what: circle
+      radius: 2.5
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [-11.8, 47.635]
+  oled_pin: # their Ø2 x 0.8 pins into the module's north holes
+    - what: circle
+      radius: 1.0
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [11.8, 47.635]
+    - what: circle
+      radius: 1.0
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [-11.8, 47.635]
 
   standoffs_lower:   # posts, floor -> PCB bottom: inserts (key area) or clearance holes (cover screws)
     - name: insert_post
@@ -1069,7 +1072,43 @@ outlines:
   # level since c7 lost its stagger); lower left of c8_r2 (c7/c8 at the r1/r2 gap).
   # crosses.py ... "c4_r1,c3_r4,c7_r4:-0.5:0.5,c8_r2:-0.5:-0.5"
   # Generated with tools/lib/crosses.py from the built board.
+  # Half crosses under the PCB where the 2 OLED screw posts were (user 2026-11-08, back support only): T, 2 wide,
+  # 10 north-south, the arm 5 outward (as beside the Helios); nothing on the PCB back within 7 mm.
+  oled_cross:
+    - what: rectangle
+      size: [2, 10]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [11.8, 24.135]
+    - what: rectangle
+      size: [5, 2]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [14.3, 24.135]
+    - what: rectangle
+      size: [2, 10]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [-11.8, 24.135]
+    - what: rectangle
+      size: [5, 2]
+      where:
+        aggregate.parts:
+          - hand-zone_c9_r2
+          - mirror_hand-zone_c9_r2
+        rotate: 0
+        shift: [-14.3, 24.135]
   cross_lower:
+    - name: oled_cross
     - what: rectangle
       size: [2, 2]
       where:
@@ -1473,7 +1512,7 @@ outlines:
     - operation: add
       name: cross_lower
   support_marks_front:
-    - name: oled_spacer_disc
+    - name: oled_pin_spacer
     - operation: add
       name: cover_south_spacer    # (same place and size as the cover's old south bosses)
     - operation: add
@@ -1702,6 +1741,9 @@ outlines:
   bridge_post_hole:
     - name: cover_screw
       expand: 1.65
+    - operation: add
+      name: oled_cross        # the half crosses at the old OLED posts (2026-11-08), 0.2 clear
+      expand: 0.2
   bridge_inside:    # 0.75 clear of the tub walls
     - name: pcb_outline
       expand: -0.5
@@ -1751,13 +1793,13 @@ cases:
   # ~3.3 USB-C receptacle hang below the PCB) | PCB 1.6 | gap to plate 1.3 |
   # plate 1.2  -> plate top 12.6.  Z (case coords): floor top 3, PCB bottom
   # 8.5, PCB top 10.1, plate 11.4-12.6, OLED glass top 14.3 (spacer 1.1), cover pocket ceiling 14.5, cover top 15.5,
-  # trackpad 12.6-17.6 on the plate (5 mm, user measured; connector down to 10.1), ring lip 17.7-18.5.
+  # trackpad on the cover's ledge (z 14.5, top 19.5), screw-on ring 16.2-20.3.
   # Every printed part is clipped to the "case" outline so nothing can stick out
   # past the case edge, then cut in half on the mirror axis.
   #
   # Tub = bottom plate + walls + screw posts + the reset pin boss, with the USB-C plug opening in the north wall.
-  # The trackpad lies on the plate, the centre cover carries its anti-rotation
-  # peg, the separate trackpad_ring part snaps into the cover.
+  # The trackpad sits on the centre cover's ledge (anti-rotation pin in its notch), held by the separate
+  # trackpad_ring screwed onto the cover's collar (M50x1.5, Fusion); a T clip holds the cover's north edge.
   tub_left:
     - name: case_bottom
       extrude: 3
@@ -1855,6 +1897,10 @@ cases:
     - name: tp_support
       shift: [0, 0, 10.1]
       extrude: 1.3     # ring under the trackpad's rim, plate to PCB top
+    - name: pcb_mounting
+      operation: subtract
+      shift: [0, 0, 10.1]
+      extrude: 2.5     # screw holes through everything (user 2026-11-08: the ribs closed the c5/c6 one)
     - name: case
       operation: intersect
       extrude: 30
@@ -1877,6 +1923,10 @@ cases:
     - name: tp_support
       shift: [0, 0, 10.1]
       extrude: 1.3     # ring under the trackpad's rim, plate to PCB top
+    - name: pcb_mounting
+      operation: subtract
+      shift: [0, 0, 10.1]
+      extrude: 2.5     # screw holes through everything (user 2026-11-08: the ribs closed the c5/c6 one)
     - name: case
       operation: intersect
       extrude: 30
@@ -1950,12 +2000,15 @@ cases:
       shift: [0, 0, 3]
       extrude: 1.5
 
-  # 2 spacers for the OLED screws (PCB top -> module underside, 1.1 mm, 5.5 mm dia;
-  # user 2026-11-07: 1.1 like the spacers in case/fusion/spacers.f3d, was 1.2)
+  # 2 OLED pin spacers (user 2026-11-08, the model case/fusion/spacers.f3d Body1): Ø5 x 1.1 on the PCB at the
+  # module's north holes, a Ø2 x 0.8 pin into the hole; the header holds the south side (no screws)
   oled_spacers:
-    - name: oled_spacer
+    - name: oled_pin_spacer
       shift: [0, 0, 10.1]
-      extrude: 1.1
+      extrude: 1.1     # PCB top 10.1 -> module underside 11.2
+    - name: oled_pin
+      shift: [0, 0, 11.2]
+      extrude: 0.8     # into the module's hole (z 11.2-12.0, the module board 1.6)
 
   assembly:    # whole case in one piece, for checking only
     - name: case_bottom
@@ -2251,8 +2304,8 @@ pcbs:
       # 0.96" OLED (SSD1306, I2C) on the top side, rotated 180 deg: header at the
       # bottom edge, close to the trackpad ring; the module sits in the plate
       # cutout (outline 'oled'), raised on its header. Display content is rotated
-      # in firmware. Its 2 bottom corner holes take screws (oled_screw); the 2 top
-      # ones are free (the Helios castellations are 0.7 mm away, no room for a stud).
+      # in firmware. No screws (2026-11-08): its 2 top (north) holes sit on pin spacers (oled_pin_spacer, Ø5, 0.84
+      # clear of the Helios pads), the bottom (header) side on its soldered header.
       oled:
         what: oled_i2c
         where:
