@@ -264,6 +264,13 @@ with hachigo74 (its differences are in `../hachigo74/CLAUDE.md`).
 
 ## Open / next
 
+- **OLED mounting for kugo82 v1** (user, 2026-11-07, same as hachigo74 v2, from building the first hachigo74
+  boards): no OLED screws. The module rests on the two pin spacers (`hachigo74/case/fusion/spacers.f3d`: pins into the
+  module's north holes) and is held by its soldered header at the south; the centre cover holds it down (as on
+  hachigo74: T clip at the north edge + 2 south screws, no `cover_boss_oled`). So: drop the two OLED screw holes
+  (`oled_screw`) and their rings from the PCB, drop the OLED screw posts in the tubs (floor counterbore, insert hole)
+  and put plain half crosses there as back support (like `cross_lower`), and spacers that match spacers.f3d. Less
+  dependent on the exact size of the OLED panel. Not done yet in `ergogen/kugo82.yaml`.
 - **QMK firmware:** hachigo74 first (see `../hachigo74/CLAUDE.md`, Firmware); kugo82 to be
   discussed separately.
 - **Routing (2026-10-23):** the switch matrix of both halves is routed by

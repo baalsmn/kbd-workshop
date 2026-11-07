@@ -15,6 +15,17 @@ RGB work. Left to do (user):
 2. **Keycaps**: finalize them and put on the Hungarian legends (`keycaps/`: the insert caps or the printed-in legend
    caps, see `../CLAUDE.md`). For now the board has borrowed Keychron low-profile US-layout caps.
 
+**v2 design decisions** (user, 2026-11-07, from building the first boards; the remaining first-order boards are
+built this way too):
+- **OLED without screws.** The OLED holes were filed and inserts fitted on the first board, but they aren't needed:
+  the module rests on the two pin spacers (`case/fusion/spacers.f3d`: pins into the module's north holes) and is held
+  by its soldered header at the south; the centre cover (new print, T clip + 2 south screws) holds it down. Less
+  dependent on the exact size of the OLED panel.
+- **PCB v2:** drop the two OLED screw holes (`oled_screw`, x +-11.8) and their rings from the PCB.
+- **Tub v2:** replace the two OLED screw posts under the PCB (the north pair of the 4 centre posts, with the floor
+  counterbore and insert hole) by plain half crosses, like `cross_lower` elsewhere, as back support only.
+- Not done yet in the yaml / KiCad (the KiCad project only on request).
+
 Smaller open points: the USB sleep / Vial disconnect (likely the host's USB selective suspend, see Firmware), and the
 "Future builds" items under the OLED notes.
 
@@ -212,6 +223,7 @@ Smaller open points: the USB sleep / Vial disconnect (likely the host's USB sele
   with the cover, lids, ring or spacers; plates over the bar, open at the stem; the cover covers the notches.
   - **Future builds** (user, 2026-11-05, not done): move the OLED a bit further north and drop the screw holes through the
     main PCB; the module is fixed only by its soldered header and the spacers, and the centre cover holds it down.
+    Confirmed for v2 on 2026-11-07, see Status at the top (plus half crosses instead of the OLED screw posts).
 - Build: `bash tools/build.sh hachigo74`, then `tools/case.sh hachigo74` and
   `tools/step.sh hachigo74` → `case/`, `case/step/`, `case/fusion/` here.
 - Expected DRC: 5 `silk_overlap`, 499 unconnected pads; 74 switches, 76 LEDs.
