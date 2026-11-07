@@ -16,10 +16,23 @@
 // mounted turned: finger up gave cursor right, right gave down (user, 2026-11-07); QMK turns x, y -> y, -x
 #define POINTING_DEVICE_ROTATION_90
 
+// idle timeouts (user 2026-11-07: 15 min): the OLED (QMK's default 60 s) and the key LEDs (default: never) go dark;
+// USB stays up (a suspend from the host is separate: the LEDs then go dark at once, rgb_matrix sleep)
+#define OLED_TIMEOUT 900000
+#define RGB_MATRIX_TIMEOUT 900000
+
 // 76 LEDs at 37 mA full white = 2.8 A: brightness is capped in keyboard.json (40/255)
-// Indicator LEDs (chain index): off on layer 0, green on layer 1
-#define INDICATOR_LEDS {37, 38}
-// (three separate values: the SET_COLOR macro counts its arguments before expanding them)
-#define INDICATOR_FN_R 0
-#define INDICATOR_FN_G 96
-#define INDICATOR_FN_B 0
+// Indicator LEDs (chain index; user 2026-11-07): left = layer (base off, Fn1 green, Fn2 blue, Fn3 off),
+// right = Shift (yellow while a Shift is held, and while Caps Lock is on)
+#define INDICATOR_LEFT 38
+#define INDICATOR_RIGHT 37
+// (three separate values each: the SET_COLOR macro counts its arguments before expanding them)
+#define INDICATOR_FN1_R 0
+#define INDICATOR_FN1_G 96
+#define INDICATOR_FN1_B 0
+#define INDICATOR_FN2_R 0
+#define INDICATOR_FN2_G 0
+#define INDICATOR_FN2_B 96
+#define INDICATOR_SHIFT_R 96
+#define INDICATOR_SHIFT_G 72
+#define INDICATOR_SHIFT_B 0

@@ -175,9 +175,9 @@ static const char *num_text(char *buf, uint16_t v, bool percent) {
 static const char *layer_name(void) {
     switch (get_highest_layer(layer_state | default_layer_state)) {
         case 0: return "BASE";
-        case 1: return "HIGH";
-        case 2: return "LOW";
-        default: return "L3";
+        case 1: return "FN1";     // Vial's layer names (Fn1 / Fn2 (Fn3) keys)
+        case 2: return "FN2";
+        default: return "FN3";
     }
 }
 
@@ -218,10 +218,9 @@ bool oled_task_kb(void) {
     last_draw = timer_read32();
     char buf[8];
 
-    // left column: layer, FN, CAPS
+    // left column: layer, CAPS (line 2 since 2026-11-07, user: the FN there only repeated FN1 on line 1)
     draw_text(0, ROW_Y(0), layer_name(), 4);
-    draw_text(0, ROW_Y(1), fn_active() ? "FN" : "", 4);
-    draw_text(0, ROW_Y(2), host_keyboard_led_state().caps_lock ? "CAPS" : "", 4);
+    draw_text(0, ROW_Y(1), host_keyboard_led_state().caps_lock ? "CAPS" : "", 4);
 
     // right column: RGB effect, brightness (% of the firmware's cap), effect speed, KPM
 #ifdef RGB_MATRIX_ENABLE
@@ -235,17 +234,24 @@ bool oled_task_kb(void) {
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-static const uint8_t indicator_leds[] = INDICATOR_LEDS;
-
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) return false;
-    bool fn = fn_active();
-    for (uint8_t i = 0; i < sizeof(indicator_leds); i++) {
-        if (fn) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(indicator_leds[i], INDICATOR_FN_R, INDICATOR_FN_G, INDICATOR_FN_B);
-        } else {
-            RGB_MATRIX_INDICATOR_SET_COLOR(indicator_leds[i], 0, 0, 0);
-        }
+    // left: the highest layer on (a waiting one-shot Fn1 counts: it turns layer 1 on)
+    switch (fn_active() && !layer_state_is(2) && !layer_state_is(3) ? 1 : get_highest_layer(layer_state | default_layer_state)) {
+        case 1:
+            RGB_MATRIX_INDICATOR_SET_COLOR(INDICATOR_LEFT, INDICATOR_FN1_R, INDICATOR_FN1_G, INDICATOR_FN1_B);
+            break;
+        case 2:
+            RGB_MATRIX_INDICATOR_SET_COLOR(INDICATOR_LEFT, INDICATOR_FN2_R, INDICATOR_FN2_G, INDICATOR_FN2_B);
+            break;
+        default:
+            RGB_MATRIX_INDICATOR_SET_COLOR(INDICATOR_LEFT, 0, 0, 0);
+    }
+    // right: a Shift held (only while it is down), or Caps Lock on (until it is off)
+    if ((get_mods() & MOD_MASK_SHIFT) || host_keyboard_led_state().caps_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(INDICATOR_RIGHT, INDICATOR_SHIFT_R, INDICATOR_SHIFT_G, INDICATOR_SHIFT_B);
+    } else {
+        RGB_MATRIX_INDICATOR_SET_COLOR(INDICATOR_RIGHT, 0, 0, 0);
     }
     return true;
 }

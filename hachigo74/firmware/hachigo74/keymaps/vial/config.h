@@ -5,5 +5,5 @@
 // unlock combo: left Esc + right Backspace
 #define VIAL_UNLOCK_COMBO_ROWS {4, 9}
 #define VIAL_UNLOCK_COMBO_COLS {1, 1}
-// layers shown in Vial (0 base, 1 Fn, 2-3 spare)
+// layers shown in Vial (Vial's names: 0 base, 1 Fn1, 2 Fn2, 3 Fn3; 2-3 spare)
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4

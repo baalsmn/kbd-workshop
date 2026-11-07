@@ -8,7 +8,7 @@ enum hachigo74_keycodes {
     HU_AT_ASTR,           // @ ; with AltGr: *
 };
 
-// hold: Shift, tap: one-shot Fn layer (a mod-tap whose tap is replaced in process_record_kb)
+// hold: Shift, tap: one-shot Fn1 (layer 1) (a mod-tap whose tap is replaced in process_record_kb)
 #define SFT_FN LSFT_T(KC_F18)
 // tap: Space, hold: Enter (a layer-tap on layer 0 whose hold is replaced)
 #define SPC_ENT LT(0, KC_SPC)

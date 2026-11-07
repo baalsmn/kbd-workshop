@@ -5,10 +5,12 @@
 #      keymaps/vial/{keymap.c, rules.mk, config.h, vial.json}}; the workflow copies it into
 #      vial-qmk's keyboards/ (Vial: the layout is stored on the keyboard, no file to load).
 #
+# Layer names follow Vial's (its Fn1 / Fn2 (Fn3) keys, QMK's tri-layer): 0 base, 1 Fn1, 2 Fn2, 3 Fn3.
+#
 # KLE legend slots (as the key maps are drawn): 4 front = QMK keycode, 6 centre-left = the
-# base character, 1 / 3 bottom = Windows AltGr characters, 2 top-right = an Fn-layer key of
-# the user's, 7 centre-right = the Fn layer.
-# Layer 1 (Fn) per key: the centre-right legend, else the top-right one, else the key's
+# base character, 1 / 3 bottom = Windows AltGr characters, 2 top-right = an Fn1 key of
+# the user's, 7 centre-right = Fn1 (layer 1).
+# Layer 1 (Fn1) per key: the centre-right legend, else the top-right one, else the key's
 # Windows Hungarian AltGr character (QMK keymap_hungarian.h), except the ones the user moved
 # ($ on S, EUR on E: not on E-acute / U).
 import sys, os, json, math
@@ -16,6 +18,10 @@ NAME = sys.argv[1]
 ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 KB = os.path.join(ROOT, NAME)
 M = json.load(open(os.path.join(KB, 'firmware', 'matrix.json'), encoding='utf-8'))
+# the two indicator LEDs, left then right (by x in the top view)
+_lx = {l['index']: l['x'] for l in M['leds']}
+IND_LR = tuple(sorted(M['indicators'], key=lambda i: _lx[i]))
+assert len(IND_LR) == 2, IND_LR
 KLE = json.load(open(os.path.join(KB, 'kle', NAME + '_keys.json'), encoding='utf-8'))['keys']
 OUT = os.path.join(KB, 'firmware', NAME)
 os.makedirs(OUT, exist_ok=True)
@@ -45,7 +51,7 @@ def legends(name):
 # ---- layer 0 ----
 SPECIAL0 = {   # key name (without hand-zone prefix) -> keycode, by the KLE's hold / tap legends
     'hand-zone_c5_r1': 'LCTL_T(KC_TAB)',          # Hold: LCtrl, Tap: Tab
-    'hand-zone_c9_r1': 'SFT_FN',                  # Hold: Shift, Tap: one-shot Fn layer
+    'hand-zone_c9_r1': 'SFT_FN',                  # Hold: Shift, Tap: one-shot Fn1 (layer 1)
     'mirror_hand-zone_c9_r1': 'SFT_FN',
     'mirror_hand-zone_c3_r1': 'RALT_T(KC_LALT)',  # Hold: AltGr, Tap: Alt
     'mirror_hand-zone_c7_r1': 'SPC_ENT',          # Tap: Space, Hold: Enter
@@ -71,12 +77,12 @@ ALTGR = {   # Windows Hungarian AltGr layer, by base keycode (QMK keymap_hungari
     'KC_SLSH': 'HU_ASTR',
 }
 MOVED = {'KC_SCLN', 'KC_U'}         # $ and EUR: on S / E as drawn in the KLE, not on E-acute / U
-LEGEND = {   # legend text -> keycode on the Fn layer
+LEGEND = {   # legend text -> keycode on Fn1 (layer 1)
     **{'F%d' % i: 'KC_F%d' % i for i in range(1, 13)},
     '[': 'HU_LBRC', ']': 'HU_RBRC', '<': 'HU_LABK', '>': 'HU_RABK', '~': 'HU_TILD',
     '$': 'HU_DLR', '€': 'HU_EURO', 'End': 'KC_END', 'PrtSc': 'KC_PSCR', 'Undo': 'C(HU_Z)',
 }
-SPECIAL1 = {   # Fn layer keys not drawn in the KLE
+SPECIAL1 = {   # Fn1 (layer 1) keys not drawn in the KLE
     'hand-zone_c3_r5': 'QK_BOOT',                 # Fn + Esc: restart into the RP2040 bootloader (user, 2026-11-07;
 }                                                 # works whenever pressed; Vial wants an unlock only to assign it from the app)
 def fn_code(k):
@@ -93,6 +99,35 @@ def fn_code(k):
 
 layer0 = [base_code(k) for k in keys]
 layer1 = [fn_code(k) for k in keys]
+
+# ---- default keymap from a Vial layout file, if there is one (user 2026-11-07) ----
+# <keyboard>/firmware/vial_default.vil (Vial: File > Save current layout): its layers replace the KLE-made ones.
+# Vial writes some QMK names that are gone from QMK 0.29 (old short names, its own aliases): renamed here to
+# the same key codes (RGB_MOD / RGB_RMOD = 0x7821 / 0x7822 = UG_NEXT / UG_PREV, USER0n = QK_KB_n = our custom keys).
+VIL = os.path.join(KB, 'firmware', 'vial_default.vil')
+VIL_NAMES = {'KC_BSPACE': 'KC_BSPC', 'KC_LBRACKET': 'KC_LBRC', 'KC_RBRACKET': 'KC_RBRC', 'KC_LSHIFT': 'KC_LSFT',
+             'KC_RSHIFT': 'KC_RSFT', 'KC_LCTRL': 'KC_LCTL', 'KC_RCTRL': 'KC_RCTL', 'KC_NONUS_BSLASH': 'KC_NUBS',
+             'KC_PGDOWN': 'KC_PGDN', 'KC_PSCREEN': 'KC_PSCR', 'KC_SCOLON': 'KC_SCLN', 'KC_BSLASH': 'KC_BSLS',
+             'KC_LGUI': 'KC_LGUI', 'KC_CAPSLOCK': 'KC_CAPS', 'KC_NUMLOCK': 'KC_NUM', 'KC_SCROLLLOCK': 'KC_SCRL',
+             'RGB_MOD': 'UG_NEXT', 'RGB_RMOD': 'UG_PREV', 'KC_TRNS': '_______',
+             'USER00': 'HU_PAREN_L', 'USER01': 'HU_PAREN_R', 'USER02': 'HU_AT_ASTR'}
+def vil_code(c):
+    import re
+    return re.sub(r'[A-Z][A-Z0-9_]+', lambda m: VIL_NAMES.get(m.group(0), m.group(0)), str(c))
+layers = [layer0, layer1]
+LAYER_SRC = 'kle/%s_keys.json' % NAME
+if os.path.exists(VIL):
+    vil = json.load(open(VIL, encoding='utf-8'))
+    assert vil['uid'] == int.from_bytes(__import__('hashlib').sha256(('keyboard-workshop/' + NAME).encode()).digest()[:8], 'little'), 'vil is from another keyboard'
+    layers = [[vil_code(L[RI[k['row']]][CI[k['col']]]) for k in keys] for L in vil['layout']]
+    assert all(c != '-1' for L in layers for c in L), 'a key with no code in the vil'
+    used = {(RI[k['row']], CI[k['col']]) for k in keys}
+    assert all(str(L[r][c]) == '-1' for L in vil['layout'] for r in range(len(L)) for c in range(len(L[r])) if (r, c) not in used)
+    # all its layers, empty ones too (so they start transparent, not KC_NO)
+    LAYER_SRC = 'firmware/vial_default.vil (Vial layout) for the layers'
+    for x in ('tap_dance', 'combo', 'key_override', 'alt_repeat_key'):
+        assert all('KC_NO' == v or not isinstance(v, str) or v == 'KC_NO' for e in vil.get(x, []) for v in (e if isinstance(e, list) else e.values()) if isinstance(v, str)), x + ' in the vil is not empty: not carried over'
+    assert all(not m for m in vil.get('macro', [])), 'macros in the vil: not carried over'
 args = ['k%d%d' % (RI[k['row']], CI[k['col']]) for k in keys]
 
 # ---- keyboard.json ----
@@ -182,14 +217,27 @@ open(os.path.join(OUT, 'config.h'), 'w', encoding='utf-8', newline='\n').write('
 // mounted turned: finger up gave cursor right, right gave down (user, 2026-11-07); QMK turns x, y -> y, -x
 #define POINTING_DEVICE_ROTATION_90
 
+// idle timeouts (user 2026-11-07: 15 min): the OLED (QMK's default 60 s) and the key LEDs (default: never) go dark;
+// USB stays up (a suspend from the host is separate: the LEDs then go dark at once, rgb_matrix sleep)
+#define OLED_TIMEOUT 900000
+#define RGB_MATRIX_TIMEOUT 900000
+
 // 76 LEDs at 37 mA full white = 2.8 A: brightness is capped in keyboard.json (40/255)
-// Indicator LEDs (chain index): off on layer 0, green on layer 1
-#define INDICATOR_LEDS {%s}
-// (three separate values: the SET_COLOR macro counts its arguments before expanding them)
-#define INDICATOR_FN_R 0
-#define INDICATOR_FN_G 96
-#define INDICATOR_FN_B 0
-''' % (NAME, ', '.join(str(i) for i in M['indicators'])))
+// Indicator LEDs (chain index; user 2026-11-07): left = layer (base off, Fn1 green, Fn2 blue, Fn3 off),
+// right = Shift (yellow while a Shift is held, and while Caps Lock is on)
+#define INDICATOR_LEFT %d
+#define INDICATOR_RIGHT %d
+// (three separate values each: the SET_COLOR macro counts its arguments before expanding them)
+#define INDICATOR_FN1_R 0
+#define INDICATOR_FN1_G 96
+#define INDICATOR_FN1_B 0
+#define INDICATOR_FN2_R 0
+#define INDICATOR_FN2_G 0
+#define INDICATOR_FN2_B 96
+#define INDICATOR_SHIFT_R 96
+#define INDICATOR_SHIFT_G 72
+#define INDICATOR_SHIFT_B 0
+''' % ((NAME,) + IND_LR))
 open(os.path.join(OUT, 'rules.mk'), 'w', encoding='utf-8', newline='\n').write(
     '# %s, generated by tools/lib/qmk_gen.py\nPOINTING_DEVICE_DRIVER = cirque_pinnacle_i2c\nOLED_DRIVER = ssd1306\n' % NAME)
 
@@ -204,7 +252,7 @@ enum %(n)s_keycodes {
     HU_AT_ASTR,           // @ ; with AltGr: *
 };
 
-// hold: Shift, tap: one-shot Fn layer (a mod-tap whose tap is replaced in process_record_kb)
+// hold: Shift, tap: one-shot Fn1 (layer 1) (a mod-tap whose tap is replaced in process_record_kb)
 #define SFT_FN LSFT_T(KC_F18)
 // tap: Space, hold: Enter (a layer-tap on layer 0 whose hold is replaced)
 #define SPC_ENT LT(0, KC_SPC)
@@ -359,9 +407,9 @@ static const char *num_text(char *buf, uint16_t v, bool percent) {
 static const char *layer_name(void) {
     switch (get_highest_layer(layer_state | default_layer_state)) {
         case 0: return "BASE";
-        case 1: return "HIGH";
-        case 2: return "LOW";
-        default: return "L3";
+        case 1: return "FN1";     // Vial's layer names (Fn1 / Fn2 (Fn3) keys)
+        case 2: return "FN2";
+        default: return "FN3";
     }
 }
 
@@ -402,10 +450,9 @@ bool oled_task_kb(void) {
     last_draw = timer_read32();
     char buf[8];
 
-    // left column: layer, FN, CAPS
+    // left column: layer, CAPS (line 2 since 2026-11-07, user: the FN there only repeated FN1 on line 1)
     draw_text(0, ROW_Y(0), layer_name(), 4);
-    draw_text(0, ROW_Y(1), fn_active() ? "FN" : "", 4);
-    draw_text(0, ROW_Y(2), host_keyboard_led_state().caps_lock ? "CAPS" : "", 4);
+    draw_text(0, ROW_Y(1), host_keyboard_led_state().caps_lock ? "CAPS" : "", 4);
 
     // right column: RGB effect, brightness (% of the firmware's cap), effect speed, KPM
 #ifdef RGB_MATRIX_ENABLE
@@ -419,17 +466,24 @@ bool oled_task_kb(void) {
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
-static const uint8_t indicator_leds[] = INDICATOR_LEDS;
-
 bool rgb_matrix_indicators_advanced_kb(uint8_t led_min, uint8_t led_max) {
     if (!rgb_matrix_indicators_advanced_user(led_min, led_max)) return false;
-    bool fn = fn_active();
-    for (uint8_t i = 0; i < sizeof(indicator_leds); i++) {
-        if (fn) {
-            RGB_MATRIX_INDICATOR_SET_COLOR(indicator_leds[i], INDICATOR_FN_R, INDICATOR_FN_G, INDICATOR_FN_B);
-        } else {
-            RGB_MATRIX_INDICATOR_SET_COLOR(indicator_leds[i], 0, 0, 0);
-        }
+    // left: the highest layer on (a waiting one-shot Fn1 counts: it turns layer 1 on)
+    switch (fn_active() && !layer_state_is(2) && !layer_state_is(3) ? 1 : get_highest_layer(layer_state | default_layer_state)) {
+        case 1:
+            RGB_MATRIX_INDICATOR_SET_COLOR(INDICATOR_LEFT, INDICATOR_FN1_R, INDICATOR_FN1_G, INDICATOR_FN1_B);
+            break;
+        case 2:
+            RGB_MATRIX_INDICATOR_SET_COLOR(INDICATOR_LEFT, INDICATOR_FN2_R, INDICATOR_FN2_G, INDICATOR_FN2_B);
+            break;
+        default:
+            RGB_MATRIX_INDICATOR_SET_COLOR(INDICATOR_LEFT, 0, 0, 0);
+    }
+    // right: a Shift held (only while it is down), or Caps Lock on (until it is off)
+    if ((get_mods() & MOD_MASK_SHIFT) || host_keyboard_led_state().caps_lock) {
+        RGB_MATRIX_INDICATOR_SET_COLOR(INDICATOR_RIGHT, INDICATOR_SHIFT_R, INDICATOR_SHIFT_G, INDICATOR_SHIFT_B);
+    } else {
+        RGB_MATRIX_INDICATOR_SET_COLOR(INDICATOR_RIGHT, 0, 0, 0);
     }
     return true;
 }
@@ -449,8 +503,8 @@ def grid(codes):
     for i, (k, c) in enumerate(zip(keys, codes)):
         out.append('        %-*s // %s' % (w + 1, c + ',' if i < len(codes) - 1 else c, k['name'].replace('hand-zone_', '')))
     return '\n'.join(out)
-open(os.path.join(KM, 'keymap.c'), 'w', encoding='utf-8', newline='\n').write('''// %(n)s keymap, generated by tools/lib/qmk_gen.py from kle/%(n)s_keys.json.
-// Host: Windows with the Hungarian layout (HU_* keycodes). Layer 0 = base, layer 1 = Fn:
+open(os.path.join(KM, 'keymap.c'), 'w', encoding='utf-8', newline='\n').write('''// %(n)s keymap, generated by tools/lib/qmk_gen.py from %(src)s.
+// Host: Windows with the Hungarian layout (HU_* keycodes). Layer 0 = base, layer 1 = Fn1:
 // F1-F12 and the AltGr characters, each on its Windows AltGr key ($ on S, EUR on E).
 // The custom keys (HU_PAREN_L/R, HU_AT_ASTR, SFT_FN, SPC_ENT) are in %(n)s.c / .h.
 // Vial is on: this is the keymap loaded on first start (or after an EEPROM reset).
@@ -458,14 +512,9 @@ open(os.path.join(KM, 'keymap.c'), 'w', encoding='utf-8', newline='\n').write(''
 #include "keymap_hungarian.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
-%(l0)s
-    ),
-    [1] = LAYOUT(
-%(l1)s
-    ),
+%(ls)s
 };
-''' % {'n': NAME, 'l0': grid(layer0), 'l1': grid(layer1)})
+''' % {'n': NAME, 'src': LAYER_SRC, 'ls': '\n'.join('    [%d] = LAYOUT(\n%s\n    ),' % (i, grid(L)) for i, L in enumerate(layers))})
 open(os.path.join(KM, 'rules.mk'), 'w', encoding='utf-8', newline='\n').write(
     '# %s Vial keymap, generated by tools/lib/qmk_gen.py\nVIA_ENABLE = yes\nVIAL_ENABLE = yes\nVIALRGB_ENABLE = yes\n' % NAME)
 # keyboard UID: fixed per keyboard name (Vial tells keyboards apart by it)
@@ -481,7 +530,7 @@ open(os.path.join(KM, 'config.h'), 'w', encoding='utf-8', newline='\n').write(''
 // unlock combo: left Esc + right Backspace
 #define VIAL_UNLOCK_COMBO_ROWS {%s}
 #define VIAL_UNLOCK_COMBO_COLS {%s}
-// layers shown in Vial (0 base, 1 Fn, 2-3 spare)
+// layers shown in Vial (Vial's names: 0 base, 1 Fn1, 2 Fn2, 3 Fn3; 2-3 spare)
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 ''' % (NAME, ', '.join('0x%02X' % b for b in uid), ', '.join(str(RI[k['row']]) for k in UNLOCK), ', '.join(str(CI[k['col']]) for k in UNLOCK)))
 
@@ -506,4 +555,4 @@ vial = {
 }
 open(os.path.join(KM, 'vial.json'), 'w', encoding='utf-8', newline='\n').write(json.dumps(vial, indent=1, ensure_ascii=False) + '\n')
 print('%s: %d keys, %d x %d matrix, %d LEDs (indicators %s) -> %s' % (NAME, len(keys), len(rows), len(cols), len(rgb), M['indicators'], os.path.relpath(OUT, ROOT)))
-print('layer 1: %d keys set; Vial keymap: %s' % (sum(1 for c in layer1 if c != '_______'), os.path.relpath(KM, ROOT)))
+print('%d layers from %s; set keys per layer %s; Vial keymap: %s' % (len(layers), LAYER_SRC, [sum(1 for c in L if c != '_______') for L in layers], os.path.relpath(KM, ROOT)))

@@ -228,11 +228,15 @@ Decided (user, 2026-10-23); kugo82 is discussed separately.
   and the characters that need AltGr on Windows' Hungarian layout, each on its usual
   AltGr key (Fn + Q = `\`, Fn + F = `[`, ...); AltGr keeps working. Exceptions, as drawn in
   the KLE: `$` on S and `€` on E (not on É / U).
-- Fn key (right half c2_r1, `mirror_hand-zone_c2_r1`): hold = layer 1 (`MO(1)`); no
+- Layer names (user, 2026-11-07): Vial's, after its `Fn1 (Fn3)` / `Fn2 (Fn3)` keys (QMK's tri-layer `TL_LOWR` /
+  `TL_UPPR`): 0 base, 1 **Fn1**, 2 **Fn2**, 3 **Fn3**. QMK and Vial themselves only number the layers.
+- Fn key (right half c2_r1, `mirror_hand-zone_c2_r1`): hold = Fn1 (layer 1, `MO(1)`); no
   Windows key on the keyboard.
-- Outer thumb keys (c9_r1, both halves): hold = Shift, tap = one-shot layer 1 (custom
+- Outer thumb keys (c9_r1, both halves): hold = Shift, tap = one-shot Fn1 (custom
   code: QMK's mod-tap can't send `OSL`).
-- Indicator LEDs: off on layer 0, green on layer 1 (also while the one-shot waits).
+- Indicator LEDs (user, 2026-11-07): left = the layer: off on base, green on Fn1 (also while the one-shot waits),
+  blue on Fn2, off on Fn3; right = Shift: yellow while a Shift is held (only while it is down) and while Caps Lock
+  is on. Colours at 96 of 255 (then the 40/255 cap): `INDICATOR_*` in config.h.
 - Build: GitHub Actions in this repo, with **Vial's QMK fork** (vial-kb/vial-qmk, pinned
   commit dd43959, based on QMK 0.29; user's choice 2026-10-23 over VIA, for the tapping-term
   settings), keymap `vial`. The workflow copies `hachigo74/firmware/hachigo74/` into its
@@ -248,6 +252,14 @@ Decided (user, 2026-10-23); kugo82 is discussed separately.
   rules.mk, hachigo74.h / .c, keymaps/vial) generated from it and `kle/hachigo74_keys.json`
   by `python tools/lib/qmk_gen.py hachigo74`. Re-run both after rerouting the matrix or
   editing the KLE legends; don't edit the generated files by hand.
+- **Default keymap = the user's Vial layout** (2026-11-07): `firmware/vial_default.vil` (saved in Vial, File > Save
+  current layout; the user's copy was `drafts/vial_1.vil`). When it exists, qmk_gen.py takes all 4 layers from it instead
+  of the KLE legends (the KLE files no longer match the keymap); Vial's old names are renamed to the same codes
+  (`KC_BSPACE` -> `KC_BSPC`, ..., `RGB_MOD` / `RGB_RMOD` -> `UG_NEXT` / `UG_PREV` (0x7821 / 0x7822, underglow codes,
+  as Vial stored them), `USER00..02` -> `HU_PAREN_L` / `HU_PAREN_R` / `HU_AT_ASTR`). Checked: uid matches, every key has a
+  code, every name exists in the pinned QMK. Not carried over: Vial's QMK settings (tapping term etc.); its macros, tap
+  dances, combos and key overrides were empty (the script stops if they aren't). To update: save a new layout from Vial
+  over the file and re-run qmk_gen.py.
 - Checked offline (`qmk.info.info_json` on QMK 0.34.7 and on vial-qmk: no errors or
   warnings; 10 x 8 matrix, 74 keys, 76 RGB LEDs, indicators 37 / 38 flagged as indicators;
   Vial's `vial_generate_definition.py` packs our vial.json). **The Vial build
@@ -261,14 +273,15 @@ Decided (user, 2026-10-23); kugo82 is discussed separately.
   right -> down, down -> left, left -> up).
 - **Vial:** the layout is stored in the firmware (vial.json), so the Vial app (get.vial.today,
   desktop or web) shows it with no file to load. Keymap in the RP2040 flash; 4 layers (0 base,
-  1 Fn, 2-3 spare). "QMK Settings" in the app: tapping term, permissive hold, etc., saved on
+  1 Fn1, 2 Fn2, 3 Fn3; 2-3 spare). "QMK Settings" in the app: tapping term, permissive hold, etc., saved on
   the keyboard. Tap dance, combos, key overrides available too. Unlock combo (Vial asks for
   it before some changes): hold left Esc + right Backspace. RGB through VialRGB. The custom
   keys live in the keyboard code (`hachigo74.c`, keycodes `QK_KB_0..2` in `hachigo74.h`), so
   they work whatever Vial stores; the 3 AltGr keys show up as custom keys in the app.
 - **OLED** (user, 2026-11-05): status screen in our own 9 x 12 font (`tools/lib/oled_font.py`, only the characters
-  used; add a glyph there for new text), no labels, rows every 17 px. Left column, top down: layer name (0 BASE, 1 HIGH, 2 LOW, 3 `L3`), `FN` while Fn is
-  held or a one-shot waits, `CAPS`. Right column (right-aligned), top down: effect code (OFF SOL BRE CYC CLR CHV REA), brightness as a % of the 40/255 cap,
-  effect speed as a % of 255 (blank when solid, off or unknown), KPM. The middle column is free. KPM = key presses in ten 1 s slots, the last 10 s x 6 (every press counts, modifiers too). Goes dark after QMK's
-  default 60 s without a screen change, a key press wakes it.
+  used; add a glyph there for new text), no labels, rows every 17 px. Left column, top down: layer name (0 BASE, 1 FN1, 2 FN2, 3 FN3; was HIGH / LOW / L3), `CAPS` on line 2 (user,
+  2026-11-07: the `FN` there only repeated FN1 and was removed; line 3 is empty). Right column (right-aligned), top down: effect code (OFF SOL BRE CYC CLR CHV REA), brightness as a % of the 40/255 cap,
+  effect speed as a % of 255 (blank when solid, off or unknown), KPM. The middle column is free. KPM = key presses in ten 1 s slots, the last 10 s x 6 (every press counts, modifiers too). Goes dark after 15 min
+  idle (`OLED_TIMEOUT`, user 2026-11-07; was QMK's 60 s), a key press wakes it. The key LEDs go dark after 15 min too
+  (`RGB_MATRIX_TIMEOUT`; before: never), and at once when the host suspends USB (`sleep`).
 - Later: Cirque features, RGB defaults, home-row mods.
