@@ -43,7 +43,7 @@ TOP_EDGES = {'hachigo74': {'lid': ('chamfer', 'lid_chamfer', 0.5), 'wedge': ('fi
 # and the edge set flipped if it came out the other way round.
 # design -> part name prefix -> [(name, (horizontal, vertical) user parameters, sizes mm, hole box (w, h) mm)]: a
 # two-distance chamfer round a hole in the part's largest top face (the inner loop whose box matches w x h)
-TOP_HOLES = {'hachigo74': {'center_cover': [('OLED window', ('window_chamfer_h', 'window_chamfer_v'), (1.0, 0.5), (23.0, 14.0))]}}
+TOP_HOLES = {'hachigo74': {'center_cover': [('OLED window', ('window_chamfer_h', 'window_chamfer_v'), (1.0, 0.5), (24.0, 14.0))]}}
 # design -> part -> [(name, (horizontal, vertical) user parameters, sizes mm, z of the face mm)]: two-distance chamfer on the
 # straight y-direction edges at the east and west ends of the upward face at that z (the T clip's bar: a lead-in so the
 # plates slide over it, user 2026-11-07)

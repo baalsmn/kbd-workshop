@@ -181,7 +181,7 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
     The yaml's `oled_spacers` are 1.1 tall to match (2026-11-07, were 1.2; the glass top is z 14.3 now).
 - Cover's screen window `oled_window` (user, 2026-11-07, from the built keyboard: LCD 15 high, the old 23 x 12 window
   sat 1 north of it): 23 x 15, north edge 1.2 further south (41.15 north of c9_r2). Then 23 x 14 (user, 2026-11-07, north edge
-  kept): centre 34.15, edges 41.15 / 27.15; 2.15 from the trackpad seat / ring (r 26.5) at the south. Its top edge has a
+  kept), then 24 x 14 (user, 2026-11-07: 0.5 wider each side, x +-12): centre 34.15, edges 41.15 / 27.15; 2.15 from the trackpad seat / ring (r 26.5) at the south. Its top edge has a
   two-distance chamfer in Fusion, 1.0 across the cover top x 0.5 down the opening (`window_chamfer_h` / `window_chamfer_v`).
 - **T clip at the cover's north edge** (user, 2026-11-07; part `cover_clip`, `case/cover_clip.stl`): holds the north edge down
   to the plates, the 2 south screws hold the rest. A separate printed T in the middle of the north wall: stem 3.0 x 1.6

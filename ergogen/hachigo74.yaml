@@ -322,10 +322,10 @@ outlines:
   # visible screen (user 2026-11-07, on the built keyboard: the LCD is 15 high and the old 23 x 12 window at 36.35
   # sat 1 north of it, covering its south edge): 23 x 15, north edge 1.2 further south (41.15), south edge 26.15;
   # 23 x 14 since 2026-11-07 (user: smaller, north edge kept at 41.15, south edge 27.15); Fusion chamfers its top
-  # edge 1 across x 0.5 down (window_chamfer_h / window_chamfer_v)
+  # edge 1 across x 0.5 down (window_chamfer_h / window_chamfer_v); 24 wide since 2026-11-07 (user: 0.5 more each side)
   oled_window:
     - what: rectangle
-      size: [23, 14]
+      size: [24, 14]
       corner: 1
       where:
         aggregate.parts: 
