@@ -979,23 +979,8 @@ outlines:
   cover_south_cbore: # 4.4 mm screw head counterbore in the cover top at the south screws
     - name: pcb_mounting_std
       expand: 1.0
-  cover_boss_oled:  # 5 mm boss under the cover, standing on the OLED board
-    - name: oled_screw
-      expand: 1.3
-    - what: rectangle       # flat on the glass side: 2.05 north of the screw, ~0.5 clear of the glass (4.7 from the board edge, user measured)
-      size: [40, 4]
-      operation: subtract
-      where:
-        aggregate.parts:
-          - hand-zone_c9_r2
-          - mirror_hand-zone_c9_r2
-        rotate: 0
-        shift: [0, 28.185]
   cover_insert_hole: # 3.0 mm insert hole: the 4 centre posts in the tubs
     - name: cover_screw
-      expand: 0.3
-  cover_insert_hole_oled: # 3.0 mm blind insert hole in the cover's OLED bosses
-    - name: oled_screw
       expand: 0.3
   spacer_disc_key:  # 5.5 mm spacer between the PCB and the plate at the key-area screws
     - name: c9r5_screw
@@ -1875,13 +1860,7 @@ cases:
     - name: tp_notch_pin     # anti-rotation pin in the overlay's notch, on the ledge (z 14.5-16.0)
       shift: [0, 0, 14.5]
       extrude: 1.5
-    - name: cover_boss_oled  # down onto the OLED board top (z 12.5)
-      shift: [0, 0, 12.5]
-      extrude: 2
-    - name: cover_insert_hole_oled
-      operation: subtract
-      shift: [0, 0, 12.5]
-      extrude: 2.7     # OLED bosses: 2.7 mm deep, 0.3 mm skin at the top (short M2 insert)
+    # (no OLED bosses since 2026-11-07, user: the module is held by its header and the pin spacers)
     - name: pcb_mounting_std # south screws, top-down: 2.4 through the cover
       operation: subtract
       shift: [0, 0, 12.6]
@@ -1902,7 +1881,7 @@ cases:
     - name: tp_ring_lip
       shift: [0, 0, 18.9]
       extrude: 1.4     # solid top (user 2026-11-06): z 18.9-20.3, 0.2 over the collar's top (18.7), so the
-                       # internal thread stops there and the top edge can take a fillet (Fusion: asymmetric, ring_fillet_h 4 / ring_fillet_v 1);
+                       # internal thread stops there and the top edge can take a chamfer (Fusion: ring_chamfer_h 3 / ring_chamfer_v 1);
                        # the lip proper (z 19.5-20.3) stays outside the pad's 43.86 top face
     - name: tp_ring_sleeve
       shift: [0, 0, 16.2]

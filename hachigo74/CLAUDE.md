@@ -77,9 +77,10 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
   z 15.5-16.2: the cover top raised 0.7 under the ring, level with the flange top, so the ring's bottom and its
   sleeve's end both land at 16.2; thread 16.2-18.7, all 2.5 engaged, about 1.7 turns): M50x1.5, male on the
   cover, female in the ring (`tp_ring_body` r 24.188-26.5, z 16.2-19.5 since 2026-11-06 (was 15.75), on the seat; `tp_ring_lip` r 22.2-26.5 is solid z 18.9-20.3 since
-  2026-11-06, so the internal thread ends 0.2 over the collar top and the ring's top outer edge has an asymmetric fillet,
-  Fusion user parameters `ring_fillet_h` 4.0 across the top and `ring_fillet_v` 1.0 down the side (user, 2026-11-06; the
-  first print failed at the top; ring height unchanged; top flat only r 22.2-22.5, the outer edge at z 19.3); the lip part z 19.5-20.3 sits
+  2026-11-06, so the internal thread ends 0.2 over the collar top and the ring's top outer edge has a two-distance chamfer,
+  Fusion user parameters `ring_chamfer_h` 3.0 across the top and `ring_chamfer_v` 1.0 down the side (user, 2026-11-07;
+  was a 4 x 1 asymmetric fillet from 2026-11-06, after the first print failed at the top; ring height unchanged; top flat
+  r 22.2-23.5, the outer edge at z 19.3); the lip part z 19.5-20.3 sits
   on the overlay's flat band outside the 43.86 touch area; ring top 0.3 above the keycap tops). Cover circle r 29.3
   (was 25). Claws, their plate slots and the old flat-side peg are gone (anti-rotation now: the notch pin below).
   - **Threads in Fusion only** (`THREADS` in KeyboardCase.py): modeled M50x1.5 (6g / 6H) on the r 25 / r 24.188 faces,
@@ -89,7 +90,7 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
   - Checked 2026-11-05 (Fusion 2706.1.17): 254 timeline items healthy, thread_play 0.15 / 0.1 recompute; collar wall
     0.71 at the thread root (crest r 24.69), ring 1.3 at its root (r 25.2); turning the ring at its screwed-down height,
     0 overlap with the cover over a 120 deg range (the play); the pad (46.13 x 5) overlaps neither part.
-    Rechecked 2026-11-06 with the 2.8 collar, the seat and the solid ring top: 269 items healthy (ring_fillet_h / _v 3 / 1.2 and 4 / 1 recompute),
+    Rechecked 2026-11-06 with the 2.8 collar, the seat and the solid ring top: 269 items healthy (the ring's top edge parameters recompute),
     the same 120 deg free range, collar top 18.3, ring thread z 16.2-18.9, ring solid above (1.4), seat clear of the south
     screw counterbores (0.9).
   - Overlay shape (datasheet section A-A, left = underside, right = top; user confirmed): top face 43.86, a flange
@@ -98,7 +99,7 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
     0.9 wall) goes down inside the collar's bore and presses the flange (0.87 of it, with a 1 wide flange); 0.135 off
     the pad's side, 0.15 off the bore. The ring stops on the flange and the seat together (both z 16.2, since 2026-11-06; if the flange is thinner than
     1.7 the ring bottoms on the seat first and the pad isn't clamped: then lower the seat).
-    The lip (r 22.2, z 19.5-20.3) stays outside the 43.86 top face. The ring prints top up since the 4 mm fillet (see below).
+    The lip (r 22.2, z 19.5-20.3) stays outside the 43.86 top face. The ring prints top up (see below).
   - **Anti-rotation pin** (user, 2026-11-05): `tp_notch_pin` on the cover's ledge at the south, in the overlay's test
     alignment notch (turned south; notch 2.3 wide, the flange's 1.7 tall, 2.5 in from the edge, user measured). Pin
     2.0 wide, r 20.7 out into the recess wall / collar, z 14.5-16.0 (0.2 under the flange top, so the sleeve lands on
@@ -110,9 +111,10 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
   the plate's Ø2.4 hole (its Ø6 boss hole is gone), a Ø5.5 spacer in the lid PCB top -> plate (`cover_south_spacer` in
   `standoffs_upper`, the front silkscreen mark in the same place as the old boss), the PCB, then an M2 heat-set insert
   pressed into the top of the tub's post (its Ø3.0 bore). The floor's Ø2.4 hole and counterbore under those posts stay
-  (unused). The OLED screws still go bottom-up into the cover's bosses (`cover_insert_hole_oled`).
+  (unused). The cover's OLED bosses (`cover_boss_oled`, with blind insert holes for bottom-up OLED screws) were removed
+  on 2026-11-07 (user): no OLED screws, the module sits on its header and the pin spacers (`case/fusion/spacers.f3d`).
   - **Printing the threaded parts** (recommended settings, 2026-11-05; not yet tried). Print them **separately**, cover
-    top up, ring **top up too** since 2026-11-06 (the 4 x 1 fillet leaves only 0.3 flat on its top; its bottom is flat now:
+    top up, ring **top up too** since 2026-11-06 (its chamfered top has only 1.3 flat; its bottom is flat:
     body and sleeve both end at z 16.2; the channel between them, 1.1-1.9 wide, is bridged at z 18.9), **no supports**.
     Before that the ring printed lip down: everything rose from the bed side (the ring's sleeve, the channel
     for the collar and its threaded wall all grow straight up from the lip, the channel is open at the top).
@@ -155,15 +157,18 @@ same as kugo82: see `../kugo82/CLAUDE.md`.
 - **USB opening** (user, 2026-11-05, after trying a bulky plug): floor under it stays 3 thick, the tub wall is open up to its top and the lid plate (z 11.4) covers it: `usb_cutout` z 3-11.4, 13 wide. It had a 1.5 strip of tub wall over it (z 9.9-11.4), and before that a 0.3 lip on the lid. Plug axis about z 5.3, so 2.3 below the axis and 6.1 above; the floor still limits a plug body centred on its axis to about 4.6 tall.
 - **Top edges, Fusion only** (user, 2026-11-04; `TOP_EDGES` in KeyboardCase.py, the STL / STEP files stay square): top outside edge of the lid plate chamfer 0.5 (`lid_chamfer`; user 2026-11-05, was a 1.0 fillet) and of the
   wedge rim fillet 1.5 (`wedge_fillet`, leaves 0.5 flat on the 2 wide rim), last step of each part, not along the joint or round the centre openings. Print these from a Fusion export.
+  Two-distance chamfers (user, 2026-11-07; kind `chamfer2`: the whole outer loop of the part's largest top face, the
+  direction checked with probe points per edge): the centre cover's top outline 2.5 across x 1.0 down (`cover_chamfer_h` /
+  `cover_chamfer_v`, the whole 1.0 top layer at the edge; 16 edges) and the trackpad ring's top 3.0 x 1.0. At the south
+  screws the cover edge is only 1.4 from the Ø4.4 counterbores, so their outer rim is down to z 15.06 there (floor 14.5).
 - **The 4 centre posts** (user, 2026-11-04; the cover-screw posts in the tubs): inner hole Ø3.0 from the floor top to the PCB (z 3-8.5), 1.25 wall in the Ø5.5 post. The floor below keeps its Ø2.4 hole and Ø4.4 head counterbore, so there's a 0.3 step at z 3.
 - **Switch cutout** (user, 2026-11-04): `sw` 14.06. 14.1 printed too big; `case/test/switch_cutout_14.06_strip` (3 cutouts, the lid's plate + rib section, at 15 deg on the bed) fits. The cutout is an Ergogen outline only, no footprint or PCB geometry depends on it.
 - Lid plate's OLED opening `oled_plate` (user, 2026-11-04): 0.5 further north than the cover's pocket `oled` (28.2 x 28.5), square corners; the pocket is unchanged.
 - OLED module (user measured, 2026-11-04): board 28 x 27.2 (the vendor model is 28.4 x 27.4), so it fits
   the `oled` opening 28.2 x 28. Back of its board to the glass top 3.1, so with the 1.2 spacers the glass top is
-  z 14.4: the cover's pocket ceiling is z 14.5 here (kugo82 still 13.95), low layer 12.6-14.5, top layer 1.0, `cover_boss_oled` 12.5-14.5.
-  Glass starts about 4.7 from the board's header-side edge (user measured; vendor model 4.0). The Ø5 bosses have a flat
-  on the glass side, 2.05 north of the screw (y 26.185, 0.55 wall left round the insert hole), reaching about 4.2 from that edge
-  if the screw hole is 2.135 from it as in the vendor model (not measured on the real module).
+  z 14.4: the cover's pocket ceiling is z 14.5 here (kugo82 still 13.95), low layer 12.6-14.5, top layer 1.0 (the `cover_boss_oled`
+  bosses, 12.5-14.5, are gone since 2026-11-07). Glass starts about 4.7 from the board's header-side edge (user measured;
+  vendor model 4.0).
 - **OLED screw holes moved to the module's spacing (user measured 23.6 apart, 2026-11-04; moved 2026-11-05):** `oled_screw` and the KiCad projects (holes and their
   silkscreen rings) are at x +-11.8, y unchanged, assuming the holes are centred on the header. Routing unchanged; the Ø5.5 spacer on the east side overlaps the `C5` track by 0.26 (on the
   mask, 1.29 from the hole edge). The first-order boards have them at +-11.176 (22.352 apart, 1.25 too close): use one screw, or drill the PCB out a bit.

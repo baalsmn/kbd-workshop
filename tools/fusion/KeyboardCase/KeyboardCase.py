@@ -23,8 +23,8 @@
 #
 # Top edges (TOP_EDGES, per design, Fusion only: the STL / STEP files don't have them): the top
 # outside edge of the lid plate (chamfer, user parameter `lid_chamfer`) and of the wedge rim
-# (fillet, `wedge_fillet`), the trackpad ring's top outer circle (asymmetric fillet, `ring_fillet_h` across the top,
-# `ring_fillet_v` down the side), as the last step of each part. Not along the joint between the halves
+# (fillet, `wedge_fillet`), and two-distance chamfers (`*_chamfer_h` across the top, `*_chamfer_v` down the side) on
+# the trackpad ring's top outer circle and the centre cover's top outline, as the last step of each part. Not along the joint between the halves
 # or round the centre openings.
 #
 # Threads (THREADS, per design, Fusion only): a modeled thread on the cylinder face of the given
@@ -36,9 +36,11 @@ import adsk.core, adsk.fusion, traceback, json, os, math
 MM = 0.1            # Fusion's internal unit is cm
 # design -> part name prefix -> (kind, user parameter, size in mm)
 TOP_EDGES = {'hachigo74': {'lid': ('chamfer', 'lid_chamfer', 0.5), 'wedge': ('fillet', 'wedge_fillet', 1.5),
-                           'trackpad_ring': ('asymmetric', ('ring_fillet_h', 'ring_fillet_v'), (4.0, 1.0))}}
-# 'asymmetric': an asymmetric fillet, (horizontal offset into the top face, vertical offset down the side)
-RING_FILLET_FLIP = False    # the edge set's isFlipped that puts offsetOne on the top face (checked in Fusion)
+                           'trackpad_ring': ('chamfer2', ('ring_chamfer_h', 'ring_chamfer_v'), (3.0, 1.0)),
+                           'center_cover': ('chamfer2', ('cover_chamfer_h', 'cover_chamfer_v'), (2.5, 1.0))}}
+# 'chamfer2': a two-distance chamfer (horizontal into the top face, vertical down the side; user 2026-11-07) round the
+# whole outer loop of the part's largest top face; its direction is checked per edge with probe points afterwards
+# and the edge set flipped if it came out the other way round.
 # design -> part name -> (face radius mm, internal, designation, class); play = THREAD_PLAY mm per side
 THREADS = {'hachigo74': {'center_cover': (25.0, False, 'M50x1.5', '6g'),
                          'trackpad_ring': (24.188, True, 'M50x1.5', '6H')}}
@@ -355,26 +357,95 @@ def top_outer_edges(body, right):
     return max(chains, key=lambda ch: sum(e.length for e in ch)) if chains else []
 
 
+def largest_top_loop(body):
+    """The outer loop of the body's largest upward planar face (all of it: a closed outline) and that face's z."""
+    planar = adsk.core.SurfaceTypes.PlaneSurfaceType
+    tops = [f for f in body.faces if f.geometry.surfaceType == planar and abs(f.evaluator.getNormalAtPoint(f.pointOnFace)[1].z - 1) < 1e-6]
+    if not tops:
+        return [], 0
+    top = max(tops, key=lambda f: f.area)
+    loop = [l for l in top.loops if l.isOuter][0]
+    return [loop.coEdges.item(i).edge for i in range(loop.coEdges.count)], top.pointOnFace.z
+
+
+def edge_probes(body, edges, ztop):
+    """Per edge: its mid point and the horizontal unit direction into the body (tested just under the top)."""
+    out = []
+    INS = adsk.fusion.PointContainment.PointInsidePointContainment
+    for e in edges:
+        ev = e.evaluator
+        _, t0, t1 = ev.getParameterExtents()
+        tm = (t0 + t1) / 2
+        _, p = ev.getPointAtParameter(tm)
+        _, d = ev.getFirstDerivative(tm)
+        n = math.hypot(d.x, d.y)
+        if n < 1e-9:
+            continue
+        nx, ny = -d.y / n, d.x / n
+        if body.pointContainment(adsk.core.Point3D.create(p.x + nx * 0.02, p.y + ny * 0.02, ztop - 0.01)) != INS:
+            nx, ny = -nx, -ny
+        out.append((p.x, p.y, nx, ny))
+    return out
+
+
+def chamfer_ok(body, probes, ztop, h, v):
+    """How many probes show the chamfer h (mm) across the top and v down the side, not the other way round:
+    solid at 1/4 h in, 0.9 v down (under the slope), empty at 3/4 h in, 0.1 v down (above it)."""
+    INS = adsk.fusion.PointContainment.PointInsidePointContainment
+    good = 0
+    for x, y, nx, ny in probes:
+        a = body.pointContainment(adsk.core.Point3D.create(x + nx * 0.25 * h * MM, y + ny * 0.25 * h * MM, ztop - 0.9 * v * MM)) == INS
+        b = body.pointContainment(adsk.core.Point3D.create(x + nx * 0.75 * h * MM, y + ny * 0.75 * h * MM, ztop - 0.1 * v * MM)) != INS
+        good += a and b
+    return good
+
+
+def top_chamfer2(comp, body, param, log):
+    """Two-distance chamfer round the outer loop of the largest top face (param = (horizontal, vertical) names)."""
+    edges, ztop = largest_top_loop(body)
+    if not edges:
+        log.append('%s: no top face, no chamfer' % comp.name)
+        return
+    probes = edge_probes(body, edges, ztop)
+    up = comp.parentDesign.userParameters
+    h, v = (up.itemByName(n).value / MM for n in param)
+    try:
+        for flip in (False, True):
+            col = adsk.core.ObjectCollection.create()
+            for e in edges:
+                col.add(e)
+            ci = comp.features.chamferFeatures.createInput2()
+            ci.chamferEdgeSets.addTwoDistancesChamferEdgeSet(col, adsk.core.ValueInput.createByString(param[0]),
+                                                             adsk.core.ValueInput.createByString(param[1]), flip, False)
+            feature = comp.features.chamferFeatures.add(ci)
+            good = chamfer_ok(max([b for b in comp.bRepBodies if b.isValid], key=lambda b: b.volume), probes, ztop, h, v)
+            if good == len(probes) or flip:
+                break
+            feature.deleteMe()
+        feature.name = 'top outside chamfer'
+        log.append('%s: top outside chamfer %g x %g on %d edges (flipped %s), %d of %d probes the right way round'
+                   % (comp.name, h, v, len(edges), flip, good, len(probes)))
+    except Exception as e:
+        log.append('%s: top outside chamfer failed (%s)' % (comp.name, e))
+
+
 def top_edge(comp, kind, param, log):
     """Fillet or chamfer the top outside edge of the part's body, size = the user parameter."""
     bodies = [b for b in comp.bRepBodies if b.isValid]
     if not bodies:
         log.append('%s: no body for the top %s' % (comp.name, kind)); return
     body = max(bodies, key=lambda b: b.volume)
+    if kind == 'chamfer2':
+        top_chamfer2(comp, body, param, log)
+        return
     edges = top_outer_edges(body, comp.name.endswith('right'))
     if not edges:
         log.append('%s: top outside edge not found, no %s' % (comp.name, kind)); return
     col = adsk.core.ObjectCollection.create()
     for e in edges: col.add(e)
-    size = None if kind == 'asymmetric' else adsk.core.ValueInput.createByString(param)
+    size = adsk.core.ValueInput.createByString(param)
     try:
-        if kind == 'asymmetric':
-            fi = comp.features.filletFeatures.createInput()
-            es = fi.edgeSetInputs.addAsymmetricRadiusEdgeSet(col, adsk.core.ValueInput.createByString(param[0]),
-                                                             adsk.core.ValueInput.createByString(param[1]), False)
-            es.isFlipped = RING_FILLET_FLIP
-            feature = comp.features.filletFeatures.add(fi)
-        elif kind == 'chamfer':
+        if kind == 'chamfer':
             ci = comp.features.chamferFeatures.createInput2()
             ci.chamferEdgeSets.addEqualDistanceChamferEdgeSet(col, size, False)
             feature = comp.features.chamferFeatures.add(ci)
@@ -454,9 +525,9 @@ def build_design(data, ribs=None, tilt=None):
     top_edges = TOP_EDGES.get(data.get('design'), {})
     for prefix, (kind, param, size) in top_edges.items():
         if any(k.startswith(prefix) for k in cases):
-            if kind == 'asymmetric':
+            if kind == 'chamfer2':
                 for pn, sz, d in zip(param, size, ('horizontal (across the top)', 'vertical (down the side)')):
-                    design.userParameters.add(pn, adsk.core.ValueInput.createByString('%g mm' % sz), 'mm', 'top outside asymmetric fillet of the %s, %s' % (prefix, d))
+                    design.userParameters.add(pn, adsk.core.ValueInput.createByString('%g mm' % sz), 'mm', 'top outside chamfer of the %s, %s' % (prefix, d))
             else:
                 design.userParameters.add(param, adsk.core.ValueInput.createByString('%g mm' % size), 'mm', 'top outside edge %s of the %s' % (kind, prefix))
     threads = THREADS.get(data.get('design'), {})
