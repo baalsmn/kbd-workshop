@@ -128,8 +128,8 @@ Prices are what the user paid where known, else shop list prices looked up on 20
 | Cirque TM040040-2024-303 (40 mm, curved overlay) | [Mouser](https://www.trustedparts.com/en/part/cirque-corporation/TM040040-2024-303) | 1 | USD 9.62, *list* (Mouser data via TrustedParts) | 8.30 |
 | Trackpad FFC, 12 pin 0.5 mm, reverse, 30 mm (GCT 05-12-D-0030-A-4-06-4-T) | DigiKey / Mouser, with the trackpad | 1 | about EUR 0.90, *list* (LCSC: USD 0.07 + about EUR 15 shipping) | 0.90 |
 | Screws (M2 for the cover etc.) | | 1 pack | about EUR 10 (user): a pack of mixed lengths, smaller packs could not be ordered | 10.00 |
-| Filament for the printed case (PLA) | | about 200-300 g (user's estimate, maybe less) | about EUR 20 per kg, assumed | about 5 |
-| **Total** | | | | **about 132** |
+| Filament (PLA): the case 180 g (user); the tilt wedge, a separate optional part, 90 g on its own | | 180 g (270 g with the wedge) | about EUR 20 per kg, assumed | 3.60 (5.40 with the wedge) |
+| **Total** | | | | **about 131** (133 with the wedge) |
 
 Not in the table: the 3 x 1 magnets of the tilt wedge (bought long ago, price unknown), keycaps
 (borrowed Keychron low-profile US caps for now; the Hungarian caps are still to be made, see

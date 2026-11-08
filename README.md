@@ -67,4 +67,4 @@ the hand-soldered parts (hot-swap sockets, Helios, OLED), switches, keycaps, tra
 and case. Breakdown: [ordering/README.md](ordering/README.md#orders).
 
 All parts of one hachigo74 (PCB share, Helios, OLED, switches, sockets, stabilizers, trackpad, cable,
-screws, filament): about EUR 132, without the shops' shipping, the wedge magnets and keycaps: [ordering/README.md](ordering/README.md#hachigo74-all-parts-of-one-keyboard-as-built-2026-11).
+screws, filament): about EUR 131 (133 with the tilt wedge), without the shops' shipping, the wedge magnets and keycaps: [ordering/README.md](ordering/README.md#hachigo74-all-parts-of-one-keyboard-as-built-2026-11).
