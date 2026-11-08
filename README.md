@@ -4,6 +4,10 @@ Split-style ergonomic keyboards on a single PCB, designed in [Ergogen](https://e
 4.2.1, finished in KiCad 10 and housed in 3D-printed cases. Developed with the help of
 Anthropic's Claude Code.
 
+![hachigo74, first build](hachigo74/photo.jpg)
+
+*hachigo74, first build*
+
 ## Why
 
 Most open-source ergonomic keyboards are built around the English alphabet and keep
