@@ -14,7 +14,7 @@ set -euo pipefail
 P="$(cd "$(dirname "$0")/.." && pwd)"
 OUT="${1:-$(dirname "$P")/keyboard-workshop-public}"
 [ -e "$OUT" ] && { echo "$OUT exists - remove it first"; exit 1; }
-[ -z "$(git -C "$P" status --porcelain)" ] || { echo "commit your changes first"; exit 1; }
+[ -z "$(git -C "$P" status --porcelain --untracked-files=no)" ] || { echo "commit your changes first"; exit 1; }
 git clone -q --no-local "$P" "$OUT"
 cd "$OUT"
 w() { cygpath -w "$1" 2>/dev/null || echo "$1"; }
