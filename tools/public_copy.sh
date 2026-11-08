@@ -32,10 +32,13 @@ args=(--force --invert-paths
   --path 'keyboard.pretty/OLED Display_128x64_096_I2C.kicad_mod' --path 'keyboard.pretty/molex_5052781270_12p.kicad_mod')
 for f in "${RESTORE[@]}"; do args+=(--path "$f"); done
 # the author's address becomes GitHub's noreply one (user 2026-11-08: no personal email in the public history)
-MAILMAP="$(mktemp)"; printf 'baal <baalsmn@users.noreply.github.com> <baalsmn@users.noreply.github.com>\n' > "$MAILMAP"
-args+=(--mailmap "$(w "$MAILMAP")")
+NOREPLY='baalsmn@users.noreply.github.com'
+# the old address is read from git config, so it isn't written in this (public) file
+MAILMAP="$(mktemp)"; printf 'baal <%s> <%s>\n' "$NOREPLY" "$(git -C "$P" config user.email)" > "$MAILMAP"
+REPLACE="$(mktemp)"; printf '%s==>%s\n' "$(git -C "$P" config user.email)" "$NOREPLY" > "$REPLACE"   # and in file contents
+args+=(--mailmap "$(w "$MAILMAP")" --replace-text "$(w "$REPLACE")")
 "${GFR[@]}" "${args[@]}" >/dev/null
-rm -f "$MAILMAP"
+rm -f "$MAILMAP" "$REPLACE"
 for f in "${RESTORE[@]}"; do mkdir -p "$(dirname "$f")"; cp "$P/$f" "$f"; done
 python - <<'PY'
 p = 'datasheets/LINKS.md'; s = open(p, encoding='utf-8').read()
@@ -47,7 +50,7 @@ if i >= 0 and j > i:
     open(p, 'w', encoding='utf-8').write(s)
 PY
 git add -A
-git commit -q -m "Restore the current KiCad board and 1:1 printout
+git -c user.name=baal -c user.email="$NOREPLY" commit -q -m "Restore the current KiCad board and 1:1 printout
 
 Their earlier versions are left out of this public history (they contained logo
 artwork); these are the clean current versions. Datasheet PDFs are not included:
