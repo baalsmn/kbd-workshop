@@ -12,7 +12,7 @@ Anthropic's Claude Code.
 
 *kugo82, KiCad 3D render, no physical build yet*
 
-## Why
+## The Drive
 
 Most open-source ergonomic keyboards are built around the English alphabet and keep
 the key count low. Languages with a larger alphabet run out of keys quickly: Hungarian
@@ -26,8 +26,7 @@ Helios), low-profile Gateron KS-33 hot-swap switches and per-key RGB.
 
 The layouts are designed primarily for Hungarian. The extra keys suit many other
 languages too, for example Czech, Slovak, Polish, Turkish, Icelandic, the Nordic
-languages and Japanese (a JIS layout with the kana switching keys is included for
-hachigo74).
+languages or Japanese.
 
 ## Contents
 
