@@ -8,7 +8,8 @@
 #   - logo artwork (Claude / Claude Code logos and their footprint files).
 # Files whose earlier versions held logo artwork (the KiCad board, the 1:1
 # printout) lose their history and come back as their current, clean versions in
-# a final commit. The copy has no remote; push it only on purpose.
+# a final commit. Commit emails become GitHub's noreply address. The copy has no
+# remote; push it only on purpose (published: github.com/baalsmn/kbd-workshop, force-push).
 # Needs git-filter-repo (pip install git-filter-repo, or GFR_DIR=<pip --target dir>).
 set -euo pipefail
 P="$(cd "$(dirname "$0")/.." && pwd)"
@@ -30,7 +31,11 @@ args=(--force --invert-paths
   --path-glob 'keyboard.pretty/Gateron-KS33-Hotswap-*' --path 'keyboard.pretty/MX_SK6812MINI-E.kicad_mod'
   --path 'keyboard.pretty/OLED Display_128x64_096_I2C.kicad_mod' --path 'keyboard.pretty/molex_5052781270_12p.kicad_mod')
 for f in "${RESTORE[@]}"; do args+=(--path "$f"); done
+# the author's address becomes GitHub's noreply one (user 2026-11-08: no personal email in the public history)
+MAILMAP="$(mktemp)"; printf 'baal <baalsmn@users.noreply.github.com> <baalsmn@users.noreply.github.com>\n' > "$MAILMAP"
+args+=(--mailmap "$(w "$MAILMAP")")
 "${GFR[@]}" "${args[@]}" >/dev/null
+rm -f "$MAILMAP"
 for f in "${RESTORE[@]}"; do mkdir -p "$(dirname "$f")"; cp "$P/$f" "$f"; done
 python - <<'PY'
 p = 'datasheets/LINKS.md'; s = open(p, encoding='utf-8').read()

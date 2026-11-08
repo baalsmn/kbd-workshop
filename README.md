@@ -8,6 +8,10 @@ Anthropic's Claude Code.
 
 *hachigo74, first build*
 
+![kugo82, KiCad 3D render](kugo82/kugo82.png)
+
+*kugo82, KiCad 3D render, no physical build yet*
+
 ## Why
 
 Most open-source ergonomic keyboards are built around the English alphabet and keep
