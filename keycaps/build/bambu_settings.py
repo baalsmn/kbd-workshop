@@ -6,7 +6,7 @@
 #     "Keycaps 0.06 @BBL A1 0.2 nozzle" (process) and "PolyTerra PLA keycaps @BBL A1 0.2 nozzle"
 #     (filament), each inheriting the system preset and holding only our changes.
 # Per-object settings for the caps (supports, brim, seam, walls) stay in bambu_project.py.
-# Usage: python keycaps/bambu_settings.py   -> keycaps/bambu/*.json
+# Usage: python keycaps/build/bambu_settings.py   -> keycaps/results/profiles/*.json
 import os, sys, json, glob, re
 
 STUDIO = os.path.join(os.environ.get('APPDATA', ''), 'BambuStudio')
@@ -152,7 +152,7 @@ def write_presets(out):
 
 
 if __name__ == '__main__':
-    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'bambu')
+    out = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'results', 'profiles')
     for p in write_presets(out): print(p)
     c = project_settings()
     print('project settings: %d keys, printer %s, process %s, filaments %s' % (

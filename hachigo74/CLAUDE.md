@@ -12,8 +12,8 @@ RGB work. Left to do (user):
 1. **Reprint the centre cover and the T clip** (`case/fusion/center_cover_threaded.stl`,
    `case/fusion/cover_clip_chamfered.stl`): the current print works, but the cover doesn't sit flush on the plate
    (a gap between them); the clip is meant to close it.
-2. **Keycaps**: finalize them and put on the Hungarian legends (`keycaps/`: the insert caps or the printed-in legend
-   caps, see `../CLAUDE.md`). For now the board has borrowed Keychron low-profile US-layout caps.
+2. **Keycaps**: finalize them and put on the Hungarian legends (`keycaps/`: blank caps for solvent-transfer
+   legends or the two-colour legend caps, see `../CLAUDE.md`). For now the board has borrowed Keychron low-profile US-layout caps.
 
 **v2 design decisions** (user, 2026-11-07, from building the first boards; the remaining first-order boards are
 built this way too):

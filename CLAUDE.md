@@ -16,154 +16,134 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
     Shared hardware, stack-up and open items: **`kugo82/CLAUDE.md`**.
   - `hachigo74/`: hachigo74 (74 keys, kugo82 minus column c1): `kle/`,
     `case/`. Details: **`hachigo74/CLAUDE.md`** (hardware otherwise as kugo).
-- `keycaps/`: everything keycap-related (user's rule, 2026-10-24; its generated `keycaps/build/` is
-  caught by the `build/` ignore rule and kept local only, user's decision 2026-10-25): the user's
-  `keycap-10-13.step` (the original design) and `keycap.py`, a parametric build123d remake of it
-  (run with the build123d PYTHONPATH, writes `keycaps/build/`): 1U = 18.2 x 18.2 (Ergogen `kc`,
-  0.8 gap on the 19 pitch), 1.25U 22.95, 2U 37.2 with KS-57 stems; skirt 5 deg off vertical
-  (user: closer to square to the plate; the original had 16); 3 deg sloped top (north up),
-  north roll-off, a valley (the insert 0.5 below the top plane, rising smoothly to it 8.6 out),
-  flat pocket for a separately printed legend insert (Ø10 x 0.8,
-  printed face down, legend 0.16 deep = the first 2 layers (0.10 + 0.06), its own body for a colour change, two keyed pins Ø1.0 /
-  Ø1.4 through the 0.8 floor). Stem 1.3 below the skirt (on the KS-33 cup floor) so the skirt
-  clears the switch over the full 3.0 travel; cross hole 4.10 x 1.20 (FDM, 0.2 nozzle). KS-57
-  stems start 1.25 higher (their cross top is 9.8 above the PCB, the switch's 8.55) with a
-  ceiling recess over the stabilizer housings (top 6.55, y -4.9 .. 4.6). `check_fit.py` sweeps each cap
-  over the travel against the vendor switch / stabilizer STEP models, checks the insert and
-  the gaps on the Ergogen key points (0.80 min, 6.6 to the centre cover).
-  - Thumb versions (1.25U / 2U, `--units 1.25t,2st`, user's request; `thumb_style='valley'`): from
-    the insert's south edge the south part rolls down: in the centre section an arc tangent to the
-    insert plane, then a short line down to the south skirt's bottom edge (user: fully down, meets
-    it at 15 deg; at the sides, where the curve is raised, a strip of skirt up to 0.66 is left); every east-west
-    slice is that profile raised by the valley's own east-west profile at the start line (user:
-    continuous with the top). Point-grid surface starting 0.002 above the top; ~1 mm wall at the
-    inside corner. Fillet (user, 2026-10-25): only the north, west and east top edges (none touching
-    the thumb surface), 0.6, and only on the **1.25U thumb**; on the 2U thumb that fillet fails,
-    so it has none for now (`thumb_fillet_units`); thumb caps have square south corners (user's
-    idea; with them Fusion fillets both thumb caps, build123d only the 1.25U). The 1.25U thumb curve is scaled per slice down
-    through the skirt's bottom edge (`thumb_scaled_units`, user: no skirt left on the south side,
-    aims 0.05 below the edge; the edge moves in 0.014); the 2U thumb keeps the earlier curve
-    (its cut fails the scaled way) and has no fillet. `thumb_style='straight'` (WIP, user's idea to simplify): no
-    east-west valley, one north-south profile (roll-off, valley rise, flat insert band, thumb arc)
-    pushed across; its fillet failed too (the side / south edges), not finished.
-  - `top_fillet` 0.6 (user) along the top outer edge outline on every other cap: the edges between
-    top faces and the outer skirt faces (picked by their exact draft lean), filleted as one chain
-    (OCC needs the whole tangent chain; one bad edge fails it all; the script says what it skipped).
+- `keycaps/`: everything keycap-related (user's rule, 2026-10-24), in two folders (user 2026-11-09):
+  - **`keycaps/results/`**: the print files `cap_<size>_<legend|blank>.3mf` and `cap_1u_slope_*.3mf`
+    (open in Bambu Studio as a project), the Fusion designs `<cap>.f3d` (gitignored, kept locally), and
+    `profiles/` (the Bambu Studio user presets). The 3MFs and profiles are in git.
+  - **`keycaps/build/`**: everything else: the scripts, `keycap-10-13.step`, `inserts.txt`,
+    `fusion/KeycapBuilder/` (tracked), and `work/` (generated, gitignored: `work/caps/` build123d STEP +
+    Fusion recipes `<cap>_fusion.json`, `work/fusion/` Fusion's STEP + 3MF (the print 3MF's mesh source),
+    `work/slope_test/`). `.gitignore`: `build/` everywhere, but `!keycaps/build/` and `keycaps/build/work/`.
+    Paths are set once in `keycap.py` (`WORK`, `CAPS_DIR`, `FUSION_DIR`, `RESULTS`, `PROFILES`).
+  **Monolithic caps
+  only** (user 2026-11-09: the insert caps (a pocket with a separately printed legend insert) and their
+  inserts, assembly and Bambu project were dropped, code and files; they are in git history). Two kinds:
+  **blank** (one material; legends go on later by solvent transfer) and **two-colour** (double-shot
+  split). **No STL files at all** (user: not needed) and **shell and core always in one file** (user
+  2026-11-09: printed together, no separate part files): STEP (both bodies) + 3MF (one object, both
+  parts), also for Fusion's exports.
+  - `keycap.py`: the shape library, a parametric build123d remake of the user's `keycap-10-13.step`
+    (run with the build123d PYTHONPATH): 1U = 18.2 x 18.2 (Ergogen `kc`, 0.8 gap on the 19 pitch),
+    1.25U 22.95, 2U 37.2 with KS-57 stems; skirt 5 deg off vertical (user: closer to square to the plate;
+    the original had 16); 3 deg sloped top (north up); the whole top **one surface** (`top_points()` /
+    `top_tool()`, recipe `top_surface`; Fusion step `surface()`, a loft cut): plane - dish - north
+    roll-off added up (user: separate cuts left a ridge where the dish met the roll-off; no plane cut
+    before it: coincident faces broke the boolean). Dish (`valley_style='dish'`): z = -0.6 (1 - (r /
+    valley_r)^2)^2, valley_r 8.6, stretched along the long side (x on wide caps, y on tall ones).
+    Ceiling -2.1 below the top plane (`ceiling`; 0.2 lower touched the switch at 3.0 travel), so the top
+    is 1.5 thick at the centre. Stem Ø5.0 (user: 5.22 too wide; 0.45 wall at the cross hole's arm
+    ends), 1.3 below the skirt (on the KS-33 cup floor) so the skirt clears the switch over the full
+    3.0 travel; cross hole 4.10 x 1.20 (FDM, 0.2 nozzle). KS-57 stems start 1.25 higher (their cross top
+    is 9.8 above the PCB, the switch's 8.55) with a ceiling recess over the stabilizer housings (top
+    6.55, y -4.9 .. 4.6). Sizes as `--units` specs: `1`, `1.25`, `1.25t`, `2s`, `2st`, `1v`
+    (s = stabilizer stems, t = thumb, v = tall); `cap_params()` gives each its parameters.
+  - Thumb versions (1.25U / 2U, `t`, user's request; `thumb_style='valley'`): they keep a **flat centre**
+    (`valley_style='flat'`, `thumb_valley` 0.5 below the top plane, `flat_r` 5.4, rising smoothly to the
+    top plane at valley_r; the old insert caps' floor) because the south part rolls down from its south
+    edge: in the centre section an arc tangent to the flat, then a short line down to the south skirt's
+    bottom edge (user: fully down, meets it at 15 deg; at the sides, where the curve is raised, a strip
+    of skirt up to 0.66 is left); every east-west slice is that profile raised by the valley's own
+    east-west profile at the start line (user: continuous with the top). Point-grid surface starting
+    0.002 above the top; ~1 mm wall at the inside corner. Fillet (user, 2026-10-25): only the north,
+    west and east top edges (none touching the thumb surface), 0.6, only on the **1.25U thumb**
+    (`thumb_fillet_units`; the 2U thumb's fails); thumb caps have square south corners (user's idea).
+    The 1.25U thumb curve is scaled per slice down through the skirt's bottom edge
+    (`thumb_scaled_units`, user: no skirt left on the south side, aims 0.05 below the edge); the 2U
+    thumb keeps the earlier curve (its cut fails the scaled way). `thumb_style='straight'` (WIP, user's
+    idea): no east-west valley, one north-south profile pushed across; its fillet failed, not finished.
+  - **Tall cap** (user 2026-11-08): `1v` -> `cap_1u_tall`, 1U wide, 2U deep (18.2 x 37.2) over two
+    switches of one column (rows 19 apart), a switch stem on each (y +-9.5), no stabilizer
+    (`tall_params()`: `depth`, `stems_y`, `ceiling_level`). The ceiling is level at the 1U centre height
+    (a sloped one came down onto the south switch's housing at 2.7 travel); clear over the full 3.0 on
+    both switches; slices in Bambu Studio (~2 h, 2.7 g).
+  - **Slope test caps** (user 2026-11-08, to decide the lean per row): `slope_test.py` ->
+    `results/cap_1u_slope_{+3,0,-3}.3mf` (STEP in `build/work/slope_test/`; blank): north up / level / south up (the +3
+    cap turned 180 deg, roll-off south). All clear over the full travel. Idea if per-row: rows above
+    home +3..+5, home 0, bottom -3.
+  - `top_fillet` 0.6 (user) along the top outer edge outline on every non-thumb cap: the edges between
+    top faces and the outer skirt faces (picked by their exact draft lean), filleted as one chain (OCC
+    needs the whole tangent chain; one bad edge fails it all; the script says what it skipped). With
+    the dish top build123d's fillet fails on the 2U caps (10 of 10 edges skipped, 2026-11-09).
   - Corner radii shrink upwards with the draft (outside r_bottom 2.0, inside r_inner 0.8), like a
-    tapered extrude, so a Fusion rebuild matches. `keycap.py --fusion` writes
-    `build/keycaps_fusion.json` (every number per cap, step by step, plus the build123d volume).
-  - **Fusion is the source of the caps** (user, 2026-10-25; `cap_source='fusion'`). Workflow:
-    1. `keycap.py --fusion` writes `build/keycaps_fusion.json` (every number per cap, step by step,
-       plus build123d's volume as a check);
-    2. **Fusion builder** `keycaps/fusion/KeycapBuilder/` (run in Fusion or through the bridge:
-       `build_keycap(rec, legend)` + `export_keycap()`) makes one parametric design per cap, a
-       timeline group per stage (skirt extrude tapered by user parameter `draft` (thumb caps:
-       square south corners), sloped top split at `slope`, north roll-off cut, valley revolve +
-       stretch + move + cut, thumb loft through closed sections + cut, pocket / pins, cavity
-       tapered to the ceiling plane, stab recesses, stems + crosses, fillet `top_fillet`) and the
-       legend insert as its own component; saves `build/fusion/<cap>.f3d`, `.step` (cap only),
-       `.stl` (high refinement);
-    3. `keycap.py` (`get_cap()`), `assembly.py`, `check_fit.py`, `bambu_project.py` then use those:
-       the STEP for the cap files and checks, the STL for the 3MF meshes (build123d's mesher fails
-       on some imported Fusion surfaces). Without the export, `build_cap()` is the fallback.
-    Checked 2026-10-25 (Fusion 2706.1.14): all designs healthy, volumes within 0.11 % of
-    build123d (2U thumb -0.54 %: Fusion has its fillet, build123d's fails), all caps clear the
-    switch / stabilizer over the full travel, the 3MF meshes closed.
-  - **The inserts come from Fusion too** (user, 2026-10-25): the builder's `make_insert()` (also
-    used in each cap design) makes the insert body + pins and the legend: the text cut into the
-    insert from its own sketch, and the legend in a sub-component `legend` (every piece of the
-    letter: Fusion keeps a letter and its accent as separate bodies, a join does not merge them).
-    Fusion's sketch text height is the capital height, so the recipe carries
-    `legend_height` = build123d's capital height (3.58 for size 5). `build_insert_design()` +
-    `export_insert()` (also offered in the script's run) build the 35 letters of `keycap.HU` (recipe
-    `legends`) and save `build/fusion/inserts/insert_<name>.step` (insert + legend), `.stl`,
-    `_legend.stl` (and `insert_A.f3d` as the design with history). `keycap.get_insert()` loads them,
-    the Bambu project uses the STLs (face down).
-  - **The legend list is `keycaps/inserts.txt`** (user): one legend per line (letter, digit,
-    symbol or short word), `#` comments. Read by keycap.py (`LEGENDS`, recipe `legends`) and
-    bambu_project.py. File names: letters / digits as is, accented letters letter + accent
-    (`O_dacute`), anything else its code (`/` -> `u002f`).
-  - **Each insert is also saved as a 3MF** (user: the format that keeps the two colours):
-    `build/fusion/inserts/insert_<name>.3mf`, one object with the insert (filament 1) and the legend
-    (filament 2) as parts, face down, with the print settings; written by bambu_project.py
-    (`write_3mf()`, the same writer as the project). An STL can't carry the parts / filaments.
-    Checked by letting Bambu Studio's CLI read and re-export them (`bambu-studio.exe --export-3mf out in`):
-    the legend parts stay on filament 2 (project: 35 of 35). Checked 2026-10-25: all 35 legend volumes within
-    0.03 mm3 of build123d.
-  - `assembly.py <u> <legend> [--stab] [--thumb]`: key_<...>.step (coloured assembly) plus
-    _cap / _insert (.step/.stl) and _legend.stl. Legend file names are ASCII (`A_acute`).
-  - `bambu_project.py` -> `build/keycaps_hu.3mf` (Bambu Studio project; **Bambu Studio only**, user
-    2026-10-26: Orca no longer needed; was orca_project.py):
-    plate 1 the 35 Hungarian letters A..Z with Á É Í Ó Ö Ő Ú Ü Ű as inserts face down (legend =
-    filament 2), plate 2 one of each cap upright with tree supports; no printer settings stored
-    (the user has a Bambu A1, prints with a 0.2 nozzle); plates laid out for a 256 bed.
-    Caps print lying on the north skirt face (user's choice: layer lines across the top, no
-    support on the top), cavity opening to the back, per-object tree supports (inside only:
-    stem underside, cavity roof; threshold 40), 4 mm brim, seam back, 8 wall loops. Filament:
-    Polymaker matte PLA = preset `PolyTerra PLA @BBL A1 0.2 nozzle`. Prime tower at (195, 60) on
-    every plate (`wipe_tower_x/y`, one entry per plate): Bambu's default ran off the A1 bed
-    ("G-code outside of the printable area"). Checked 2026-10-26 with Bambu Studio 02.08.02.61's CLI
-    (`bambu-studio.exe --slice <plate> --outputdir`, result.json is UTF-8): plates 1 and 2 and a
-    single insert slice with "Success", the inserts plate with the filament changes (T1 / T0).
-    Names: Bambu Studio's GUI refuses `<>:/\|?*"` in any object / part / plate name ("Invalid
-    name", then "Invalid configuration file" and nothing loads; the CLI doesn't check), so
-    `write_3mf()` passes every name through `safe_name()` (forbidden characters -> their code).
-    The GUI is stricter than the CLI on `project_settings.config` too (user's tests 2026-10-26: "no
-    geometry data" + "Invalid configuration file", even for Bambu's own CLI re-save of ours): it needs
-    the per-filament fields Bambu Studio 2.x writes, one entry per filament (`filament_ids`,
-    `filament_self_index`, `filament_map` + `filament_map_mode`, `filament_nozzle_map`,
+    tapered extrude, so a Fusion rebuild matches.
+  - **`legend_cap.py`: the command line for every cap** (`--units 1,1.25,1.25t,2s,2st,1v`,
+    `--legend A` or `--legend ''` for blank, `--fusion`): writes `results/cap_<size>_<legend|blank>.3mf`
+    (Bambu Studio, one object lying on the north skirt face, shell
+    filament 1, core filament 2, print settings and per-object supports as below) and `build/work/caps/<same>.step` (coloured
+    bodies). Two-colour split
+    like a double-shot moulding (user): a translucent **core** (filament 2: stems, a `core_t` 0.5 layer
+    over the cavity ceiling inside the skirt walls (level on the tall cap), the legend reaching up
+    through the shell) under an opaque **shell** (filament 1: the rest of the top, 1.0 at the centre, +
+    the whole skirt). User: thick shell, thin core (a 0.8 skin over a 0.8 core left the slicer broken
+    lines). Legend Arial bold 5.85 (user: 30 % up from 4.5), its box's south-east corner on the top's
+    centre point (north-west quadrant, box 4.2 x 4.19). Slice check of 1U 'A' (lying on the north face):
+    both filaments on every layer: 246 filament changes, ~19 h, ~94 g of filament (purge) for one cap.
+    The blank 1U slices in ~1 h, no filament changes.
+  - **Fusion** (`cap_source='fusion'`): `legend_cap.py --fusion` writes
+    `build/work/caps/cap_<size>_<legend|blank>_fusion.json` (`keycap.recipe()` + `legend` / `core`,
+    None on blank caps); **Fusion builder** `keycaps/build/fusion/KeycapBuilder/` (run, pick one or more
+    recipes, or `build_legend_cap(rec)` + `export_legend_cap()` through the bridge) makes one parametric
+    design per cap, a timeline group per stage (skirt tapered by user parameter `draft` (thumb caps:
+    square south corners), top plane at `slope`, top surface loft cut or roll-off + valley (thumbs),
+    thumb loft cut, cavity tapered to the ceiling plane (level on tall caps), stab recesses, stems +
+    crosses (with y on tall caps), fillet `top_fillet`, the "double shot" group: core region = cavity
+    outline tapered by `draft` up to the core plane + stem ends + sketch text; core = cap & region,
+    shell = cap - core) and saves `results/<name>.f3d` and `build/work/fusion/<name>.step/.3mf` (Fusion's 3MF export of
+    the occurrence: one file, every body a named object: `shell`, `shell island <n>`, `core`; blank:
+    `cap`; millimetres, no transforms; read by `bambu_project.read_3mf()`). The print 3MF takes its
+    meshes from it while their volumes match build123d's (0.2 %), else build123d's meshes, with a note to rebuild in Fusion; `keycap.get_cap()` (fit checks) loads the
+    blank STEP. Fusion text: `boundingBox` of a sketch text is its glyph box (matches build123d's); the
+    text is flipped to read from above by the sketch's x / y directions. Closed counters (A's triangle)
+    are shell islands: Fusion won't join bodies that don't touch, so they stay bodies `shell island <n>`
+    (joined into the shell part of the print 3MF). Checked (1U A and blank, 2026-10-27): volumes within 0.01 % of
+    build123d, meshes closed, letter orientation by point tests. Checked 2026-11-09 (Fusion 2706.1.17, bridge): all 6 sizes blank
+    and 'A' built and exported, every feature healthy, volumes within 0.02 % of build123d except the 2U
+    thumbs (-0.5 %: Fusion makes their top fillet, build123d's fails; Fusion's 2U fillet works too), all
+    clear over the full travel. The print 3MF takes Fusion's meshes within 0.2 % of build123d, or within 1 %
+    when its 3MF is newer than the recipe and the recipe's build123d volume still matches (the fillet
+    cases). The 2U thumb 'A' slices (~19 h).
+  - `check_fit.py` sweeps each blank cap size over the travel against the vendor switch / stabilizer
+    STEP models (the tall cap against both switches) and checks the gaps on the Ergogen key points
+    (0.80 min, 6.6 to the centre cover). Checked 2026-11-09: every size clear over the full 3.0.
+  - `keycaps/build/inserts.txt` (user's legend list, one per line, `#` comments; was read for the inserts) is
+    not read by anything now. `keycap.file_name()`: legend file names, letters / digits as is, accented
+    letters letter + accent (`O_dacute`), anything else its code (`/` -> `u002f`).
+  - `bambu_project.py` is now only the 3MF writer (`write_3mf()`, `mesh()`, `read_3mf()`, `read_stl()`, `safe_name()`;
+    **Bambu Studio only**, user 2026-10-26). Caps print lying on the north skirt face (user's choice:
+    layer lines across the top, no support on the top), cavity opening to the back, per-object tree
+    supports (inside only: stem underside, cavity roof; threshold 40), 4 mm brim, seam back, 8 wall
+    loops. Filament: Polymaker matte PLA = preset `PolyTerra PLA @BBL A1 0.2 nozzle` (the user has a
+    Bambu A1, prints with a 0.2 nozzle; 256 bed). Prime tower at (195, 60) on every plate
+    (`wipe_tower_x/y`, one entry per plate): Bambu's default ran off the A1 bed. Check a 3MF with
+    Bambu Studio's CLI (`bambu-studio.exe --slice <plate> --outputdir`, result.json is UTF-8).
+    Names: Bambu Studio's GUI refuses `<>:/\|?*"` in any object / part / plate name ("Invalid name",
+    then "Invalid configuration file"; the CLI doesn't check), so `write_3mf()` passes every name
+    through `safe_name()`. The GUI is stricter than the CLI on `project_settings.config` too (user's
+    tests 2026-10-26): it needs the per-filament fields Bambu Studio 2.x writes, one entry per filament
+    (`filament_ids`, `filament_self_index`, `filament_map` + `filament_map_mode`, `filament_nozzle_map`,
     `filament_volume_map`, `extruder_ams_count`, colour fields, `flush_volumes_vector` 2 per filament),
-    and no preset-only fields (`compatible_printers*`, `compatible_prints*`, `inherits_group`).
-    Preset `include` lists (Bambu's templates, e.g. the A1 start / end G-code) are merged in, and
-    keys Bambu doesn't write into projects are left out (`NOT_IN_PROJECT`). Reference: compare with
-    a project Bambu Studio itself saved; the GUI opens ours since (single inserts and the project).
-  - `bambu_settings.py` (was orca_settings.py): print settings built from the installed Bambu Studio
-    system presets (`%APPDATA%/BambuStudio/system/BBL`; A1 0.2 nozzle,
-    PolyTerra x2, `0.06mm High Quality @BBL A1 0.2 nozzle`) + our changes (0.10 first layer /
-    0.06 layers, 0.20 outer / 0.22 lines, Arachne + precise outer wall, outer wall 40 mm/s, seam
-    back, no scarf, avoid crossing walls, tree supports 40 deg off by default, fans 80-100 %).
-    bambu_project.py embeds them as `Metadata/project_settings.config` (shown in Bambu Studio as the
-    system presets, modified; the 3MF headers carry Bambu Studio's version from BambuStudio.conf);
-    `keycaps/bambu/*.json` are importable user presets (File > Import
-    > Import Configs). Keys are checked against the presets; `precise_outer_wall`, `fuzzy_skin`,
-    `brim_type` sit at built-in defaults (names checked in BambuStudio.dll).
-  - **Printed-in legends** (`legend_cap.py`, second approach, user 2026-10-27; the insert caps stay):
-    no pocket (`build_cap` with `pocket=False`) and no flat floor (`valley_style='dish'`, user: the valley
-    continues to the centre: z = -0.6 (1 - (r / valley_r)^2)^2, level at the centre and at valley_r);
-    the ceiling stays at the insert caps' -2.1 (`ceiling`; following a 0.7 dish down 0.2 touched the
-    switch at 3.0 travel, its sloped south end is the low point), so the shell is 1.0 at the centre.
-    The whole top is **one surface** (`top_points()` / `top_tool()`, recipe `top_surface`; Fusion step
-    `surface()`, a loft cut like the thumb's): plane - dish - north roll-off added up (user: separate cuts
-    left a ridge north of the dish where it met the roll-off). No plane cut before it (coincident faces
-    broke the boolean); Fusion still makes the top plane (ceiling / legend planes) but doesn't split at it.
-    **Blank version** (user): `--legend ''` -> `cap_<u>u_blank` (same shape, one body, filament 1;
-    Fusion recipe with `legend` / `core` None: no split, `legend_cap_<u>u_blank.f3d/.step/.stl`).
-    Checked: 857.2 mm3 in both (= shell + core of the A cap), slices in ~1 h, no filament changes.
-    Stem Ø5.0 on the legend caps (user: 5.22 too wide; `L['stem_d']`, the insert caps keep 5.22; 0.45
-    wall at the cross hole's arm ends). The 3MF uses the Fusion STLs only while their volumes match
-    build123d's (0.2 %), else build123d's meshes, with a note to rebuild in Fusion.
-    Split like a double-shot
-    moulding (user): a translucent **core** (filament 2: stems, a `core_t` 0.5 layer over the cavity
-    ceiling inside the skirt walls, the legend reaching up through the shell) under an opaque
-    **shell** (filament 1: the rest of the top, 1.0 at the centre, + the whole skirt). User: thick
-    shell, thin core (a 0.8 skin over a 0.8 core left the slicer broken lines). Core region =
-    `wall_inside()` & below the ceiling plane + core_t (`cavity=False` builds the cap without its cavity). Legend Arial bold 5.85
-    (user: 30 % up from 4.5), its box's south-east corner on the top's centre point (north-west
-    quadrant, box 4.2 x 4.19). Writes `build/legend/cap_<u>u_<legend>.step/.3mf` + `_shell/_core.stl`.
-    **In Fusion too** (2026-10-27): `legend_cap.py --fusion` writes
-    `build/legend/legend_cap_<u>u_<legend>_fusion.json` (the cap recipe with `pocket: None` + `legend`
-    / `core`); KeycapBuilder `build_legend_cap(rec)` runs the usual cap steps (no pocket) and a
-    "double shot" group (core region = cavity outline tapered by `draft` up to the core plane + stem
-    ends + sketch text; core = cap & region, shell = cap - core); `export_legend_cap()` saves
-    `build/fusion/legend/<name>.f3d/.step/_shell.stl/_core.stl`, and the 3MF then uses those STLs.
-    Fusion text: `boundingBox` of a sketch text is its glyph box (matches build123d's); the text is
-    flipped to read from above by the sketch's x / y directions. Closed counters (A's triangle) are
-    shell islands: Fusion won't join bodies that don't touch, so they stay bodies `shell island <n>`
-    (merged into the shell STL). Checked: shell / core volumes within 0.01 % of build123d, STLs
-    closed, letter orientation by point tests. Only 1U 'A' so far. Slice check (lying on the north face): both filaments on every layer:
-    246 filament changes, ~19 h, ~94 g of filament (purge) for one cap.
-  - The valley's flat floor reaches 0.3 past the insert pocket: where the two edges coincided,
-    the stretched (1.25U) valley left a tangent seam and 5 open mesh edges.
+    and no preset-only fields (`compatible_printers*`, `compatible_prints*`, `inherits_group`). Preset
+    `include` lists (Bambu's templates, e.g. the A1 start / end G-code) are merged in, and keys Bambu
+    doesn't write into projects are left out (`NOT_IN_PROJECT`). Reference: compare with a project
+    Bambu Studio itself saved (none kept now: save one from the GUI when needed).
+  - `bambu_settings.py`: print settings built from the installed Bambu Studio system presets
+    (`%APPDATA%/BambuStudio/system/BBL`; A1 0.2 nozzle, PolyTerra x2, `0.06mm High Quality @BBL A1 0.2
+    nozzle`) + our changes (0.10 first layer / 0.06 layers, 0.20 outer / 0.22 lines, Arachne + precise
+    outer wall, outer wall 40 mm/s, seam back, no scarf, avoid crossing walls, tree supports 40 deg off
+    by default, fans 80-100 %), embedded as `Metadata/project_settings.config` (shown in Bambu Studio as
+    the system presets, modified; the 3MF headers carry Bambu Studio's version from BambuStudio.conf);
+    `keycaps/results/profiles/*.json` are importable user presets (File > Import > Import Configs). Keys are checked
+    against the presets; `precise_outer_wall`, `fuzzy_skin`, `brim_type` sit at built-in defaults.
 - A new keyboard = `ergogen/<name>.yaml` starting with the line
   `# keyboard: <folder>` (where its outputs go; default a folder named `<name>`),
   plus that folder (with `kle/`). The tools find the yaml by name.

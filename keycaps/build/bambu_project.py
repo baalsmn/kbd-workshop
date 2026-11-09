@@ -1,25 +1,13 @@
-# Bambu Studio project (3MF, Bambu project layout) with two plates:
-#   plate 1 "inserts": the legends of keycaps/inserts.txt as inserts, face down (smooth face on the
-#     bed), each object = insert (filament 1) + legend (filament 2, the first 0.4 mm);
-#   plate 2 "keycaps": one of each cap (1U, 1.25U, 1.25U thumb, 2U, 2U thumb) lying on the north
-#     skirt face (layer lines run across the top, nothing on the top needs support), the cavity
-#     opening to the back (+y) so the seam (position back) lands on the skirt rim. Per object:
-#     tree supports for the inside only (stem underside, the cavity roof), 4 mm brim (17.5 mm
-#     tall on its north face), 8 wall loops (walls all perimeters).
-# Print settings (bambu_settings.py: A1 0.2 nozzle, PolyTerra PLA x2, 0.06 process + our changes) are
-# stored as Metadata/project_settings.config when Bambu Studio's system presets are found on this PC:
-# open the file as a project and they load with it. Plates are laid out for a 256 x 256 bed (Bambu A1), plate i at
-# x = i * 1.2 * 256 like Bambu Studio does.
-# Usage: python keycaps/bambu_project.py [--out keycaps/build/keycaps_hu.3mf] [--bed 256]
-import os, sys, math, json, zipfile, uuid, argparse
+# Bambu Studio 3MF writer (Bambu project layout) for the keycaps: write_3mf() puts objects (each one or
+# more parts on their own filaments) on plates, with the print settings (bambu_settings.py: A1 0.2 nozzle,
+# PolyTerra PLA x2, 0.06 process + our changes) as Metadata/project_settings.config when Bambu Studio's
+# system presets are found on this PC: open the file as a project and they load with it. Plates are laid
+# out for a 256 x 256 bed (Bambu A1), plate i at x = i * 1.2 * 256 like Bambu Studio does.
+# Used by legend_cap.py and slope_test.py (the old insert project, plate 1 inserts / plate 2 caps, was
+# dropped with the insert caps, user 2026-11-09).
+import os, sys, math, json, zipfile, uuid
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from build123d import Pos, Rot
-import keycap as K
 import bambu_settings
-
-CAPS = [((1, False, False), '1U'), ((1.25, False, False), '1.25U'), ((1.25, False, True), '1.25U thumb'),
-        ((2, True, False), '2U stab'), ((2, True, True), '2U stab thumb')]
-
 
 def mesh(shape, tol=0.01, ang=0.15):
     v, t = shape.tessellate(tol, ang)
@@ -49,33 +37,20 @@ def read_stl(path):
     return verts, tris
 
 
-def cap_mesh(u, stab, thumb, P):
-    """A cap's print mesh, lying on its north skirt face, cavity opening to +y, centred, on z = 0:
-    from Fusion's STL (build/fusion/<cap>.stl, the cap source) when there, else tessellated."""
-    a = math.radians(-(90 + P['draft']))
-    rot = lambda x, y, z: (-x, -(y * math.cos(a) - z * math.sin(a)), y * math.sin(a) + z * math.cos(a))  # Rx, then Rz(180)
-    stl = os.path.join(K.FUSION_DIR, K.cap_name(u, stab, thumb) + '.stl')
-    if P['cap_source'] == 'fusion' and os.path.exists(stl):
-        verts, tris = read_stl(stl)
-    else:
-        verts, tris = mesh(K.build_cap(u, stab, thumb, P))
-    verts = [rot(*v) for v in verts]
-    x0, x1 = min(v[0] for v in verts), max(v[0] for v in verts)
-    y0, y1 = min(v[1] for v in verts), max(v[1] for v in verts)
-    z0 = min(v[2] for v in verts)
-    return [(x - (x0 + x1) / 2, y - (y0 + y1) / 2, z - z0) for x, y, z in verts], tris
-
-
-def insert_meshes(ch, P):
-    """Insert and legend meshes, face down (top face on z = 0): from Fusion's STLs
-    (build/fusion/insert_<name>.stl / _legend.stl) when there, else build123d."""
-    t = P['insert_t']
-    flip = lambda m: ([(x, -y, t - z) for x, y, z in m[0]], m[1])   # Rx(180) + t (a rotation: winding kept)
-    base = os.path.join(K.INSERT_DIR, 'insert_' + K.file_name(ch))
-    if P['cap_source'] == 'fusion' and os.path.exists(base + '.stl') and os.path.exists(base + '_legend.stl'):
-        return flip(read_stl(base + '.stl')), flip(read_stl(base + '_legend.stl'))
-    ins, leg = K.build_insert(ch, P)
-    return flip(mesh(ins)), flip(mesh(leg))
+def read_3mf(path):
+    """{object name: (vertices, triangles)} of a 3MF's mesh objects (Fusion's export: millimetres, one
+    object per body, no transforms)."""
+    import re
+    m = zipfile.ZipFile(path).read('3D/3dmodel.model').decode('utf-8')
+    unit = {'millimeter': 1.0, 'centimeter': 10.0, 'meter': 1000.0, 'inch': 25.4}[
+        (re.search(r'<model[^>]*unit="([a-z]+)"', m) or [None, 'millimeter'])[1]]
+    out = {}
+    for name, body in re.findall(r'<object[^>]*name="([^"]*)"[^>]*>(.*?)</object>', m, re.S):
+        v = [tuple(float(c) * unit for c in q) for q in re.findall(r'<vertex x="([^"]+)" y="([^"]+)" z="([^"]+)"', body)]
+        t = [tuple(int(c) for c in q) for q in re.findall(r'<triangle v1="(\d+)" v2="(\d+)" v3="(\d+)"', body)]
+        if v and t:
+            out[name] = (v, t)
+    return out
 
 
 def mesh_xml(oid, verts, tris):
@@ -85,48 +60,6 @@ def mesh_xml(oid, verts, tris):
     out += ['     <triangle v1="%d" v2="%d" v3="%d"/>\n' % t for t in tris]
     out.append('    </triangles>\n   </mesh>\n  </object>\n')
     return ''.join(out)
-
-
-def main():
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--out', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'build', 'keycaps_hu.3mf'))
-    ap.add_argument('--bed', type=float, default=256.0)
-    A = ap.parse_args()
-    P = K.P
-    objects = []        # (name, plate, (x, y), [(part name, extruder, shape)], extra metadata)
-    # plate 1: inserts, flipped face down (top face on the bed)
-    flip = Pos(0, 0, P['insert_t']) * Rot(180, 0, 0)
-    cols, pitch = 7, 14.0
-    rows = math.ceil(len(K.LEGENDS) / cols)
-    for i, ch in enumerate(K.LEGENDS):
-        ins_m, leg_m = insert_meshes(ch, P)
-        x = A.bed / 2 + (i % cols - (cols - 1) / 2) * pitch
-        y = A.bed / 2 - (i // cols - (rows - 1) / 2) * pitch
-        objects.append(('insert %s' % ch, 1, (x, y), [('insert', 1, ins_m), ('legend %s' % ch, 2, leg_m)], {}))
-    # plate 2: caps on the north skirt face, cavity opening to +y
-    place = [(-28, 22), (28, 22), (-32, -8), (0, -8), (32, -8)]          # 2U, 2U thumb / 1U, 1.25U, 1.25U thumb
-    order = [3, 4, 0, 1, 2]
-    per_object = {'enable_support': '1', 'support_type': 'tree(auto)', 'support_on_build_plate_only': '0',
-                  'support_threshold_angle': '40', 'brim_type': 'outer_only', 'brim_width': '4',
-                  'brim_object_gap': '0.1', 'seam_position': 'back', 'wall_loops': '8'}
-    for (dx, dy), k in zip(place, order):
-        (u, stab, thumb), label = CAPS[k]
-        verts, tris = cap_mesh(u, stab, thumb, P)
-        objects.append(('cap %s' % label, 2, (A.bed / 2 + dx, A.bed / 2 + dy), [('cap', 1, (verts, tris))], dict(per_object)))
-    plates = write_3mf(A.out, objects, A.bed, {1: 'inserts (face down)', 2: 'keycaps'})
-    print('%s: %d objects, plate 1 %d inserts, plate 2 %d caps, print settings %s' % (
-        A.out, len(objects), len(plates[1]), len(plates[2]), 'included' if bambu_settings.available() else 'NOT included (no Bambu Studio presets)'))
-    # every insert also on its own (insert + legend as 2 parts of one object, the legend on filament 2):
-    # a 3MF keeps the parts and their filaments, an STL does not
-    out3 = K.INSERT_DIR
-    n = 0
-    for name, plate, xy, parts, extra in objects:
-        if name.startswith('insert '):
-            ch = name[len('insert '):]
-            write_3mf(os.path.join(out3, 'insert_%s.3mf' % K.file_name(ch)), [(name, 1, (A.bed / 2, A.bed / 2), parts, extra)],
-                      A.bed, {1: 'insert %s (face down)' % ch}, title='keycap insert %s (keyboard-workshop)' % ch)
-            n += 1
-    print('%s: %d single-insert 3MF files (insert + legend, 2 filaments)' % (out3, n))
 
 
 NOT_IN_NAMES = set('<>:/' + chr(92) + '|?*"')          # Bambu Studio refuses these in any name
@@ -213,6 +146,3 @@ def write_3mf(path, objects, bed, names, title='keycaps (keyboard-workshop)'):
         z.writestr('Metadata/model_settings.config', '<?xml version="1.0" encoding="UTF-8"?>\n<config>\n' + ''.join(settings) + plate_xml + '</config>\n')
     return plates
 
-
-if __name__ == '__main__':
-    main()

@@ -1,7 +1,9 @@
 # Parametric low-profile keycap for the Gateron KS-33 (and KS-57 stabilizer), after the
 # user's keycap-10-13.step: 3 deg sloped top (north up), 5 deg drafted skirt (16 in the original), 1.5 walls,
-# plus a north roll-off ("fade"), a slightly concave (spherical) top and a flat centre
-# pocket for a separately printed legend insert held by two keyed pins.
+# a north roll-off ("fade") and a dish: one smooth top surface (plane - dish - roll-off). Thumb caps keep
+# a flat centre (their south part rolls down from its south edge). Monolithic caps (no insert: user
+# 2026-11-09, the insert caps were dropped); legend_cap.py builds them (blank, for solvent-transfer
+# legends) and the two-colour (double-shot) legend caps, and is the command line for both.
 #
 # Cap frame: z = 0 at the skirt bottom, +y = north, origin at the key centre.
 # Seating (KS-33 drawing / Gateron STEP, heights above the PCB top): cup floor 5.55, cup
@@ -10,16 +12,12 @@
 # the full travel (drop 1.3: checked by check_fit.py). The KS-57 stem cross is 1.25 higher
 # than the switch's, so stabilizer stems start 1.25 higher and their cross hole runs up
 # into the top wall.
-#
-# Usage (build123d, see tools/step.sh for the install):
-#   python keycaps/keycap.py [--out keycaps/build] [--units 1,1.25,1.25t,2s,2st] [--legend A ...]
-#   units: 1 / 1.25 / 2 (s = with stabilizer stems, t = thumb version: the south part of the
-#   top rolls down from the insert level to the south edge); writes cap_<u>u[_stab][_thumb] and
-#   insert.step/.stl (blank) or insert_<legend>.step/.stl.
-import os, sys, math, argparse
-from build123d import (Pos, Rot, Box, Cylinder, RectangleRounded, Rectangle, Circle,
-                       Text, Align, Axis, Plane, Polygon, Wire, Line, Spline, ThreePointArc, Face, extrude, loft, scale, revolve, fillet,
-                       export_step, export_stl)
+# Sizes ("units" specs, legend_cap.py --units): 1 / 1.25 / 2, s = with stabilizer stems, t = thumb
+# version (the south part of the top rolls down to the south edge), v = tall (2U deep over two
+# switches of a column, a stem on each).
+import os, sys, math
+from build123d import (Pos, Rot, Box, Cylinder, RectangleRounded, Rectangle,
+                       Align, Axis, Wire, Line, Spline, ThreePointArc, Face, extrude, loft, scale, revolve, fillet)
 
 P = dict(
     pitch=19.0, gap=0.8, depth=18.2,      # cap = u * pitch - gap wide, depth deep (Ergogen kc 18.2)
@@ -28,8 +26,8 @@ P = dict(
     r_bottom=2.0, r_inner=0.8,            # corner radii at the skirt bottom, outside / inside (they shrink
                                           # upwards with the draft, like a tapered extrude)
     top_fillet=0.6,                       # fillet along the top outer edge outline
-    cap_source='fusion',                  # caps come from build/fusion/<cap>.step (KeycapBuilder export) when
-                                          # there; 'build123d' = build_cap() here (also the fallback)
+    cap_source='fusion',                  # fit checks / 3MF meshes from the KeycapBuilder exports in
+                                          # build/work/fusion when there; 'build123d' = build_cap() here
     thumb_scaled_units=(1.25,),           # thumb curve scaled per slice down through the bottom edge (no south
                                           # skirt left); the others (2U: its cut fails that way) keep the curve
                                           # raised by the valley, meeting the bottom edge at the centre only
@@ -44,27 +42,26 @@ P = dict(
     h_centre=4.5, slope=3.0,              # top plane height at the centre, slope (north up)
     wall=1.5,                             # side wall (measured square to the skirt face)
     fade_len=4.0, fade_drop=0.8,          # north roll-off: starts fade_len from the north top edge
-                                          # thumb version: the south face is one arc, tangent to the insert
-                                          # plane at the insert's south edge and to the south skirt face
-    valley=0.5, valley_r=8.6,             # valley: the insert plane valley below the top plane, rising
-                                          # smoothly (smoothstep, no crease) from the insert edge to the
-                                          # top plane at valley_r (stretched in x on wide caps)
-    valley_style='flat',                  # 'flat' (the insert caps: a flat floor for the insert) or 'dish'
-                                          # (legend caps, user 2026-10-27: no flat, one smooth dish from the
-                                          # centre, depth `valley`, to the top plane at valley_r)
-    insert='circle', insert_size=10.0,    # 'circle' (diameter) or 'square' (side)
-    insert_t=0.8, insert_clear=0.1,       # insert thickness (4 x 0.2 layers), radial pocket gap
-    floor=0.8,                            # top wall under the pocket (= pin length)
-    pins=((-2.8, 2.8, 1.0), (2.8, -2.8, 1.4)),   # x, y, diameter: keyed (one way round)
-    pin_clear=0.1,
-    stem_d=5.22, stem_drop=1.3,           # stem below the skirt
+                                          # thumb version: the south face is one arc, tangent to the flat
+                                          # centre's plane at its south edge and to the south skirt face
+    valley=0.6, valley_r=8.6,             # dish depth at the centre (user: the valley continues to the centre)
+                                          # and its radius, where it meets the top plane (stretched along the
+                                          # long side on wide / tall caps)
+    valley_style='dish',                  # 'dish': one smooth dish from the centre, z = -valley (1 - (r /
+                                          # valley_r)^2)^2; 'flat': a flat floor (flat_r) rising smoothly
+                                          # (smoothstep) to the top plane at valley_r (the thumb caps)
+    thumb_valley=0.5, flat_r=5.4,         # thumb caps: flat centre 0.5 below the top plane, radius 5.4 (their
+                                          # roll-down starts at its south edge; from the old insert caps)
+    ceiling=-2.1,                         # cavity ceiling below the top plane (0.2 lower (dish 0.7 with the
+                                          # ceiling following) touched the switch at 3.0 mm travel)
+    stem_d=5.0, stem_drop=1.3,            # stem diameter (user: 5.22 was too wide; 0.45 wall at the cross
+                                          # hole's arm ends), stem below the skirt
+    stems_y=(0.0,),                       # switch stems' y (tall caps: one per switch, see tall_params)
     cross=(4.10, 1.20),                   # switch cross hole (KS-33 cross 4.00 x 1.10; 0.2 nozzle FDM)
     stab_x=12.0, stab_rise=1.25,          # KS-57 stems at +-12, cross 1.25 higher than the switch's
     stab_cross=(4.00, 1.10), stab_cross_top=2.95, # KS-57 cross 3.90 x 1.00, top at cap z 2.95 when seated
     stab_recess=(3.4, -4.9, 4.6, 3.0),    # ceiling recess over each KS-57 housing (top 6.55 above the PCB):
                                           # half width, y from / to, flat top at cap z (0.3 clear bottomed out)
-    legend_depth=0.16, legend_size=5.0, legend_font='Arial',  # legend = the first 2 layers (0.10 first
-                                          # layer + one 0.06 layer; match the slicer's layer heights)
 )
 
 
@@ -74,9 +71,8 @@ def top_frame(p):
 
 
 def flat_r(p):
-    """Radius of the flat valley floor: the insert (circle, or the square's corners) plus its gap."""
-    h = p['insert_size'] / 2 + p['insert_clear'] + 0.3      # 0.3 flat ring: the pocket edge never meets
-    return h if p['insert'] == 'circle' else h * math.sqrt(2)   # the valley's own edge (tangent seams crack meshes)
+    """Radius of the flat valley floor ('flat' style: the thumb caps)."""
+    return p['flat_r']
 
 
 def valley_z(p, r):
@@ -94,25 +90,24 @@ def valley_z(p, r):
 def valley_tool(p, sx):
     """Solid above the valley surface (revolved profile, stretched sx in x), in the top frame."""
     r0, r1, R = flat_r(p), p['valley_r'], p['valley_r'] * 3
+    st = (sx, 1, 1) if sx >= 1 else (1, 1 / sx, 1)   # wide caps stretch in x, tall caps in y
     if p.get('valley_style') == 'dish':
         pts = [(r1 * k / 24, 0, valley_z(p, r1 * k / 24)) for k in range(25)]
         w = Wire([Spline(*pts, tangents=((1, 0, 0), (1, 0, 0))),
                   Line((r1, 0, 0), (R, 0, 0)), Line((R, 0, 0), (R, 0, 10)),
                   Line((R, 0, 10), (0, 0, 10)), Line((0, 0, 10), (0, 0, -p['valley']))])
-        return scale(revolve(Face(w), Axis.Z), (sx, 1, 1))
+        return scale(revolve(Face(w), Axis.Z), st)
     pts = [(r0 + (r1 - r0) * k / 16, 0, valley_z(p, r0 + (r1 - r0) * k / 16)) for k in range(17)]
     w = Wire([Line((0, 0, -p['valley']), (r0, 0, -p['valley'])),
               Spline(*pts, tangents=((1, 0, 0), (1, 0, 0))),
               Line((r1, 0, 0), (R, 0, 0)), Line((R, 0, 0), (R, 0, 10)),
               Line((R, 0, 10), (0, 0, 10)), Line((0, 0, 10), (0, 0, -p['valley']))])
-    return scale(revolve(Face(w), Axis.Z), (sx, 1, 1))
+    return scale(revolve(Face(w), Axis.Z), st)
 
 
-def insert_levels(p, w_top=None, d_top=None):
-    z_top = -p['valley']                         # the insert is the valley floor
-    z_pocket = z_top - p['insert_t']
-    z_ceil = p.get('ceiling', z_pocket - p['floor'])   # (legend caps: fixed, the insert caps' -2.1)
-    return z_top, z_pocket, z_ceil
+def z_ceiling(p):
+    """Cavity ceiling, in the top frame (below the top plane)."""
+    return p['ceiling']
 
 
 ACCENTS = {'́': 'acute', '̈': 'uml', '̋': 'dacute'}
@@ -131,17 +126,10 @@ def file_name(legend):
     return '_'.join(out) if len(legend) > 1 and any(len(o) > 1 for o in out) else ''.join(out)
 
 
-def insert_face(p, grow=0.0):
-    s = p['insert_size'] + 2 * grow
-    if p['insert'] == 'circle':
-        return Circle(s / 2)
-    return RectangleRounded(s, s, min(1.0 + grow, s / 2 - 0.01))
-
-
 def thumb_profile(p, D):
     """Top of a thumb cap: one north-south profile (cap frame, (y, z)), straight east-west (user: no
     valley in the east-west line). South to north: a line meeting the south skirt thumb_meet high at
-    thumb_angle, an arc tangent to it and to the insert plane, the flat insert band (insert level,
+    thumb_angle, an arc tangent to it and to the flat centre's plane, the flat band (its level,
     full width), the valley's north rise (smoothstep), until it meets the north roll-off arc.
     Returns segments ('line', [a, b]) / ('arc', [a, mid, b]) / ('spline', [pts]), south to north."""
     sl, dr = math.radians(p['slope']), math.radians(p['draft'])
@@ -152,7 +140,7 @@ def thumb_profile(p, D):
     Rf, yf = L * L / (2 * drop), d_top / 2 - L
     fr, v = flat_r(p), p['valley']
     t1 = tf(-fr, -v)                                          # south edge of the flat band
-    n1 = (sn, -cs)                                            # into the cap, normal to the insert plane
+    n1 = (sn, -cs)                                            # into the cap, normal to the flat centre's plane
     zm, dv = p['thumb_meet'], dr + math.radians(p['thumb_angle'])
     p0 = (-D / 2 + zm * math.tan(dr), zm)                     # the skirt face, thumb_meet high
     n2 = (math.cos(dv), -math.sin(dv))                        # inward normal of the meeting line
@@ -190,15 +178,15 @@ def thumb_tool(p, W, D):
 
 def thumb_points(p, W, D, sx, nx=97, ny=31, scaled=True):
     """Grid points (rows along y) of the thumb surface (cap frame), thumb_style 'valley': in the
-    y-z section at the key centre an arc tangent to the insert plane at the insert's south edge,
+    y-z section at the key centre an arc tangent to the flat centre's plane at the flat centre's south edge,
     then a short line meeting the south skirt thumb_meet high at thumb_angle; every east-west slice
     is that profile scaled so it starts at the top surface's own height on the start line (continuous
     with the valley) and ends on the skirt's bottom edge: z(x, y) = arc(y) * (1 + rise(x) / z_start).
     Starts 0.002 above the top (no step face)."""
     sl, dr = math.radians(p['slope']), math.radians(p['draft'])
-    z_ins = p['h_centre'] - p['valley']                       # insert plane at y = 0
-    t1 = (-flat_r(p), z_ins - flat_r(p) * math.tan(sl))       # tangent point on the insert plane
-    n1 = (math.sin(sl), -math.cos(sl))                        # into the cap, normal to the insert plane
+    z_ins = p['h_centre'] - p['valley']                       # flat centre's plane at y = 0
+    t1 = (-flat_r(p), z_ins - flat_r(p) * math.tan(sl))       # tangent point on the flat centre's plane
+    n1 = (math.sin(sl), -math.cos(sl))                        # into the cap, normal to the flat centre's plane
     zm = p['thumb_meet'] if scaled else 0.0
     dv = dr + math.radians(p['thumb_angle'])
     p0 = (-D / 2 + zm * math.tan(dr), zm)
@@ -217,7 +205,7 @@ def thumb_points(p, W, D, sx, nx=97, ny=31, scaled=True):
     xs = [-W / 2 - 1.5 + (W + 3) * k / (nx - 1) for k in range(nx)]
     y_end = t2[0] - (t2[1] + 0.3) * math.tan(dv)             # the line 0.3 below the skirt bottom
     ys = [t1[0] + (y_end - t1[0]) * k / (ny - 1) for k in range(ny)]
-    # each east-west slice starts at the top's own height (insert level + rise) and still ends on the
+    # each east-west slice starts at the top's own height (flat level + rise) and still ends on the
     # skirt's bottom edge (user: no skirt left on the south side): the arc scaled per slice
     # (the 0.002 start offset fades out towards the bottom)
     if not scaled:                                            # (earlier form: raised by the valley)
@@ -236,7 +224,7 @@ def top_points(p, W, D, sx, nx=49, ny=49):
     L, drop = p['fade_len'], p['fade_drop']
     Rf, yf = L * L / (2 * drop), d_top / 2 - L
     def zt(x, yt):                               # top-frame height at top-frame (x, yt)
-        z = valley_z(p, math.hypot(x / sx, yt))
+        z = valley_z(p, math.hypot(x / sx, yt) if sx >= 1 else math.hypot(x, yt * sx))
         if yt > yf:
             z -= Rf - math.sqrt(max(Rf * Rf - (yt - yf) ** 2, 0))
         return z
@@ -311,7 +299,16 @@ def wall_inside(u, p=P):
                                                  max(p['r_inner'] - (H + 1) * t, 0.05))])
 
 
+def cap_params(thumb=False, tall=False, p=P):
+    """The parameters a cap is built with: thumb caps get the flat centre their roll-down starts from,
+    tall caps tall_params()."""
+    if thumb:
+        p = dict(p, valley_style='flat', valley=p['thumb_valley'])
+    return tall_params(p) if tall else p
+
+
 def build_cap(u, stab=False, thumb=False, p=P):
+    """The monolithic cap (p from cap_params())."""
     W, D = u * p['pitch'] - p['gap'], p['depth']
     t = math.tan(math.radians(p['draft']))
     H = p['h_centre'] + D / 2 * math.tan(math.radians(p['slope'])) + 2     # above the highest top point
@@ -341,19 +338,16 @@ def build_cap(u, stab=False, thumb=False, p=P):
             cap = cap - top_tool(p, W, D, w_top / d_top)
         else:
             cap = cap - tf * roll
-            # valley: flat insert floor, rising smoothly to the top plane (stretched in x on wide caps)
+            # valley: flat floor, rising smoothly to the top plane (stretched in x on wide caps)
             cap = cap - tf * valley_tool(p, w_top / d_top)
-        if thumb:                                # 'valley' thumb: the south part rolls down from the insert
+        if thumb:                                # 'valley' thumb: the south part rolls down from the flat
             cap = cap - thumb_valley_tool(p, W, D, w_top / d_top, u in p['thumb_scaled_units'])
-    # legend insert pocket and pin holes (pocket=False: none, the valley floor stays one surface)
-    z_top, z_pocket, z_ceil = insert_levels(p, w_top, d_top)
-    if p.get('pocket', True):
-        cap = cap - tf * Pos(0, 0, z_pocket) * extrude(insert_face(p, p['insert_clear']), amount=10)
-    for x, y, d in (p['pins'] if p.get('pocket', True) else ()):
-        cap = cap - tf * Pos(x, y, z_ceil - 3) * Cylinder(d / 2 + p['pin_clear'], 3 + p['floor'] + 0.01,
-                                                         align=(Align.CENTER, Align.CENTER, Align.MIN))
-    # inside: the skirt offset by the wall, up to the ceiling (parallel to the top); cavity=False: none
-    inner = wall_inside(u, p) - tf * Pos(0, 0, z_ceil) * Box(big, big, 30, align=(Align.CENTER, Align.CENTER, Align.MIN))
+    z_ceil = z_ceiling(p)
+    # inside: the skirt offset by the wall, up to the ceiling (parallel to the top; tall caps: level at the
+    # centre's height, as a sloped one would come down onto the south switch's housing); cavity=False: none
+    ceil_c = p['h_centre'] + z_ceil                  # ceiling at the key centre (cap z)
+    cf = (lambda dz: Pos(0, 0, ceil_c + dz)) if p.get('ceiling_level') else (lambda dz: tf * Pos(0, 0, z_ceil + dz))
+    inner = wall_inside(u, p) - cf(0) * Box(big, big, 30, align=(Align.CENTER, Align.CENTER, Align.MIN))
     if p.get('cavity', True):
         cap = cap - inner
     if stab:
@@ -361,15 +355,14 @@ def build_cap(u, stab=False, thumb=False, p=P):
         for x in (-p['stab_x'], p['stab_x']):
             cap = cap - Pos(x, (y0 + y1) / 2, 0) * Box(2 * hw, y1 - y0, zr, align=(Align.CENTER, Align.CENTER, Align.MIN))
     # stems: down to -stem_drop (switch) / -stem_drop + stab_rise (stabilizer), up into the ceiling
-    def stem(x, bottom, cross, cross_top, top=None):
-        st = Pos(x, 0, bottom) * Cylinder(p['stem_d'] / 2, H, align=(Align.CENTER, Align.CENTER, Align.MIN))
+    def stem(x, bottom, cross, cross_top, top=None, y=0.0):
+        st = Pos(x, y, bottom) * Cylinder(p['stem_d'] / 2, H, align=(Align.CENTER, Align.CENTER, Align.MIN))
         st = st - (Pos(0, 0, top) * Box(big, big, 30, align=(Align.CENTER, Align.CENTER, Align.MIN)) if top is not None
-                   else tf * Pos(0, 0, z_ceil + 0.5) * Box(big, big, 30, align=(Align.CENTER, Align.CENTER, Align.MIN)))
-        hole = (Pos(x, 0, bottom - 1) * Box(cross[0], cross[1], cross_top - bottom + 1, align=(Align.CENTER, Align.CENTER, Align.MIN))
-                + Pos(x, 0, bottom - 1) * Box(cross[1], cross[0], cross_top - bottom + 1, align=(Align.CENTER, Align.CENTER, Align.MIN)))
+                   else cf(0.5) * Box(big, big, 30, align=(Align.CENTER, Align.CENTER, Align.MIN)))
+        hole = (Pos(x, y, bottom - 1) * Box(cross[0], cross[1], cross_top - bottom + 1, align=(Align.CENTER, Align.CENTER, Align.MIN))
+                + Pos(x, y, bottom - 1) * Box(cross[1], cross[0], cross_top - bottom + 1, align=(Align.CENTER, Align.CENTER, Align.MIN)))
         return st, hole
-    ceil_c = p['h_centre'] + z_ceil                  # ceiling at the key centre (cap z)
-    parts = [stem(0, -p['stem_drop'], p['cross'], ceil_c)]
+    parts = [stem(0, -p['stem_drop'], p['cross'], ceil_c, y=y) for y in p['stems_y']]
     if stab:
         for x in (-p['stab_x'], p['stab_x']):
             parts.append(stem(x, -p['stem_drop'] + p['stab_rise'], p['stab_cross'], p['stab_cross_top'] + 0.35,
@@ -387,80 +380,48 @@ def build_cap(u, stab=False, thumb=False, p=P):
     return cap
 
 
-FUSION_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'build', 'fusion')
-INSERT_DIR = os.path.join(FUSION_DIR, 'inserts')       # the inserts' Fusion exports and 3MF files
-LEGEND_LIST = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'inserts.txt')
+# folders (user 2026-11-09): keycaps/build = the scripts + work/ (generated, not in git); keycaps/results =
+# the models (print 3MF, Fusion .f3d) and profiles/ (Bambu presets), in git
+HERE = os.path.dirname(os.path.abspath(__file__))
+WORK = os.path.join(HERE, 'work')
+CAPS_DIR = os.path.join(WORK, 'caps')                  # build123d STEP + the Fusion recipes
+FUSION_DIR = os.path.join(WORK, 'fusion')              # Fusion's STEP and 3MF (the print 3MF's mesh source)
+RESULTS = os.path.join(os.path.dirname(HERE), 'results')
+PROFILES = os.path.join(RESULTS, 'profiles')
 
 
-def read_legends(path=LEGEND_LIST):
-    """The legends to make inserts for: keycaps/inserts.txt, one per line (# comments; a backslash + # = a # legend)."""
-    out = []
-    for line in open(path, encoding='utf-8'):
-        t = line.strip()
-        if not t or t.startswith('#'):
-            continue
-        out.append('#' if t == chr(92) + '#' else t)
-    return out
+def cap_name(u, stab=False, thumb=False, tall=False):
+    return 'cap_%gu%s%s%s' % (u, '_tall' if tall else '', '_stab' if stab else '', '_thumb' if thumb else '')
 
 
-LEGENDS = read_legends() if os.path.exists(LEGEND_LIST) else []
-HU = LEGENDS                                           # (older name)
+def parse_units(spec):
+    """'2st' -> (2.0, stab, thumb, tall): s = stabilizer stems, t = thumb, v = tall."""
+    return float(spec.rstrip('stv')), 's' in spec, 't' in spec, 'v' in spec
 
 
-def cap_name(u, stab=False, thumb=False):
-    return 'cap_%gu%s%s' % (u, '_stab' if stab else '', '_thumb' if thumb else '')
+def tall_params(p=P, rows=2):
+    """A cap over `rows` switches of one column (user 2026-11-08: 2U tall, one stem on each switch):
+    rows * pitch - gap deep, a stem every pitch along y, the ceiling level at the centre's height (one
+    parallel to the sloped top came down onto the south switch's housing at 2.7 mm travel). The top
+    (dish stretched in y) and walls are the usual ones on the longer outline."""
+    return dict(p, depth=rows * p['pitch'] - p['gap'], ceiling_level=True,
+                stems_y=tuple((k - (rows - 1) / 2) * p['pitch'] for k in range(rows)))
 
 
-def get_cap(u, stab=False, thumb=False, p=P):
-    """The cap as used everywhere (files, fit checks, assembly, Bambu project): Fusion's export
-    (build/fusion/<cap>.step, made by keycaps/fusion/KeycapBuilder from the recipe) when cap_source is
-    'fusion' and the file is there, else build_cap(). Returns (shape, source)."""
-    f = os.path.join(FUSION_DIR, cap_name(u, stab, thumb) + '.step')
+def get_cap(u, stab=False, thumb=False, tall=False, p=P):
+    """The blank cap as used by the fit checks: Fusion's export (build/work/fusion/<cap>_blank.step,
+    KeycapBuilder) when cap_source is 'fusion' and the file is there, else build_cap(). Returns (shape, source)."""
+    f = os.path.join(FUSION_DIR, '%s_blank.step' % cap_name(u, stab, thumb, tall))
     if p['cap_source'] == 'fusion' and os.path.exists(f):
         from build123d import import_step
         return import_step(f).solids()[0], 'fusion'
-    return build_cap(u, stab, thumb, p), 'build123d'
-
-
-def get_insert(legend=None, p=P):
-    """The legend insert as used everywhere: Fusion's export (build/fusion/insert_<name>.step: the insert
-    and the legend body) when cap_source is 'fusion' and it is there, else build_insert().
-    Returns (insert, legend or None, source)."""
-    f = os.path.join(INSERT_DIR, 'insert_%s.step' % (file_name(legend) if legend else 'blank'))
-    if p['cap_source'] == 'fusion' and os.path.exists(f):
-        from build123d import import_step
-        from build123d import Compound
-        sol = sorted(import_step(f).solids(), key=lambda s: -s.volume)      # insert, then the legend pieces
-        return sol[0], (Compound(sol[1:]) if len(sol) > 1 else None), 'fusion'
-    ins, leg = build_insert(legend, p)
-    return ins, leg, 'build123d'
-
-
-def build_insert(legend=None, p=P):
-    """Legend insert in its own frame (top face at z = insert_t, pins down): print it face down."""
-    face = insert_face(p)
-    ins = extrude(face, amount=p['insert_t'])            # top at z = insert_t
-    for x, y, d in p['pins']:
-        ins = ins + Pos(x, y, -p['floor']) * Cylinder(d / 2, p['floor'] + 0.01, align=(Align.CENTER, Align.CENTER, Align.MIN))
-    leg = None
-    if legend:
-        txt = Text(legend, p['legend_size'], font=p['legend_font'], align=(Align.CENTER, Align.CENTER))
-        leg = Pos(0, 0, p['insert_t'] - p['legend_depth']) * extrude(txt, amount=p['legend_depth'])
-        leg = leg & ins
-        ins = ins - leg
-    return ins.clean(), leg
-
-
-def legend_cap_height(p=P):
-    """Height of a capital in build123d's legend text (font size legend_size): Fusion's sketch text
-    height is the capital height, so the Fusion inserts use this to match."""
-    t = Text('H', p['legend_size'], font=p['legend_font'])
-    return round(t.bounding_box().size.Y, 4)
+    return build_cap(u, stab, thumb, cap_params(thumb, tall, p)), 'build123d'
 
 
 def recipe(u, stab=False, thumb=False, p=P):
-    """Every number the Fusion builder (keycaps/fusion/KeycapBuilder) needs for one cap, in mm in the
-    cap frame, mirroring build_cap step by step (each step becomes a timeline feature there)."""
+    """Every number the Fusion builder (keycaps/build/fusion/KeycapBuilder) needs for one cap, in mm in the
+    cap frame, mirroring build_cap step by step (each step becomes a timeline feature there);
+    p from cap_params()."""
     W, D = u * p['pitch'] - p['gap'], p['depth']
     t = math.tan(math.radians(p['draft']))
     H = p['h_centre'] + D / 2 * math.tan(math.radians(p['slope'])) + 2
@@ -473,38 +434,30 @@ def recipe(u, stab=False, thumb=False, p=P):
     roll = [tfp(yf, 0), tfp(yf, 5), tfp(yf + Rf + 1, 5), tfp(yf + Rf + 1, -Rf), tfp(yf + Rf, -Rf),
             tfp(yf + Rf * q, -Rf + Rf * q)]           # T, A, B, C, E, arc midpoint (E -> mid -> T)
     r0, r1 = flat_r(p), p['valley_r']
-    if p.get('valley_style') == 'dish':          # (Fusion: no flat line when its radius is 0)
-        r0 = 0.0
-        vprof = [(r1 * k / 24, valley_z(p, r1 * k / 24)) for k in range(25)]
-    else:
-        vprof = [(r0 + (r1 - r0) * k / 16, valley_z(p, r0 + (r1 - r0) * k / 16)) for k in range(17)]
-    z_top, z_pocket, z_ceil = insert_levels(p)
+    vprof = [(r0 + (r1 - r0) * k / 16, valley_z(p, r0 + (r1 - r0) * k / 16)) for k in range(17)]
+    z_ceil = z_ceiling(p)
     tw = p['wall'] / math.cos(math.radians(p['draft']))
     ceil_c = p['h_centre'] + z_ceil
-    stems = [{'x': 0, 'bottom': -p['stem_drop'], 'top': ceil_c + 0.5, 'cross': list(p['cross']), 'cross_top': ceil_c}]
+    stems = [{'x': 0, 'y': y, 'bottom': -p['stem_drop'], 'top': ceil_c + 0.5, 'cross': list(p['cross']), 'cross_top': ceil_c}
+             for y in p['stems_y']]
     if stab:
         for x in (-p['stab_x'], p['stab_x']):
-            stems.append({'x': x, 'bottom': -p['stem_drop'] + p['stab_rise'], 'top': p['stab_recess'][3] + 0.5,
+            stems.append({'x': x, 'y': 0, 'bottom': -p['stem_drop'] + p['stab_rise'], 'top': p['stab_recess'][3] + 0.5,
                           'cross': list(p['stab_cross']), 'cross_top': p['stab_cross_top'] + 0.35})
     r = {'u': u, 'stab': stab, 'thumb': thumb, 'W': W, 'D': D, 'H': H,
          'skirt': {'r': p['r_bottom'], 'draft': p['draft'], 'square_south': thumb},
          'top': {'h_centre': p['h_centre'], 'slope': p['slope']},
          'roll': roll,
          'valley': {'flat': [0, -p['valley'], r0], 'profile': vprof, 'R': r1 * 3, 'sx': w_top / d_top},
-         'pocket': {'z': z_pocket, 'r': p['insert_size'] / 2 + p['insert_clear'], 'square': p['insert'] != 'circle',
-                    'size': p['insert_size'] + 2 * p['insert_clear']},
-         'pins': [[x, y, d / 2 + p['pin_clear']] for x, y, d in p['pins']], 'floor': p['floor'], 'z_ceil': z_ceil,
+         'z_ceil': z_ceil, 'ceiling_level': bool(p.get('ceiling_level')),   # (level: a horizontal plane at
+                                                                           # the centre's ceiling height)
          'cavity': {'w': W - 2 * tw + 2 * t, 'd': D - 2 * tw + 2 * t, 'r': p['r_inner']},
          'recess': ([[x, (p['stab_recess'][1] + p['stab_recess'][2]) / 2, 2 * p['stab_recess'][0],
                       p['stab_recess'][2] - p['stab_recess'][1], p['stab_recess'][3]] for x in (-p['stab_x'], p['stab_x'])]
                     if stab else []),
          'stems': stems, 'stem_r': p['stem_d'] / 2,
-         'fillet': (p['thumb_fillet'] if u in p['thumb_fillet_units'] else 0) if thumb else p['top_fillet'],
-         'insert': {'d': p['insert_size'], 't': p['insert_t'], 'square': p['insert'] != 'circle',
-                    'legend_depth': p['legend_depth'], 'legend_size': p['legend_size'], 'font': p['legend_font'],
-                    'z': z_pocket, 'pins': [[x, y, d] for x, y, d in p['pins']], 'pin_len': p['floor'],
-                    'legend_height': legend_cap_height(p)}}   # (Fusion text height = capital height)
-    if p.get('valley_style') == 'dish' and not thumb:   # (Fusion: one loft cut instead of roll + valley)
+         'fillet': (p['thumb_fillet'] if u in p['thumb_fillet_units'] else 0) if thumb else p['top_fillet']}
+    if p.get('valley_style') == 'dish' and not thumb:   # (one loft cut instead of roll + valley)
         r['roll'], r['valley'] = None, None
         r['top_surface'] = top_points(p, W, D, w_top / d_top, nx=33, ny=33)
     if thumb:
@@ -512,40 +465,3 @@ def recipe(u, stab=False, thumb=False, p=P):
                       thumb_points(p, W, D, w_top / d_top, nx=33, ny=9, scaled=u in p['thumb_scaled_units']))
         r['thumb_style'] = p['thumb_style']
     return r
-
-
-if __name__ == '__main__':
-    ap = argparse.ArgumentParser()
-    ap.add_argument('--out', default=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'build'))
-    ap.add_argument('--units', default='1,1.25,1.25t,2s,2st')
-    ap.add_argument('--legend', nargs='*', default=[])
-    ap.add_argument('--fusion', action='store_true', help='also write build/keycaps_fusion.json for KeycapBuilder')
-    A = ap.parse_args()
-    os.makedirs(A.out, exist_ok=True)
-    recipes = []
-    for spec in A.units.split(','):
-        stab, thumb = 's' in spec, 't' in spec
-        u = float(spec.rstrip('st'))
-        name = cap_name(u, stab, thumb)
-        if A.fusion:                             # the recipe for Fusion, with build123d's volume as a check
-            ref = build_cap(u, stab, thumb)
-            rec = recipe(u, stab, thumb); rec['name'] = name; rec['volume'] = ref.volume; recipes.append(rec)
-        cap, src = get_cap(u, stab, thumb)
-        export_step(cap, os.path.join(A.out, name + '.step')); export_stl(cap, os.path.join(A.out, name + '.stl'))
-        b = cap.bounding_box()
-        print('%-18s from %-9s %d solid(s) valid %s volume %6.1f mm3  %.2f x %.2f x %.2f (z %.2f..%.2f)'
-              % (name, src, len(cap.solids()), cap.is_valid, cap.volume, b.size.X, b.size.Y, b.size.Z, b.min.Z, b.max.Z))
-    if A.fusion:
-        import json
-        ins_rec = recipe(1)['insert']
-        json.dump({'params': {k: v for k, v in P.items()}, 'caps': recipes, 'insert': ins_rec,
-                   'legends': [[c, file_name(c)] for c in LEGENDS]},
-                  open(os.path.join(A.out, 'keycaps_fusion.json'), 'w'), indent=1)
-        print('wrote', os.path.join(A.out, 'keycaps_fusion.json'))
-    for leg in (A.legend or [None]):
-        ins, lg, isrc = get_insert(leg)
-        name = 'insert' + ('_' + file_name(leg) if leg else '')
-        export_step(ins, os.path.join(A.out, name + '.step')); export_stl(ins, os.path.join(A.out, name + '.stl'))
-        if lg is not None:
-            export_stl(lg, os.path.join(A.out, name + '_legend.stl'))
-        print('%-18s from %-9s valid %s volume %.1f mm3' % (name, isrc, ins.is_valid, ins.volume))

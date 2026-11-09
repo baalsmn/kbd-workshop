@@ -1,18 +1,18 @@
-# Fusion script: rebuilds the keycaps of keycaps/build/keycaps_fusion.json (written by
-# `python keycaps/keycap.py --fusion`) as parametric designs, one document per cap, every step of
-# keycap.py's build_cap as a named timeline feature (in one timeline group per stage):
-#   skirt (sketch + extrude tapered by the user parameter `draft`), sloped top (plane at `slope`,
-#   split + remove), north roll-off (side sketch, cut), valley (revolved profile, scaled, moved,
-#   combined), thumb (loft through closed east-west sections above the surface, cut), insert pocket and
-#   pin holes, inside cavity (tapered cut up to the ceiling plane), stabilizer recesses, stems
-#   and cross holes, top-edge fillet (user parameter `top_fillet`), and the legend insert as its
-#   own component (insert body with pins + the legend as a sketch text body). The inserts of the
-#   letter set (recipe 'legends') are built as designs of their own and saved too.
+# Fusion script: rebuilds keycaps from their recipes (legend_cap_<size>_<legend|blank>_fusion.json, written by
+# `python keycaps/build/legend_cap.py --units ... --legend ... --fusion`) as parametric designs, one document per
+# cap, every step of keycap.py's build_cap as a named timeline feature (in one timeline group per stage):
+#   skirt (sketch + extrude tapered by the user parameter `draft`), sloped top (plane at `slope`), the
+#   top surface (dish caps: plane - dish - roll-off as one loft cut) or north roll-off + valley (thumb
+#   caps: flat centre), thumb (loft through closed east-west sections above the surface, cut), inside
+#   cavity (tapered cut up to the ceiling plane: parallel to the top, level on tall caps),
+#   stabilizer recesses, stems and cross holes, top-edge fillet (user parameter `top_fillet`), and for
+#   legend caps the double-shot split (core / shell). Monolithic caps only (user 2026-11-09: the insert
+#   caps and their inserts were dropped).
 # Numbers come from the recipe (mm, cap frame: z 0 = skirt bottom, +y = north). Each design ends
 # with the build123d volume next to Fusion's in the log, as a check.
-# Run: add the folder in Scripts and Add-Ins, run, pick keycaps_fusion.json, give the cap names
-# (empty = all) and a legend, and say whether to save them (build/fusion/<cap>.f3d / .step / .stl:
-# **Fusion is the source of the caps**). Or build_keycap(rec, legend) + export_keycap() (bridge).
+# Run: add the folder in Scripts and Add-Ins, run, pick one or more recipes (keycaps/build/work/caps), say
+# whether to save them: keycaps/results/<name>.f3d (the design) and build/work/fusion/<name>.step / .3mf
+# (the 3MF, all bodies in one file, is the print 3MF's mesh source). Or build_legend_cap(rec) + export_legend_cap() (bridge).
 import adsk.core, adsk.fusion, traceback, json, math
 
 MM = 0.1                                       # Fusion's internal unit is cm
@@ -237,33 +237,13 @@ class Builder:
         self.f.combineFeatures.add(ci).name = group + ' (cut)'
         self.group(m, group)
 
-    def pocket(self):
-        r, m = self.r, self.marker()
-        pk = r['pocket']
-        if pk is None: return                  # (legend caps: no pocket, one continuous top)
-        pl = self.plane_off(self.top_plane, pk['z'], 'insert pocket floor')
-        sk = self.sketch(pl, 'insert pocket')
-        cx, cy, cz = self.tf(0, 0, pk['z'])
-        if pk['square']:
-            self.log.append('square insert: drawn as a circle in Fusion')
-        sk.sketchCurves.sketchCircles.addByCenterRadius(self.sp(sk, cx, cy, cz), pk['r'] * MM)
-        ei = self.f.extrudeFeatures.createInput(sk.profiles.item(0), adsk.fusion.FeatureOperations.CutFeatureOperation)
-        ei.setDistanceExtent(False, VR(10)); ei.participantBodies = [self.body]
-        self.f.extrudeFeatures.add(ei).name = 'insert pocket (cut)'
-        sk2 = self.sketch(pl, 'pin holes')
-        for x, y, rr in r['pins']:
-            sk2.sketchCurves.sketchCircles.addByCenterRadius(self.sp(sk2, *self.tf(x, y, pk['z'])), rr * MM)
-        ei = self.f.extrudeFeatures.createInput(self.profiles(sk2), adsk.fusion.FeatureOperations.CutFeatureOperation)
-        ei.setOneSideExtent(adsk.fusion.DistanceExtentDefinition.create(VR(r['floor'] + 3)),
-                            adsk.fusion.ExtentDirections.NegativeExtentDirection)
-        ei.participantBodies = [self.body]
-        self.f.extrudeFeatures.add(ei).name = 'pin holes (cut)'
-        self.group(m, 'insert pocket')
-
     def cavity(self):
         r, m = self.r, self.marker()
         cv = r['cavity']
-        ceil = self.plane_off(self.top_plane, r['z_ceil'], 'ceiling (parallel to the top)')
+        if r.get('ceiling_level'):                 # (tall caps: level at the centre's height)
+            ceil = self.plane_z(self.h + r['z_ceil'], 'ceiling (level)')
+        else:
+            ceil = self.plane_off(self.top_plane, r['z_ceil'], 'ceiling (parallel to the top)')
         pl = self.plane_z(-1, 'below the skirt')
         sk = self.sketch(pl, 'cavity outline')
         self.rrect(sk, 0, 0, cv['w'], cv['d'], cv['r'], -1)
@@ -284,10 +264,11 @@ class Builder:
     def stems(self):
         r, m = self.r, self.marker()
         for k, st in enumerate(r['stems']):
-            name = 'stem' if k == 0 else 'stabilizer stem %d' % k
+            sy = st.get('y', 0)
+            name = ('stem' if k == 0 else 'stem %d' % (k + 1)) if st['bottom'] == r['stems'][0]['bottom'] else 'stabilizer stem %d' % k
             pl = self.plane_z(st['bottom'], name + ' bottom')
             sk = self.sketch(pl, name)
-            sk.sketchCurves.sketchCircles.addByCenterRadius(self.sp(sk, st['x'], 0, st['bottom']), r['stem_r'] * MM)
+            sk.sketchCurves.sketchCircles.addByCenterRadius(self.sp(sk, st['x'], sy, st['bottom']), r['stem_r'] * MM)
             ei = self.f.extrudeFeatures.createInput(sk.profiles.item(0), adsk.fusion.FeatureOperations.JoinFeatureOperation)
             ei.setDistanceExtent(False, VR(st['top'] - st['bottom'])); ei.participantBodies = [self.body]
             self.f.extrudeFeatures.add(ei).name = name + ' (join)'
@@ -296,7 +277,7 @@ class Builder:
             a, b = st['cross'][0] / 2, st['cross'][1] / 2
             x0, z = st['x'], st['bottom'] - 1
             pts = [(a, b), (b, b), (b, a), (-b, a), (-b, b), (-a, b), (-a, -b), (-b, -b), (-b, -a), (b, -a), (b, -b), (a, -b)]
-            self.poly(sk2, [(x0 + px, py, z) for px, py in pts])
+            self.poly(sk2, [(x0 + px, sy + py, z) for px, py in pts])
             ei = self.f.extrudeFeatures.createInput(sk2.profiles.item(0), adsk.fusion.FeatureOperations.CutFeatureOperation)
             ei.setDistanceExtent(False, VR(st['cross_top'] - st['bottom'] + 1)); ei.participantBodies = [self.body]
             self.f.extrudeFeatures.add(ei).name = name + ' cross hole (cut)'
@@ -332,18 +313,6 @@ class Builder:
             self.log.append('%s: top fillet failed (%d edges): %s' % (r['name'], len(edges), ex))
         self.group(m, 'top edge fillet')
 
-    def insert(self, root, legend):
-        r = self.r; ins = r['insert']
-        mt = adsk.core.Matrix3D.create()
-        mt.setToRotation(math.radians(r['top']['slope']), adsk.core.Vector3D.create(1, 0, 0), adsk.core.Point3D.create(0, 0, 0))
-        x, y, z = self.tf(0, 0, ins['z'])
-        mt.translation = adsk.core.Vector3D.create(x * MM, y * MM, z * MM)
-        occ = root.occurrences.addNewComponent(mt)
-        occ.component.name = 'legend insert'
-        make_insert(occ.component, ins, legend)
-        return occ
-
-
     def double_shot(self):
         """Legend caps (legend_cap.py): split the cap like a double-shot moulding into the core
         (translucent: stems, a layer over the cavity ceiling, the legend up through the top) and the
@@ -353,7 +322,10 @@ class Builder:
         r, m = self.r, self.marker()
         lg, co, cv = r['legend'], r['core'], r['cavity']
         F = adsk.fusion.FeatureOperations
-        core_pl = self.plane_off(self.top_plane, co['z'], 'core top (parallel to the top)')
+        if r.get('ceiling_level'):                 # (tall caps: level, like their ceiling)
+            core_pl = self.plane_z(self.h + co['z'], 'core top (level)')
+        else:
+            core_pl = self.plane_off(self.top_plane, co['z'], 'core top (parallel to the top)')
         sk = self.sketch(self.plane_z(-1, 'core region start'), 'core region outline')
         self.rrect(sk, 0, 0, cv['w'], cv['d'], cv['r'], -1)
         ei = self.f.extrudeFeatures.createInput(sk.profiles.item(0), F.NewBodyFeatureOperation)
@@ -363,7 +335,7 @@ class Builder:
         rb = region.bodies.item(0); rb.name = 'core'
         sk = self.sketch(self.plane_z(co['stem_below'], 'stem ends start'), 'stem ends')
         for st in r['stems']:
-            sk.sketchCurves.sketchCircles.addByCenterRadius(self.sp(sk, st['x'], 0, co['stem_below']), (r['stem_r'] + 0.5) * MM)
+            sk.sketchCurves.sketchCircles.addByCenterRadius(self.sp(sk, st['x'], st.get('y', 0), co['stem_below']), (r['stem_r'] + 0.5) * MM)
         ei = self.f.extrudeFeatures.createInput(self.profiles(sk), F.JoinFeatureOperation)
         ei.setDistanceExtent(False, VR(-1 - co['stem_below'] + 0.5)); ei.participantBodies = [rb]
         self.f.extrudeFeatures.add(ei).name = 'stem ends (join)'
@@ -404,7 +376,7 @@ class Builder:
         ci.isKeepToolBodies = True
         cut = self.f.combineFeatures.add(ci); cut.name = 'shell = cap - core (cut)'
         # closed counters (the A's triangle) come out as bodies of their own: Fusion doesn't join bodies
-        # that don't touch, so they stay separate shell bodies (the shell STL holds them all)
+        # that don't touch, so they stay separate shell bodies (all in the shell part of the 3MF)
         rest = sorted((b for b in self.c.bRepBodies if b != rb), key=lambda b: -b.volume)
         self.body, self.islands = rest[0], rest[1:]     # (the cut may hand back an island as its body)
         for k, b in enumerate(self.islands):
@@ -414,116 +386,9 @@ class Builder:
         self.group(m, 'double shot: core / shell')
 
 
-def make_insert(c, ins, legend):
-    """The legend insert in component c (its own frame: top face at z = t, pins down): insert body
-    with the pins, and the legend as a sketch text extruded in a sub-component 'legend' (every
-    piece of the letter) and cut from the insert. Returns (insert body, legend occurrence or None)."""
-    lb = None
-    f = c.features
-    sk = c.sketches.add(c.xYConstructionPlane); sk.name = 'insert outline'
-    sk.sketchCurves.sketchCircles.addByCenterRadius(P(0, 0, 0), ins['d'] / 2 * MM)
-    ei = f.extrudeFeatures.createInput(sk.profiles.item(0), adsk.fusion.FeatureOperations.NewBodyFeatureOperation)
-    ei.setDistanceExtent(False, VR(ins['t']))
-    ex = f.extrudeFeatures.add(ei); ex.name = 'insert (extrude)'
-    body = ex.bodies.item(0); body.name = 'insert'
-    sk2 = c.sketches.add(c.xYConstructionPlane); sk2.name = 'pins'
-    for px, py, d in ins['pins']:
-        sk2.sketchCurves.sketchCircles.addByCenterRadius(P(px, py, 0), d / 2 * MM)
-    ei = f.extrudeFeatures.createInput(coll([sk2.profiles.item(i) for i in range(sk2.profiles.count)]),
-                                       adsk.fusion.FeatureOperations.JoinFeatureOperation)
-    ei.setOneSideExtent(adsk.fusion.DistanceExtentDefinition.create(VR(ins['pin_len'])),
-                        adsk.fusion.ExtentDirections.NegativeExtentDirection)
-    ei.participantBodies = [body]
-    f.extrudeFeatures.add(ei).name = 'pins (join)'
-    if legend:
-        def text(comp, name):                  # the legend text on the insert top, in comp
-            pi = comp.constructionPlanes.createInput(); pi.setByOffset(comp.xYConstructionPlane, VR(ins['t']))
-            top = comp.constructionPlanes.add(pi); top.name = 'insert top'; top.isLightBulbOn = False
-            sk3 = comp.sketches.add(top); sk3.name = name
-            ti = sk3.sketchTexts.createInput2(legend, ins.get('legend_height', ins['legend_size']) * MM)  # capital height
-            h = ins['d'] / 2
-            ti.setAsMultiLine(P(-h, -h, 0), P(h, h, 0), adsk.core.HorizontalAlignments.CenterHorizontalAlignment,
-                              adsk.core.VerticalAlignments.MiddleVerticalAlignment, 0)
-            try: ti.fontName = ins['font']
-            except Exception: pass
-            return sk3.sketchTexts.add(ti)
-        depth = adsk.fusion.DistanceExtentDefinition.create(VR(ins['legend_depth']))
-        # the recess: the text cut into the insert body
-        ei = f.extrudeFeatures.createInput(text(c, 'legend recess text'), adsk.fusion.FeatureOperations.CutFeatureOperation)
-        ei.setOneSideExtent(depth, adsk.fusion.ExtentDirections.NegativeExtentDirection)
-        ei.participantBodies = [body]
-        f.extrudeFeatures.add(ei).name = 'legend recess (cut)'
-        # the legend itself in its own sub-component: every piece of the letter (e.g. an accent)
-        lo = c.occurrences.addNewComponent(adsk.core.Matrix3D.create())
-        lc = lo.component; lc.name = 'legend'
-        ei = lc.features.extrudeFeatures.createInput(text(lc, 'legend text'), adsk.fusion.FeatureOperations.NewBodyFeatureOperation)
-        ei.setOneSideExtent(depth, adsk.fusion.ExtentDirections.NegativeExtentDirection)
-        lex = lc.features.extrudeFeatures.add(ei); lex.name = 'legend (extrude)'
-        for k in range(lex.bodies.count):
-            lex.bodies.item(k).name = 'legend' if k == 0 else 'legend %d' % (k + 1)
-        lb = lo
-    return body, lb
-
-
-def build_insert_design(ins, legend, name):
-    """New parametric design with one legend insert (component <name> at the origin)."""
-    app = adsk.core.Application.get()
-    app.documents.add(adsk.core.DocumentTypes.FusionDesignDocumentType)
-    design = adsk.fusion.Design.cast(app.activeProduct)
-    design.designType = adsk.fusion.DesignTypes.ParametricDesignType
-    design.fusionUnitsManager.distanceDisplayUnits = adsk.fusion.DistanceUnits.MillimeterDistanceUnits
-    occ = design.rootComponent.occurrences.addNewComponent(adsk.core.Matrix3D.create())
-    occ.component.name = name
-    body, leg = make_insert(occ.component, ins, legend)
-    return design, occ, body, leg
-
-
-def export_insert(design, occ, body, leg, folder, name, f3d=False):
-    """<name>.step (insert + legend bodies), <name>.stl (insert), <name>_legend.stl; .f3d if asked."""
-    import os
-    os.makedirs(folder, exist_ok=True)
-    em = design.exportManager
-    base = os.path.join(folder, name)
-    if f3d:
-        em.execute(em.createFusionArchiveExportOptions(base + '.f3d'))
-    em.execute(em.createSTEPExportOptions(base + '.step', occ.component))
-    for b, suffix in ((body, '.stl'), (leg, '_legend.stl')):
-        if b is None: continue
-        so = em.createSTLExportOptions(b, base + suffix)
-        so.meshRefinement = adsk.fusion.MeshRefinementSettings.MeshRefinementHigh
-        em.execute(so)
-    return [base + e for e in ('.f3d', '.step', '.stl', '_legend.stl') if os.path.exists(base + e)]
-
-
-def build_keycap(rec, legend='A', params=None):
-    """New parametric design for one cap recipe; returns (design, log lines)."""
-    app = adsk.core.Application.get()
-    app.documents.add(adsk.core.DocumentTypes.FusionDesignDocumentType)
-    design = adsk.fusion.Design.cast(app.activeProduct)
-    design.designType = adsk.fusion.DesignTypes.ParametricDesignType
-    design.fusionUnitsManager.distanceDisplayUnits = adsk.fusion.DistanceUnits.MillimeterDistanceUnits
-    up = design.userParameters
-    up.add('draft', VS('%g deg' % rec['skirt']['draft']), 'deg', 'skirt angle from vertical')
-    up.add('slope', VS('%g deg' % rec['top']['slope']), 'deg', 'top slope (north up)')
-    up.add('top_fillet', VS('%g mm' % (rec['fillet'] or 0.6)), 'mm', 'top edge fillet')
-    root = design.rootComponent
-    occ = root.occurrences.addNewComponent(adsk.core.Matrix3D.create())
-    comp = occ.component; comp.name = rec['name']
-    log = []
-    b = Builder(comp, rec, log)
-    b.skirt(); b.top(); b.roll(); b.valley(); b.thumb(); b.pocket(); b.cavity(); b.stems(); b.fillet()
-    b.insert(root, legend)
-    vol = b.body.volume * 1000
-    log.insert(0, '%s: Fusion %.1f mm3, build123d %.1f mm3 (%+.2f %%)' % (rec['name'], vol, rec['volume'],
-                                                                         100 * (vol - rec['volume']) / rec['volume']))
-    build_keycap.last = (occ, b.body)
-    return design, log
-
-
 def build_legend_cap(rec):
-    """New parametric design for a legend cap recipe (legend_cap.py --fusion): the cap steps without
-    the pocket, then the double-shot split. Returns (design, log); build_keycap.last = (occ, [shell
-    bodies], core)."""
+    """New parametric design for a cap recipe (legend_cap.py --fusion): the cap steps, then (legend caps)
+    the double-shot split. Returns (design, log); build_legend_cap.last = (occ, [shell bodies], core)."""
     app = adsk.core.Application.get()
     app.documents.add(adsk.core.DocumentTypes.FusionDesignDocumentType)
     design = adsk.fusion.Design.cast(app.activeProduct)
@@ -537,104 +402,64 @@ def build_legend_cap(rec):
     comp = occ.component; comp.name = rec['name']
     log = []
     b = Builder(comp, rec, log)
-    b.skirt(); b.top(); b.roll(); b.valley(); b.surface(); b.thumb(); b.pocket(); b.cavity(); b.stems(); b.fillet()
+    b.skirt(); b.top(); b.roll(); b.valley(); b.surface(); b.thumb(); b.cavity(); b.stems(); b.fillet()
     co = rec['core']
     if co is None:                                 # blank cap: same shape, one body, no split
         b.body.name = 'cap'
         v = b.body.volume * 1000
         log.append('%s: Fusion %.1f mm3, build123d %.1f mm3 (%+.2f %%), 1 body' % (
             rec['name'], v, rec['volume'], 100 * (v - rec['volume']) / rec['volume']))
-        build_keycap.last = (occ, [b.body], None)
+        build_legend_cap.last = (occ, [b.body], None)
         return design, log
     b.double_shot()
     for name, bodies, ref in (('shell', [b.body] + b.islands, co['shell_volume']), ('core', [b.core], co['core_volume'])):
         v = sum(x.volume for x in bodies) * 1000
         log.append('%s %s: Fusion %.1f mm3, build123d %.1f mm3 (%+.2f %%), %d body(s)' % (
             rec['name'], name, v, ref, 100 * (v - ref) / ref, len(bodies)))
-    build_keycap.last = (occ, [b.body] + b.islands, b.core)
+    build_legend_cap.last = (occ, [b.body] + b.islands, b.core)
     return design, log
 
 
-def export_legend_cap(design, rec, folder):
-    """<name>.f3d, <name>.step (shell + core), <name>_shell.stl (every shell body, merged),
-    <name>_core.stl; blank caps: <name>.f3d, <name>.step, <name>.stl."""
-    import os, struct
-    os.makedirs(folder, exist_ok=True)
-    occ, shells, core = build_keycap.last
-    em = design.exportManager
-    base = os.path.join(folder, rec['name'])
-    em.execute(em.createFusionArchiveExportOptions(base + '.f3d'))
-    em.execute(em.createSTEPExportOptions(base + '.step', occ.component))
-    def stl(body, path):
-        so = em.createSTLExportOptions(body, path)
-        so.isBinaryFormat = True
-        so.meshRefinement = adsk.fusion.MeshRefinementSettings.MeshRefinementHigh
-        em.execute(so)
-    if core is None:                               # blank cap: <name>.stl
-        stl(shells[0], base + '.stl')
-        return [base + e for e in ('.f3d', '.step', '.stl') if os.path.exists(base + e)]
-    stl(core, base + '_core.stl')
-    tris = b''
-    for k, body in enumerate(shells):             # binary STLs: 80 byte header, count, 50 bytes a triangle
-        p = base + '_shell_%d.stl' % k
-        stl(body, p)
-        data = open(p, 'rb').read(); os.remove(p)
-        tris += data[84:84 + 50 * struct.unpack('<I', data[80:84])[0]]
-    open(base + '_shell.stl', 'wb').write(b'shell (%d bodies)' % len(shells) + b' ' * (80 - len(b'shell (%d bodies)' % len(shells)))
-                                         + struct.pack('<I', len(tris) // 50) + tris)
-    return [base + e for e in ('.f3d', '.step', '_shell.stl', '_core.stl') if os.path.exists(base + e)]
-
-
-def export_keycap(design, rec, folder):
-    """Save the design (<name>.f3d) and the cap alone (<name>.step, <name>.stl): Fusion is the source
-    of the caps (keycap.py get_cap() loads these STEP files for the files, fit checks and the Bambu project)."""
+def export_legend_cap(design, rec, work, results):
+    """<results>/<name>.f3d (the design), <work>/<name>.step and <work>/<name>.3mf: every body of the cap
+    in one file (shell, shell islands, core; blank caps: the cap), named, the mesh source of
+    legend_cap.py's print 3MF (user: shell and core in one file, printed together)."""
     import os
-    os.makedirs(folder, exist_ok=True)
-    occ, body = build_keycap.last
+    os.makedirs(work, exist_ok=True); os.makedirs(results, exist_ok=True)
+    occ = build_legend_cap.last[0]
     em = design.exportManager
-    base = os.path.join(folder, rec['name'])
-    em.execute(em.createFusionArchiveExportOptions(base + '.f3d'))
+    em.execute(em.createFusionArchiveExportOptions(os.path.join(results, rec['name'] + '.f3d')))
+    base = os.path.join(work, rec['name'])
     em.execute(em.createSTEPExportOptions(base + '.step', occ.component))
-    so = em.createSTLExportOptions(body, base + '.stl')
-    so.meshRefinement = adsk.fusion.MeshRefinementSettings.MeshRefinementHigh
-    em.execute(so)
-    return [base + e for e in ('.f3d', '.step', '.stl') if os.path.exists(base + e)]
+    o = em.createC3MFExportOptions(occ, base + '.3mf')
+    o.meshRefinement = adsk.fusion.MeshRefinementSettings.MeshRefinementHigh
+    em.execute(o)
+    out = [os.path.join(results, rec['name'] + '.f3d'), base + '.step', base + '.3mf']
+    return [f for f in out if os.path.exists(f)]
 
 
 def run(context):
     app = adsk.core.Application.get(); ui = app.userInterface
     try:
         dlg = ui.createFileDialog()
-        dlg.title = 'Keycap recipe (keycaps/build/keycaps_fusion.json)'
+        dlg.title = 'Keycap recipes (keycaps/build/work/caps/*_fusion.json)'
         dlg.filter = 'Keycap recipe (*.json);;All files (*.*)'
+        dlg.isMultiSelectEnabled = True
         if dlg.showOpen() != adsk.core.DialogResults.DialogOK: return
-        data = json.load(open(dlg.filename, encoding='utf-8'))
-        names = [c['name'] for c in data['caps']]
-        txt, cancelled = ui.inputBox('Caps to build (empty = all):\n' + ', '.join(names), 'Keycaps', '')
-        if cancelled: return
-        pick = [t.strip() for t in txt.split(',') if t.strip()] or names
-        leg, cancelled = ui.inputBox('Legend on the insert (empty = none):', 'Keycaps', 'A')
-        if cancelled: return
-        save = ui.messageBox('Also save each cap (.f3d, .step, .stl) to build/fusion next to the recipe?\n'
-                             '(Fusion is the source of the cap files, fit checks and the Bambu project)', 'Keycaps',
-                             adsk.core.MessageBoxButtonTypes.YesNoButtonType) == adsk.core.DialogResults.DialogYes
+        files = list(dlg.filenames)
+        save = ui.messageBox('Also save each cap (keycaps/results/<cap>.f3d, build/work/fusion/<cap>.step / .3mf)?',
+                             'Keycaps', adsk.core.MessageBoxButtonTypes.YesNoButtonType) == adsk.core.DialogResults.DialogYes
         import os
-        folder = os.path.join(os.path.dirname(dlg.filename), 'fusion')
         log = []
-        for rec in data['caps']:
-            if rec['name'] in pick:
-                design, lg = build_keycap(rec, leg.strip())
-                log += lg
-                if save:
-                    log.append('  saved: ' + ', '.join(os.path.basename(f) for f in export_keycap(design, rec, folder)))
-        if data.get('legends') and ui.messageBox('Also build the legend inserts (%d letters, each a design, saved to\n'
-                'build/fusion/inserts: insert_<letter>.step / .stl / _legend.stl, and insert_A.f3d)?' % len(data['legends']),
-                'Keycaps', adsk.core.MessageBoxButtonTypes.YesNoButtonType) == adsk.core.DialogResults.DialogYes:
-            for ch, fn in data['legends']:
-                d, o, b, lgb = build_insert_design(data['insert'], ch, 'insert_' + fn)
-                export_insert(d, o, b, lgb, os.path.join(folder, 'inserts'), 'insert_' + fn, f3d=(ch == 'A'))
-                adsk.core.Application.get().activeDocument.close(False)
-            log.append('inserts: %d saved to %s' % (len(data['legends']), os.path.join(folder, 'inserts')))
+        for fn in files:
+            rec = json.load(open(fn, encoding='utf-8'))
+            design, lg = build_legend_cap(rec)
+            log += lg
+            if save:
+                work = os.path.dirname(os.path.dirname(fn))                    # build/work
+                results = os.path.join(os.path.dirname(os.path.dirname(work)), 'results')
+                log.append('  saved: ' + ', '.join(os.path.basename(f) for f in
+                                                   export_legend_cap(design, rec, os.path.join(work, 'fusion'), results)))
         ui.messageBox('\n'.join(log) or 'nothing built')
     except Exception:
         ui.messageBox('Failed:\n{}'.format(traceback.format_exc()))
