@@ -8,12 +8,12 @@
 #
 # Usage (build123d PYTHONPATH): python keycaps/build/legend_cap.py [--units 1,1.25,1.25t,2s,2st,1v] [--legend A] [--fusion]
 #   units: see keycap.py (s = stabilizer stems, t = thumb, v = tall). Writes per cap (name
-#   cap_<size>_<legend|blank>) the print file keycaps/results/<name>.3mf (Bambu Studio: one object, the
+#   cap_<size>_<legend|blank>) the print file keycaps/results/<blank|multicolor-legend>/<name>.3mf (Bambu Studio: one object, the
 #   south skirt face on top and horizontal (thumb caps: lying on the north face), shell on filament 1, core
 #   on filament 2, with the print settings) and
 #   build/work/caps/<name>.step (shell + core, coloured). No STL (user: not needed). --fusion: also
 #   build/work/caps/<name>_fusion.json for the Fusion builder (KeycapBuilder: build_legend_cap() +
-#   export_legend_cap() -> results/<name>.f3d, build/work/fusion/<name>.step / .3mf); the print 3MF then
+#   export_legend_cap() -> results/<blank|multicolor-legend>/<name>.f3d, build/work/fusion/<name>.step / .3mf); the print 3MF then
 #   takes its meshes from Fusion's 3MF (shell and core in one file).
 import os, sys, math, argparse, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -150,8 +150,9 @@ def print_meshes(parts, fusion_base=None, south_up=True):
     return [([(x - cx, y - cy, z - z0) for x, y, z in m[0]], m[1]) for m in meshes]
 
 
-def write_cap(name, label, shell, core, fusion_base=None, step_dir=K.CAPS_DIR, out_dir=K.RESULTS, south_up=True):
+def write_cap(name, label, shell, core, fusion_base=None, step_dir=K.CAPS_DIR, out_dir=None, south_up=True):
     """<step_dir>/<name>.step (coloured bodies) and <out_dir>/<name>.3mf (print-ready, one object)."""
+    out_dir = out_dir or K.results_dir(core is not None)
     os.makedirs(step_dir, exist_ok=True); os.makedirs(out_dir, exist_ok=True)
     step, base = os.path.join(step_dir, name), os.path.join(out_dir, name)
     import bambu_project as B

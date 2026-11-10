@@ -11,7 +11,7 @@
 # Numbers come from the recipe (mm, cap frame: z 0 = skirt bottom, +y = north). Each design ends
 # with the build123d volume next to Fusion's in the log, as a check.
 # Run: add the folder in Scripts and Add-Ins, run, pick one or more recipes (keycaps/build/work/caps), say
-# whether to save them: keycaps/results/<name>.f3d (the design) and build/work/fusion/<name>.step / .3mf
+# whether to save them: keycaps/results/<blank|multicolor-legend>/<name>.f3d (the design) and build/work/fusion/<name>.step / .3mf
 # (the 3MF, all bodies in one file, is the print 3MF's mesh source). Or build_legend_cap(rec) + export_legend_cap() (bridge).
 import adsk.core, adsk.fusion, traceback, json, math
 
@@ -421,10 +421,11 @@ def build_legend_cap(rec):
 
 
 def export_legend_cap(design, rec, work, results):
-    """<results>/<name>.f3d (the design), <work>/<name>.step and <work>/<name>.3mf: every body of the cap
+    """<results>/<blank|multicolor-legend>/<name>.f3d (the design), <work>/<name>.step and <work>/<name>.3mf: every body of the cap
     in one file (shell, shell islands, core; blank caps: the cap), named, the mesh source of
     legend_cap.py's print 3MF (user: shell and core in one file, printed together)."""
     import os
+    results = os.path.join(results, 'multicolor-legend' if rec.get('legend') else 'blank')
     os.makedirs(work, exist_ok=True); os.makedirs(results, exist_ok=True)
     occ = build_legend_cap.last[0]
     em = design.exportManager
@@ -447,7 +448,7 @@ def run(context):
         dlg.isMultiSelectEnabled = True
         if dlg.showOpen() != adsk.core.DialogResults.DialogOK: return
         files = list(dlg.filenames)
-        save = ui.messageBox('Also save each cap (keycaps/results/<cap>.f3d, build/work/fusion/<cap>.step / .3mf)?',
+        save = ui.messageBox('Also save each cap (keycaps/results/<blank|multicolor-legend>/<cap>.f3d, build/work/fusion/<cap>.step / .3mf)?',
                              'Keycaps', adsk.core.MessageBoxButtonTypes.YesNoButtonType) == adsk.core.DialogResults.DialogYes
         import os
         log = []

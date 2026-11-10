@@ -4,7 +4,7 @@ build/
 !keycaps/build/
 keycaps/build/work/
 # keycaps/results: the print 3MFs and profiles are tracked, the Fusion designs kept locally (user 2026-11-09)
-keycaps/results/*.f3d
+keycaps/results/**/*.f3d
 out/
 # installed on first use by tools/case.sh
 tools/jscad/node_modules/

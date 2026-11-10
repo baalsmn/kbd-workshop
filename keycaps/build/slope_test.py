@@ -2,7 +2,7 @@
 #   +3  north up (the usual caps: top-row style), north roll-off
 #    0  level top, north roll-off (home-row style)
 #   -3  south up, roll-off on the south edge (bottom-row style): the +3 cap turned 180 deg about z
-# Monolithic (blank) caps, build123d. Writes keycaps/results/cap_1u_slope_<s>.3mf (print-ready, the south
+# Monolithic (blank) caps, build123d. Writes keycaps/results/blank/cap_1u_slope_<s>.3mf (print-ready, the south
 # skirt face on top and horizontal, as every cap) and build/work/slope_test/<same>.step, and checks each over the
 # full travel against the KS-33 STEP.
 # Usage (build123d PYTHONPATH, from the repo root): python keycaps/build/slope_test.py

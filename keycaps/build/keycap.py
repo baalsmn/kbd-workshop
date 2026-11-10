@@ -385,13 +385,20 @@ def build_cap(u, stab=False, thumb=False, p=P):
 
 
 # folders (user 2026-11-09): keycaps/build = the scripts + work/ (generated, not in git); keycaps/results =
-# the models (print 3MF, Fusion .f3d) and profiles/ (Bambu presets), in git
+# the models (print 3MF, Fusion .f3d) in blank/ and multicolor-legend/ (user 2026-11-10) and profiles/
+# (Bambu presets), in git (the .f3d not)
 HERE = os.path.dirname(os.path.abspath(__file__))
 WORK = os.path.join(HERE, 'work')
 CAPS_DIR = os.path.join(WORK, 'caps')                  # build123d STEP + the Fusion recipes
 FUSION_DIR = os.path.join(WORK, 'fusion')              # Fusion's STEP and 3MF (the print 3MF's mesh source)
 RESULTS = os.path.join(os.path.dirname(HERE), 'results')
 PROFILES = os.path.join(RESULTS, 'profiles')
+RESULT_DIRS = {False: 'blank', True: 'multicolor-legend'}
+
+
+def results_dir(legend):
+    """results/blank for a blank cap, results/multicolor-legend for a two-colour legend cap."""
+    return os.path.join(RESULTS, RESULT_DIRS[bool(legend)])
 
 
 def cap_name(u, stab=False, thumb=False, tall=False, level=False):

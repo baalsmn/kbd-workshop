@@ -17,9 +17,10 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
   - `hachigo74/`: hachigo74 (74 keys, kugo82 minus column c1): `kle/`,
     `case/`. Details: **`hachigo74/CLAUDE.md`** (hardware otherwise as kugo).
 - `keycaps/`: everything keycap-related (user's rule, 2026-10-24), in two folders (user 2026-11-09):
-  - **`keycaps/results/`**: the print files `cap_<size>_<legend|blank>.3mf` and `cap_1u_slope_*.3mf`
-    (open in Bambu Studio as a project), the Fusion designs `<cap>.f3d` (gitignored, kept locally), and
-    `profiles/` (the Bambu Studio user presets). The 3MFs and profiles are in git.
+  - **`keycaps/results/`**, in two folders (user 2026-11-10; `keycap.results_dir(legend)`): **`blank/`**
+    (`cap_<size>_blank.3mf`, `cap_1u_slope_*.3mf`) and **`multicolor-legend/`** (`cap_<size>_<legend>.3mf`):
+    the print files (open in Bambu Studio as a project) and next to them the Fusion designs `<cap>.f3d`
+    (gitignored, kept locally); plus `profiles/` (the Bambu Studio process preset). The 3MFs and profiles are in git.
   - **`keycaps/build/`**: everything else: the scripts, `keycap-10-13.step`, `inserts.txt`,
     `fusion/KeycapBuilder/` (tracked), and `work/` (generated, gitignored: `work/caps/` build123d STEP +
     Fusion recipes `<cap>_fusion.json`, `work/fusion/` Fusion's STEP + 3MF (the print 3MF's mesh source),
@@ -78,7 +79,7 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
     (a sloped one came down onto the south switch's housing at 2.7 travel); clear over the full 3.0 on
     both switches; slices in Bambu Studio (~2 h, 2.7 g).
   - **Slope test caps** (user 2026-11-08, to decide the lean per row): `slope_test.py` ->
-    `results/cap_1u_slope_{+3,0,-3}.3mf` (STEP in `build/work/slope_test/`; blank): north up / level / south up (the +3
+    `results/blank/cap_1u_slope_{+3,0,-3}.3mf` (STEP in `build/work/slope_test/`; blank): north up / level / south up (the +3
     cap turned 180 deg, roll-off south). All clear over the full travel. Idea if per-row: rows above
     home +3..+5, home 0, bottom -3.
   - `top_fillet` 0.6 (user) along the top outer edge outline on every non-thumb cap: the edges between
@@ -88,7 +89,7 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
   - Corner radii shrink upwards with the draft (outside r_bottom 2.0, inside r_inner 0.8), like a
     tapered extrude, so a Fusion rebuild matches.
   - **`legend_cap.py`: the command line for every cap** (`--units 1,1.25,1.25t,2s,2st,1v`,
-    `--legend A` or `--legend ''` for blank, `--fusion`): writes `results/cap_<size>_<legend|blank>.3mf`
+    `--legend A` or `--legend ''` for blank, `--fusion`): writes `results/<blank|multicolor-legend>/cap_<size>_<legend|blank>.3mf`
     (Bambu Studio, one object, south skirt face on top (see below), shell
     filament 1, core filament 2, print settings and per-object supports as below) and `build/work/caps/<same>.step` (coloured
     bodies). Two-colour split
@@ -109,7 +110,7 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
     thumb loft cut, cavity tapered to the ceiling plane (level on tall caps), stab recesses, stems +
     crosses (with y on tall caps), fillet `top_fillet`, the "double shot" group: core region = cavity
     outline tapered by `draft` up to the core plane + stem ends + sketch text; core = cap & region,
-    shell = cap - core) and saves `results/<name>.f3d` and `build/work/fusion/<name>.step/.3mf` (Fusion's 3MF export of
+    shell = cap - core) and saves `results/<blank|multicolor-legend>/<name>.f3d` and `build/work/fusion/<name>.step/.3mf` (Fusion's 3MF export of
     the occurrence: one file, every body a named object: `shell`, `shell island <n>`, `core`; blank:
     `cap`; millimetres, no transforms; read by `bambu_project.read_3mf()`). The print 3MF takes its
     meshes from it while their volumes match build123d's (0.2 %), else build123d's meshes, with a note to rebuild in Fusion; `keycap.get_cap()` (fit checks) loads the
