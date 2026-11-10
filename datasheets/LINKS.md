@@ -1,8 +1,8 @@
 # Datasheets and sources
 
-The PDFs in this folder are the manufacturers' documents, kept for reference in
-this (private) repository. They are not covered by the repository's licences;
-for redistribution, link to the sources below instead.
+The manufacturers' datasheets are not included in this repository (they are not
+covered by its licences). Download them from the sources below; the file names
+are the ones the project used.
 
 | Part | Document (file here) | Source |
 |---|---|---|
