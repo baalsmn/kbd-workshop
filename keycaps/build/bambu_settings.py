@@ -1,10 +1,11 @@
-# Print settings for the keycaps (Bambu A1, 0.2 nozzle, Polymaker matte PLA = PolyTerra), built from
+# Print settings for the keycaps (Bambu A1, 0.2 nozzle, Generic PLA on both filaments: user 2026-11-10, was
+# PolyTerra), built from
 # the Bambu Studio system presets installed on this PC plus our changes:
 #   - project_settings(n_filaments): the full flat config Bambu Studio stores in a project 3MF
 #     (Metadata/project_settings.config), used by bambu_project.py;
 #   - write_presets(dir): importable user presets (File > Import > Import Configs in Bambu Studio):
-#     "Keycaps 0.06 @BBL A1 0.2 nozzle" (process) and "PolyTerra PLA keycaps @BBL A1 0.2 nozzle"
-#     (filament), each inheriting the system preset and holding only our changes.
+#     "Keycaps 0.06 @BBL A1 0.2 nozzle" (process), inheriting the system preset and holding only our
+#     changes (the filament is the system's Generic PLA, unchanged: no filament preset).
 # Per-object settings for the caps (supports, brim, seam, walls) stay in bambu_project.py.
 # Usage: python keycaps/build/bambu_settings.py   -> keycaps/results/profiles/*.json
 import os, sys, json, glob, re
@@ -13,9 +14,8 @@ STUDIO = os.path.join(os.environ.get('APPDATA', ''), 'BambuStudio')
 SYSTEM = os.path.join(STUDIO, 'system', 'BBL')
 PRINTER = 'Bambu Lab A1 0.2 nozzle'
 PROCESS = '0.06mm High Quality @BBL A1 0.2 nozzle'
-FILAMENT = 'PolyTerra PLA @BBL A1 0.2 nozzle'
+FILAMENT = 'Generic PLA @BBL A1 0.2 nozzle'      # both filaments, as the system preset (user 2026-11-10)
 PROCESS_NAME = 'Keycaps 0.06 @BBL A1 0.2 nozzle'
-FILAMENT_NAME = 'PolyTerra PLA keycaps @BBL A1 0.2 nozzle'
 COLOURS = ['#E8E6E1', '#1C1C1E']            # filament 1 (caps, inserts) / 2 (legends)
 
 PROCESS_CHANGES = {
@@ -26,13 +26,13 @@ PROCESS_CHANGES = {
     'seam_position': 'back', 'seam_slope_type': 'none',
     'reduce_crossing_wall': '1', 'ironing_type': 'no ironing', 'fuzzy_skin': 'none',
     'elefant_foot_compensation': '0.1',
-    'enable_support': '0',                 # on per object (the caps), not for the inserts
+    'enable_support': '1',                 # on for the whole project too (user 2026-11-10): a cap imported into an
+                                           # open project (geometry only) loses its per-object support setting
     'support_type': 'tree(auto)', 'support_threshold_angle': '40', 'support_on_build_plate_only': '0',
     'support_top_z_distance': '0.12', 'support_interface_top_layers': '2', 'bridge_no_support': '1',
     'brim_type': 'no_brim',                # the caps get a 4 mm brim per object
 }
-FILAMENT_CHANGES = {'fan_min_speed': '80', 'fan_max_speed': '100', 'slow_down_layer_time': '8',
-                    'slow_down_for_layer_cooling': '1'}
+FILAMENT_CHANGES = {}                       # Generic PLA as it is (the PolyTerra fan changes were dropped)
 META = {'type', 'name', 'inherits', 'from', 'setting_id', 'instantiation', 'description', 'include'}
 # preset-file keys Bambu Studio does not write into a project (seen in its own re-save of ours): left out
 NOT_IN_PROJECT = {'adaptive_layer_height', 'extruder_clearance_radius', 'extruder_height_gap', 'filament_contact_safe',
@@ -140,11 +140,8 @@ def write_presets(out):
     p = {'type': 'process', 'name': PROCESS_NAME, 'inherits': PROCESS, 'from': 'User', 'instantiation': 'true',
          'print_settings_id': PROCESS_NAME, 'version': preset_version()}
     p.update({k: ([v] * len(proc[k]) if isinstance(proc.get(k), list) else v) for k, v in PROCESS_CHANGES.items()})
-    f = {'type': 'filament', 'name': FILAMENT_NAME, 'inherits': FILAMENT, 'from': 'User', 'instantiation': 'true',
-         'filament_settings_id': [FILAMENT_NAME], 'version': preset_version()}
-    f.update({k: ([v] * len(fil[k]) if isinstance(fil[k], list) else v) for k, v in FILAMENT_CHANGES.items()})
     paths = []
-    for d in (p, f):
+    for d in (p,):
         path = os.path.join(out, d['name'] + '.json')
         json.dump(d, open(path, 'w', encoding='utf-8'), indent=4)
         paths.append(path)

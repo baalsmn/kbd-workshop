@@ -10,8 +10,17 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import bambu_settings
 
 def mesh(shape, tol=0.01, ang=0.15):
+    """Vertices + triangles of a shape, welded: build123d's tessellate() gives every face its own copies
+    of the edge points, so unwelded the faces don't join (Bambu Studio: open edges, floating regions;
+    found 2026-11-10 on every cap built without Fusion's meshes)."""
     v, t = shape.tessellate(tol, ang)
-    return [(p.X, p.Y, p.Z) for p in v], t
+    key, verts, idx = {}, [], []
+    for p in v:
+        k = (round(p.X, 5), round(p.Y, 5), round(p.Z, 5))
+        if k not in key: key[k] = len(verts); verts.append((p.X, p.Y, p.Z))
+        idx.append(key[k])
+    tris = [(idx[a], idx[b], idx[c]) for a, b, c in t]
+    return verts, [tr for tr in tris if len(set(tr)) == 3]
 
 
 def read_stl(path):

@@ -14,7 +14,9 @@
 # into the top wall.
 # Sizes ("units" specs, legend_cap.py --units): 1 / 1.25 / 2, s = with stabilizer stems, t = thumb
 # version (the south part of the top rolls down to the south edge), v = tall (2U deep over two
-# switches of a column, a stem on each).
+# switches of a column, a stem on each), l = level top (slope 0: the north and south skirt faces
+# equally high; user 2026-11-10, the thumb cluster keys); '@<x>' at the end = the switch stem at cap x <x> (off-centre
+# cap, e.g. '1.5@-0.5'; see spec_params()).
 import os, sys, math
 from build123d import (Pos, Rot, Box, Cylinder, RectangleRounded, Rectangle,
                        Align, Axis, Wire, Line, Spline, ThreePointArc, Face, extrude, loft, scale, revolve, fillet)
@@ -57,6 +59,8 @@ P = dict(
     stem_d=5.0, stem_drop=1.3,            # stem diameter (user: 5.22 was too wide; 0.45 wall at the cross
                                           # hole's arm ends), stem below the skirt
     stems_y=(0.0,),                       # switch stems' y (tall caps: one per switch, see tall_params)
+    stem_x=0.0,                           # switch stem's x: off-centre caps (spec '1.5@-0.5': the cap body sits
+                                          # 0.5 east of its switch; user 2026-11-09, kugo82 / hachigo74 c7_r1, c9_r1)
     cross=(4.10, 1.20),                   # switch cross hole (KS-33 cross 4.00 x 1.10; 0.2 nozzle FDM)
     stab_x=12.0, stab_rise=1.25,          # KS-57 stems at +-12, cross 1.25 higher than the switch's
     stab_cross=(4.00, 1.10), stab_cross_top=2.95, # KS-57 cross 3.90 x 1.00, top at cap z 2.95 when seated
@@ -362,7 +366,7 @@ def build_cap(u, stab=False, thumb=False, p=P):
         hole = (Pos(x, y, bottom - 1) * Box(cross[0], cross[1], cross_top - bottom + 1, align=(Align.CENTER, Align.CENTER, Align.MIN))
                 + Pos(x, y, bottom - 1) * Box(cross[1], cross[0], cross_top - bottom + 1, align=(Align.CENTER, Align.CENTER, Align.MIN)))
         return st, hole
-    parts = [stem(0, -p['stem_drop'], p['cross'], ceil_c, y=y) for y in p['stems_y']]
+    parts = [stem(p['stem_x'], -p['stem_drop'], p['cross'], ceil_c, y=y) for y in p['stems_y']]
     if stab:
         for x in (-p['stab_x'], p['stab_x']):
             parts.append(stem(x, -p['stem_drop'] + p['stab_rise'], p['stab_cross'], p['stab_cross_top'] + 0.35,
@@ -390,13 +394,28 @@ RESULTS = os.path.join(os.path.dirname(HERE), 'results')
 PROFILES = os.path.join(RESULTS, 'profiles')
 
 
-def cap_name(u, stab=False, thumb=False, tall=False):
-    return 'cap_%gu%s%s%s' % (u, '_tall' if tall else '', '_stab' if stab else '', '_thumb' if thumb else '')
+def cap_name(u, stab=False, thumb=False, tall=False, level=False):
+    return 'cap_%gu%s%s%s%s' % (u, '_tall' if tall else '', '_stab' if stab else '', '_thumb' if thumb else '',
+                                '_level' if level else '')
 
 
 def parse_units(spec):
-    """'2st' -> (2.0, stab, thumb, tall): s = stabilizer stems, t = thumb, v = tall."""
-    return float(spec.rstrip('stv')), 's' in spec, 't' in spec, 'v' in spec
+    """'2st' -> (2.0, stab, thumb, tall): s = stabilizer stems, t = thumb, v = tall ('l', '@x': spec_params())."""
+    spec = spec.split('@')[0]
+    return float(spec.rstrip('stvl')), 's' in spec, 't' in spec, 'v' in spec
+
+
+def spec_params(spec, p=P):
+    """Parameters for a units spec's 'l' (level top: slope 0) and '@x' part (the switch stem's x in the
+    cap: off-centre caps)."""
+    p = dict(p, stem_x=float(spec.split('@')[1])) if '@' in spec else p
+    return dict(p, slope=0.0) if 'l' in spec.split('@')[0] else p
+
+
+def spec_name(spec):
+    """cap_name() + '_level' / '_stem<x>' ('1.5l@-0.5' -> cap_1.5u_level_stem-0.5)."""
+    n = cap_name(*parse_units(spec), level='l' in spec.split('@')[0])
+    return n + '_stem%+g' % float(spec.split('@')[1]) if '@' in spec else n
 
 
 def tall_params(p=P, rows=2):
@@ -438,7 +457,7 @@ def recipe(u, stab=False, thumb=False, p=P):
     z_ceil = z_ceiling(p)
     tw = p['wall'] / math.cos(math.radians(p['draft']))
     ceil_c = p['h_centre'] + z_ceil
-    stems = [{'x': 0, 'y': y, 'bottom': -p['stem_drop'], 'top': ceil_c + 0.5, 'cross': list(p['cross']), 'cross_top': ceil_c}
+    stems = [{'x': p['stem_x'], 'y': y, 'bottom': -p['stem_drop'], 'top': ceil_c + 0.5, 'cross': list(p['cross']), 'cross_top': ceil_c}
              for y in p['stems_y']]
     if stab:
         for x in (-p['stab_x'], p['stab_x']):

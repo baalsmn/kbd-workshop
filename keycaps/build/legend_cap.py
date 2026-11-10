@@ -8,8 +8,9 @@
 #
 # Usage (build123d PYTHONPATH): python keycaps/build/legend_cap.py [--units 1,1.25,1.25t,2s,2st,1v] [--legend A] [--fusion]
 #   units: see keycap.py (s = stabilizer stems, t = thumb, v = tall). Writes per cap (name
-#   cap_<size>_<legend|blank>) the print file keycaps/results/<name>.3mf (Bambu Studio: one object lying
-#   on the north skirt face, shell on filament 1, core on filament 2, with the print settings) and
+#   cap_<size>_<legend|blank>) the print file keycaps/results/<name>.3mf (Bambu Studio: one object, the
+#   south skirt face on top and horizontal (thumb caps: lying on the north face), shell on filament 1, core
+#   on filament 2, with the print settings) and
 #   build/work/caps/<name>.step (shell + core, coloured). No STL (user: not needed). --fusion: also
 #   build/work/caps/<name>_fusion.json for the Fusion builder (KeycapBuilder: build_legend_cap() +
 #   export_legend_cap() -> results/<name>.f3d, build/work/fusion/<name>.step / .3mf); the print 3MF then
@@ -108,12 +109,14 @@ def fusion_meshes(path, n_parts):
     return out
 
 
-def print_meshes(parts, fusion_base=None):
-    """The parts' meshes in print orientation: lying on the north skirt face, cavity opening to +y,
-    centred, on z = 0. From Fusion's <fusion_base>.3mf (shell and core in one file) when it is there and
-    up to date, else tessellated."""
+def print_meshes(parts, fusion_base=None, south_up=True):
+    """The parts' meshes in print orientation, cavity opening to +y, centred, on z = 0: south_up (user
+    2026-11-10) = the south skirt face on top and horizontal (it prints cleanly; the north face, 2 x draft
+    off the bed, stands on its bottom edge over support), else lying on the north skirt face (the thumb
+    caps: their south side rolls away). From Fusion's <fusion_base>.3mf (shell and core in one file) when
+    it is there and up to date, else tessellated."""
     import bambu_project as B
-    a = math.radians(-(90 + K.P['draft']))
+    a = math.radians(K.P['draft'] - 90 if south_up else -(90 + K.P['draft']))
     r = lambda x, y, z: (-x, -(y * math.cos(a) - z * math.sin(a)), y * math.sin(a) + z * math.cos(a))
     meshes = None
     src = (fusion_base or '') + '.3mf'
@@ -147,7 +150,7 @@ def print_meshes(parts, fusion_base=None):
     return [([(x - cx, y - cy, z - z0) for x, y, z in m[0]], m[1]) for m in meshes]
 
 
-def write_cap(name, label, shell, core, fusion_base=None, step_dir=K.CAPS_DIR, out_dir=K.RESULTS):
+def write_cap(name, label, shell, core, fusion_base=None, step_dir=K.CAPS_DIR, out_dir=K.RESULTS, south_up=True):
     """<step_dir>/<name>.step (coloured bodies) and <out_dir>/<name>.3mf (print-ready, one object)."""
     os.makedirs(step_dir, exist_ok=True); os.makedirs(out_dir, exist_ok=True)
     step, base = os.path.join(step_dir, name), os.path.join(out_dir, name)
@@ -161,7 +164,7 @@ def write_cap(name, label, shell, core, fusion_base=None, step_dir=K.CAPS_DIR, o
         shell.color, core.color = Color(0.15, 0.15, 0.16), Color(0.95, 0.95, 0.92)
         shell.label, core.label = 'shell', 'core'
         export_step(Compound(children=[shell, core]), step + '.step')
-    meshes = print_meshes(parts, fusion_base)
+    meshes = print_meshes(parts, fusion_base, south_up)
     B.write_3mf(base + '.3mf', [('cap %s' % label, 1, (BED / 2, BED / 2),
                                  [(pn, fil, m) for (pn, fil, _), m in zip(parts, meshes)], dict(PER_OBJECT))],
                 BED, {1: 'cap %s' % label}, title='keycap %s (keyboard-workshop)' % label)
@@ -170,20 +173,22 @@ def write_cap(name, label, shell, core, fusion_base=None, step_dir=K.CAPS_DIR, o
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument('--units', default='1', help='comma-separated sizes: 1, 1.25, 1.25t, 2s, 2st, 1v')
+    ap.add_argument('--units', default='1', help='comma-separated sizes: 1, 1.25, 1.25t, 2s, 2st, 1v; l = level top (slope 0); @x = stem at cap x (off-centre)')
     ap.add_argument('--legend', default='A', help="legend ('' = the blank cap, one material)")
     ap.add_argument('--fusion', action='store_true', help='also write the Fusion recipe')
     A = ap.parse_args()
     os.makedirs(K.CAPS_DIR, exist_ok=True)
     for spec in A.units.split(','):
         u, stab, thumb, tall = K.parse_units(spec)
-        shell, core = legend_cap(u, A.legend, stab, thumb, tall)
-        size = K.cap_name(u, stab, thumb, tall)
+        p = K.spec_params(spec)
+        shell, core = legend_cap(u, A.legend, stab, thumb, tall, p)
+        size = K.spec_name(spec)
         name = '%s_%s' % (size, tag(A.legend))
         print(name)
-        parts = write_cap(name, '%s %s' % (size[4:], A.legend or 'blank'), shell, core, os.path.join(K.FUSION_DIR, name))
+        parts = write_cap(name, '%s %s' % (size[4:], A.legend or 'blank'), shell, core, os.path.join(K.FUSION_DIR, name),
+                          south_up=not thumb)
         if A.fusion:
-            json.dump(fusion_recipe(u, A.legend, shell, core, stab, thumb, tall),
+            json.dump(dict(fusion_recipe(u, A.legend, shell, core, stab, thumb, tall, p), name=name),
                       open(os.path.join(K.CAPS_DIR, name + '_fusion.json'), 'w', encoding='utf-8'),
                       indent=1, ensure_ascii=False)
         for pn, _, s in parts:

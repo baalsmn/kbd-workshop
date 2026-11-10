@@ -47,6 +47,17 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
     is 9.8 above the PCB, the switch's 8.55) with a ceiling recess over the stabilizer housings (top
     6.55, y -4.9 .. 4.6). Sizes as `--units` specs: `1`, `1.25`, `1.25t`, `2s`, `2st`, `1v`
     (s = stabilizer stems, t = thumb, v = tall); `cap_params()` gives each its parameters.
+    **Off-centre caps** (user 2026-11-09): `@x` puts the switch stem at cap x (`1.5@-0.5` ->
+    `cap_1.5u_stem-0.5`; `spec_params()`, `spec_name()`, param `stem_x`). Made for a 1.5U at c7_r1: centred,
+    1.5U overlaps c5_r1 / c9_r1 (widest centred 1.39U; `cap_1.35u` made too), so the 1.5U body sits 0.5
+    toward c9_r1 and the c9_r1 1.25U thumb 1.5 away from c7_r1: gaps 1.07 (c5_r1) / 0.94 (between), both
+    designs. Left half stem -x (`1.5@-0.5`, `1.25@-1.5`), right half +x. c9_r1 uses the normal
+    (dish) 1.25U shape like every other key (user 2026-11-10); the thumb versions `1.25t@±1.5` are kept as
+    backups. All clear over the full travel.
+    **Level caps** (`l`, user 2026-11-10, for the thumb cluster c5_r1 / c7_r1 / c9_r1): slope 0, so the
+    north and south skirt faces are equally high (5.80 tall); name `_level` before `_stem`:
+    `2sl`, `1.25l`, `1.25l@±1.5`, `1.35l`, `1.5l@±0.5` made (blank and A, Fusion recipes written, build123d
+    meshes). All clear over the full travel (2U also against the stabilizers); they slice.
   - Thumb versions (1.25U / 2U, `t`, user's request; `thumb_style='valley'`): they keep a **flat centre**
     (`valley_style='flat'`, `thumb_valley` 0.5 below the top plane, `flat_r` 5.4, rising smoothly to the
     top plane at valley_r; the old insert caps' floor) because the south part rolls down from its south
@@ -78,7 +89,7 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
     tapered extrude, so a Fusion rebuild matches.
   - **`legend_cap.py`: the command line for every cap** (`--units 1,1.25,1.25t,2s,2st,1v`,
     `--legend A` or `--legend ''` for blank, `--fusion`): writes `results/cap_<size>_<legend|blank>.3mf`
-    (Bambu Studio, one object lying on the north skirt face, shell
+    (Bambu Studio, one object, south skirt face on top (see below), shell
     filament 1, core filament 2, print settings and per-object supports as below) and `build/work/caps/<same>.step` (coloured
     bodies). Two-colour split
     like a double-shot moulding (user): a translucent **core** (filament 2: stems, a `core_t` 0.5 layer
@@ -118,11 +129,15 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
   - `keycaps/build/inserts.txt` (user's legend list, one per line, `#` comments; was read for the inserts) is
     not read by anything now. `keycap.file_name()`: legend file names, letters / digits as is, accented
     letters letter + accent (`O_dacute`), anything else its code (`/` -> `u002f`).
-  - `bambu_project.py` is now only the 3MF writer (`write_3mf()`, `mesh()`, `read_3mf()`, `read_stl()`, `safe_name()`;
-    **Bambu Studio only**, user 2026-10-26). Caps print lying on the north skirt face (user's choice:
-    layer lines across the top, no support on the top), cavity opening to the back, per-object tree
-    supports (inside only: stem underside, cavity roof; threshold 40), 4 mm brim, seam back, 8 wall
-    loops. Filament: Polymaker matte PLA = preset `PolyTerra PLA @BBL A1 0.2 nozzle` (the user has a
+  - `bambu_project.py` is now only the 3MF writer (`write_3mf()`, `mesh()` (welds build123d's per-face tessellation: unwelded, every build123d-meshed cap had open edges in Bambu Studio, fixed 2026-11-10), `read_3mf()`, `read_stl()`, `safe_name()`;
+    **Bambu Studio only**, user 2026-10-26). Caps print with the **south skirt face on top and
+    horizontal** (user 2026-11-10; was lying on the north face): layer lines across the top, the
+    south face prints cleanly, the north face (10 deg off the bed) stands on its bottom edge over
+    support (less visible); cavity opening to the back; the `t` thumb caps (south side rolls away) still
+    lie on the north face (`print_meshes(south_up=...)`); per-object tree
+    supports (inside only: stem underside, cavity roof; threshold 40; on project-wide too since 2026-11-10: a cap
+    imported into an open project, geometry only, loses its per-object setting and its stem floats), 4 mm brim, seam back, 8 wall
+    loops. Filament: `Generic PLA @BBL A1 0.2 nozzle` on both, unchanged (user 2026-11-10; was PolyTerra) (the user has a
     Bambu A1, prints with a 0.2 nozzle; 256 bed). Prime tower at (195, 60) on every plate
     (`wipe_tower_x/y`, one entry per plate): Bambu's default ran off the A1 bed. Check a 3MF with
     Bambu Studio's CLI (`bambu-studio.exe --slice <plate> --outputdir`, result.json is UTF-8).
@@ -137,12 +152,11 @@ designed in **Ergogen 4.2.1**, finished in **KiCad 10**, case 3D-printed.
     doesn't write into projects are left out (`NOT_IN_PROJECT`). Reference: compare with a project
     Bambu Studio itself saved (none kept now: save one from the GUI when needed).
   - `bambu_settings.py`: print settings built from the installed Bambu Studio system presets
-    (`%APPDATA%/BambuStudio/system/BBL`; A1 0.2 nozzle, PolyTerra x2, `0.06mm High Quality @BBL A1 0.2
+    (`%APPDATA%/BambuStudio/system/BBL`; A1 0.2 nozzle, Generic PLA x2, `0.06mm High Quality @BBL A1 0.2
     nozzle`) + our changes (0.10 first layer / 0.06 layers, 0.20 outer / 0.22 lines, Arachne + precise
-    outer wall, outer wall 40 mm/s, seam back, no scarf, avoid crossing walls, tree supports 40 deg off
-    by default, fans 80-100 %), embedded as `Metadata/project_settings.config` (shown in Bambu Studio as
+    outer wall, outer wall 40 mm/s, seam back, no scarf, avoid crossing walls, tree supports 40 deg on; no filament changes), embedded as `Metadata/project_settings.config` (shown in Bambu Studio as
     the system presets, modified; the 3MF headers carry Bambu Studio's version from BambuStudio.conf);
-    `keycaps/results/profiles/*.json` are importable user presets (File > Import > Import Configs). Keys are checked
+    `keycaps/results/profiles/*.json` is the importable process preset (File > Import > Import Configs). Keys are checked
     against the presets; `precise_outer_wall`, `fuzzy_skin`, `brim_type` sit at built-in defaults.
 - A new keyboard = `ergogen/<name>.yaml` starting with the line
   `# keyboard: <folder>` (where its outputs go; default a folder named `<name>`),
